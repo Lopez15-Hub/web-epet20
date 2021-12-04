@@ -3,10 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.header{
-
-
-}
 .hidden-title{
   visibility: visible;
 }
@@ -16,28 +12,27 @@
 .nav-color{
 text-decoration-color: #5D00FF;
 color: #5D00FF;
+border-radius: 3%;
 }
 .nav-color:hover{
 text-decoration-color: #5D00FF;
 color: white;
 background-color: #5D00FF;
-border-radius: 5%;
 
 transition: ease-in-out 0.3s;
-transform: scaleY(1.1) scaleX(1.1);
+transform: scaleY(1.2) scaleX(1.1);
 }
 .nav-color:active{
 color: #FFFF;
 text-decoration-color: white;
-background-color: #5D00FF;
-border-radius: 5%;
+background-color: indigo;
 
 }
 .w-18{
-  width: 18rem;
+  width: auto;
 }
 .img{
-  width: 100%;
+  size: 50%;
   height: auto;
 }
 
@@ -112,17 +107,25 @@ code {
 
 
 
-@media screen and (max-width: 600px), (max-height: 600px) {
+@media screen and (max-width: 600px) {
   .w-18{
     width: 100%;
   }
 .button-menu{
+  font-size: large;
+  font-weight: bold;
   visibility: visible;
 }
 .button-menu:active{
   background-color: #5D00FF;
   color:white;
+  font-size: large;
+  font-weight: bold;
+  visibility: visible;
 
+}
+.menu-item{
+  visibility: hidden;
 }
 .text-justify{
   text-align: justify;
