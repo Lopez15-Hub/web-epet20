@@ -17,7 +17,9 @@ export const Inicio = () => {
 
                     <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
                         <Title text="Bienvenido a nuestra institución" />
+                        <div className="shadow-xl">
                         <MyCarousel />
+                        </div>
                         <Title text="En esta escuela aprenderás" />
                         <div className="container">
 
@@ -45,10 +47,10 @@ export const Inicio = () => {
                                     <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_la_calidad">
                                         <MyCard description="Sistemas de gestión de la cálidad" imageUrl="https://www.ceupe.com/images/easyblog_articles/1927/b2ap3_medium_calidad-servicio-1.jpg" />
                                     </a>
-                                    <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_la_calidad">
+                                    <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Algoritmo">
                                         <MyCard description="Resolución de problemas y algoritmos" imageUrl="https://concepto.de/wp-content/uploads/2018/04/algoritmo-min-e1523301106897.jpg" />
                                     </a>
-                                    <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_la_calidad">
+                                    <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Algoritmo">
                                         <MyCard description="Bases de datos" imageUrl=" https://ayudaleyprotecciondatos.es/wp-content/uploads/2020/09/modelo-base-de-datos-00.jpg" />
                                     </a>
                                 </div>
