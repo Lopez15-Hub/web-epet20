@@ -32,7 +32,7 @@ export const Contacto = () => {
                         </div>
                         <div className="col-6">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-xl-12 "><Subtitle text="Email de asesoría" /></div>
-                            <a href="mailto:epet20@gmail.com" className="col-xs-12 col-sm-12  col-md-4 col-xl-4  ">epet20@gmail.com</a>
+                            <a href="mailto:epet20@gmail.com" className="col-xs-12 col-sm-12  col-md-4 col-xl-4  ">epet20asesoria@gmail.com</a>
 
                         </div>
                     </div>
