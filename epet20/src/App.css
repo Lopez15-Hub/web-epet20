@@ -17,30 +17,39 @@
 .nav-color{
 text-decoration-color: #5D00FF;
 color: #5D00FF;
-border-radius: 3%;
+border-radius: 5%;
+
+
 }
 .nav-color:hover{
+border-radius: 5%;
+
 text-decoration-color: #5D00FF;
 color: white;
 background-color: #5D00FF;
-
+font-size: medium;
 transition: ease-in-out 0.3s;
-transform: scaleY(1.2) scaleX(1.1);
+transform: scaleY(2.5) scaleX(1.2);
 }
 .nav-color:active{
+border-radius: 5%;
 color: #FFFF;
 text-decoration-color: white;
 background-color: indigo;
-
+transition: ease-in-out 0.3s;
+transform: scaleY(1.5) scaleX(1.2);
 }
 .w-18{
   width: auto;
 }
 .img{
-  size: 50%;
-  height: auto;
+  width: auto;
+  height: 200px;
 }
-
+.img-carousel{
+  width: auto;
+  height: 480px;
+}
 .main-color{
   text-decoration-color: #5D00FF;
 color: #5D00FF;

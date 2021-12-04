@@ -1,10 +1,11 @@
 import React from 'react'
 import Navbar from '../components/inicio/navbar'
+import { PaginaEnConstruccion } from './we_working'
 export const Estudiantes = () => {
     return (
         <div>
             <Navbar />
-            <h1>Estudiantes</h1>
+            <PaginaEnConstruccion />
         </div>
     )
 }

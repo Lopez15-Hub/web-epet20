@@ -6,27 +6,27 @@ export default function MyCarousel() {
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-    <img src="https://media.lmneuquen.com/p/bcdc133f875dbefc9039525a367d8740/adjuntos/195/imagenes/006/925/0006925675/1200x675/smart/epet-20-fachada.png" class="d-block w-100 " alt="#"/>
+  <div className="carousel-inner">
+    <div className="carousel-item active">
+    <img src="https://media.lmneuquen.com/p/bcdc133f875dbefc9039525a367d8740/adjuntos/195/imagenes/006/925/0006925675/1200x675/smart/epet-20-fachada.png" class="img-carousel d-block w-100 " alt="#"/>
   
     </div>
-    <div class="carousel-item">
-    <img  src="https://lh3.googleusercontent.com/proxy/8xyJF03J5aqVB95dQ4ln415rlDQu7fNwusiy7J4PI7N6RrpGS6RNxHF8V1726iVPmQXKHGmQULsBsxQzuRKum3VViQtAz9Vgkbg-9s1RyYA3gLBMxwJWwYtwc9AdIuBEgY-JZKg" class="d-block w-100 " alt="#"/>
+    <div className="carousel-item">
+    <img  src="https://lh3.googleusercontent.com/proxy/8xyJF03J5aqVB95dQ4ln415rlDQu7fNwusiy7J4PI7N6RrpGS6RNxHF8V1726iVPmQXKHGmQULsBsxQzuRKum3VViQtAz9Vgkbg-9s1RyYA3gLBMxwJWwYtwc9AdIuBEgY-JZKg" class=" img-carousel d-block w-100 " alt="#"/>
 
     </div>
-    <div class="carousel-item">
-    <img  src="https://educaciondigital.neuquen.gov.ar/wp-content/uploads/2017/10/21Sept17_Inauguracion-EPET-20_7611.jpg" class="d-block  w-100" alt="#"/>
+    <div className="carousel-item">
+    <img  src="https://educaciondigital.neuquen.gov.ar/wp-content/uploads/2017/10/21Sept17_Inauguracion-EPET-20_7611.jpg" class="img-carousel d-block  w-100" alt="#"/>
  
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+  <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+  <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Next</span>
   </button>
 </div>
       }
