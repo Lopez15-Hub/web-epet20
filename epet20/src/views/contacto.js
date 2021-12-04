@@ -44,7 +44,7 @@ export const Contacto = () => {
                         <div className="mb-2"> <Subtitle text="Redes sociales" /></div>
                         <div className="d-flex">
                             <div className="col-xs-12 col-sm-12 col-md-2 col-xl-2 "><Subtitle text="Instagram" /></div>
-                            <a href="https://www.instagram.com/epet20educacion/" className="col-xs-12 col-sm-12  col-md-4 col-xl-4 ">@epet20</a>
+                            <a href="https://www.instagram.com/epet20educacion/" className="col-xs-12 col-sm-12  col-md-4 col-xl-4 ">@epet20educacion</a>
                         </div>
                         <div className="d-flex">
                             <div className="col-xs-12 col-sm-12 col-md-2 col-xl-2 "><Subtitle text="Facebook" /></div>
@@ -52,7 +52,7 @@ export const Contacto = () => {
                         </div>
                         <div className="d-flex">
                             <div className="col-xs-12 col-sm-12 col-md-2 col-xl-2 "><Subtitle text="Twitter" /></div>
-                            <a href="https://twitter.com/epet20educacion" className="col-xs-12 col-sm-12  col-md-4 col-xl-4">@epet20</a>
+                            <a href="https://twitter.com/epet20educacion" className="col-xs-12 col-sm-12  col-md-4 col-xl-4">@epet20educacion</a>
                         </div>
 
                     </div>
@@ -71,7 +71,9 @@ export const Contacto = () => {
                             </div>
                         </div>
                     </div>
-                    <Title text="Contacto programador" />
+                   <div className="mt-2 mb-2">
+                   <Title text="Contacto programador" />
+                   </div>
 
                     <div>
                         <div className="d-flex ">

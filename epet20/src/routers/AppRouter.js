@@ -9,6 +9,7 @@ export const AppRouter = () => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Inicio />} />
+                <Route path="/inicio" element={<Inicio />} />
                 <Route path="/novedades" element={<Novedades />} />
                 <Route path="estudiantes" element={<Estudiantes />} />
                 <Route path="secretaria" element={<Estudiantes />} />

@@ -18,9 +18,9 @@ EL LOGO Y EL MENÚ DE NAVEGACIÓN
             <div className="d-flex ">
 
                 <div><button className="btn main-color button-menu shadow-md p-2 m-2">|||</button></div>
-                <Link to="/" className="m-2 ">  <img src={Icon} className="shadow-xl rounded-xl hidden-title" alt="Logo" /> </Link>
+                <Link to="/inicio" className="m-2 ">  <img src={Icon} className="shadow-xl rounded-xl hidden-title" alt="Logo" /> </Link>
                 <div className="m-3">
-              
+                <Link to="/inicio" class="nav-color menu-item  p-2 mb-4">E.P.E.T N° 20</Link>
                 <Link to="/novedades" class="nav-color menu-item  p-2 mb-4">Novedades</Link>
                 <Link to="/estudiantes" class="nav-color menu-item  p-2 mb-4">Estudiantes</Link>
                 <Link to="/secretaria" class="nav-color menu-item  p-2  mb-4">Secretaria</Link>

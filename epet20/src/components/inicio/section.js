@@ -11,12 +11,12 @@ export default function Section() {
 
         </p>
         <Title text="Perfil del egresado" />
-        <h5 className="font-bold mb-2 mt-2">¿Que implica ser técnico en programación? </h5>
+        <h5 className="font-bold mb-2 mt-2">¿Qué implica ser técnico en programación? </h5>
         <p className="text-justify">
             El Técnico en Programación participa en proyectos de desarrollo de software desempeñando roles que tienen por objeto analizar, diseñar, desarrollar e implementar sistemas informáticos.
 
         </p>
-        <h5 className="font-bold mb-2 mt-2">¿Que voy a poder realizar? </h5>
+        <h5 className="font-bold mb-2 mt-2">¿Qué voy a poder realizar? </h5>
         <p className="text-justify">
             La actividad de un técnico en programación se basa en el constante aprendizaje de las tecnologías implementadas, la compresión, el planteamiento y la resolución de un problema, la constante documentación del proyecto, aplicación y estructuración de metodologías ágiles que optimicen los tiempos de producción y aplicación de normativas que gestionen y aseguren la calidad del producto.
         </p>

@@ -5,6 +5,7 @@ import Footer from '../components/inicio/footer';
 import Section from '../components/inicio/section';
 import React from 'react'
 import { Title } from '../components/text-styles/title';
+import { Link } from 'react-router-dom';
 
 
 export const Inicio = () => {
@@ -63,7 +64,7 @@ export const Inicio = () => {
 
 
                             <div>
-                                <a href="www.epet20.com.ar" className=" text-button text-center font-bold btn btn-sm btn-block text-large m-4">Ver el programa completo</a>
+                                <Link to="plan-de-estudios"className=" text-button text-center font-bold btn btn-sm btn-block text-large m-4">Ver el programa completo</Link>
                             </div>
                         </div>
 
