@@ -1,142 +1,29 @@
-/* ./src/index.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-.hidden-title{
-  visibility: visible;
-}
-.button-menu{
-  visibility: hidden;
-}
-.nav-color{
-text-decoration-color: #5D00FF;
-color: #5D00FF;
-border-radius: 3%;
-}
-.nav-color:hover{
-text-decoration-color: #5D00FF;
-color: white;
-background-color: #5D00FF;
+  body {
 
-transition: ease-in-out 0.3s;
-transform: scaleY(1.2) scaleX(1.1);
-}
-.nav-color:active{
-color: #FFFF;
-text-decoration-color: white;
-background-color: indigo;
-
-}
-.w-18{
-  width: auto;
-}
-.img{
-  size: 50%;
-  height: auto;
-}
-
-.main-color{
-  text-decoration-color: #5D00FF;
-color: #5D00FF;
-}
-
-
-body {
-
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.text-button{
-  max-width: 300px;
-  text-decoration-color: #5D00FF;
-  color: #5D00FF;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  .text-button:hover{
-  text-decoration-color: #5D00FF;
-  color: white;
-  background-color: #5D00FF;
-  transition: ease-in-out 0.3s;
-  transform: scaleY(1.1) scaleX(1.1);
-  }
-  .text-button:active{
-  color: #FFFF;
-  text-decoration-color: white;
-  background-color: #5D00FF;
-
   
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
   }
-  .bg-main-color{
-    background-color: #5D00FF;
-  }
-  .link-social{
-  color: white;
-  text-decoration-color: white;
-
-  }
-  .link-social:hover{
-    color: deeppink;
-    text-decoration-color: deeppink;
-    transition: ease-in-out 0.3s;
-    transform: scaleY(1.1) scaleX(1.1);
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media screen and (max-width: 600px) {
-  .w-18{
-    width: 100%;
-  }
-.button-menu{
-  font-size: large;
-  font-weight: bold;
-  visibility: visible;
-}
-.button-menu:active{
-  background-color: #5D00FF;
-  color:white;
-  font-size: large;
-  font-weight: bold;
-  visibility: visible;
-
-}
-.menu-item{
-  visibility: hidden;
-}
-.text-justify{
-  text-align: justify;
-}
-
-.hidden-title{
-  visibility: hidden;
-}
-.nav-color .row{
-  display: block;
-}
-
-}
   
+
+
+
+
+
+
+
+
+
+
+
+
+

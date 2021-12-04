@@ -1,38 +1,120 @@
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hidden-title{
+  visibility: visible;
+}
+.button-menu{
+  visibility: hidden;
+}
+.nav-color{
+text-decoration-color: #5D00FF;
+color: #5D00FF;
+border-radius: 3%;
+}
+.nav-color:hover{
+text-decoration-color: #5D00FF;
+color: white;
+background-color: #5D00FF;
+
+transition: ease-in-out 0.3s;
+transform: scaleY(1.2) scaleX(1.1);
+}
+.nav-color:active{
+color: #FFFF;
+text-decoration-color: white;
+background-color: indigo;
+
+}
+.w-18{
+  width: auto;
+}
+.img{
+  size: 50%;
+  height: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.main-color{
+  text-decoration-color: #5D00FF;
+color: #5D00FF;
+}
+
+
+
+.text-button{
+  max-width: 300px;
+  text-decoration-color: #5D00FF;
+  color: #5D00FF;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  .text-button:hover{
+  text-decoration-color: #5D00FF;
   color: white;
+  background-color: #5D00FF;
+  transition: ease-in-out 0.3s;
+  transform: scaleY(1.1) scaleX(1.1);
+  }
+  .text-button:active{
+  color: #FFFF;
+  text-decoration-color: white;
+  background-color: #5D00FF;
+
+  
+  }
+  .bg-main-color{
+    background-color: #5D00FF;
+  }
+  .link-social{
+  color: white;
+  text-decoration-color: white;
+
+  }
+  .link-social:hover{
+    color: deeppink;
+    text-decoration-color: deeppink;
+    transition: ease-in-out 0.3s;
+    transform: scaleY(1.1) scaleX(1.1);
+  }
+
+  
+
+@media screen and (max-width: 600px) {
+  .w-18{
+    width: 100%;
+  }
+.button-menu{
+  font-size: large;
+  font-weight: bold;
+  visibility: visible;
+}
+.button-menu:active{
+  background-color: #5D00FF;
+  color:white;
+  font-size: large;
+  font-weight: bold;
+  visibility: visible;
+
+}
+.menu-item{
+  visibility: hidden;
+}
+.text-justify{
+  text-align: justify;
 }
 
-.App-link {
-  color: #61dafb;
+.hidden-title{
+  visibility: hidden;
+}
+.nav-color .row{
+  display: block;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
+  
+
