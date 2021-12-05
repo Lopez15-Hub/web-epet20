@@ -8,6 +8,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.nav-background {
+  background-color:#5D00FF ;
+}
+
 .hidden-title{
   visibility: visible;
 }
@@ -29,7 +33,7 @@ color: white;
 background-color: #5D00FF;
 font-size: medium;
 transition: ease-in-out 0.3s;
-transform: scaleY(2.5) scaleX(1.2);
+transform: scaleY(1.1) scaleX(1.0);
 }
 .nav-color:active{
 border-radius: 5%;

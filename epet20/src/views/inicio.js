@@ -52,7 +52,7 @@ export const Inicio = () => {
                                     <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Algoritmo">
                                         <MyCard description="Resolución de problemas y algoritmos" imageUrl="https://concepto.de/wp-content/uploads/2018/04/algoritmo-min-e1523301106897.jpg" />
                                     </a>
-                                    <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Algoritmo">
+                                    <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Base_de_datos">
                                         <MyCard description="Bases de datos" imageUrl=" https://ayudaleyprotecciondatos.es/wp-content/uploads/2020/09/modelo-base-de-datos-00.jpg" />
                                     </a>
                                 </div>
