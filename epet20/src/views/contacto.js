@@ -4,11 +4,12 @@ import Navbar from '../components/inicio/navbar'
 import { Subtitle } from '../components/text-styles/subtitle';
 import { Title } from '../components/text-styles/title';
 import Footer from '../components/inicio/footer';
+import { motion } from 'framer-motion';
 export const Contacto = () => {
     return (
         <>
             <Navbar />
-            <div className="container">
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container">
                 <div className=" p-6 shadow-lg">
                     <Title text="Contactanos" />
 
@@ -105,7 +106,7 @@ export const Contacto = () => {
                     </div>
                 </div>
                 <Footer />
-            </div>
+            </motion.div>
         </>
     )
 }

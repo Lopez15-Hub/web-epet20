@@ -6,6 +6,7 @@ import Section from '../components/inicio/section';
 import React from 'react'
 import { Title } from '../components/text-styles/title';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 
 export const Inicio = () => {
@@ -13,7 +14,7 @@ export const Inicio = () => {
         <>
             <Navbar />
 
-            <div className="container shadow-xl" >
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container shadow-xl" >
                 <div className="row">
 
                     <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
@@ -76,7 +77,7 @@ export const Inicio = () => {
                 </div>
 
 
-            </div>
+            </motion.div>
             {/*FOOOTER*/}
             <Footer />
         </>
