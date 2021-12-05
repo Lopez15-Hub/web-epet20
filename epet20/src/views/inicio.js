@@ -65,7 +65,7 @@ export const Inicio = () => {
 
 
                             <div>
-                                <Link to="plan-de-estudios"className=" text-button text-center font-bold btn btn-sm btn-block text-large m-4">Ver el programa completo</Link>
+                                <Link to="/plan-de-estudios" className=" text-button text-center font-bold btn btn-sm btn-block text-large mt-4 mb-4">Ver el programa completo</Link>
                             </div>
                         </div>
 

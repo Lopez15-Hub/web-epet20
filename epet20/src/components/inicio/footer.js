@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return <footer className="bg-main-color p-3">
@@ -5,6 +6,7 @@ export default function Footer() {
 
       <p className="text-white text-left font-bold ">Enlaces de interés</p>
       <div className="d-flex">
+        <Link to="/contacto" className="link-social  p-2">Contacto programador</Link>
         <a href="https://www.neuquen.edu.ar/" className="link-social  p-2">Consejo de educación</a>
         <a href="https://regular.neuquen.gob.ar/" className="link-social  p-2">Certificado de estudiante regular</a>
         <a href="https://regular.neuquen.gob.ar/Inscripciones2021/servlet/com.certiregu.verificatramite" className="link-social  p-2">Estado de inscripción</a>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Title } from "../text-styles/title";
 export default function Section() {
     return <section className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 main-color text-bold text-justify">
@@ -20,7 +21,8 @@ export default function Section() {
         <p className="text-justify">
             La actividad de un técnico en programación se basa en el constante aprendizaje de las tecnologías implementadas, la compresión, el planteamiento y la resolución de un problema, la constante documentación del proyecto, aplicación y estructuración de metodologías ágiles que optimicen los tiempos de producción y aplicación de normativas que gestionen y aseguren la calidad del producto.
         </p>
+        <Link to="/plan-de-estudios" className=" text-button text-center font-bold btn btn-sm btn-block text-large mt-4">Ver más</Link>
     </section>
 
-        ;
+        
 }
