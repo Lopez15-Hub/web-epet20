@@ -34,11 +34,15 @@ export const Inicio = () => {
                 <div className="row">
 
                     <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-                        <Title text="Bienvenido a nuestra institución" />
+                       <div className="mb-4">
+                       <Title text="Bienvenido a nuestra institución" />
+                       </div>
                         {/*Carousel de imágenes*/}
                         <MyCarousel />
                         {/*Stack de materias*/}
-                        <Title text="En esta escuela aprenderás" />
+                       <div className="mt-4">
+                       <Title text="En esta escuela aprenderás" />
+                       </div>
                         <Signatures />
                     </div>
 
