@@ -6,7 +6,7 @@ export default function MyCarousel() {
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
-  <div className="carousel-inner">
+  <div className="carousel-inner rounded-lg shadow-md">
     <div className="carousel-item active">
     <img src="https://media.lmneuquen.com/p/bcdc133f875dbefc9039525a367d8740/adjuntos/195/imagenes/006/925/0006925675/1200x675/smart/epet-20-fachada.png" className="img-carousel d-block w-100 " alt="frente de la epet20"/>
   

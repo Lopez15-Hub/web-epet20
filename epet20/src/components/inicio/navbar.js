@@ -12,7 +12,7 @@ function Navbar() {
     */
 
 
-    return <nav className="navbar navbar-expand-lg navbar-light p-2 rounded-b-xl shadow-xl">
+    return <nav className="navbar navbar-expand-lg navbar-light p-2 rounded-b-xl shadow-md">
         <div className="container-fluid ">
             <Link to="/" className="m-2  ">  <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" /> </Link>
             <Link to="/inicio" className=" font-bold p-2 main-color ">E.P.E.T N° 20</Link>
