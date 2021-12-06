@@ -9,8 +9,8 @@ export const Contacto = () => {
     return (
         <>
             <Navbar />
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container mt-4">
-                <div className=" p-6 shadow-lg">
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container mt-4 ">
+                <div className=" p-6 shadow-lg rounded-xl">
                     <Title text="Contactanos" />
 
 
