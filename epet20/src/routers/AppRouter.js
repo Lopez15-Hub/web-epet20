@@ -7,6 +7,8 @@ import { Novedades } from '../views/novedades';
 import { AnimatePresence} from 'framer-motion';
 import { Login } from '../views/login';
 import { Registro } from '../views/registro';
+import { Secretaria } from '../views/secretaria';
+import { PlanDeEstudios } from '../views/plan_estudios';
 export const AppRouter = () => {
     return (
 
@@ -17,9 +19,9 @@ export const AppRouter = () => {
                     <Route path="/inicio" element={<Inicio />} />
                     <Route path="/novedades" element={<Novedades />} />
                     <Route path="/estudiantes" element={<Estudiantes />} />
-                    <Route path="/secretaria" element={<Estudiantes />} />
+                    <Route path="/secretaria" element={<Secretaria />} />
                     <Route path="/contacto" element={<Contacto />} />
-                    <Route path="/plan-de-estudios" element={<Estudiantes />} />
+                    <Route path="/plan-de-estudios" element={<PlanDeEstudios />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/registro" element={<Registro />} />
                 </Routes>

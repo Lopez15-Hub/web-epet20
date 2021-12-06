@@ -22,11 +22,11 @@ export const Registro = () => {
                                 <div class="mb-3 row">
                                 <div class ="col-sm-6">
                                 <label for="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
-                                <input type ="text"  class ="form-control " value="Juan"/>
+                                <input type ="text"  class ="form-control " placeholder="Juan"/>
                                 </div>
                                 <div class ="col-sm-6">
                                 <label for="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
-                                <input type ="text"  class ="form-control " value="Perez"/>
+                                <input type ="text"  class ="form-control " placeholder="Perez"/>
                                 </div>
                                 </div>
                                 <div className="mb-3 form-group">
