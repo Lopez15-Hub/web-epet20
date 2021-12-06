@@ -49,8 +49,8 @@ border-radius: 5%;
 color: #FFFF;
 text-decoration-color: white;
 background-color: indigo;
-transition: ease-in-out 0.3s;
-transform: scaleY(1.5) scaleX(1.2);
+transition: ease-out 0.3s;
+transform: translateY(-5%);
 }
 .w-18{
   width: auto;
@@ -59,10 +59,19 @@ transform: scaleY(1.5) scaleX(1.2);
   width: auto;
   height: 200px;
 }
-.card:hover{
+.card:hover {
   transition: ease-in 0.3s;
   transform: scale(1.1);
+  color: #5D00FF;
 }
+
+.card:active {
+  transition: ease-out 0.3s;
+  transform: translateY(-5%);
+  background-color: #5D00FF;
+  color: white;
+}
+
 .img-carousel{
   width: auto;
   height: 480px;
