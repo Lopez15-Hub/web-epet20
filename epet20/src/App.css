@@ -59,6 +59,10 @@ transform: scaleY(1.5) scaleX(1.2);
   width: auto;
   height: 200px;
 }
+.card:hover{
+  transition: ease-in 0.3s;
+  transform: scale(1.1);
+}
 .img-carousel{
   width: auto;
   height: 480px;
