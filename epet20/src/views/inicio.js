@@ -3,13 +3,26 @@ import MyCarousel from '../components/inicio/carousel';
 import MyCard from '../components/inicio/card';
 import Footer from '../components/inicio/footer';
 import Section from '../components/inicio/section';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Title } from '../components/text-styles/title';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import db from '../firebase/firebaseConfig';
+import { collection, getDocs } from "firebase/firestore";
+
 
 
 export const Inicio = () => {
+    useEffect(() => {
+        const obtenerDatos = async () => {
+            const querySnapshot = await getDocs(collection(db, "user"));
+            for (let doc of querySnapshot.docs) {
+                console.log(doc.data());
+            }
+        }
+        obtenerDatos();
+
+    }, [])
     return (
         <>
             <Navbar />
@@ -19,9 +32,9 @@ export const Inicio = () => {
 
                     <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
                         <Title text="Bienvenido a nuestra institución" />
-                        <div className="shadow-xl">
-                        <MyCarousel />
-                        </div>
+                     
+                            <MyCarousel />
+                     
                         <Title text="En esta escuela aprenderás" />
                         <div className="container">
 

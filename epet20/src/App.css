@@ -25,12 +25,21 @@ border-radius: 5%;
 
 
 }
+.g-button{
+  background-image: url("./assets/google.png");
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
 .nav-color:hover{
 border-radius: 5%;
 
 text-decoration-color: #5D00FF;
 color: white;
-background-color: #5D00FF;
+background-color: #7700ff;
 font-size: medium;
 transition: ease-in-out 0.3s;
 transform: scaleY(1.1) scaleX(1.0);
@@ -59,7 +68,44 @@ transform: scaleY(1.5) scaleX(1.2);
 color: #5D00FF;
 }
 
+.my-outlined-button{
+  border-color: #5D00FF;
+  border-style: ridge;
+  color: #5D00FF;
 
+  padding: 1%;
+  border-width: 1.8px;
+}
+.my-outlined-button:hover{
+ 
+  border-style: ridge;
+  color: white;
+
+  padding: 1%;
+  border-width: 1.8px;
+  background-color: #7700ff;
+transition: ease-in-out 0.3s;
+
+}
+.my-btn{
+  background-color: #5D00FF;
+  border-style: ridge;
+  color: white;
+
+  padding: 1%;
+  border-width: 1.8px;
+}
+.my-btn:hover{
+ 
+  border-style: ridge;
+  color: white;
+
+  padding: 1%;
+  border-width: 1.8px;
+  background-color: #7700ff;
+transition: ease-in-out 0.3s;
+
+}
 
 .text-button{
   max-width: 300px;
