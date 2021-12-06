@@ -9,7 +9,7 @@ export const Contacto = () => {
     return (
         <>
             <Navbar />
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container">
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container mt-4">
                 <div className=" p-6 shadow-lg">
                     <Title text="Contactanos" />
 
