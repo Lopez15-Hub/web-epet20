@@ -10,7 +10,7 @@ export const Contacto = () => {
         <>
             <Navbar />
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container mt-4 ">
-                <div className=" p-6 shadow-lg rounded-xl">
+                <div className=" p-6 shadow-lg rounded-t-xl">
                     <Title text="Contactanos" />
 
 
