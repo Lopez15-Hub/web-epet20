@@ -1,7 +1,7 @@
 import React from "react";
-import Image1 from "../../assets/fachada.png";
-import Image2 from "../../assets/escuelaConstrucción.jpg";
-import Image3 from "../../assets/inaguración.jpg";
+import Image1 from "../../assets/carousel1.png";
+import Image2 from "../../assets/carousel2.jpg";
+import Image3 from "../../assets/carousel3.jpg";
 export default function MyCarousel() {
   return <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
     <div className="carousel-indicators">

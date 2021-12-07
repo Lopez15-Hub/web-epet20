@@ -1,12 +1,12 @@
 import React from 'react'
 import MyCard from './card';
 import { Link } from 'react-router-dom';
-import Image1 from "../../assets/images/signature1.jpg";
-import Image2 from "../../assets/images/signature2.jpg";
-import Image3 from "../../assets/images/signature3.jpg";
-import Image4 from "../../assets/images/signature4.jpg";
-import Image5 from "../../assets/images/signature5.jpg";
-import Image6 from "../../assets/images/signature6.jpg";
+import Image1 from "../../assets/signature1.png";
+import Image2 from "../../assets/signature2.jpg";
+import Image3 from "../../assets/signature3.jpg";
+import Image4 from "../../assets/signature4.jpg";
+import Image5 from "../../assets/signature5.jpg";
+import Image6 from "../../assets/signature6.jpg";
 export const Signatures = () => {
     return (
         <div className="container">
