@@ -1,7 +1,5 @@
 import React from 'react'
-import { Subtitle } from '../text-styles/subtitle'
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
 export const SocialLinks = () => {
     return (
         <>

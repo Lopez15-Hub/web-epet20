@@ -1,4 +1,5 @@
 *{
+  scroll-behavior: smooth;
   font-family: 'Baloo Bhaijaan 2', cursive;
 }
 .App {
@@ -15,6 +16,10 @@
   background-color:#5D00FF ;
 }
 
+.bg-light::after{
+  background-color: #5D00FF!important;
+  color:white!important;
+}
 .hidden-title{
   visibility: visible;
 }
