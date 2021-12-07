@@ -1,5 +1,6 @@
 import React from 'react'
 import { Title } from '../text-styles/title'
+import { Item } from './item'
 
 export const Anuncios = () => {
     return (
@@ -7,9 +8,10 @@ export const Anuncios = () => {
             <div className="text-center ">
                 <Title text="Anuncios" />
             </div>
-            <ul class="list-group text-center font-bold shadow-md">
-                <li class="list-group-item p-4"> La atención a las familias y a la comunidad serán por medio de turnos.</li>
-                <li class="list-group-item p-4">Ya está disponible el formulario de inscripción para ingresantes a primer año. Consultar sección "Estudiantes"</li>
+            <ul class="list-group text-center  font-bold ">
+                <Item description="La atención a las familias y a la comunidad serán por medio de turnos." />
+                <Item description='Ya está disponible el formulario de inscripción para ingresantes a primer año. Consultar sección "Estudiantes"' />
+
 
             </ul>
         </div>
