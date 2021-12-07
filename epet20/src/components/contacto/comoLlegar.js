@@ -4,7 +4,6 @@ import { Subtitle } from '../text-styles/subtitle'
 export const ComoLlegar = () => {
     return (
         <div>
-            <div className="mt-2 mb-4 font-bold"> <Subtitle text="Cómo llegar a nuestra escuela" /></div>
             <div className="d-flex ">
                 <div className="col-8">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-xl-12 "><Subtitle text="Dirección del lugar" /></div>
@@ -12,7 +11,7 @@ export const ComoLlegar = () => {
                 </div>
                 <div className="col-6">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-xl-12 "><Subtitle text="Lineas de colectivo" /></div>
-                    <p>Linea 4</p> <p>Linea 5B</p> <p>Linea 5A</p><p>Linea 50A</p><p>Linea 50B</p>
+                    <p>Linea 4</p> <p>Linea 5B</p> <p>Linea 5A</p><p>Linea 50A (Plottier - Neuquén)</p><p>Linea 50B (Plottier - Neuquén) </p> <p>Linea KOKO (Senillosa - Neuquén) </p>
 
                 </div>
             </div>

@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Navbar from '../components/inicio/navbar'
-import { Subtitle } from '../components/text-styles/subtitle';
 import { Title } from '../components/text-styles/title';
 import Footer from '../components/inicio/footer';
 import { motion } from 'framer-motion';
@@ -20,11 +19,14 @@ export const Contacto = () => {
                     <Contactanos />
                     <hr className="mt-4" />
                     {/*Redes sociales */}
+                    <Title text="Siguenos en nuestras redes sociales" />
                     <SocialLinks />
                     <hr className="mt-4" />
                     {/*Cómo llegar*/}
+                    <Title text="Cómo llegar" />
                     <ComoLlegar />
                     {/*Contacto programador*/}
+                    <hr className="mt-4" />
                     <div className="mt-2 mb-2">
                         <Title text="Contacto programador" />
                     </div>

@@ -20,7 +20,7 @@ export const AboutTutorial = () => {
 
             <div className="font-bold shadow-md rounded-xl mt-4  ">
                 <div className="text-center">
-                    <Subtitle text="¿Qué puedo realizar en esta sección?" />
+                    <Subtitle text="¿Cómo realizar mis trámites?" />
                 </div>
                 <ol className="list-group list-group-numbered  p-4 mx-auto " >
                     <li className="list-group-item">Seleccionas el sector en el cual necesitás realizar tus trámites </li>
