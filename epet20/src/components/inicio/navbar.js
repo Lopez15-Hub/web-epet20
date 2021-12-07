@@ -13,7 +13,7 @@ function Navbar() {
     */
 
 
-    return <nav className="navbar bg-light navbar-expand-lg  navbar-light p-2 rounded-b-xl shadow-md ">
+    return <nav className="navbar bg-light fixed-top sticky navbar-expand-lg  navbar-light p-2 rounded-b-xl shadow-md ">
         <div className="container-fluid text-center ">
             <Link to="/" className="p-2"> <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" /> </Link>
             <NavbarBrand><Link to="/inicio" className=" font-bold p-2 main-color ">E.P.E.T N° 20</Link></NavbarBrand>
@@ -21,25 +21,25 @@ function Navbar() {
                 <span className="navbar-toggler-icon "></span>
             </button>
 
-            <div className="collapse navbar-collapse text-center" id="navbarScroll">
-                <Nav className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" >
-                    <NavItem className="nav-item p-2">
+            <div className="collapse navbar-collapse " id="navbarScroll">
+                <Nav className="navbar-nav  me-auto my-2 m-6 my-lg-0 navbar-nav-scroll" >
+                    <NavItem className=" m-2">
                         <Link to="/novedades" className=" font-bold p-2 nav-color ">Novedades</Link>
                     </NavItem>
-                    <NavItem className="nav-item p-2">
+                    <NavItem className="m-2">
                         <Link to="/estudiantes" className=" font-bold p-2 nav-color   ">Estudiantes</Link>
                     </NavItem>
-                    <NavItem className="nav-item p-2">
+                    <NavItem className="m-2">
                         <Link to="/secretaria" className=" font-bold p-2  nav-color  ">Secretaria</Link>
                     </NavItem>
 
-                    <NavItem className="nav-item p-2">
+                    <NavItem className="m-2">
                         <Link to="/contacto" className=" font-bold  p-2  nav-color ">Contacto</Link>
                     </NavItem>
-                    <NavItem className="nav-item p-2">
+                    <NavItem className="m-2">
                         <Link to="/plan-de-estudios" className=" font-bold  p-2  nav-color ">Plan de estudios</Link>
                     </NavItem>
-                    <NavItem className="nav-item p-2">
+                    <NavItem className="m-2">
                         <a href="https://regular.neuquen.gob.ar/Inscripciones2021/servlet/com.certiregu.verificatramite" className="nav-color font-bold p-2  ">¿Estoy inscripto?</a>
                     </NavItem>
 

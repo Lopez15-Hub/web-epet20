@@ -14,7 +14,7 @@ export const Signatures = () => {
             <div className="row ">
 
 
-                <div className="col-6">
+                <div className=" col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <a className="col-xs-12 col-sm-12 col-md-4 p-1 " href={" https://es.wikipedia.org/wiki/Desarrollo_de_programas_para_Android"} >
                         <MyCard description="Desarrollo de aplicaciones mobile" imageUrl={Image1} />
                     </a>
@@ -31,7 +31,7 @@ export const Signatures = () => {
 
 
                 </div>
-                <div className="col-6">
+                <div className=" col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_la_calidad">
                         <MyCard description="Sistemas de gestión de la cálidad" imageUrl={Image4} />
                     </a>
