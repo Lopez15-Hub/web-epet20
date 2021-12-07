@@ -50,7 +50,7 @@ color: white;
 background-color: #7700ff;
 font-size: medium;
 transition: ease-in-out 0.3s;
-transform: scaleY(1.1) scaleX(1.0);
+
 }
 .nav-color:active{
 border-radius: 5%;
@@ -58,7 +58,6 @@ color: #FFFF;
 text-decoration-color: white;
 background-color: indigo;
 transition: ease-out 0.3s;
-transform: translateY(-5%);
 }
 .w-18{
   width: auto;

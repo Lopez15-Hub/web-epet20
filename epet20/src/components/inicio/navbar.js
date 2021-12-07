@@ -1,6 +1,6 @@
 import { React, } from 'react';
 import { Link } from 'react-router-dom';
-import { NavbarBrand } from 'reactstrap';
+import { Nav, NavbarBrand, NavItem } from 'reactstrap';
 import Icon from '../../assets/favicon.png';
 
 
@@ -13,7 +13,7 @@ function Navbar() {
     */
 
 
-    return <nav className="navbar bg-light navbar-expand-lg sticky navbar-light fixed-top p-2 rounded-b-xl shadow-md ">
+    return <nav className="navbar bg-light navbar-expand-lg  navbar-light p-2 rounded-b-xl shadow-md ">
         <div className="container-fluid text-center ">
             <Link to="/" className="p-2"> <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" /> </Link>
             <NavbarBrand><Link to="/inicio" className=" font-bold p-2 main-color ">E.P.E.T N° 20</Link></NavbarBrand>
@@ -22,28 +22,28 @@ function Navbar() {
             </button>
 
             <div className="collapse navbar-collapse text-center" id="navbarScroll">
-                <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" >
-                    <li className="nav-item p-2">
-                        <Link to="/novedades" className="nav-color font-bold p-2  ">Novedades</Link>
-                    </li>
-                    <li className="nav-item p-2">
-                        <Link to="/estudiantes" className="nav-color font-bold p-2  ">Estudiantes</Link>
-                    </li>
-                    <li className="nav-item p-2">
-                        <Link to="/secretaria" className="nav-color font-bold p-2   ">Secretaria</Link>
-                    </li>
+                <Nav className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" >
+                    <NavItem className="nav-item p-2">
+                        <Link to="/novedades" className=" font-bold p-2 nav-color ">Novedades</Link>
+                    </NavItem>
+                    <NavItem className="nav-item p-2">
+                        <Link to="/estudiantes" className=" font-bold p-2 nav-color   ">Estudiantes</Link>
+                    </NavItem>
+                    <NavItem className="nav-item p-2">
+                        <Link to="/secretaria" className=" font-bold p-2  nav-color  ">Secretaria</Link>
+                    </NavItem>
 
-                    <li className="nav-item p-2">
-                        <Link to="/contacto" className="nav-color font-bold  p-2 ">Contacto</Link>
-                    </li>
-                    <li className="nav-item p-2">
-                        <Link to="/plan-de-estudios" className="nav-color font-bold  p-2 ">Plan de estudios</Link>
-                    </li>
-                    <li className="nav-item p-2">
+                    <NavItem className="nav-item p-2">
+                        <Link to="/contacto" className=" font-bold  p-2  nav-color ">Contacto</Link>
+                    </NavItem>
+                    <NavItem className="nav-item p-2">
+                        <Link to="/plan-de-estudios" className=" font-bold  p-2  nav-color ">Plan de estudios</Link>
+                    </NavItem>
+                    <NavItem className="nav-item p-2">
                         <a href="https://regular.neuquen.gob.ar/Inscripciones2021/servlet/com.certiregu.verificatramite" className="nav-color font-bold p-2  ">¿Estoy inscripto?</a>
-                    </li>
+                    </NavItem>
 
-                </ul>
+                </Nav>
                 <div className="d-flex text-center">
                     <Link to="/login" className="  btn my-btn text-white text-center shadow-md font-bold p-1 m-1">Iniciar sesión</Link>
                     <div>

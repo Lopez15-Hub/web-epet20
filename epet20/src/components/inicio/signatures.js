@@ -1,6 +1,12 @@
 import React from 'react'
 import MyCard from './card';
 import { Link } from 'react-router-dom';
+import Image1 from "../../assets/images/signature1.jpg";
+import Image2 from "../../assets/images/signature2.jpg";
+import Image3 from "../../assets/images/signature3.jpg";
+import Image4 from "../../assets/images/signature4.jpg";
+import Image5 from "../../assets/images/signature5.jpg";
+import Image6 from "../../assets/images/signature6.jpg";
 export const Signatures = () => {
     return (
         <div className="container">
@@ -9,16 +15,16 @@ export const Signatures = () => {
 
 
                 <div className="col-6">
-                    <a className="col-xs-12 col-sm-12 col-md-4 p-1 " href=" https://es.wikipedia.org/wiki/Desarrollo_de_programas_para_Android" >
-                        <MyCard description="Desarrollo de aplicaciones mobile" imageUrl="https://www.lancetalent.com/blog/wp-content/uploads/63317-OANQVG-591.png" />
+                    <a className="col-xs-12 col-sm-12 col-md-4 p-1 " href={" https://es.wikipedia.org/wiki/Desarrollo_de_programas_para_Android"} >
+                        <MyCard description="Desarrollo de aplicaciones mobile" imageUrl={Image1} />
                     </a>
 
                     <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Dise%C3%B1o_web" >
 
-                        <MyCard description="Diseño de páginas web" imageUrl="https://www.ionos.es/digitalguide/fileadmin/DigitalGuide/Teaser/web-development-t.jpg" />
+                        <MyCard description="Diseño de páginas web" imageUrl={Image2} />
                     </a>
                     <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/%C3%89tica_hacker">
-                        <MyCard description="Hacking ético" imageUrl="https://hard2bit.com/blog/wp-content/uploads/2019/01/Ethical-Hacking.jpg" />
+                        <MyCard description="Hacking ético" imageUrl={Image3} />
                     </a>
 
 
@@ -27,13 +33,13 @@ export const Signatures = () => {
                 </div>
                 <div className="col-6">
                     <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Sistema_de_gesti%C3%B3n_de_la_calidad">
-                        <MyCard description="Sistemas de gestión de la cálidad" imageUrl="https://www.ceupe.com/images/easyblog_articles/1927/b2ap3_medium_calidad-servicio-1.jpg" />
+                        <MyCard description="Sistemas de gestión de la cálidad" imageUrl={Image4} />
                     </a>
                     <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Algoritmo">
-                        <MyCard description="Resolución de problemas y algoritmos" imageUrl="https://concepto.de/wp-content/uploads/2018/04/algoritmo-min-e1523301106897.jpg" />
+                        <MyCard description="Resolución de problemas y algoritmos" imageUrl={Image5} />
                     </a>
                     <a className="col-xs-12 col-sm-12 col-md-4 p-1" href="https://es.wikipedia.org/wiki/Base_de_datos">
-                        <MyCard description="Bases de datos" imageUrl=" https://ayudaleyprotecciondatos.es/wp-content/uploads/2020/09/modelo-base-de-datos-00.jpg" />
+                        <MyCard description="Bases de datos" imageUrl={Image6} />
                     </a>
                 </div>
 
