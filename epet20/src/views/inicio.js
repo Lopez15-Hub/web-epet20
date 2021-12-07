@@ -29,7 +29,7 @@ export const Inicio = () => {
             {/*Barra de navegación*/}
             <Navbar />
 
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container shadow-xl bg-white rounded-xl mt-6" >
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container shadow-xl bg-white rounded-xl p-6 " >
 
                 <div className="row">
 
