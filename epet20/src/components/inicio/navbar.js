@@ -13,7 +13,7 @@ function Navbar() {
     */
 
 
-    return <nav className="navbar bg-light fixed-top sticky navbar-expand-lg  navbar-light p-2 rounded-b-xl shadow-md ">
+    return <nav className="navbar bg-light fixed-top  navbar-expand-xl  navbar-light p-2 rounded-b-xl shadow-md ">
         <div className="container-fluid text-center ">
             <Link to="/" className="p-2"> <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" /> </Link>
             <NavbarBrand><Link to="/inicio" className=" font-bold p-2 main-color ">E.P.E.T N° 20</Link></NavbarBrand>
@@ -44,10 +44,13 @@ function Navbar() {
                     </NavItem>
 
                 </Nav>
-                <div className="d-flex text-center">
-                    <Link to="/login" className="  btn my-btn text-white text-center shadow-md font-bold p-1 m-1">Iniciar sesión</Link>
-                    <div>
-                        <Link to="/registro" type="submit" className=" my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1">Registrarse</Link>
+                <hr />
+                <div className="text-center">
+                    <div className="d-flex">
+                        <Link to="/login" className=" d-block  btn my-btn text-white text-center shadow-md font-bold p-1 m-1">Iniciar sesión</Link>
+                      
+                            <Link to="/registro" type="submit" className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1">Registrarse</Link>
+                       
                     </div>
                 </div>
             </div>
