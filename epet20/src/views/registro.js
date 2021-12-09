@@ -1,12 +1,11 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import Navbar from '../components/inicio/navbar'
 import { Title } from '../components/text-styles/title';
 import { Link } from 'react-router-dom';
 export const Registro = () => {
     return (
         <>
-            <Navbar />
+            
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 
                 <div className="container">

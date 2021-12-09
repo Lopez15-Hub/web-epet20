@@ -15,7 +15,7 @@ function Navbar() {
 
     return <nav className="navbar bg-light sticky fixed-top navbar-expand-xl  navbar-light p-2 rounded-b-xl shadow-md ">
         <div className="container-fluid text-center ">
-            <Link to="/" className="p-2"> <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" /> </Link>
+             <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" /> 
             <NavbarBrand><Link to="/inicio" className=" font-bold p-2 main-color ">E.P.E.T N° 20</Link></NavbarBrand>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon "></span>
@@ -49,7 +49,7 @@ function Navbar() {
                     <div className="d-flex">
                         <Link to="/login" className=" d-block  btn my-btn text-white text-center shadow-md font-bold p-1 m-1">Iniciar sesión</Link>
                         <Link to="/registro" type="submit" className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1">Registrarse</Link>
-                        <Link to="/admin" type="submit" className=" d-block  text-center font-bold p-1 m-1 nav-color">Administrar</Link>
+                        <Link to="/admin" type="submit" className=" d-block  text-center font-bold p-1 m-1 nav-color btn rounded-xl">Administrar</Link>
                     </div>
                 </div>
             </div>

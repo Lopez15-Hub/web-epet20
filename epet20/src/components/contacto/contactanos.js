@@ -10,9 +10,9 @@ export const Contactanos = () => {
                 <div className="col-8">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-xl-12 "><Subtitle text="Horarios de atención" /></div>
                     <p className="col-xs-12 col-sm-12  col-md-4 col-xl-4">Lunes a viernes de 08:00 a 18:30</p>
-                    <div className="col-xs-12 col-sm-12 col-md-12 col-xl-12 "><Subtitle text="Secretaria" /></div>
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-xl-12 "><Subtitle text="Secretaría" /></div>
                     <p className="col-xs-12 col-sm-12  col-md-4 col-xl-4">Lunes a viernes de 08:00 a 18:30</p>
-                    <div className="col-xs-12 col-sm-12 col-md-12 col-xl-12 "><Subtitle text="Preceptoria" /></div>
+                    <div className="col-xs-12 col-sm-12 col-md-12 col-xl-12 "><Subtitle text="Preceptoría" /></div>
                     <p className="col-xs-12 col-sm-12  col-md-4 col-xl-4">Lunes a viernes de 08:00 a 17:50</p>
                 </div>
                 <div className="col-6">

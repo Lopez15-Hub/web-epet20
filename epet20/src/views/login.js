@@ -1,12 +1,17 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import Navbar from '../components/inicio/navbar'
 import { Title } from '../components/text-styles/title';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 export const Login = () => {
+    const navigate = useNavigate();
+    const handleLogin = () => {
+        navigate('/admin', { replace: true });
+
+    }
     return (
+
         <>
-            <Navbar />
+
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 
                 <div className="container">
@@ -40,7 +45,7 @@ export const Login = () => {
                                     <label className="form-check-label" for="exampleCheck1">Mantener inicado</label>
                                 </div>
                                 <div>
-                                    <button type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block">Iniciar sesión</button>
+                                    <button onClick={handleLogin} type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block">Iniciar sesión</button>
                                     <Link to="/registro" type="submit" className=" col-12 my-outlined-button mt-3 text-center font-bold rounded-md shadow-md">Registrarse</Link>
 
                                     <span className="g-button w-100"></span>

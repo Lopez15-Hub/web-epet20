@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import Navbar from '../components/inicio/navbar'
 import { Title } from '../components/text-styles/title'
 import Footer from '../components/inicio/footer'
 import { AboutTutorial } from '../components/secretaria/about_tutorial'
@@ -10,7 +9,7 @@ export const Secretaria = () => {
     return (
         <>
             {/*Barra de navegación*/}
-            <Navbar />
+            
 
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container shadow-xl bg-white rounded-xl mt-7 " >
 
