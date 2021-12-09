@@ -9,6 +9,7 @@ import { Login } from '../views/login';
 import { Registro } from '../views/registro';
 import { Secretaria } from '../views/secretaria';
 import { PlanDeEstudios } from '../views/plan_estudios';
+import { AdminPanel } from '../views/admin_panel';
 export const AppRouter = () => {
     return (
 
@@ -28,6 +29,7 @@ export const AppRouter = () => {
                     <Route path="/plan-de-estudios" element={<PlanDeEstudios />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/registro" element={<Registro />} />
+                    <Route path="/admin" element={<AdminPanel />} />
                 </Routes>
             </AnimatePresence>
         </BrowserRouter>

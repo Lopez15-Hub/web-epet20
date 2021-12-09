@@ -48,9 +48,8 @@ function Navbar() {
                 <div className="text-center">
                     <div className="d-flex">
                         <Link to="/login" className=" d-block  btn my-btn text-white text-center shadow-md font-bold p-1 m-1">Iniciar sesión</Link>
-                      
-                            <Link to="/registro" type="submit" className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1">Registrarse</Link>
-                       
+                        <Link to="/registro" type="submit" className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1">Registrarse</Link>
+                        <Link to="/admin" type="submit" className=" d-block  text-center font-bold p-1 m-1 nav-color">Administrar</Link>
                     </div>
                 </div>
             </div>

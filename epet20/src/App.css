@@ -32,15 +32,6 @@ border-radius: 5%;
 
 
 }
-.g-button{
-  background-image: url("./assets/google.png");
-  width: 25px;
-  height: 25px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 50%;
-}
 .nav-color:hover{
 border-radius: 5%;
 
@@ -57,6 +48,41 @@ color: #FFFF;
 text-decoration-color: white;
 background-color: indigo;
 transition: ease-out 0.3s;
+}
+
+
+.admin-item{
+  text-decoration-color: #5D00FF;
+  color: #5D00FF;
+
+  
+  
+  }
+  .admin-item:hover{
+  text-decoration-color: #5D00FF;
+  color: white;
+  background-color: #7700ff;
+  font-size: medium;
+  transition: ease-in-out 0.3s;
+  transform: translateX(10px);
+  
+  
+  }
+  .admin-item:active{
+  color: #FFFF;
+  text-decoration-color: white;
+  background-color: indigo;
+  transition: ease-out 0.3s;
+  }
+
+.g-button{
+  background-image: url("./assets/google.png");
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
 }
 .w-18{
   width: auto;
