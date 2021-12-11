@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import React, { useState } from 'react'
 import { Title } from '../../text-styles/title'
 import { addDoc, collection } from "firebase/firestore";
-import db from '../../../firebase/firebaseConfig';
+import {db} from '../../../firebase/firebaseConfig';
 import { useParams } from 'react-router-dom';
 import { Loading } from './loading';
 import { Alert } from 'reactstrap';

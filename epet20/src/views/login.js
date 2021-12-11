@@ -2,12 +2,38 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title';
 import { Link, useNavigate } from 'react-router-dom';
+import { useGet } from '../hooks/query_hooks/useGet';
+import { handleRoute } from '../actions/handleRoute';
+import { useForm } from '../hooks/useForm';
+import { useDispatch } from 'react-redux';
+import { signInWithGoogle, start } from '../actions/auth';
+
 export const Login = () => {
+    const dispatch = useDispatch();
+    const { users } = useGet();
+    const { values, handleChange } = useForm(
+
+    );
+    const { email, password } = values;
     const navigate = useNavigate();
-    const handleLogin = () => {
-        navigate('/admin', { replace: true });
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+
+        dispatch(start(email, password));
+    }
+    const handleGoogle = async e => {
+        e.preventDefault();
+        dispatch(signInWithGoogle());
+
+
+
+
+
 
     }
+
+
     return (
 
         <>
@@ -23,15 +49,15 @@ export const Login = () => {
                                 <Title text="Iniciar sesión" />
                             </div>
 
-                            <form className=" p-6">
+                            <form className=" p-6 " onSubmit={handleSubmit}>
                                 <div className=" form-group">
                                     <label for="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
-                                    <input type="email" className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                    <input type="email" name='email' onChange={handleChange} value={email} className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" />
                                     <div id="emailHelp" className="form-text">Ingresa tu email</div>
                                 </div>
                                 <div className="mb-3 form-group">
                                     <label for="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
-                                    <input type="password" aria-invalid="true" className="form-control shadow-md" id="exampleInputPassword1" />
+                                    <input type="password" name='password' value={password} onChange={handleChange} aria-invalid="true" className="form-control shadow-md" id="exampleInputPassword1" />
                                     <div id="emailHelp" className="form-text">ej: 12345678</div>
                                     <div className="row">
                                         <div className="col-6"></div>
@@ -45,16 +71,11 @@ export const Login = () => {
                                     <label className="form-check-label" for="exampleCheck1">Mantener inicado</label>
                                 </div>
                                 <div>
-                                    <button onClick={handleLogin} type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block">Iniciar sesión</button>
+                                    <button onClick={handleSubmit} type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block">Iniciar sesión</button>
                                     <Link to="/registro" type="submit" className=" col-12 my-outlined-button mt-3 text-center font-bold rounded-md shadow-md">Registrarse</Link>
 
-                                    <span className="g-button w-100"></span>
-                                    <Link to="/login" type="submit" className="col-12 my-outlined-button mt-3 text-center font-bold rounded-md shadow-md">
 
-
-                                        Ingresar con Google
-
-                                    </Link>
+                                    <button onClick={handleGoogle} type='submit' className="col-12 my-outlined-button mt-3 text-center font-bold rounded-md shadow-md">Ingresar con Google</button>
 
 
                                 </div>

@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { FaEdit, FaTrash } from 'react-icons/fa'
-import { Container, Form, Row, Table } from 'reactstrap'
+import { FaTrash } from 'react-icons/fa'
+import { Form, Table } from 'reactstrap'
 import { HeaderTable } from './header'
-
-
 import { useGet } from '../../../hooks/query_hooks/useGet';
 import { deleteDoc, doc } from 'firebase/firestore';
-import db from '../../../firebase/firebaseConfig';
-import { Link } from 'react-router-dom';
-import { Loading } from '../sections/loading';
+import {db} from '../../../firebase/firebaseConfig';
 import { Subtitle } from '../../text-styles/subtitle';
 export const UserTable = () => {
     const { users } = useGet();
