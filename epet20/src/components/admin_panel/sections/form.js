@@ -38,7 +38,8 @@ export const Form = () => {
         e.preventDefault();
         console.log(user)
         await addDoc(collection(db, "users"), {
-            name: user.name + ' ' + user.apellido,
+            name: user.name,
+            apellido: user.apellido,
             email: user.email,
             phone: user.phone,
             password: user.password,
@@ -106,6 +107,7 @@ export const Form = () => {
                                         <option value="direccion">Dirección</option>
                                         <option value="preceptoria">Preceptoría</option>
                                         <option value="secretaria">Secretaría</option>
+                                        <option value="usuario">Usuario</option>
                                     </select>
                                     <button type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block" onClick={() => isLoad(true)} >Añadir</button>
                                     {isLoading ? <Loading /> : null}

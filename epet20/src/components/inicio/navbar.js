@@ -2,10 +2,20 @@ import { React, } from 'react';
 import { Link } from 'react-router-dom';
 import { Nav, NavbarBrand, NavItem } from 'reactstrap';
 import Icon from '../../assets/favicon.png';
+import { useGet } from '../../hooks/query_hooks/useGet';
 
 
 function Navbar() {
+    const { users } = useGet();
+    const user = {
+        nombre: users.map(user => user.name),
+        apellido: users.map(user => user.apellido),
+        email: users.map(user => user.email),
+        rol: users.map(user => user.role),
+        id: users.id,
+        telefono: users.map(user => user.phone),
 
+    };
     /*
     Navbar ES LA SECCIÓN DE 
     LA PÁGINA DONDE SE ENCUENTRA 
@@ -15,7 +25,7 @@ function Navbar() {
 
     return <nav className="navbar bg-light sticky fixed-top navbar-expand-xl  navbar-light p-2 rounded-b-xl shadow-md ">
         <div className="container-fluid text-center ">
-             <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" /> 
+            <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" />
             <NavbarBrand><Link to="/inicio" className=" font-bold p-2 main-color ">E.P.E.T N° 20</Link></NavbarBrand>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon "></span>
@@ -49,7 +59,9 @@ function Navbar() {
                     <div className="d-flex">
                         <Link to="/login" className=" d-block  btn my-btn text-white text-center shadow-md font-bold p-1 m-1">Iniciar sesión</Link>
                         <Link to="/registro" type="submit" className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1">Registrarse</Link>
-                        <Link to="/admin" type="submit" className=" d-block  text-center font-bold p-1 m-1 nav-color btn rounded-xl">Administrar</Link>
+                        {user.rol == 'administrador' ? <Link to="/admin" type="submit" className=" d-block  text-center font-bold p-1 m-1 nav-color btn rounded-xl">¡Hola {user.nombre}!</Link>
+                            : <Link to="/admin" type="submit" className=" d-block  text-center font-bold p-1 m-1 nav-color btn rounded-xl">Administrar</Link>}
+
                     </div>
                 </div>
             </div>

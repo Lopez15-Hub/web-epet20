@@ -56,15 +56,16 @@ export const UserTable = () => {
                     isLoading ?
 
 
-                       <div className='mt-4'>
+                        <div className='mt-4'>
                             <Subtitle text="Espere..." />
-                       </div>
+                        </div>
 
                         :
                         users.map(user => (
                             <tr key={user.id}>
                                 <th>{user.id}</th>
                                 <td>{user.name == null ? 'S/E' : user.name}</td>
+                                <td>{user.name == null ? 'S/E' : user.apellido}</td>
                                 <td>{user.phone == null ? 'S/E' : user.phone}</td>
                                 <td>{user.email == null ? 'S/E' : user.email}</td>
                                 <td>{user.role == null ? 'S/E' : user.role}</td>

@@ -45,7 +45,15 @@ export const Usuarios = () => {
                                     <Link to="./add" className='shadow-md btn my-outlined-button'>Añadir usuario</Link>
                                 </div>
                             </Row>
-                            <Title text="Lista de usuarios" /><Subtitle text={`Usuarios totales: ${users.length}`} /><UserTable /></motion.div> : <Title text="No hay usuarios disponibles" />
+                            <Title text="Lista de usuarios" /><Subtitle text={`Usuarios totales: ${users.length}`} /><UserTable /></motion.div> : <div>
+
+                            <Row>
+                                <div className='mt-4'>
+                                    <Link to="./add" className='shadow-md btn my-outlined-button'>Añadir usuario</Link>
+                                </div>
+                            </Row>
+                            <Title text="No hay usuarios disponibles" />
+                        </div>
 
 
                 }
