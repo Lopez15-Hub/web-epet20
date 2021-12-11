@@ -22,5 +22,5 @@ export const useGet = (initialValue = []) => {
         });
         setUsers(usersDocs);
     }
-    return { users, setUsers }
+    return { users}
 }
