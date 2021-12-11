@@ -70,7 +70,6 @@ export const UserTable = () => {
                                 <td>{user.role == null ? 'S/E' : user.role}</td>
                                 <td>
                                     <Form>
-                                        <Link to={"./" + user.id} type="button" className='btn btn-warning ' id="exampleSelect" ><FaEdit /></Link>
                                         <button type="button" className='ml-4 btn btn-danger' id="exampleSelect" onClick={() => deleteUser(user.id)}  ><FaTrash /></button>
 
                                     </Form>

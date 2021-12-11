@@ -25,24 +25,14 @@ export const Form = () => {
     const isLoad = (loading) => {
         setLoading(loading);
         setTimeout(() => {
-
             setLoading(false);
-            Success(true);
-
+            setSuccess(true);
+            setTimeout(() => {
+                setSuccess(false);
+            }, 3000)
         }, 3000);
 
     }
-    const Success = (success) => {
-        setSuccess(success);
-        setTimeout(() => {
-
-            setSuccess(false);
-
-
-        }, 3000);
-
-    }
-
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -55,8 +45,8 @@ export const Form = () => {
             role: user.role,
 
         });
+
         console.log("Usuario añadido")
-        window.location.reload();
     }
     const handleChange = e => {
         const { name, value } = e.target;
@@ -69,7 +59,7 @@ export const Form = () => {
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 
                 <div className="container">
-                    {isSuccess ? <Alert variant="success">Usuario añadido exitosamente</Alert> : null}
+                    {isSuccess ? <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}><Alert variant="success">Usuario añadido exitosamente</Alert></motion.div> : null}
                     <div className="row m-6 ">
                         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3"></div>
                         <div className="mt-4 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
