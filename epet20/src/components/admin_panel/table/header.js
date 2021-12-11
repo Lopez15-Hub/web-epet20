@@ -10,9 +10,6 @@ export const HeaderTable = () => {
                 Nombre
             </th>
             <th>
-                Apellido
-            </th>
-            <th>
                 Teléfono
             </th>
             <th>

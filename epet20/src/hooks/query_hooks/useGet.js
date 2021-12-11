@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { collection, getDocs } from "firebase/firestore";
-import db from '../firebase/firebaseConfig';
+import db from '../../firebase/firebaseConfig';
+
 
 export const useGet = (initialValue = []) => {
     const [users, setUsers] = useState(initialValue)
@@ -11,7 +12,7 @@ export const useGet = (initialValue = []) => {
     }, [])
 
     const obtenerDatos = async () => {
-        const querySnapshot = await getDocs(collection(db, "user"));
+        const querySnapshot = await getDocs(collection(db, "users"));
         const usersDocs = [];
 
         querySnapshot.forEach(doc => {
@@ -22,5 +23,5 @@ export const useGet = (initialValue = []) => {
         });
         setUsers(usersDocs);
     }
-    return { users}
+    return { users }
 }

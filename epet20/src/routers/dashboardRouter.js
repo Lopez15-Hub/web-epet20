@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Route, Routes } from 'react-router-dom'
 import { Container, Row } from 'reactstrap';
 import { Menu } from '../components/admin_panel/menu';
+import { Form } from '../components/admin_panel/sections/form';
 import { Usuarios } from '../components/admin_panel/sections/usuarios';
 import { NavbarAdmin } from '../components/inicio/navbar_admin';
 import { PaginaEnConstruccion } from "../views/we_working";
@@ -19,7 +20,9 @@ export const DashboardRouter = () => {
                             <Routes>
 
 
-                                <Route path="usuarios" element={<Usuarios />} />
+                                <Route path="usuarios/" element={<Usuarios />} />
+                                <Route path="usuarios/add" element={<Form />} />
+                                <Route path="usuarios/:userId" element={<Form />} />
                                 <Route path="inicio" element={<PaginaEnConstruccion />} />
                                 <Route path="novedades" element={<PaginaEnConstruccion />} />
                                 <Route path="secretaria" element={<PaginaEnConstruccion />} />
