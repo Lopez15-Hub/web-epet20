@@ -2,27 +2,24 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import {db} from '../firebase/firebaseConfig';
+import { db } from '../firebase/firebaseConfig';
 import { addDoc, collection } from 'firebase/firestore';
 import { Loading } from '../components/admin_panel/sections/loading';
 import { Alert } from 'reactstrap';
 import { handleRoute } from '../actions/handleRoute';
+import { useDispatch } from 'react-redux';
+import { signInWithGoogle, signUp } from '../actions/auth';
+import { useForm } from '../hooks/useForm';
 export const Registro = () => {
     const { userId } = useParams();
-    console.log(userId);
-    const initialState = {
-        name: '',
-        apellido: '',
-        email: '',
-        password: '',
-        role: 'usuario',
-    }
+    const dispatch = useDispatch()
 
 
-    const [user, setUser] = useState(initialState)
     const navigate = useNavigate();
+    const { handleChange, values } = useForm();
     const [isLoading, setLoading] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
+    const { password, role, apellido, email, name } = values;
     const isLoad = (loading) => {
         setLoading(loading);
         setTimeout(() => {
@@ -37,22 +34,34 @@ export const Registro = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log(user)
-        await addDoc(collection(db, "users"), {
-            name: user.name,
-            apellido: user.apellido,
-            email: user.email,
-            password: user.password,
-            role: user.role,
+        dispatch(signUp(email, password, name, apellido))
 
-        });
 
-        console.log("Usuario añadido")
-        handleRoute(navigate, initialState.role)
+
+        // if (signUp) {
+        //     await addDoc(collection(db, "users"), {
+        //         name: name,
+        //         apellido: apellido,
+        //         email: email,
+        //         password: password,
+        //         role: 'usuario',
+        //     }, isLoad(true));
+        //     console.log('usuario creado');
+        // }
+
+
+
+
+
+        // console.log("Usuario añadido")
+        // handleRoute(navigate, role)
     }
-    const handleChange = e => {
-        const { name, value } = e.target;
-        setUser({ ...user, [name]: value });
+
+    const handleGoogle = async e => {
+
+        e.preventDefault();
+        dispatch(signInWithGoogle())
+
     }
     return (
 
@@ -97,7 +106,7 @@ export const Registro = () => {
                                     <button type="submit" onClick={() => isLoad(true)} className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block">Registrarse</button>
                                     <Link to="/login" type="button" className=" col-12 my-outlined-button mt-3 text-center font-bold rounded-md shadow-md">Iniciar sesión</Link>
 
-                                    <Link to="/login" type="button" onClick={() => isLoad(true)} className="col-12 my-outlined-button mt-3 text-center font-bold rounded-md shadow-md">Ingresar con Google</Link>
+                                    <button type="submit" onClick={handleGoogle} className="col-12 my-outlined-button mt-3 text-center font-bold rounded-md shadow-md">Ingresar con Google</button>
 
                                     {isLoading ? <Loading /> : null}
                                 </div>

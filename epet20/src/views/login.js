@@ -6,7 +6,7 @@ import { useGet } from '../hooks/query_hooks/useGet';
 import { handleRoute } from '../actions/handleRoute';
 import { useForm } from '../hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { signInWithGoogle, start } from '../actions/auth';
+import { signInWithGoogle, signIn } from '../actions/auth';
 
 export const Login = () => {
     const dispatch = useDispatch();
@@ -20,17 +20,11 @@ export const Login = () => {
     const handleSubmit = async e => {
         e.preventDefault();
 
-        dispatch(start(email, password));
+        dispatch(signIn(email, password));
     }
     const handleGoogle = async e => {
         e.preventDefault();
         dispatch(signInWithGoogle());
-
-
-
-
-
-
     }
 
 

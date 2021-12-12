@@ -15,3 +15,17 @@ export const authReducer = (state = {}, action) => {
       return state;
   }
 }
+
+export const regReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.register:
+      return {
+        nombre: action.payload.nombre,
+        apellido: action.payload.apellido,
+        email: action.payload.email,
+        contraseña: action.payload.contraseña,
+      }
+    default:
+      return state;
+  }
+}
