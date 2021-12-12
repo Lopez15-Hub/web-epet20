@@ -1,12 +1,16 @@
 import { React, } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Nav, NavbarBrand, NavItem } from 'reactstrap';
+import { logOut } from '../../actions/auth';
+import { handleRoute } from '../../actions/handleRoute';
 import Icon from '../../assets/favicon.png';
+import { auth } from '../../firebase/firebaseConfig';
 import { useGet } from '../../hooks/query_hooks/useGet';
 
 
 function Navbar() {
     const { users } = useGet();
+    const navigate = useNavigate();
     const user = {
         nombre: users.map(user => user.name),
         apellido: users.map(user => user.apellido),
@@ -16,6 +20,10 @@ function Navbar() {
         telefono: users.map(user => user.phone),
 
     };
+    const handleSignOut = () => {
+        auth.signOut();
+        window.location.reload();
+    }
     /*
     Navbar ES LA SECCIÓN DE 
     LA PÁGINA DONDE SE ENCUENTRA 
@@ -57,10 +65,21 @@ function Navbar() {
                 <hr />
                 <div className="text-center">
                     <div className="d-flex">
-                        <Link to="/login" className=" d-block  btn my-btn text-white text-center shadow-md font-bold p-1 m-1">Iniciar sesión</Link>
-                        <Link to="/registro" type="submit" className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1">Registrarse</Link>
-                        {user.rol ==='user' ? <Link to="/admin" type="submit" className=" d-block  text-center font-bold p-1 m-1 nav-color btn rounded-xl">¡Hola {user.nombre}!</Link>
-                            : <Link to="/admin" type="submit" className=" d-block  text-center font-bold p-1 m-1 nav-color btn rounded-xl">Administrar</Link>}
+                        {auth.currentUser ?
+                            <>
+                                <Link to="/admin" className=" d-block  text-center font-bold p-1 m-1 nav-color btn rounded-xl">¡Hola {auth.currentUser.displayName} !</Link>
+                                <button className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1" onClick={handleSignOut}>Cerrar sesión</button>
+                            </>
+
+                            :
+                            <>
+                                <Link to="/login" className=" d-block  btn my-btn text-white text-center shadow-md font-bold p-1 m-1">Iniciar sesión</Link>
+                                <Link to="/registro" type="submit" className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1">Registrarse</Link>
+                            </>
+
+                        }
+
+
 
                     </div>
                 </div>

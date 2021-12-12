@@ -1,12 +1,36 @@
 import { types } from "../types/types"
 import { auth, db, googleAuth } from '../firebase/firebaseConfig';
 import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 export const signIn = (email, password) => {
     return async (dispatch) => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then(async (userCredential) => {
 
-        dispatch(login(email, password))
+                const user = userCredential.user;
+                const usersRef = doc(db, 'users', user.uid,)
+                await dispatch(login(user.uid, user.displayName, user.email, user.photoURL));
+                console.log(user.displayName);
+                await getDoc(usersRef).then(async (doc) => {
+                    console.log(doc.data());
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
+
+    }
+}
+export const logOut = () => {
+    return async (dispatch) => {
+        auth.signOut()
+            .then(() => {
+                console.log("Sesión cerrada.");
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 }
 
@@ -25,6 +49,7 @@ export const signUp = (email, password, nombre, apellido) => {
                     apellido: apellido,
                     email: email,
                     password: password,
+                    photoURL: user.photoURL,
                     role: 'usuario',
                 }, { merge: true }
                 );
@@ -50,15 +75,25 @@ export const signInWithGoogle = () => {
 
     return async (dispatch) => {
         signInWithPopup(auth, googleAuth)
-            .then((result) => {
+            .then(async (result) => {
+
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
+                const usersRef = doc(db, 'users', user.uid,)
                 console.log(token)
                 console.log(user.displayName)
                 dispatch(signIn(user.uid, user.displayName, user.email, user.photoURL,))
+                await setDoc(usersRef, {
+                    name: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                    role: 'usuario',
+                }, { merge: true }
+                );
+                console.log('usuario creado y escrito en la base de datos');
             }).catch((error) => {
                 console.log(error)
             });

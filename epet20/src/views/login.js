@@ -1,26 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGet } from '../hooks/query_hooks/useGet';
 import { handleRoute } from '../actions/handleRoute';
 import { useForm } from '../hooks/useForm';
 import { useDispatch } from 'react-redux';
 import { signInWithGoogle, signIn } from '../actions/auth';
+import { Loading } from '../components/admin_panel/sections/loading';
+import { Alert } from 'reactstrap';
+import { auth } from '../firebase/firebaseConfig';
+import { AlertNotification } from '../components/general/alertNotification';
 
 export const Login = () => {
     const dispatch = useDispatch();
-    const { users } = useGet();
     const { values, handleChange } = useForm(
 
     );
+
+    const [isLoading, setLoading] = useState(false);
+    const [isSuccess, setSuccess] = useState(false);
+    const [isError, setError] = useState(false);
+
+    const isLoad = (loading) => {
+        setLoading(loading);
+
+
+    }
     const { email, password } = values;
     const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
-
+        isLoad(true);
         dispatch(signIn(email, password));
+        setTimeout(() => {
+            if (auth.currentUser != null) {
+                isLoad(false);
+                setSuccess(true);
+                setTimeout(() => {
+                    console.log("Sesión iniciada");
+                    setSuccess(false);
+                    handleRoute(navigate, 'usuario');
+                }, 2000)
+            } else {
+                isLoad(false);
+                setError(true);
+                setTimeout(() => {
+                    console.log("Usuario o contraseña incorrectos")
+                    setSuccess(false);
+                    setError(false);
+                }, 3000)
+            }
+        }, 3000)
+
+
     }
     const handleGoogle = async e => {
         e.preventDefault();
@@ -42,7 +75,10 @@ export const Login = () => {
                             <div className="mt-4">
                                 <Title text="Iniciar sesión" />
                             </div>
-
+                            <div>
+                                {isSuccess ? <AlertNotification variant="success" dimiss={() => setSuccess(false)} message="Inicio de sesión exitoso" /> : null}
+                                {isError ? <AlertNotification color="danger" dimiss={() => setError(false)} message="Error usuario o contraseña incorrectos." /> : null}
+                            </div>
                             <form className=" p-6 " onSubmit={handleSubmit}>
                                 <div className=" form-group">
                                     <label for="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
@@ -75,7 +111,9 @@ export const Login = () => {
                                 </div>
 
                             </form>
+
                         </div>
+                        {isLoading ? <Loading text="Iniciando sesión..." /> : null}
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
                     </div>
 

@@ -10,6 +10,7 @@ import { handleRoute } from '../actions/handleRoute';
 import { useDispatch } from 'react-redux';
 import { signInWithGoogle, signUp } from '../actions/auth';
 import { useForm } from '../hooks/useForm';
+import { AlertNotification } from '../components/general/alertNotification';
 export const Registro = () => {
     const { userId } = useParams();
     const dispatch = useDispatch()
@@ -19,7 +20,8 @@ export const Registro = () => {
     const { handleChange, values } = useForm();
     const [isLoading, setLoading] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
-    const { password, role, apellido, email, name } = values;
+    const [isError, setError] = useState(false);
+    const { password, apellido, email, name } = values;
     const isLoad = (loading) => {
         setLoading(loading);
         setTimeout(() => {
@@ -35,26 +37,6 @@ export const Registro = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         dispatch(signUp(email, password, name, apellido))
-
-
-
-        // if (signUp) {
-        //     await addDoc(collection(db, "users"), {
-        //         name: name,
-        //         apellido: apellido,
-        //         email: email,
-        //         password: password,
-        //         role: 'usuario',
-        //     }, isLoad(true));
-        //     console.log('usuario creado');
-        // }
-
-
-
-
-
-        // console.log("Usuario añadido")
-        // handleRoute(navigate, role)
     }
 
     const handleGoogle = async e => {
@@ -68,7 +50,6 @@ export const Registro = () => {
         <>
 
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                {isSuccess ? <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}><Alert variant="success">Registro completo</Alert></motion.div> : null}
                 <div className="container">
 
                     <div className="row m-6 ">
@@ -77,7 +58,10 @@ export const Registro = () => {
                             <div className="mt-4">
                                 <Title text="Registráte y ¡Sé parte de nuestra comunidad!" />
                             </div>
-
+                            <div>
+                                {isSuccess ? <AlertNotification variant="success" dimiss={() => setSuccess(false)} message="Registro exitoso" /> : null}
+                                {isError ? <AlertNotification color="danger" dimiss={() => setError(false)} message="Error usuario o contraseña incorrectos." /> : null}
+                            </div>
                             <form className=" p-6" onSubmit={handleSubmit}>
                                 <div class="mb-3 row">
                                     <div class="col-sm-6">
@@ -108,11 +92,11 @@ export const Registro = () => {
 
                                     <button type="submit" onClick={handleGoogle} className="col-12 my-outlined-button mt-3 text-center font-bold rounded-md shadow-md">Ingresar con Google</button>
 
-                                    {isLoading ? <Loading /> : null}
                                 </div>
 
                             </form>
                         </div>
+                        {isLoading ? <Loading text="Creando el usuario.." /> : null}
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
                     </div>
 

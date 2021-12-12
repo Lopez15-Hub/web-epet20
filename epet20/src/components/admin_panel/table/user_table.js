@@ -4,7 +4,7 @@ import { Form, Table } from 'reactstrap'
 import { HeaderTable } from './header'
 import { useGet } from '../../../hooks/query_hooks/useGet';
 import { deleteDoc, doc } from 'firebase/firestore';
-import {db} from '../../../firebase/firebaseConfig';
+import { db } from '../../../firebase/firebaseConfig';
 import { Subtitle } from '../../text-styles/subtitle';
 export const UserTable = () => {
     const { users } = useGet();
@@ -61,7 +61,7 @@ export const UserTable = () => {
                             <tr key={user.id}>
                                 <th>{user.id}</th>
                                 <td>{user.name == null ? 'S/E' : user.name}</td>
-                                <td>{user.name == null ? 'S/E' : user.apellido}</td>
+                                <td>{user.apellido == null ? 'S/E' : user.apellido}</td>
                                 <td>{user.phone == null ? 'S/E' : user.phone}</td>
                                 <td>{user.email == null ? 'S/E' : user.email}</td>
                                 <td>{user.role == null ? 'S/E' : user.role}</td>
