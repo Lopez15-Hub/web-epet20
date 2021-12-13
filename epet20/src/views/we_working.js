@@ -13,7 +13,7 @@ export const PaginaEnConstruccion = () => {
 
                 <div className="row ">
                     <div className="col-12" />
-                    <img className="img-fluid img p-2 w-auto mx-auto shadow-lg rounded-xl" src={Image} alt="logo-epet" />
+                    <img className="img-fluid img p-2 w-auto mx-auto shadow-lg rounded-xl" src={Image} alt="estamos trabajando" />
 
 
                 </div>

@@ -10,6 +10,7 @@ import { Loading } from '../components/admin_panel/sections/loading';
 import { Alert } from 'reactstrap';
 import { auth } from '../firebase/firebaseConfig';
 import { AlertNotification } from '../components/general/alertNotification';
+import { onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 
 export const Login = () => {
     const dispatch = useDispatch();
@@ -57,7 +58,31 @@ export const Login = () => {
     }
     const handleGoogle = async e => {
         e.preventDefault();
+        isLoad(true);
+
         dispatch(signInWithGoogle());
+
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                isLoad(false);
+                setSuccess(true);
+                setTimeout(() => {
+                    console.log("Sesión iniciada");
+                    setSuccess(false);
+                    handleRoute(navigate, 'usuario');
+                }, 2000)
+
+            }
+
+        })
+
+
+
+
+
+
+
     }
 
 
