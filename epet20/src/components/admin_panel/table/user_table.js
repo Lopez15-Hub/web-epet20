@@ -61,11 +61,11 @@ export const UserTable = () => {
                         users.map(user => (
                             <tr key={user.id}>
                                 <th><button className='font-bold' onClick={() => alert("ID de usuario: " + user.id)}>{user.id.toString().slice(0, 13) + '...'}</button></th>
-                                <td>{user.name == null ? 'S/E' : user.name}</td>
-                                <td>{user.apellido == null ? 'S/E' : user.apellido}</td>
-                                <td>{user.phone == null ? 'S/E' : user.phone}</td>
-                                <td>{user.email == null ? 'S/E' : user.email}</td>
-                                <td>{user.role == null ? 'S/E' : user.role}</td>
+                                <td>{user.name     == null ||    user.name     == '' ? 'S/E' : user.name}</td>
+                                <td>{user.apellido == null ||    user.apellido == '' ? 'S/E' : user.apellido}</td>
+                                <td>{user.phone    == null ||    user.phone    == '' ? 'S/E' : user.phone}</td>
+                                <td>{user.email    == null ||    user.email    == '' ? 'S/E' : user.email}</td>
+                                <td>{user.role     == null ||    user.role     == '' ? 'S/E' : user.role}</td>
                                 <td>
                                     <Form>
                                         <Link to={"./" + user.id} className='ml-4 btn main-color' id="exampleSelect" ><FaEdit /></Link>

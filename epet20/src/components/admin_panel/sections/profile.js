@@ -110,6 +110,7 @@ export const Profile = () => {
             handleName();
             handleEmail();
             handlePassword();
+           
 
         }
 

@@ -23,12 +23,12 @@ export const Form = () => {
                 if (docSnap.exists()) {
 
                     const initialState = {
-                        name: docSnap.data().name,
-                        apellido: docSnap.data().apellido,
-                        email: docSnap.data().email,
-                        password: docSnap.data().password,
-                        phone: docSnap.data().phone,
-                        role: docSnap.data().role,
+                        name: docSnap.data().name || "",
+                        apellido: docSnap.data().apellido || "",
+                        email: docSnap.data().email || "",
+                        password: docSnap.data().password || "",
+                        phone: docSnap.data().phone || "",
+                        role: docSnap.data().role || "",
 
                     }
                     setUser(initialState)
@@ -73,12 +73,15 @@ export const Form = () => {
         if (userId) {
             const usersRef = doc(db, "users", userId);
             setDoc(usersRef, {
+                
                 name: name ? name : user.name,
                 apellido: apellido ? apellido : user.apellido,
                 email: email ? email : user.email,
                 phone: phone ? phone : user.phone,
                 password: password ? password : user.password,
                 role: role ? role : user.role,
+
+
 
             }, { merge: true });
             updateProfile(userId, {
