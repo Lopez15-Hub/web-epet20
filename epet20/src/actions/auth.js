@@ -96,6 +96,7 @@ export const signInWithGoogle = () => {
                 console.log('usuario creado y escrito en la base de datos');
             }).catch((error) => {
                 console.log(error)
+                return error;
             });
 
 

@@ -1,28 +1,49 @@
-import { React, } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Nav, NavbarBrand, NavItem } from 'reactstrap';
-import { logOut } from '../../actions/auth';
-import { handleRoute } from '../../actions/handleRoute';
+import { onAuthStateChanged } from 'firebase/auth';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Nav, NavbarBrand } from 'reactstrap';
 import Icon from '../../assets/favicon.png';
-import { auth } from '../../firebase/firebaseConfig';
-import { useGet } from '../../hooks/query_hooks/useGet';
+import { auth, db } from '../../firebase/firebaseConfig';
+import { doc, getDoc } from "firebase/firestore";
+
 
 
 function Navbar() {
-    const { users } = useGet();
-    const navigate = useNavigate();
-    const user = {
-        nombre: users.map(user => user.name),
-        apellido: users.map(user => user.apellido),
-        email: users.map(user => user.email),
-        rol: users.map(user => user.role),
-        id: users.id,
-        telefono: users.map(user => user.phone),
+    const [user, setUser] = useState();
+    const [role, setRole] = useState();
 
-    };
+    useEffect(() => {
+        handleUserData();
+    }, [])
+    const handleUserData = () => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser({
+                    photoUrl: user.photoURL,
+                    displayName: user.displayName,
+
+                })
+                handleRole(user.uid);
+            } else {
+                console.log("cargando...")
+            }
+        });
+    }
+    const handleRole = async (id) => {
+        const docRef = doc(db, "users", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("ROLE: "+ docSnap.data().role)
+            setRole(docSnap.data().role);
+        } else {
+            console.log("No such document!");
+        }
+    }
+
     const handleSignOut = () => {
         auth.signOut();
-        window.location.reload();
+        window.location.replace("/");
     }
     /*
     Navbar ES LA SECCIÓN DE 
@@ -41,34 +62,41 @@ function Navbar() {
 
             <div className="collapse navbar-collapse " id="navbarScroll">
                 <Nav className="navbar-nav  me-auto my-2 m-6 my-lg-0 navbar-nav-scroll" >
-                    <NavItem className=" m-2">
+                    <div className=" m-2">
                         <Link to="/novedades" className=" font-bold p-2 nav-color ">Novedades</Link>
-                    </NavItem>
-                    <NavItem className="m-2">
+                    </div>
+                    <div className="m-2">
                         <Link to="/estudiantes" className=" font-bold p-2 nav-color   ">Estudiantes</Link>
-                    </NavItem>
-                    <NavItem className="m-2">
+                    </div>
+                    <div className="m-2">
                         <Link to="/secretaria" className=" font-bold p-2  nav-color  ">Secretaria</Link>
-                    </NavItem>
+                    </div>
 
-                    <NavItem className="m-2">
+                    <div className="m-2">
                         <Link to="/contacto" className=" font-bold  p-2  nav-color ">Contacto</Link>
-                    </NavItem>
-                    <NavItem className="m-2">
+                    </div>
+                    <div className="m-2">
                         <Link to="/plan-de-estudios" className=" font-bold  p-2  nav-color ">Plan de estudios</Link>
-                    </NavItem>
-                    <NavItem className="m-2">
+                    </div>
+                    <div className="m-2">
                         <a href="https://regular.neuquen.gob.ar/Inscripciones2021/servlet/com.certiregu.verificatramite" className="nav-color font-bold p-2  ">¿Estoy inscripto?</a>
-                    </NavItem>
+                    </div>
 
                 </Nav>
                 <hr />
                 <div className="text-center">
                     <div className="d-flex">
-                        {auth.currentUser ?
+                        {user ?
                             <>
-                                <Link to="/admin" className=" d-block  text-center font-bold p-1 m-1 nav-color btn rounded-xl">¡Hola {auth.currentUser.displayName} !</Link>
-                                <button className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1" onClick={handleSignOut}>Cerrar sesión</button>
+
+                                <Link to="/admin" className="p-1 m-1">
+
+                                    <img className='img-profile-min ' src={user.photoUrl} alt={'Foto de perfil de ' + user.displayName} />
+                                </Link>
+
+
+                                <button className="my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1" onClick={handleSignOut}>Cerrar sesión</button>
+
                             </>
 
                             :

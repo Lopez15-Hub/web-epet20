@@ -32,6 +32,24 @@ border-radius: 5%;
 
 
 }
+.img-profile{
+  width: 200px;
+  height: 200px;
+}
+.img-profile-min{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.img-profile-min:hover{
+  padding: 10%;
+  background-color: #5D00FF;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: ease-in-out 0.2s;
+  transform: scale(1.1);
+}
 .nav-color:hover{
 border-radius: 5%;
 
@@ -95,13 +113,13 @@ transition: ease-out 0.3s;
   color: #5D00FF;
 }
 .card:hover {
-  transition: ease-in 0.3s;
+  transition: ease-in-out 0.2s;
   transform: scale(1.1);
   color: #5D00FF;
 }
 
 .card:active {
-  transition: ease-out 0.3s;
+  transition: ease-out 0.2s;
   transform: translateY(-5%);
   background-color: #5D00FF;
   color: white;
@@ -135,6 +153,12 @@ color: #5D00FF;
   background-color: #7700ff;
 transition: ease-in-out 0.3s;
 
+}
+.red{
+  color: black;
+}
+.red:hover{
+  color: red;
 }
 .my-btn{
   background-color: #5D00FF;

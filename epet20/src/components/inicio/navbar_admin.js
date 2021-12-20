@@ -1,17 +1,66 @@
-import React from 'react'
+import { onAuthStateChanged } from 'firebase/auth';
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { NavbarBrand } from 'reactstrap';
+import { Nav, NavbarBrand, NavItem } from 'reactstrap';
 import Icon from '../../assets/favicon.png';
+import { auth } from '../../firebase/firebaseConfig';
 
 
 export const NavbarAdmin = () => {
+    const [user, setUser] = useState();
+    const handleSignOut = () => {
+        auth.signOut();
+        window.location.replace('/inicio');
+    }
+    useEffect(() => {
+        handleUserData();
+    }, [])
+    const handleUserData = () => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser({
+                    displayName: user.displayName,
 
-    return <nav className=" navbar  p-2 rounded-b-xl shadow-md ">
-        <div className="d-flex">
-            <Link to="/inicio"><img src={Icon} className=" shadow-xl rounded-xl " alt="Logo" /></Link></div>
-        <div> <NavbarBrand className='text-center font-bold  main-color'>E.P.E.T N° 20 Dashboard</NavbarBrand></div>
+                })
 
-        <Link to="/inicio" className="text-center font-bold  main-color">Cerrar sesión</Link>
+            } else {
+                console.log("cargando...")
+            }
+        });
+    }
+    return <nav className="navbar bg-light sticky fixed-top navbar-expand-xl  navbar-light p-2 rounded-b-xl shadow-md ">
+        <div className="container-fluid text-center ">
+            <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" />
+            <NavbarBrand><Link to="/inicio" className=" font-bold p-2 main-color ">Panel de administrador</Link></NavbarBrand>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon "></span>
+            </button>
 
+            <div className="collapse navbar-collapse " id="navbarScroll">
+                <Nav className="navbar-nav  me-auto my-2 m-6 my-lg-0 navbar-nav-scroll" >
+                </Nav>
+
+                <div className="text-center">
+                    <div className="d-flex">
+                        {user ?
+                            <>
+                                <Link to="/admin" className=" d-block  text-center font-bold p-1 m-1 nav-color btn rounded-xl">{user.displayName}</Link>
+                                <button className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1" onClick={handleSignOut}>Cerrar sesión</button>
+                            </>
+
+                            :
+                            <>
+                                <Link to="/login" className=" d-block  btn my-btn text-white text-center shadow-md font-bold p-1 m-1">Iniciar sesión</Link>
+                                <Link to="/registro" type="submit" className=" d-block my-outlined-button  text-center font-bold rounded-md shadow-md p-1 m-1">Registrarse</Link>
+                            </>
+
+                        }
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav >;
 }
