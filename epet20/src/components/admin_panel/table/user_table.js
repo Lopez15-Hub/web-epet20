@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { FaTrash } from 'react-icons/fa'
+import { FaEdit, FaTrash } from 'react-icons/fa'
 import { Form, Table } from 'reactstrap'
 import { HeaderTable } from './header'
 import { useGet } from '../../../hooks/query_hooks/useGet';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebaseConfig';
 import { Subtitle } from '../../text-styles/subtitle';
+import { Link } from 'react-router-dom';
 export const UserTable = () => {
     const { users } = useGet();
     const [isLoading, setLoading] = useState(true);
@@ -59,7 +60,7 @@ export const UserTable = () => {
                         :
                         users.map(user => (
                             <tr key={user.id}>
-                                <th>{user.id}</th>
+                                <th><button className='font-bold' onClick={() => alert("ID de usuario: " + user.id)}>{user.id.toString().slice(0, 13) + '...'}</button></th>
                                 <td>{user.name == null ? 'S/E' : user.name}</td>
                                 <td>{user.apellido == null ? 'S/E' : user.apellido}</td>
                                 <td>{user.phone == null ? 'S/E' : user.phone}</td>
@@ -67,7 +68,8 @@ export const UserTable = () => {
                                 <td>{user.role == null ? 'S/E' : user.role}</td>
                                 <td>
                                     <Form>
-                                        <button type="button" className='ml-4 btn btn-danger' id="exampleSelect" onClick={() => deleteUser(user.id)}  ><FaTrash /></button>
+                                        <Link to={"./" + user.id} className='ml-4 btn main-color' id="exampleSelect" ><FaEdit /></Link>
+                                        <button type="button" className='ml-4 btn red' id="exampleSelect" onClick={() => deleteUser(user.id)}  ><FaTrash /></button>
 
                                     </Form>
                                 </td >
