@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { Nav, NavbarBrand, NavItem } from 'reactstrap';
+import { Nav, NavbarBrand } from 'reactstrap';
 import Icon from '../../assets/favicon.png';
 import { auth } from '../../firebase/firebaseConfig';
 

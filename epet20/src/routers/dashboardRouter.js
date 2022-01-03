@@ -6,6 +6,7 @@ import { Form } from '../components/admin_panel/sections/form';
 import { Profile } from '../components/admin_panel/sections/profile';
 import { Usuarios } from '../components/admin_panel/sections/usuarios';
 import { NavbarAdmin } from '../components/inicio/navbar_admin';
+import { InicioFT } from '../components/inicio_frontend/inicio_ft';
 import { PaginaEnConstruccion } from "../views/we_working";
 export const DashboardRouter = () => {
     return (
@@ -24,7 +25,7 @@ export const DashboardRouter = () => {
                                 <Route path="usuarios/" element={<Usuarios />} />
                                 <Route path="usuarios/add" element={<Form />} />
                                 <Route path="usuarios/:userId" element={<Form />} />
-                                <Route path="inicio" element={<PaginaEnConstruccion />} />
+                                <Route path="inicio" element={<InicioFT />} />
                                 <Route path="novedades" element={<PaginaEnConstruccion />} />
                                 <Route path="secretaria" element={<PaginaEnConstruccion />} />
                                 <Route path="contacto" element={<PaginaEnConstruccion />} />
