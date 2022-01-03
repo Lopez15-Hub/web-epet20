@@ -38,34 +38,41 @@ export const logOut = () => {
 export const signUp = (email, password, nombre, apellido) => {
 
     return async (dispatch) => {
-        try {
-            createUserWithEmailAndPassword(auth, email, password).then(async ({ user }) => {
-                const usersRef = doc(db, 'users', user.uid,)
-                await updateProfile(user, { displayName: nombre + " " + apellido })
-                console.log(user.displayName)
-                dispatch(login(user.uid, user.displayName, user.email, user.photoURL))
-                await setDoc(usersRef, {
-                    name: nombre,
-                    apellido: apellido,
-                    email: email,
-                    password: password,
-                    photoURL: user.photoURL,
-                    role: 'usuario',
-                }, { merge: true }
-                );
-                console.log('usuario creado y escrito en la base de datos');
-            }).catch(e => { console.log(e); });
 
-
-        } catch (err) {
+        createUserWithEmailAndPassword(auth, email, password).then(async ({ user }) => {
+            const usersRef = doc(db, 'users', user.uid,)
+            await updateProfile(user, { displayName: nombre + " " + apellido })
+            console.log(user.displayName)
+            dispatch(login(user.uid, user.displayName, user.email, user.photoURL))
+            await setDoc(usersRef, {
+                name: nombre,
+                apellido: apellido,
+                email: email,
+                password: password,
+                photoURL: user.photoURL,
+                role: 'usuario',
+            }, { merge: true }
+            );
+            console.log('usuario creado y escrito en la base de datos');
+        }).catch(err => {
             console.log(err)
-        }
+            if (err.code === "auth/email-already-in-use") {
+                console.log("El email ya esta en uso, iniciando sesión");
+                return err.message;
 
 
 
+            }
+        });
 
 
     }
+
+
+
+
+
+
 }
 
 
