@@ -9,7 +9,6 @@ import Footer from '../components/inicio/footer'
 export const Novedades = () => {
     return (
         <>
-            <Navbar />
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container mt-4 ">
             <div className=" p-6 shadow-lg rounded-t-xl">
                {/*  Area de novedades de la escuela */}
