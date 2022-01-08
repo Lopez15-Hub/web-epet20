@@ -9,6 +9,9 @@ import { Registro } from '../views/registro';
 import { Secretaria } from '../views/secretaria';
 import { PlanDeEstudios } from '../views/plan_estudios';
 import Navbar from '../components/inicio/navbar';
+import { GeneralList } from '../components/secretaria/sectores/general';
+import { EstudiantesList } from '../components/secretaria/sectores/estudiantes';
+import { DocentesList } from '../components/secretaria/sectores/docentes';
 export const WebRouter = () => {
     return (
         <>
@@ -21,9 +24,9 @@ export const WebRouter = () => {
                 <Route path="novedades" element={<Novedades />} />
                 <Route path="estudiantes" element={<Estudiantes />} />
                 <Route path="secretaria" element={<Secretaria />} />
-                <Route path="secretaria/estudiantes" element={<Secretaria />} />
-                <Route path="secretaria/teoria" element={<Secretaria />} />
-                <Route path="secretaria/docentes" element={<Secretaria />} />
+                <Route path="secretaria/estudiantes" element={<EstudiantesList />} />
+                <Route path="secretaria/general" element={<GeneralList />} />
+                <Route path="secretaria/docentes" element={<DocentesList />} />
                 <Route path="contacto" element={<Contacto />} />
                 <Route path="plan-de-estudios" element={<PlanDeEstudios />} />
                 <Route path="login" element={<Login />} />

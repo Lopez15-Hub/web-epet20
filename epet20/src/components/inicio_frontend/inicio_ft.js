@@ -70,18 +70,18 @@ export const InicioFT = () => {
                         <div className='from-group row shadow-md'>
                             <div className=' col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
                                 <div className='font-bold'> <Subtitle text="Editar párrafo de presentación" /></div>
-                                <textarea value={presentacion} onChange={handleChange} defaultValue={presentaciones.presentacion} className='form-control-lg border' name="presentacion" cols="30" rows="10" />
+                                <input value={presentacion} onChange={handleChange} defaultValue={presentaciones.presentacion} className='form-control-lg border' name="presentacion" cols="30" rows="10" />
 
                             </div>
 
                             <div className='col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
                                 <div className='font-bold'><Subtitle text="Editar párrafo de perfil técnico" /></div>
-                                <textarea value={perfilTec} onChange={handleChange} defaultValue={presentaciones.perfilTecnico} className='form-control-lg border' name="perfilTec" cols="30" rows="10" />
+                                <input value={perfilTec} onChange={handleChange} defaultValue={presentaciones.perfilTecnico} className='form-control-lg border' name="perfilTec" cols="30" rows="10" />
                             </div>
                             <div className='col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
                                 <div className='font-bold'><Subtitle text="Editar párrafo de alcances" /></div>
 
-                                <textarea value={alcances} onChange={handleChange} defaultValue={presentaciones.alcances} className='form-control-lg border' name="alcances" cols="30" rows="10" />
+                                <input value={alcances} onChange={handleChange} defaultValue={presentaciones.alcances} className='form-control-lg border' name="alcances" cols="30" rows="10" />
                             </div>
 
 
