@@ -1,22 +1,16 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { db } from '../firebase/firebaseConfig';
-import { addDoc, collection } from 'firebase/firestore';
-import { Loading } from '../components/admin_panel/sections/loading';
-import { Alert } from 'reactstrap';
-import { handleRoute } from '../actions/handleRoute';
+import { Link } from 'react-router-dom';
+
+import { Loading } from '../components/general/loading';
+
 import { useDispatch } from 'react-redux';
 import { signInWithGoogle, signUp } from '../actions/auth';
 import { useForm } from '../hooks/useForm';
 import { AlertNotification } from '../components/general/alertNotification';
 export const Registro = () => {
-    const { userId } = useParams();
-    const dispatch = useDispatch()
-
-
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { handleChange, values } = useForm();
     const [isLoading, setLoading] = useState(false);
     const [isSuccess, setSuccess] = useState(false);
@@ -36,7 +30,7 @@ export const Registro = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        dispatch(signUp(email, password, name, apellido))
+        console.log(dispatch(signUp(email, password, name, apellido)))
     }
 
     const handleGoogle = async e => {

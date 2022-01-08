@@ -25,6 +25,7 @@ function Navbar() {
                 })
                 handleRole(user.uid);
             } else {
+                console.log('no user' + role);
                 console.log("cargando...")
             }
         });
@@ -34,7 +35,7 @@ function Navbar() {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            console.log("ROLE: "+ docSnap.data().role)
+            console.log("ROLE: " + docSnap.data().role)
             setRole(docSnap.data().role);
         } else {
             console.log("No such document!");
@@ -91,7 +92,7 @@ function Navbar() {
 
                                 <Link to="/admin" className="p-1 m-1">
 
-                                    <img className='img-profile-min ' src={user.photoUrl} alt={'Foto de perfil de ' + user.displayName} />
+                                    <img className='img-profile-min ' src={auth.currentUser.photoURL ? auth.currentUser.photoURL : 'https://cdn4.iconfinder.com/data/icons/happy-people-3/64/avatar-guy-profile-smile-512.png'} alt={'Foto de perfil de ' + user.displayName} />
                                 </Link>
 
 

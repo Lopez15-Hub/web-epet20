@@ -7,10 +7,9 @@ import { useForm } from '../hooks/useForm';
 import { useDispatch } from 'react-redux';
 import { signInWithGoogle, signIn } from '../actions/auth';
 import { Loading } from '../components/admin_panel/sections/loading';
-import { Alert } from 'reactstrap';
 import { auth } from '../firebase/firebaseConfig';
 import { AlertNotification } from '../components/general/alertNotification';
-import { onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export const Login = () => {
     const dispatch = useDispatch();

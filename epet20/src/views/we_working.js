@@ -3,6 +3,7 @@ import { Subtitle } from '../components/text-styles/subtitle'
 import { Title } from '../components/text-styles/title'
 import Image from '../assets/weWorking.jpg';
 import { motion } from 'framer-motion';
+import { Loading } from '../components/general/loading';
 export const PaginaEnConstruccion = () => {
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -13,7 +14,12 @@ export const PaginaEnConstruccion = () => {
 
                 <div className="row ">
                     <div className="col-12" />
-                    <img className="img-fluid img p-2 w-auto mx-auto shadow-lg rounded-xl" src={Image} alt="estamos trabajando" />
+                   { 
+                   
+                   Image?
+                   <img className="img-fluid img p-2 w-auto mx-auto shadow-lg rounded-xl" src={Image} alt="estamos trabajando" />: <Loading />
+                   
+                   }
 
 
                 </div>
