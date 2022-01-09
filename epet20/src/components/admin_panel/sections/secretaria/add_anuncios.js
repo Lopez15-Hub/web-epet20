@@ -9,7 +9,7 @@ import { Title } from '../../../text-styles/title'
 
 export const AñadirAnuncio = () => {
     const { handleChange, values } = useForm();
-    const { title, url, description, label } = values;
+    const { title, description,} = values;
     const date = new Date();
     useEffect(() => {
         console.log(date)

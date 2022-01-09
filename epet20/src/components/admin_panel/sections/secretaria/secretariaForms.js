@@ -1,19 +1,19 @@
-import { addDoc, collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
+import { addDoc, collection, getDocs, } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Button, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import { db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
-import { Subtitle } from '../../../text-styles/subtitle'
 import { Title } from '../../../text-styles/title'
 
 export const SecretariaForms = () => {
     const { handleChange, values } = useForm();
+    const date = new Date();
     const { title, url, description, label } = values;
     useEffect(() => {
         getDataFromFirestore();
     }, [])
-    
+
     console.log(values);
     const getDataFromFirestore = async () => {
         const textsRef = collection(db, 'anuncios');
@@ -25,10 +25,11 @@ export const SecretariaForms = () => {
         e.preventDefault();
         try {
             const docRef = await addDoc(collection(db, "forms"), {
-                title:title,
-                description:description,
+                title: title,
+                description: description,
                 url: url,
-                label:label,
+                label: label,
+                submitAt: date,
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
