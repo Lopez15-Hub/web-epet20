@@ -67,7 +67,7 @@ export const DashboardRouter = () => {
                                             <Route path="inicio" element={<InicioAdmin />} />
                                             <Route path="novedades" element={<PaginaEnConstruccion />} />
                                             <Route path="secretaria/forms" element={<SecretariaForms />} />
-                                            <Route path="secretaria/anuncios" element={<SecretariaForms />} />
+                                            <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
                                             <Route path="contacto" element={<PaginaEnConstruccion />} />
                                             <Route path="plan-de-estudios" element={<PaginaEnConstruccion />} />
 
