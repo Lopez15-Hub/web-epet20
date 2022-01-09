@@ -60,7 +60,7 @@ export const Menu = ({ role }) => {
                                         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                             <Link to="secretaria/anuncios" className="list-group-item-action p-2 m-2 d-flex">Anuncios</Link>
                                             <Link to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Formularios</Link>
-                                            <Link to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Editar sección de secretaria</Link>
+                             
                                         </motion.div> : ''
                                 }
                             </div>
@@ -83,7 +83,7 @@ export const Menu = ({ role }) => {
                                         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                                             <Link to="secretaria/anuncios" className="list-group-item-action p-2 m-2 d-flex">Anuncios</Link>
                                             <Link to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Formularios</Link>
-                                            <Link to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Editar sección de secretaria</Link>
+             
                                         </motion.div> : ''
                                 }
                             </div>
