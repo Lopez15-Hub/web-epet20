@@ -6,6 +6,7 @@ import { db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
+import { LoadingSpinner } from '../../../general/loading'
 import { Title } from '../../../text-styles/title'
 
 export const SecretariaForms = () => {
@@ -127,8 +128,8 @@ export const SecretariaForms = () => {
 
                             </Input>
                         </FormGroup>
-                        <Button type='submit' className='my-btn btn' >Añadir formulario</Button>
-
+                        <Button onClick={() => setLoading(true)} type='submit' className='my-btn btn' >Añadir formulario</Button>
+                        {loading ? <LoadingSpinner text="Creando formulario..." /> : ''}
                     </Form>
 
 

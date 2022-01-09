@@ -6,7 +6,6 @@ import { Inicio } from '../views/inicio';
 import { Novedades } from '../views/novedades';
 import { Login } from '../views/login';
 import { Registro } from '../views/registro';
-import { Secretaria } from '../views/secretaria';
 import { PlanDeEstudios } from '../views/plan_estudios';
 import Navbar from '../components/inicio/navbar';
 import { GeneralList } from '../components/secretaria/sectores/general';

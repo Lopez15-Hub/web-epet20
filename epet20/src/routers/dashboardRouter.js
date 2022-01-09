@@ -1,6 +1,6 @@
-import { doc, getDoc } from 'firebase/firestore';
+
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom'
 import { Container, Row } from 'reactstrap';
 import { Menu } from '../components/admin_panel/menu';
@@ -12,38 +12,37 @@ import { AñadirAnuncio } from '../components/admin_panel/sections/secretaria/ad
 import { SecretariaForms } from '../components/admin_panel/sections/secretaria/secretariaForms';
 import { Usuarios } from '../components/admin_panel/sections/usuarios';
 import { NavbarAdmin } from '../components/inicio/navbar_admin';
-import { auth, db } from '../firebase/firebaseConfig';
+import { auth} from '../firebase/firebaseConfig';
+import { UseLoading } from '../hooks/useLoading';
+import { useRole } from '../hooks/useRole';
 import { PaginaEnConstruccion } from "../views/we_working";
 export const DashboardRouter = () => {
 
-    const [role, setRole] = useState();
-    const [loading, setLoading] = useState(true);
+    const { role} = useRole();
+    const {loading, setLoading} = UseLoading();
     useEffect(() => {
         auth.onAuthStateChanged(async (user) => {
-            user.reload().then(() => { console.log("user reloaded") }).catch(() => { console.log("user not reloaded") });
+
+
             if (user) {
+                user.reload().then(() => { console.log("user reloaded") }).catch(() => { console.log("user not reloaded") });
                 console.log("user logged in")
 
-                handleRole();
                 if (role && auth.currentUser) {
                     setLoading(false);
                 }
+            } else {
+
+                console.log("user not logged in")
+                auth.signOut();
+                setLoading(false);
+                window.location.replace("/");
             }
         });
 
-    }, [role, auth.currentUser])
+    }, [role])
 
-    const handleRole = async () => {
-        const docRef = doc(db, "users", auth.currentUser.uid);
-        const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            console.log("ROLE: " + docSnap.data().role)
-            setRole(docSnap.data().role.toLowerCase());
-        } else {
-            console.log("No such document!");
-        }
-    }
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <NavbarAdmin currentRole={role} />

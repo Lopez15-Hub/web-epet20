@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import { Form, Table } from 'reactstrap'
 import { HeaderTable } from './header'
@@ -7,18 +7,19 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebaseConfig';
 import { Subtitle } from '../../text-styles/subtitle';
 import { Link } from 'react-router-dom';
+import { UseLoading } from '../../../hooks/useLoading';
 export const UserTable = () => {
     const { users } = useGet();
-    const [isLoading, setLoading] = useState(true);
+    const { loading, setLoading} = UseLoading();
     const id = users.map(user => user.id)
     const isLoad = () => {
         setLoading(true);
-        setTimeout(() => {
-            if (id) {
-                setLoading(false);
-            };
 
-        }, 1000);
+        if (id) {
+            setLoading(false);
+        };
+
+
 
     }
     useEffect(() => {
@@ -27,14 +28,22 @@ export const UserTable = () => {
 
 
     const deleteUser = async (id) => {
-        try {
-            await deleteDoc(doc(db, "users", id));
-            console.log("deleted");
-            window.location.reload();
-        } catch (err) {
-            console.log(err);
+        var confirm = window.confirm("Esta seguro que desea eliminar a este usuario? Esta acción es irreversible.");
+        if (confirm) {
+
+            setLoading(true);
+            const userRef = doc(db, 'users', id);
+            await deleteDoc(userRef).then(() => {
+                window.alert("Usuario eliminado correctamente.");
+                setLoading(false);
+                window.location.reload();
+            }).catch(err => {
+
+            });
+            setLoading(false);
 
         }
+
 
     }
 
@@ -50,22 +59,22 @@ export const UserTable = () => {
                 {
 
 
-                    isLoading ?
+                    loading ?
 
 
-                        <div className='mt-4'>
-                            <Subtitle text="Espere..." />
-                        </div>
+                        <tr className='mt-4'>
+                            <th> <Subtitle text="Espere..." /></th>
+                        </tr>
 
                         :
                         users.map(user => (
                             <tr key={user.id}>
                                 <th><button className='font-bold' onClick={() => alert("ID de usuario: " + user.id)}>{user.id.toString().slice(0, 13) + '...'}</button></th>
-                                <td>{user.name     == null ||    user.name     == '' ? 'S/E' : user.name}</td>
-                                <td>{user.apellido == null ||    user.apellido == '' ? 'S/E' : user.apellido}</td>
-                                <td>{user.phone    == null ||    user.phone    == '' ? 'S/E' : user.phone}</td>
-                                <td>{user.email    == null ||    user.email    == '' ? 'S/E' : user.email}</td>
-                                <td>{user.role     == null ||    user.role     == '' ? 'S/E' : user.role}</td>
+                                <td>{user.name === null || user.name === '' ? 'S/E' : user.name}</td>
+                                <td>{user.apellido === null || user.apellido === '' ? 'S/E' : user.apellido}</td>
+                                <td>{user.phone === null || user.phone === '' ? 'S/E' : user.phone}</td>
+                                <td>{user.email === null || user.email === '' ? 'S/E' : user.email}</td>
+                                <td>{user.role === null || user.role === '' ? 'S/E' : user.role}</td>
                                 <td>
                                     <Form>
                                         <Link to={"./" + user.id} className='ml-4 btn main-color' id="exampleSelect" ><FaEdit /></Link>

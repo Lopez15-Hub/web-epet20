@@ -1,16 +1,14 @@
-import { onAuthStateChanged } from 'firebase/auth';
-import { collection, doc, getDoc, query, where } from 'firebase/firestore';
+
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react'
-import { FaUserAlt, FaHome, FaNewspaper, FaFemale, FaUsers, FaArrowAltCircleDown, FaArrowDown, FaArrowRight } from "react-icons/fa";
+import React, { useState } from 'react'
+import { FaUserAlt, FaHome, FaNewspaper, FaFemale, FaUsers, FaArrowDown, FaArrowRight } from "react-icons/fa";
 import { MdOutlineContactMail, MdLibraryBooks } from "react-icons/md";
 import { Link } from 'react-router-dom';
-import { auth, db } from '../../firebase/firebaseConfig';
+import { auth } from '../../firebase/firebaseConfig';
 import { Title } from '../text-styles/title';
 
 export const Menu = ({ role }) => {
 
-    const [user, setUser] = useState();
     const [visible, setVisible] = useState(false);
 
 

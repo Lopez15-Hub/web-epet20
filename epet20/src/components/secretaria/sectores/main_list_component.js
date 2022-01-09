@@ -1,20 +1,18 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { collection, getDocs, query, where } from "firebase/firestore";
-import Footer from '../../inicio/footer'
 import { Title } from '../../text-styles/title'
 import { db } from '../../../firebase/firebaseConfig';
 import { Loading } from '../../admin_panel/sections/loading';
-import { isEmpty } from '@firebase/util';
 export const MainList = ({ label }) => {
     const currentDate = new Date();
     useEffect(() => {
         label !== 'Anuncios' ? getFormsFromFirebase() : getAnunciosFromFirebase()
         console.log(currentDate.toDateString().toLocaleString())
-        console.log(currentDate.toDateString().toLocaleString() == '9/1/2022' ? true : false)
+        console.log(currentDate.toDateString().toLocaleString() === '9/1/2022' ? true : false)
 
 
-    }, [])
+    })
     const [listData, setListData] = useState([]);
     const getFormsFromFirebase = async () => {
         const list = []
@@ -73,13 +71,13 @@ export const MainList = ({ label }) => {
                             <Title text={label === 'Anuncios' ? "" : 'Formularios disponibles'} />
                         </div>
                         {
-                            console.log(listData[0]),
-                            listData.length != 0 ?
+                   
+                            listData.length !== 0 ?
 
                                 listData.map(e => (
                                     <>
                                         {
-                                            e.id != null ?
+                                            e.id !== null ?
                                                 <ul key={e.id ? e.id : 0}>
                                                     <a href={e.url}>
                                                         <li class="border p-4 m-2 shadow-md rounded-xl">

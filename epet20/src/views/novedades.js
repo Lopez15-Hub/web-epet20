@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Navbar from '../components/inicio/navbar'
+
 import { Title } from '../components/text-styles/title'
 import { motion } from 'framer-motion'
 import Advertisements from '../components/novedades/Advertisements'

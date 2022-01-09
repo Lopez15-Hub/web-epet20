@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Title } from "../text-styles/title";
 import Image from "../../assets/icono-escuela.png"
-import { addDoc, collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 import { db } from "../../firebase/firebaseConfig";
 import { useEffect, useState } from "react";
 import { LoadingSpinner } from "../general/loading";

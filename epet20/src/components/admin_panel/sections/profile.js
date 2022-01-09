@@ -1,12 +1,12 @@
 
 import { updateEmail, updatePassword, updateProfile } from 'firebase/auth'
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
 import { Container, FormGroup, Form, Input, Label, Row } from 'reactstrap'
-import { handleRoute } from '../../../actions/handleRoute'
+
 import { auth } from '../../../firebase/firebaseConfig'
 import { useForm } from '../../../hooks/useForm'
+import { UseLoading } from '../../../hooks/useLoading'
 import { AlertNotification } from '../../general/alertNotification'
 import { Subtitle } from '../../text-styles/subtitle'
 import { Title } from '../../text-styles/title'
@@ -14,48 +14,11 @@ import { CardCredential } from '../profile/cardCredential'
 import { Loading } from './loading'
 
 export const Profile = () => {
-    const [isLoading, setLoading] = useState(false);
-    const [isSuccess, setSuccess] = useState(false);
-    const [isError, setError] = useState(false);
-    const [isWarning, setWarning] = useState(false);
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
     const { handleChange, values } = useForm();
     const { name, email, password } = values;
-    const navigate = useNavigate();
-    const isLoad = (loading) => {
-        setLoading(loading);
 
 
-    }
-    const showSuccess = () => {
-        setTimeout(() => {
-
-            isLoad(false);
-            setSuccess(true);
-            setTimeout(() => {
-                console.log("Sesión iniciada");
-                setSuccess(false);
-                handleRoute(navigate, 'usuario');
-            }, 2000)
-        })
-    }
-    const showError = () => {
-        isLoad(false);
-        setError(true);
-        setTimeout(() => {
-            console.log("Usuario o contraseña incorrectos")
-            setSuccess(false);
-            setError(false);
-        }, 3000)
-    }
-    const showWarning = () => {
-        isLoad(false);
-        setWarning(true);
-        setTimeout(() => {
-            console.log("Debe ingresar todos los datos")
-            setSuccess(false);
-            setWarning(false);
-        }, 3000)
-    }
     const redirect = () => {
         setTimeout(() => {
             window.location.reload();
@@ -67,35 +30,47 @@ export const Profile = () => {
         updateProfile(auth.currentUser, {
             displayName: name
         }).then(() => {
-            showSuccess();
+            setAlertMessage("Nombre actualizado exitosamente.")
+            setSuccess(true);
+            setLoading(false);
             redirect();
         }).catch((error) => {
-            showError();
+            setAlertMessage("Ha ocurrido un error al actualizar el nombre: " + error.code)
+            setError();
+            setLoading(false);
             console.log(error)
         });
     }
     const handleEmail = () => {
         updateEmail(auth.currentUser, email).then(() => {
-            showSuccess()
+            setAlertMessage("Email actualizado exitosamente.")
+            setSuccess(true);
+            setLoading(false);
             redirect();
         }).catch((error) => {
-            showError();
+            setAlertMessage("Ha ocurrido un error al actualizar el email: " + error.code);
+            setError();
+            setLoading(false);
             console.log(error)
         });
     }
     const handlePassword = () => {
         updatePassword(auth.currentUser, password).then(() => {
-            showSuccess()
+            setSuccess(true);
+            setLoading(false);
             redirect();
         }).catch((error) => {
-            showError();
+            setAlertMessage("Ha ocurrido un error al actualizar la contraseña: " + error.code);
+            setError(true);
+            setLoading(false);
+
             console.log(error)
         });
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        isLoad(true)
+        setLoading(true)
         if (name) {
             handleName();
 
@@ -105,12 +80,14 @@ export const Profile = () => {
             handlePassword();
 
         } else if (!name && !email && !password) {
-            showWarning();
+            setAlertMessage("Debes rellenar al menos un campo para actualizar tu perfil.")
+            setLoading(false);
+            setWarning(true);
         } else if (name && email && password) {
             handleName();
             handleEmail();
             handlePassword();
-           
+
 
         }
 
@@ -125,9 +102,11 @@ export const Profile = () => {
 
                     <div className='mt-4 col-sm-12 col-xs-12 col-md-6'>
                         <div>
-                            {isSuccess ? <AlertNotification variant="success" dimiss={() => setSuccess(false)} message="Datos Actualizados" /> : null}
-                            {isError ? <AlertNotification color="danger" dimiss={() => setError(false)} message="Error algo salió mal" /> : null}
-                            {isWarning ? <AlertNotification color="warning" dimiss={() => setWarning(false)} message="Debe rellenar al menos un campo" /> : null}
+                            {success ?
+                                <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                                error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
+                                    <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
+                            }
                         </div>
 
                         <Form className='mx-auto p-6 col-sm-12 col-xs-12 col-md-12 border shadow-md rounded-xl' onSubmit={handleSubmit}>
@@ -171,7 +150,7 @@ export const Profile = () => {
                             <button type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block" >Guardar cambios </button>
 
                         </Form>
-                        {isLoading ? <Loading text="Actualizando datos..." /> : null}
+                        {loading ? <Loading text="Actualizando datos..." /> : null}
                     </div>
                 </Row>
             </Container>

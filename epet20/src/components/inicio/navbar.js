@@ -1,19 +1,21 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { DropdownItem, DropdownMenu, DropdownToggle, Nav, NavbarBrand, UncontrolledDropdown } from 'reactstrap';
+import { Nav, NavbarBrand } from 'reactstrap';
 import Icon from '../../assets/favicon.png';
 import { auth, db } from '../../firebase/firebaseConfig';
 import { doc, getDoc } from "firebase/firestore";
-import { FaUserAlt, FaHome, FaNewspaper, FaFemale, FaUsers, FaArrowAltCircleDown, FaArrowDown, FaArrowRight } from "react-icons/fa";
+import { useRole } from '../../hooks/useRole';
+
 
 
 function Navbar() {
     const [user, setUser] = useState();
-    const [role, setRole] = useState();
+    const { role } = useRole();
 
     useEffect(() => {
         handleUserData();
+
     }, [])
     const handleUserData = () => {
         onAuthStateChanged(auth, (user) => {
@@ -23,23 +25,13 @@ function Navbar() {
                     displayName: user.displayName,
 
                 })
-                handleRole(user.uid);
+         
             } else {
                 console.log("cargando...")
             }
         });
     }
-    const handleRole = async (id) => {
-        const docRef = doc(db, "users", id);
-        const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            console.log("ROLE: " + docSnap.data().role)
-            setRole(docSnap.data().role);
-        } else {
-            console.log("No such document!");
-        }
-    }
 
     const handleSignOut = () => {
         auth.signOut();
@@ -73,7 +65,7 @@ function Navbar() {
                         <li class="nav-item dropdown ">
                             <Link to="/secretaria" className="dropdown-toggle font-bold p-2  nav-color  " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Secretaria  </Link>
                             <ul class="dropdown-menu showDropDown" aria-labelledby="navbarDropdown">
-                            <li><Link to="secretaria/anuncios" class="dropdown-item font-bold main-color" >Anuncios</Link></li>
+                                <li><Link to="secretaria/anuncios" class="dropdown-item font-bold main-color" >Anuncios</Link></li>
                                 <li><Link to="secretaria/docentes" class="dropdown-item font-bold main-color" >Docentes</Link></li>
                                 <li><Link to="secretaria/general" class="dropdown-item font-bold main-color" >General</Link></li>
                                 <li><Link to="secretaria/estudiantes" class="dropdown-item font-bold main-color" >Estudiantes</Link></li>
