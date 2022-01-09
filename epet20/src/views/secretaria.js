@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title'
 import Footer from '../components/inicio/footer'
 import { AboutTutorial } from '../components/secretaria/about_tutorial'
-import { Anuncios } from '../components/secretaria/anuncios'
+import { Anuncios } from '../components/secretaria/sectores/anuncios'
 import { Sectores } from '../components/secretaria/sectores'
 export const Secretaria = () => {
     return (

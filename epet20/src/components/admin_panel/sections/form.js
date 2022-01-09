@@ -9,10 +9,9 @@ import { Alert } from 'reactstrap';
 import { useForm } from '../../../hooks/useForm';
 import { AlertNotification } from '../../general/alertNotification';
 import { signInWithEmailAndPassword, updateCurrentUser, updateProfile } from 'firebase/auth';
-export const Form = () => {
+export const Form = ({ currentRole }) => {
     const { userId } = useParams();
     const [user, setUser] = useState({});
-
 
 
     const getUser = async () => {
@@ -73,7 +72,7 @@ export const Form = () => {
         if (userId) {
             const usersRef = doc(db, "users", userId);
             setDoc(usersRef, {
-                
+
                 name: name ? name : user.name,
                 apellido: apellido ? apellido : user.apellido,
                 email: email ? email : user.email,

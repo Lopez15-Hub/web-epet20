@@ -2,30 +2,17 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { collection, doc, getDoc, query, where } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
-import { FaUserAlt, FaHome, FaNewspaper, FaFemale, FaUsers, FaArrowAltCircleDown, FaArrowDown } from "react-icons/fa";
+import { FaUserAlt, FaHome, FaNewspaper, FaFemale, FaUsers, FaArrowAltCircleDown, FaArrowDown, FaArrowRight } from "react-icons/fa";
 import { MdOutlineContactMail, MdLibraryBooks } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { auth, db } from '../../firebase/firebaseConfig';
 import { Title } from '../text-styles/title';
 
-export const Menu = () => {
-    const [role, setRole] = useState();
+export const Menu = ({ role }) => {
+
     const [user, setUser] = useState();
     const [visible, setVisible] = useState(false);
-    useEffect(() => {
-        handleRole();
-    });
-    const handleRole = async () => {
-        const docRef = doc(db, "users", auth.currentUser.uid);
-        const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            console.log("ROLE: " + docSnap.data().role)
-            setRole(docSnap.data().role);
-        } else {
-            console.log("No such document!");
-        }
-    }
 
     const handleClick = (e) => {
         visible ? setVisible(false) : setVisible(true);
@@ -49,7 +36,7 @@ export const Menu = () => {
 
 
     return (
-        <div className=''>
+        <div>
             <div>
 
                 <Title text="Menu" />
@@ -58,10 +45,29 @@ export const Menu = () => {
                     {
                         role === "usuario" || role === undefined || role === null ? <>
                             <Link to="perfil" className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">   <FaUserAlt className="mr-2 ml-1" /> Mi Perfil</Link>
-                            <Link to="home" className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">   <FaHome className="mr-2 ml-1" /> Inicio</Link>
                             <button className='btn btn-danger' onClick={() => logOut()}>Cerrar sesión</button>
                         </> : ''
                     }
+                    {
+                        role === "secretaria" ? <>
+                            <Link to="perfil" className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">   <FaUserAlt className="mr-2 ml-1" /> Mi Perfil</Link>
+                            <div>
+                                <button onClick={(e) => handleClick(e)} className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">
+                                    <FaFemale className="mr-2 ml-1" />  Secretaría <div className='mx-auto'></div> {
+                                        visible ? <FaArrowDown className="mt-1 d-flex   mx-auto" /> : <FaArrowRight className="mt-1 d-flex   mx-auto" />}</button>
+                                {
+                                    visible ?
+                                        <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                            <Link to="secretaria/anuncios" className="list-group-item-action p-2 m-2 d-flex">Anuncios</Link>
+                                            <Link to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Formularios</Link>
+                                            <Link to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Editar sección de secretaria</Link>
+                                        </motion.div> : ''
+                                }
+                            </div>
+                            <button className='btn btn-danger' onClick={() => logOut()}>Cerrar sesión</button>
+                        </> : ''
+                    }
+
                     {
                         role === "administrador" ? <>
                             <Link to="perfil" className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">   <FaUserAlt className="mr-2 ml-1" /> Mi Perfil</Link>
@@ -69,12 +75,15 @@ export const Menu = () => {
                             <Link to="inicio" className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">   <FaHome className="mr-2 ml-1" />  Inicio</Link>
                             <Link to="novedades" className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">   <FaNewspaper className="mr-2 ml-1" />  Novedades</Link>
                             <div>
-                                <button onClick={(e) => handleClick(e)} className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">   <FaFemale className="mr-2 ml-1" />  Secretaría <div className='mx-auto'></div> <FaArrowDown className="mt-1 d-flex   mx-auto" /></button>
+                                <button onClick={(e) => handleClick(e)} className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">
+                                    <FaFemale className="mr-2 ml-1" />  Secretaría <div className='mx-auto'></div> {
+                                        visible ? <FaArrowDown className="mt-1 d-flex   mx-auto" /> : <FaArrowRight className="mt-1 d-flex   mx-auto" />}</button>
                                 {
                                     visible ?
                                         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                                            <Link id='item1' to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Formularios</Link>
-                                            <Link id='item2' to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Editar sección de secretaria</Link>
+                                            <Link to="secretaria/anuncios" className="list-group-item-action p-2 m-2 d-flex">Anuncios</Link>
+                                            <Link to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Formularios</Link>
+                                            <Link to="secretaria/forms" className="list-group-item-action p-2 m-2 d-flex">Editar sección de secretaria</Link>
                                         </motion.div> : ''
                                 }
                             </div>

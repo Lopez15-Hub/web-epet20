@@ -1,19 +1,21 @@
-import { addDoc, collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, getDocs, setDoc, Timestamp } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
-import { db } from '../../../firebase/firebaseConfig'
-import { useForm } from '../../../hooks/useForm'
-import { Subtitle } from '../../text-styles/subtitle'
-import { Title } from '../../text-styles/title'
+import { auth, db } from '../../../../firebase/firebaseConfig'
+import { useForm } from '../../../../hooks/useForm'
+import { Subtitle } from '../../../text-styles/subtitle'
+import { Title } from '../../../text-styles/title'
 
-export const SecretariaForms = () => {
+export const AñadirAnuncio = () => {
     const { handleChange, values } = useForm();
     const { title, url, description, label } = values;
+    const date = new Date();
     useEffect(() => {
+        console.log(date)
         getDataFromFirestore();
     }, [])
-    
+
     console.log(values);
     const getDataFromFirestore = async () => {
         const textsRef = collection(db, 'anuncios');
@@ -24,11 +26,11 @@ export const SecretariaForms = () => {
     const createForm = async (e) => {
         e.preventDefault();
         try {
-            const docRef = await addDoc(collection(db, "forms"), {
-                title:title,
-                description:description,
-                url: url,
-                label:label,
+            const docRef = await addDoc(collection(db, "anuncios"), {
+                title: title,
+                description: description,
+                submitAt: date,
+                submitBy: auth.currentUser.displayName,
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
@@ -40,7 +42,7 @@ export const SecretariaForms = () => {
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Container>
                 <Row>
-                    <Title text="Añadir un formulario" />
+                    <Title text="Añadir un anuncio" />
 
 
                     <Form onSubmit={createForm}>
@@ -69,51 +71,13 @@ export const SecretariaForms = () => {
                                 maxLength="500"
                             />
                         </FormGroup>
-                        <FormGroup>
-                            <Label for="exampleEmail">
-                                Link del formulario
-                            </Label>
-                            <Input
-                                onChange={handleChange}
-                                id="exampleEmail"
-                                name="url"
 
-                                type="url"
-
-                            />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="exampleSelect">
-                                Selecciona el sector
-                            </Label>
-                            <Input
-                                onChange={handleChange}
-                                id="exampleSelect"
-                                name="label"
-                                type="select"
-                            >
-                                <option>
-                                    Estudiantes
-                                </option>
-                                <option>
-                                    Docentes
-                                </option>
-                                <option>
-                                    General
-                                </option>
-
-                            </Input>
-                        </FormGroup>
-                        <Button type='submit' className='my-btn btn' >Añadir formulario</Button>
+                        <Button type='submit' className='my-btn btn' >Añadir anuncio</Button>
 
                     </Form>
 
 
                 </Row>
             </Container>
-        </motion.div>
-    )
+        </motion.div>)
 }
-
-
-

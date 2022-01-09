@@ -1,11 +1,11 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Nav, NavbarBrand } from 'reactstrap';
+import { DropdownItem, DropdownMenu, DropdownToggle, Nav, NavbarBrand, UncontrolledDropdown } from 'reactstrap';
 import Icon from '../../assets/favicon.png';
 import { auth, db } from '../../firebase/firebaseConfig';
 import { doc, getDoc } from "firebase/firestore";
-
+import { FaUserAlt, FaHome, FaNewspaper, FaFemale, FaUsers, FaArrowAltCircleDown, FaArrowDown, FaArrowRight } from "react-icons/fa";
 
 
 function Navbar() {
@@ -25,7 +25,6 @@ function Navbar() {
                 })
                 handleRole(user.uid);
             } else {
-                console.log('no user' + role);
                 console.log("cargando...")
             }
         });
@@ -70,7 +69,16 @@ function Navbar() {
                         <Link to="/estudiantes" className=" font-bold p-2 nav-color   ">Estudiantes</Link>
                     </div>
                     <div className="m-2">
-                        <Link to="/secretaria" className=" font-bold p-2  nav-color  ">Secretaria</Link>
+
+                        <li class="nav-item dropdown ">
+                            <Link to="/secretaria" className="dropdown-toggle font-bold p-2  nav-color  " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Secretaria  </Link>
+                            <ul class="dropdown-menu showDropDown" aria-labelledby="navbarDropdown">
+                            <li><Link to="secretaria/anuncios" class="dropdown-item font-bold main-color" >Anuncios</Link></li>
+                                <li><Link to="secretaria/docentes" class="dropdown-item font-bold main-color" >Docentes</Link></li>
+                                <li><Link to="secretaria/general" class="dropdown-item font-bold main-color" >General</Link></li>
+                                <li><Link to="secretaria/estudiantes" class="dropdown-item font-bold main-color" >Estudiantes</Link></li>
+                            </ul>
+                        </li>
                     </div>
 
                     <div className="m-2">
@@ -92,7 +100,7 @@ function Navbar() {
 
                                 <Link to="/admin" className="p-1 m-1">
 
-                                    <img className='img-profile-min ' src={auth.currentUser.photoURL ? auth.currentUser.photoURL : 'https://cdn4.iconfinder.com/data/icons/happy-people-3/64/avatar-guy-profile-smile-512.png'} alt={'Foto de perfil de ' + user.displayName} />
+                                    <img className='img-profile-min ' src={user.photoUrl} alt={'Foto de perfil de ' + user.displayName} />
                                 </Link>
 
 

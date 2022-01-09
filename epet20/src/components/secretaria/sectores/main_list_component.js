@@ -7,12 +7,15 @@ import { db } from '../../../firebase/firebaseConfig';
 import { Loading } from '../../admin_panel/sections/loading';
 import { isEmpty } from '@firebase/util';
 export const MainList = ({ label }) => {
-
+    const currentDate = new Date();
     useEffect(() => {
-        getFormsFromFirebase();
+        label !== 'Anuncios' ? getFormsFromFirebase() : getAnunciosFromFirebase()
+        console.log(currentDate.toDateString().toLocaleString())
+        console.log(currentDate.toDateString().toLocaleString() == '9/1/2022' ? true : false)
+
 
     }, [])
-    const [listForm, setListForm] = useState([]);
+    const [listData, setListData] = useState([]);
     const getFormsFromFirebase = async () => {
         const list = []
 
@@ -23,14 +26,35 @@ export const MainList = ({ label }) => {
         if (querySnapshot.empty) {
             list.push({ message: 'empty', id: null })
 
-            console.log(listForm[0])
+            console.log(listData[0])
         } else {
             querySnapshot.forEach(doc => {
 
                 list.push({ ...doc.data(), id: doc.id })
             })
         }
-        setListForm(list)
+        setListData(list)
+    }
+    const formatDate = (date) => {
+        const formatDate = date.toDate().toLocaleString().substring(0, 8);
+        return formatDate
+
+    }
+    const getAnunciosFromFirebase = async () => {
+        const list = []
+
+        const querySnapshot = await getDocs(collection(db, "anuncios"));
+        if (querySnapshot.empty) {
+            list.push({ message: 'empty', id: null })
+
+            console.log(listData[0])
+        } else {
+            querySnapshot.forEach(doc => {
+
+                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+            })
+        }
+        setListData(list)
     }
     return (
         <>
@@ -46,13 +70,13 @@ export const MainList = ({ label }) => {
                     <hr className="mt-4" />
                     <div className="col-12 rounded-xl">
                         <div className="text-center ">
-                            <Title text="Formularios disponibles" />
+                            <Title text={label === 'Anuncios' ? "" : 'Formularios disponibles'} />
                         </div>
                         {
-                            console.log(listForm[0]),
-                            listForm.length != 0 ?
+                            console.log(listData[0]),
+                            listData.length != 0 ?
 
-                                listForm.map(e => (
+                                listData.map(e => (
                                     <>
                                         {
                                             e.id != null ?
@@ -60,8 +84,9 @@ export const MainList = ({ label }) => {
                                                     <a href={e.url}>
                                                         <li class="border p-4 m-2 shadow-md rounded-xl">
                                                             <p className='main-color font-bold'>{e.title}</p> <p>{e.description}</p>
+                                                            <p className='text-muted'>Fecha de publicación: {e.fecha == currentDate.toString() ? 'Hoy' : e.fecha}</p>
                                                         </li> </a>
-                                                </ul> : <h1 className='font-bold main-color'>No hay formularios cargados.</h1>
+                                                </ul> : <h1 className='font-bold main-color'>{label === 'Anuncios' ? 'No hay anuncios disponibles.' : 'No hay formularios cargados.'}</h1>
 
                                         }</>
                                 )) : <Loading text="Cargando" />

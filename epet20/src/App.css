@@ -130,6 +130,9 @@ transition: ease-out 0.3s;
   width: auto;
   height: 480px;
 }
+.showDropDown  {
+  visibility: visible;
+}
 .showItem{
   visibility: visible;
 }
@@ -236,7 +239,14 @@ transition: ease-in-out 0.3s;
     width: 75%;
     height: 100%;
 }
+.showDropDown {
+  display: none;
+}
 
+.icon{
+  height:10px;
+  width:10px;
+}
 .navbar-collapse.collapsing {
     left: -75%;
     transition: height 0s ease;

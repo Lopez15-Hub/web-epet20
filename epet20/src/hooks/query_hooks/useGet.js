@@ -14,7 +14,7 @@ export const useGet = (initialValue = []) => {
     const obtenerDatos = async () => {
         const querySnapshot = await getDocs(collection(db, "users"));
         const usersDocs = [];
-
+        
         querySnapshot.forEach(doc => {
 
             usersDocs.push({ ...doc.data(), id: doc.id })

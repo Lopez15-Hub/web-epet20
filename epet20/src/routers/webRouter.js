@@ -12,6 +12,7 @@ import Navbar from '../components/inicio/navbar';
 import { GeneralList } from '../components/secretaria/sectores/general';
 import { EstudiantesList } from '../components/secretaria/sectores/estudiantes';
 import { DocentesList } from '../components/secretaria/sectores/docentes';
+import { Anuncios } from '../components/secretaria/sectores/anuncios';
 export const WebRouter = () => {
     return (
         <>
@@ -23,7 +24,7 @@ export const WebRouter = () => {
                 <Route path="inicio" element={<Inicio />} />
                 <Route path="novedades" element={<Novedades />} />
                 <Route path="estudiantes" element={<Estudiantes />} />
-                <Route path="secretaria" element={<Secretaria />} />
+                <Route path="secretaria/anuncios" element={<Anuncios />} />
                 <Route path="secretaria/estudiantes" element={<EstudiantesList />} />
                 <Route path="secretaria/general" element={<GeneralList />} />
                 <Route path="secretaria/docentes" element={<DocentesList />} />

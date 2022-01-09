@@ -11,7 +11,7 @@ import { Loading } from './loading'
 
 
 
-export const Usuarios = () => {
+export const Usuarios = ({ currentRole }) => {
     const { users } = useGet();
     const [isLoading, setLoading] = useState(true);
     const id = users.map(user => user.id)
@@ -27,6 +27,9 @@ export const Usuarios = () => {
     }
     useEffect(() => {
         isLoad();
+
+ 
+
     }, [])
 
 
