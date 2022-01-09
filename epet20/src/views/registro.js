@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title';
 import { Link } from 'react-router-dom';
 
-import { Loading } from '../components/general/loading';
+import {LoadingSpinner } from '../components/general/loading';
 
 import { useDispatch } from 'react-redux';
 import { signInWithGoogle, signUp } from '../actions/auth';
@@ -90,7 +90,7 @@ export const Registro = () => {
 
                             </form>
                         </div>
-                        {isLoading ? <Loading text="Creando el usuario.." /> : null}
+                        {isLoading ? <LoadingSpinner text="Creando el usuario.." /> : null}
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
                     </div>
 

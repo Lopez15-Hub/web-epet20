@@ -3,7 +3,7 @@ import React from 'react'
 import { Spinner, Row } from 'reactstrap'
 import { Subtitle } from '../text-styles/subtitle'
 
-export const Loading = ({ text }) => {
+export const LoadingSpinner = ({ text }) => {
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Row>

@@ -4,12 +4,15 @@ import React, { useEffect, useState } from 'react'
 import { Button, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import { auth, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
-import { Subtitle } from '../../../text-styles/subtitle'
+import { UseLoading } from '../../../../hooks/useLoading'
+import { AlertNotification } from '../../../general/alertNotification'
+import { LoadingSpinner } from '../../../general/loading'
 import { Title } from '../../../text-styles/title'
 
 export const AñadirAnuncio = () => {
     const { handleChange, values } = useForm();
-    const { title, description,} = values;
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const { title, description, } = values;
     const date = new Date();
     useEffect(() => {
         console.log(date)
@@ -32,15 +35,39 @@ export const AñadirAnuncio = () => {
                 submitAt: date,
                 submitBy: auth.currentUser.displayName,
             });
+
             console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-            console.error("Error adding document: ", e);
+            setAlertMessage("Anuncio guardado exitosamente.")
+            setLoading(false);
+            setSuccess(true);
+
+        } catch (err) {
+            if (title == null || title == "" || description == null || description == "") {
+                setLoading(false);
+                setWarning(true);
+                setAlertMessage("Debes rellenar todos los campos para crear un anuncio.");
+            } else {
+                setAlertMessage("Ha ocurrido un error al añadir los documentos: " + err.code)
+                setLoading(false);
+                setError(true);
+
+                console.error("Error adding document: ", e);
+            }
+
+
         }
     }
-
+    const handleClick = (loading) => {
+        setLoading(loading);
+    }
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Container>
+                {success ?
+                    <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                    error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
+                        <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
+                }
                 <Row>
                     <Title text="Añadir un anuncio" />
 
@@ -72,8 +99,8 @@ export const AñadirAnuncio = () => {
                             />
                         </FormGroup>
 
-                        <Button type='submit' className='my-btn btn' >Añadir anuncio</Button>
-
+                        <Button type='submit' onClick={() => handleClick(true)} className='my-btn btn' >Añadir anuncio</Button>
+                        {loading ? <LoadingSpinner text="Subiendo..." /> : ''}
                     </Form>
 
 

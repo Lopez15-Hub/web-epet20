@@ -121,16 +121,16 @@ export const Profile = () => {
             <Container>
                 <Row>
 
-                    <div className='col-5'>   <CardCredential /></div>
+                    <div className='col-sm-12 col-xs-12 col-md-6'>   <CardCredential /></div>
 
-                    <div className='mt-4 col-7'>
+                    <div className='mt-4 col-sm-12 col-xs-12 col-md-6'>
                         <div>
                             {isSuccess ? <AlertNotification variant="success" dimiss={() => setSuccess(false)} message="Datos Actualizados" /> : null}
                             {isError ? <AlertNotification color="danger" dimiss={() => setError(false)} message="Error algo salió mal" /> : null}
                             {isWarning ? <AlertNotification color="warning" dimiss={() => setWarning(false)} message="Debe rellenar al menos un campo" /> : null}
                         </div>
 
-                        <Form className='mx-auto p-6 col-6 border shadow-md rounded-xl' onSubmit={handleSubmit}>
+                        <Form className='mx-auto p-6 col-sm-12 col-xs-12 col-md-12 border shadow-md rounded-xl' onSubmit={handleSubmit}>
                             <Title text="Actualizar datos" />
                             <Subtitle text="Editar datos personales" />
                             <FormGroup>
