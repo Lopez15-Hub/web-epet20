@@ -30,7 +30,7 @@ export const MainList = ({ label }) => {
         } else {
             querySnapshot.forEach(doc => {
 
-                list.push({ ...doc.data(), id: doc.id })
+                list.push({ ...doc.data(), id: doc.id,fecha: formatDate(doc.data().submitAt )})
             })
         }
         setListData(list)
@@ -84,7 +84,7 @@ export const MainList = ({ label }) => {
                                                     <a href={e.url}>
                                                         <li class="border p-4 m-2 shadow-md rounded-xl">
                                                             <p className='main-color font-bold'>{e.title}</p> <p>{e.description}</p>
-                                                            <p className='text-muted'>Fecha de publicación: {e.fecha == currentDate.toString() ? 'Hoy' : e.fecha}</p>
+                                                            <p className='text-muted'>Fecha de publicación: {e.fecha}</p>
                                                         </li> </a>
                                                 </ul> : <h1 className='font-bold main-color'>{label === 'Anuncios' ? 'No hay anuncios disponibles.' : 'No hay formularios cargados.'}</h1>
 

@@ -91,6 +91,7 @@ export const SecretariaForms = () => {
                                 onChange={handleChange}
                                 id="exampleSelect"
                                 name="label"
+                                value="Selecciona una opción"
                                 type="select"
                             >
                                 <option>
