@@ -2,12 +2,12 @@ import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { Container, Row } from 'reactstrap'
-import { db } from '../../firebase/firebaseConfig'
-import { useForm } from '../../hooks/useForm'
-import { Subtitle } from '../text-styles/subtitle'
-import { Title } from '../text-styles/title'
+import { db } from '../../../firebase/firebaseConfig'
+import { useForm } from '../../../hooks/useForm'
+import { Subtitle } from '../../text-styles/subtitle'
+import { Title } from '../../text-styles/title'
 
-export const InicioFT = () => {
+export const InicioAdmin = () => {
     const { handleChange, values } = useForm();
     const { presentacion, alcances, perfilTec } = values;
     useEffect(() => {
@@ -70,18 +70,18 @@ export const InicioFT = () => {
                         <div className='from-group row shadow-md'>
                             <div className=' col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
                                 <div className='font-bold'> <Subtitle text="Editar párrafo de presentación" /></div>
-                                <input value={presentacion} onChange={handleChange} defaultValue={presentaciones.presentacion} className='form-control-lg border' name="presentacion" cols="30" rows="10" />
+                                <textarea value={presentacion} type="textarea" onChange={handleChange} defaultValue={presentaciones.presentacion} className='form-control-lg border' name="presentacion" cols="30" rows="10" />
 
                             </div>
 
                             <div className='col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
                                 <div className='font-bold'><Subtitle text="Editar párrafo de perfil técnico" /></div>
-                                <input value={perfilTec} onChange={handleChange} defaultValue={presentaciones.perfilTecnico} className='form-control-lg border' name="perfilTec" cols="30" rows="10" />
+                                <textarea value={perfilTec} onChange={handleChange} defaultValue={presentaciones.perfilTecnico} className='form-control-lg border' name="perfilTec" cols="30" rows="10" />
                             </div>
                             <div className='col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
                                 <div className='font-bold'><Subtitle text="Editar párrafo de alcances" /></div>
 
-                                <input value={alcances} onChange={handleChange} defaultValue={presentaciones.alcances} className='form-control-lg border' name="alcances" cols="30" rows="10" />
+                                <textarea value={alcances} onChange={handleChange} defaultValue={presentaciones.alcances} className='form-control-lg border' name="alcances" cols="30" rows="10" />
                             </div>
 
 

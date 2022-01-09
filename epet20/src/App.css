@@ -130,6 +130,14 @@ transition: ease-out 0.3s;
   width: auto;
   height: 480px;
 }
+.showItem{
+  visibility: visible;
+}
+.showItem:active .item{
+  visibility: visible;
+  transition: ease-in-out 0.2s;
+  transform: scale(1.1);
+}
 .main-color{
   text-decoration-color: #5D00FF;
 color: #5D00FF;

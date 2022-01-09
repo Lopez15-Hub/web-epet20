@@ -7,7 +7,7 @@ import { useForm } from '../../../hooks/useForm'
 import { Subtitle } from '../../text-styles/subtitle'
 import { Title } from '../../text-styles/title'
 
-export const SecretariaAdmin = () => {
+export const SecretariaForms = () => {
     const { handleChange, values } = useForm();
     const { title, url, description, label } = values;
     useEffect(() => {

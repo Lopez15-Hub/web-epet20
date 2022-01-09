@@ -4,7 +4,7 @@ import { Container, Row } from 'reactstrap';
 import { Menu } from '../components/admin_panel/menu';
 import { Form } from '../components/admin_panel/sections/form';
 import { Profile } from '../components/admin_panel/sections/profile';
-import { SecretariaAdmin } from '../components/admin_panel/sections/secretaria';
+import { SecretariaForms } from '../components/admin_panel/sections/secretaria';
 import { Usuarios } from '../components/admin_panel/sections/usuarios';
 import { NavbarAdmin } from '../components/inicio/navbar_admin';
 import { InicioFT } from '../components/inicio_frontend/inicio_ft';
@@ -28,7 +28,7 @@ export const DashboardRouter = () => {
                                 <Route path="usuarios/:userId" element={<Form />} />
                                 <Route path="inicio" element={<InicioFT />} />
                                 <Route path="novedades" element={<PaginaEnConstruccion />} />
-                                <Route path="secretaria" element={<SecretariaAdmin />} />
+                                <Route path="secretaria/forms" element={<SecretariaForms />} />
                                 <Route path="contacto" element={<PaginaEnConstruccion />} />
                                 <Route path="plan-de-estudios" element={<PaginaEnConstruccion />} />
                             </Routes>

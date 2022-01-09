@@ -129,29 +129,29 @@ export const Form = () => {
                                 <div class="mb-3 row">
                                     <div class="col-sm-6">
                                         <label for="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
-                                        <input onChange={handleChange} value={name} type="text" class="form-control shadow-md " placeholder={user.name ? user.name : ' '} name='name' />
+                                        <textarea onChange={handleChange} value={name} type="text" class="form-control shadow-md " placeholder={user.name ? user.name : ' '} name='name' />
                                     </div>
                                     <div className="col-sm-6">
                                         <label for="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
-                                        <input onChange={handleChange} value={apellido} type="text" class="form-control shadow-md" placeholder={user.name ? user.apellido : ' '} name='apellido' />
+                                        <textarea onChange={handleChange} value={apellido} type="text" class="form-control shadow-md" placeholder={user.name ? user.apellido : ' '} name='apellido' />
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
                                     <label for="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
-                                    <input onChange={handleChange} value={email} type="email" placeholder={user.email ? user.email : " "} className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' />
+                                    <textarea onChange={handleChange} value={email} type="email" placeholder={user.email ? user.email : " "} className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' />
 
                                 </div>
                                 <div className="mb-3 form-group">
                                     <label for="exampleInputEmail1" className="form-label font-bold main-color">Teléfono</label>
-                                    <input onChange={handleChange} value={phone} placeholder={user.phone ? user.phone : "29955511444"} type="text" className="form-control shadow-md" name='phone' />
+                                    <textarea onChange={handleChange} value={phone} placeholder={user.phone ? user.phone : "29955511444"} type="text" className="form-control shadow-md" name='phone' />
 
                                 </div>
                                 <div className="mb-3 form-group">
                                     <label for="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
-                                    <input onChange={handleChange} type="password" placeholder={user.password ? "Nueva contraseña" : "********"} aria-invalid="true" minLength={8} className="form-control shadow-md" id="exampleInputPassword1" name='password' />
+                                    <textarea onChange={handleChange} type="password" placeholder={user.password ? "Nueva contraseña" : "********"} aria-invalid="true" minLength={8} className="form-control shadow-md" id="exampleInputPassword1" name='password' />
                                     <div id="emailHelp" className="form-text">Debe tener cómo mínimo 8 carácteres</div>
                                     <label for="exampleInputPassword2" className="form-label main-color font-bold">Repetir contraseña</label>
-                                    <input onChange={handleChange} type="password" placeholder={user.password ? " " : "********"} className="form-control shadow-md" minLength={8} id="exampleInputPassword1" />
+                                    <textarea onChange={handleChange} type="password" placeholder={user.password ? " " : "********"} className="form-control shadow-md" minLength={8} id="exampleInputPassword1" />
 
                                 </div>
 
