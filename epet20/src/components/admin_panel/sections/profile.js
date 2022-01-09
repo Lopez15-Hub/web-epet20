@@ -126,7 +126,7 @@ export const Profile = () => {
 
                             </FormGroup>
                             <FormGroup>
-                                <Label for="exampleEmail">
+                                <Label htmlFor="exampleEmail">
                                     Email
                                 </Label>
                                 <Input
@@ -137,7 +137,7 @@ export const Profile = () => {
                                 />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="examplePassword">
+                                <Label htmlFor="examplePassword">
                                     Contraseña
                                 </Label>
                                 <Input

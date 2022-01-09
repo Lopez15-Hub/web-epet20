@@ -59,24 +59,24 @@ export const Registro = () => {
                             <form className=" p-6" onSubmit={handleSubmit}>
                                 <div class="mb-3 row">
                                     <div class="col-sm-6">
-                                        <label for="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
+                                        <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
                                         <textarea type="text" name='name' onChange={handleChange} class="form-control shadow-md " placeholder="Juan" />
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
+                                        <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
                                         <textarea type="text" name='apellido' onChange={handleChange} class="form-control shadow-md" placeholder="Perez" />
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
-                                    <label for="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
+                                    <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
                                     <textarea type="email" name='email' onChange={handleChange} placeholder="juanperez@gmail.com" className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" />
 
                                 </div>
                                 <div className="mb-3 form-group">
-                                    <label for="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
+                                    <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
                                     <textarea type="password" name='password' onChange={handleChange} placeholder="********" aria-invalid="true" className="form-control shadow-md" id="exampleInputPassword1" />
                                     <div id="emailHelp" className="form-text">Debe tener cómo mínimo 8 carácteres</div>
-                                    <label for="exampleInputPassword1" className="form-label main-color font-bold">Repetir contraseña</label>
+                                    <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Repetir contraseña</label>
                                     <textarea type="password" placeholder="********" className="form-control shadow-md" id="exampleInputPassword1" />
                                 </div>
 

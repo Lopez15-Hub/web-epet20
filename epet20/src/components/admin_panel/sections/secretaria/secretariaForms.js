@@ -1,6 +1,6 @@
-import { addDoc, collection, getDocs, } from 'firebase/firestore'
+import { addDoc, collection} from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import { db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
@@ -14,16 +14,7 @@ export const SecretariaForms = () => {
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
     const date = new Date();
     const { title, url, description, label } = values;
-    useEffect(() => {
-        getDataFromFirestore();
-    }, [])
-
-    console.log(values);
-    const getDataFromFirestore = async () => {
-        const textsRef = collection(db, 'anuncios');
-
-        const docSnap = await getDocs(textsRef);
-    }
+ 
 
     const createForm = async (e) => {
         e.preventDefault();
@@ -40,7 +31,7 @@ export const SecretariaForms = () => {
             setLoading(false);
             setSuccess(true);
         } catch (err) {
-            if (title == null || title == "" || description == null || description == "" || url == null || url == "" || label == null || label == "") {
+            if (title ===  null || title ===  "" || description ===  null || description ===  "" || url === null || url === "" || label === null || label === "") {
                 setLoading(false);
                 setWarning(true);
                 setAlertMessage("Debes rellenar todos los campos para crear un formulario.");
@@ -68,7 +59,7 @@ export const SecretariaForms = () => {
 
                     <Form onSubmit={createForm}>
                         <FormGroup>
-                            <Label for="exampleEmail">
+                            <Label htmlFor="exampleEmail">
                                 Titulo
                             </Label>
                             <Input
@@ -80,7 +71,7 @@ export const SecretariaForms = () => {
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="exampleEmail">
+                            <Label htmlFor="exampleEmail">
                                 Descripción
                             </Label>
                             <Input
@@ -93,7 +84,7 @@ export const SecretariaForms = () => {
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="exampleEmail">
+                            <Label htmlFor="exampleEmail">
                                 Link del formulario
                             </Label>
                             <Input
@@ -106,7 +97,7 @@ export const SecretariaForms = () => {
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="exampleSelect">
+                            <Label htmlFor="exampleSelect">
                                 Selecciona el sector
                             </Label>
                             <Input

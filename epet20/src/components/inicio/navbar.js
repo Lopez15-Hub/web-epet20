@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Nav, NavbarBrand } from 'reactstrap';
 import Icon from '../../assets/favicon.png';
-import { auth, db } from '../../firebase/firebaseConfig';
-import { doc, getDoc } from "firebase/firestore";
-import { useRole } from '../../hooks/useRole';
+import { auth } from '../../firebase/firebaseConfig';
+
+
 
 
 
 function Navbar() {
     const [user, setUser] = useState();
-    const { role } = useRole();
+
 
     useEffect(() => {
         handleUserData();

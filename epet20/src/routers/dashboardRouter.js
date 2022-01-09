@@ -40,7 +40,7 @@ export const DashboardRouter = () => {
             }
         });
 
-    }, [role])
+    }, [role,setLoading])
 
 
     return (

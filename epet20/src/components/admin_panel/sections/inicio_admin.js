@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { Container, Row } from 'reactstrap'
@@ -14,16 +14,6 @@ export const InicioAdmin = () => {
     const { handleChange, values } = useForm();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
     const { presentacion, alcances, perfilTec } = values;
-    useEffect(() => {
-        getDataFromFirestore();
-    }, [])
-    const [presentaciones, setPresentaciones] = useState({
-        presentacion: presentacion,
-        alcances: alcances,
-        perfilTecnico: perfilTec,
-
-    });
-    console.log(values);
     const getDataFromFirestore = async () => {
         setAlertMessage("Obteniendo datos.");
         setLoading(true);
@@ -47,6 +37,17 @@ export const InicioAdmin = () => {
             setLoading(false);
         }
     }
+    useEffect(() => {
+      getDataFromFirestore();
+    }, []);
+    const [presentaciones, setPresentaciones] = useState({
+        presentacion: presentacion,
+        alcances: alcances,
+        perfilTecnico: perfilTec,
+
+    });
+    console.log(values);
+
 
     const editPresentacion = (e) => {
         e.preventDefault();

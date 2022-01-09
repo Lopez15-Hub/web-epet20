@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import { Form, Table } from 'reactstrap'
 import { HeaderTable } from './header'
@@ -11,20 +11,7 @@ import { UseLoading } from '../../../hooks/useLoading';
 export const UserTable = () => {
     const { users } = useGet();
     const { loading, setLoading} = UseLoading();
-    const id = users.map(user => user.id)
-    const isLoad = () => {
-        setLoading(true);
 
-        if (id) {
-            setLoading(false);
-        };
-
-
-
-    }
-    useEffect(() => {
-        isLoad();
-    }, [])
 
 
     const deleteUser = async (id) => {

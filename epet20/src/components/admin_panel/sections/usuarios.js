@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
-import React, { useEffect, useState, Suspense, lazy } from 'react'
+import React, { useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Row } from 'reactstrap'
 import { useGet } from '../../../hooks/query_hooks/useGet'
+import { UseLoading } from '../../../hooks/useLoading'
 import { Subtitle } from '../../text-styles/subtitle'
 
 import { Title } from '../../text-styles/title'
@@ -11,26 +12,21 @@ import { Loading } from './loading'
 
 
 
-export const Usuarios = ({ currentRole }) => {
+export const Usuarios = () => {
     const { users } = useGet();
-    const [isLoading, setLoading] = useState(true);
-    const id = users.map(user => user.id)
-    const isLoad = () => {
+    const { loading, setLoading } = UseLoading();
+    useEffect(() => {
+        getId();
+    })
+    const getId = () => {
         setLoading(true);
-        setTimeout(() => {
-            if (id) {
-                setLoading(false);
-            };
-
-        }, 3000);
+        const id = users.map(user => user.id);
+        if (id.length > 0) {
+            setLoading(false);
+            return id;
+        }
 
     }
-    useEffect(() => {
-        isLoad();
-
- 
-
-    }, [])
 
 
     return (
@@ -39,7 +35,7 @@ export const Usuarios = ({ currentRole }) => {
             <Container>
 
                 {
-                    isLoading ? <Loading text="Cargando usuarios..." /> :
+                    loading ? <Loading text="Cargando usuarios..." /> :
 
                         users.length !== 0 ? <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 

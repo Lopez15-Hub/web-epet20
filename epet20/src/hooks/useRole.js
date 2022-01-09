@@ -8,17 +8,26 @@ export const useRole = () => {
     })
     const [role, setRole] = useState();
     const handleRole = async () => {
-        const docRef = doc(db, "users", auth.currentUser.uid);
-        const docSnap = await getDoc(docRef);
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const docRef = doc(db, "users", auth.currentUser.uid);
+                const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            console.log("ROLE: " + docSnap.data().role)
-            setRole(docSnap.data().role.toLowerCase());
-        } else {
-            auth.signOut();
-            window.location.replace("/");
-            console.log("No such document!");
-        }
+                if (docSnap.exists()) {
+                    console.log("ROLE: " + docSnap.data().role)
+                    setRole(docSnap.data().role.toLowerCase());
+                } else {
+                    auth.signOut();
+                    window.location.replace("/");
+                    console.log("No such document!");
+                }
+            } else {
+                console.log("Error: No user logged in")
+            }
+
+        })
+
+
     }
     return { role }
 }

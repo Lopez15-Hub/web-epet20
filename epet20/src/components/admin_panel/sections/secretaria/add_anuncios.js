@@ -1,6 +1,6 @@
-import { addDoc, collection, doc, getDoc, getDocs, setDoc, Timestamp } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Button, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import { auth, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
@@ -14,17 +14,6 @@ export const AñadirAnuncio = () => {
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
     const { title, description, } = values;
     const date = new Date();
-    useEffect(() => {
-        console.log(date)
-        getDataFromFirestore();
-    }, [])
-
-    console.log(values);
-    const getDataFromFirestore = async () => {
-        const textsRef = collection(db, 'anuncios');
-
-        const docSnap = await getDocs(textsRef);
-    }
 
     const createForm = async (e) => {
         e.preventDefault();
@@ -42,7 +31,7 @@ export const AñadirAnuncio = () => {
             setSuccess(true);
 
         } catch (err) {
-            if (title == null || title == "" || description == null || description == "") {
+            if (title === null || title === "" || description === null || description === "") {
                 setLoading(false);
                 setWarning(true);
                 setAlertMessage("Debes rellenar todos los campos para crear un anuncio.");
@@ -74,7 +63,7 @@ export const AñadirAnuncio = () => {
 
                     <Form onSubmit={createForm}>
                         <FormGroup>
-                            <Label for="exampleEmail">
+                            <Label htmlFor="exampleEmail">
                                 Titulo
                             </Label>
                             <Input
@@ -86,7 +75,7 @@ export const AñadirAnuncio = () => {
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="exampleEmail">
+                            <Label htmlFor="exampleEmail">
                                 Descripción
                             </Label>
                             <Input

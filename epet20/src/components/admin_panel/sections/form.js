@@ -46,27 +46,15 @@ export const Form = ({ currentRole }) => {
     }
     useEffect(() => {
         getUser()
-        return () => {
-        }
-    }, [])
+    
+    })
 
     const { handleChange, values } = useForm(
         user
     );
     const { name, apellido, email, password, phone, role } = values;
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
-    const isLoad = (loading) => {
-        setLoading(loading);
-        setTimeout(() => {
-            setLoading(false);
-            setSuccess(true);
-            setTimeout(() => {
-                setSuccess(false);
-            }, 3000)
-        }, 3000);
-
-    }
-
+  
     const handleSubmit = async e => {
         e.preventDefault();
         if (userId) {
@@ -162,36 +150,36 @@ export const Form = ({ currentRole }) => {
                             <form className=" p-6" onSubmit={handleSubmit} >
                                 <div class="mb-3 row">
                                     <div class="col-sm-6">
-                                        <label for="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
+                                        <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
                                         <input onChange={handleChange} value={name} type="text" class="form-control shadow-md " placeholder={user.name ? user.name : ' '} name='name' />
                                     </div>
                                     <div className="col-sm-6">
-                                        <label for="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
+                                        <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
                                         <input onChange={handleChange} value={apellido} type="text" class="form-control shadow-md" placeholder={user.name ? user.apellido : ' '} name='apellido' />
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
-                                    <label for="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
+                                    <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
                                     <input onChange={handleChange} value={email} type="email" placeholder={user.email ? user.email : " "} className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' />
 
                                 </div>
                                 <div className="mb-3 form-group">
-                                    <label for="exampleInputEmail1" className="form-label font-bold main-color">Teléfono</label>
+                                    <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Teléfono</label>
                                     <input onChange={handleChange} value={phone} placeholder={user.phone ? user.phone : "29955511444"} type="text" className="form-control shadow-md" name='phone' />
 
                                 </div>
                                 <div className="mb-3 form-group">
-                                    <label for="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
+                                    <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
                                     <input onChange={handleChange} type="password" placeholder={user.password ? "Nueva contraseña" : "********"} aria-invalid="true" minLength={8} className="form-control shadow-md" name='password' />
                                     <div className="form-text">Debe tener cómo mínimo 8 carácteres</div>
-                                    <label for="exampleInputPassword2" className="form-label main-color font-bold">Repetir contraseña</label>
+                                    <label htmlFor="exampleInputPassword2" className="form-label main-color font-bold">Repetir contraseña</label>
                                     <input onChange={handleChange} type="password" placeholder={user.password ? " " : "********"} className="form-control shadow-md" minLength={8} />
 
                                 </div>
 
 
                                 <div>
-                                    <label for="exampleInputPassword1" className="form-label main-color font-bold">Rol de usuario</label>
+                                    <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Rol de usuario</label>
                                     <select onChange={handleChange} value={role} class="form-select mb-4 shadow-md" aria-label="Default select example" name='role'>
                                         <option selected>{user.role ? user.role.toString().charAt(0).toUpperCase() + user.role.slice(1) + " (Rol actual)" : "Seleccione un rol"}</option>
                                         <option value="administrador">Administrador</option>

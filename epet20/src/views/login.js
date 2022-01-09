@@ -105,12 +105,12 @@ export const Login = () => {
                             </div>
                             <form className=" p-6 " onSubmit={handleSubmit}>
                                 <div className=" form-group">
-                                    <label for="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
+                                    <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
                                     <input type="email" name='email' onChange={handleChange} value={email} className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" />
                                     <div id="emailHelp" className="form-text">Ingresa tu email</div>
                                 </div>
                                 <div className="mb-3 form-group">
-                                    <label for="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
+                                    <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
                                     <input type="password" name='password' value={password} onChange={handleChange} aria-invalid="true" className="form-control shadow-md" id="exampleInputPassword1" />
                                     <div id="emailHelp" className="form-text">ej: 12345678</div>
                                     <div className="row">
