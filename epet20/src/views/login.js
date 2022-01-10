@@ -10,62 +10,68 @@ import { Loading } from '../components/admin_panel/sections/loading';
 import { auth } from '../firebase/firebaseConfig';
 import { AlertNotification } from '../components/general/alertNotification';
 import { onAuthStateChanged } from 'firebase/auth';
+import { UseLoading } from '../hooks/useLoading';
 
 export const Login = () => {
     const dispatch = useDispatch();
     const { values, handleChange } = useForm(
 
     );
-
-    const [isLoading, setLoading] = useState(false);
-    const [isSuccess, setSuccess] = useState(false);
-    const [isError, setError] = useState(false);
-
-    const isLoad = (loading) => {
-        setLoading(loading);
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
 
 
-    }
     const { email, password } = values;
     const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault();
-        isLoad(true);
-        dispatch(signIn(email, password));
-        setTimeout(() => {
-            if (auth.currentUser != null) {
-                isLoad(false);
-                setSuccess(true);
-                setTimeout(() => {
-                    console.log("Sesión iniciada");
-                    setSuccess(false);
-                    handleRoute(navigate, 'usuario');
-                }, 2000)
-            } else {
-                isLoad(false);
-                setError(true);
-                setTimeout(() => {
-                    console.log("Usuario o contraseña incorrectos")
-                    setSuccess(false);
-                    setError(false);
-                }, 3000)
-            }
-        }, 3000)
+        if (email && password) {
+            setLoading(true);
+            dispatch(signIn(email, password));
+            setTimeout(() => {
+                if (auth.currentUser != null) {
+                    setLoading(false);
+                    setSuccess(true);
+                    setAlertMessage("Sesión iniciada correctamente.");
+                    setTimeout(() => {
 
+                        console.log("Sesión iniciada");
+                        setSuccess(false);
+                        handleRoute(navigate, 'usuario');
+                    }, 2000)
+                } else {
+                    setAlertMessage("Error:Usuario o contraseña incorrectos.");
+                    setLoading(false);
+                    setError(true);
+
+                    setTimeout(() => {
+                        console.log("Usuario o contraseña incorrectos")
+                        setSuccess(false);
+                        setError(false);
+                    }, 3000)
+                }
+            }, 3000)
+        } else {
+            setAlertMessage("Debe ingresar un usuario y contraseña");
+            setLoading(false);
+            setWarning(true);
+
+        }
 
     }
     const handleGoogle = async e => {
         e.preventDefault();
-        isLoad(true);
+        setLoading(true);
 
         dispatch(signInWithGoogle());
 
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                isLoad(false);
+                setAlertMessage("Sesión iniciada correctamente.");
+                setLoading(false);
                 setSuccess(true);
+
                 setTimeout(() => {
                     console.log("Sesión iniciada");
                     setSuccess(false);
@@ -100,8 +106,11 @@ export const Login = () => {
                                 <Title text="Iniciar sesión" />
                             </div>
                             <div>
-                                {isSuccess ? <AlertNotification variant="success" dimiss={() => setSuccess(false)} message="Inicio de sesión exitoso" /> : null}
-                                {isError ? <AlertNotification color="danger" dimiss={() => setError(false)} message="Error usuario o contraseña incorrectos." /> : null}
+                                {success ?
+                                    <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                                    error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
+                                        <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
+                                }
                             </div>
                             <form className=" p-6 " onSubmit={handleSubmit}>
                                 <div className=" form-group">
@@ -137,7 +146,7 @@ export const Login = () => {
                             </form>
 
                         </div>
-                        {isLoading ? <Loading text="Iniciando sesión..." /> : null}
+                        {loading ? <Loading text="Iniciando sesión..." /> : null}
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
                     </div>
 

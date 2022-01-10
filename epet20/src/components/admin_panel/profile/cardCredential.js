@@ -54,8 +54,8 @@ export const CardCredential = () => {
                         {user ? <img
                             className='img-profile mx-auto  shadow-xl rounded-xl border'
                             alt="foto de perfil"
-                            src={user.photoURL ? user.photoURL.toString() : 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'}
-                            top
+                            src={user.photoURL ? user.photoURL : 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'}
+                           
 
                         /> : null}
                     </div>

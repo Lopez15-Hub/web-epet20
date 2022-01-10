@@ -9,17 +9,18 @@ import { InicioAdmin } from '../components/admin_panel/sections/inicio_admin';
 import { Loading } from '../components/admin_panel/sections/loading';
 import { Profile } from '../components/admin_panel/sections/profile';
 import { AñadirAnuncio } from '../components/admin_panel/sections/secretaria/add_anuncios';
+import { SecretariaAdmin } from '../components/admin_panel/sections/secretaria/administrar';
 import { SecretariaForms } from '../components/admin_panel/sections/secretaria/secretariaForms';
 import { Usuarios } from '../components/admin_panel/sections/usuarios';
 import { NavbarAdmin } from '../components/inicio/navbar_admin';
-import { auth} from '../firebase/firebaseConfig';
+import { auth } from '../firebase/firebaseConfig';
 import { UseLoading } from '../hooks/useLoading';
 import { useRole } from '../hooks/useRole';
 import { PaginaEnConstruccion } from "../views/we_working";
 export const DashboardRouter = () => {
 
-    const { role} = useRole();
-    const {loading, setLoading} = UseLoading();
+    const { role } = useRole();
+    const { loading, setLoading } = UseLoading();
     useEffect(() => {
         auth.onAuthStateChanged(async (user) => {
 
@@ -40,7 +41,7 @@ export const DashboardRouter = () => {
             }
         });
 
-    }, [role,setLoading])
+    }, [role, setLoading])
 
 
     return (
@@ -67,13 +68,14 @@ export const DashboardRouter = () => {
                                             <Route path="novedades" element={<PaginaEnConstruccion />} />
                                             <Route path="secretaria/forms" element={<SecretariaForms />} />
                                             <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
+                                            <Route path="secretaria/admin" element={<SecretariaAdmin />} />
                                             <Route path="contacto" element={<PaginaEnConstruccion />} />
                                             <Route path="plan-de-estudios" element={<PaginaEnConstruccion />} />
-
                                         </> : role === "secretaria" ? <>
                                             <Route path="perfil/" element={<Profile />} />
                                             <Route path="secretaria/forms" element={<SecretariaForms />} />
                                             <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
+                                            <Route path="secretaria/admin" element={<SecretariaAdmin />} />
                                         </> : role === "usuario" ? <>  <Route path="perfil/" element={<Profile />} /></> : role === '' || role === undefined || role === null ? window.location.replace("/") : <Route path="/" element={<Profile />} />
                                         }
 

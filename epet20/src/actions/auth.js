@@ -2,6 +2,7 @@ import { types } from "../types/types"
 import { auth, db, googleAuth } from '../firebase/firebaseConfig';
 import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { UseLoading } from "../hooks/useLoading";
 export const signIn = (email, password) => {
     return async (dispatch) => {
         signInWithEmailAndPassword(auth, email, password)
@@ -79,7 +80,6 @@ export const signUp = (email, password, nombre, apellido) => {
 
 export const signInWithGoogle = () => {
 
-
     return async (dispatch) => {
         signInWithPopup(auth, googleAuth)
             .then(async (result) => {
@@ -102,6 +102,7 @@ export const signInWithGoogle = () => {
                 );
                 console.log('usuario creado y escrito en la base de datos');
             }).catch((error) => {
+               
                 console.log(error)
                 return error;
             });
@@ -109,7 +110,9 @@ export const signInWithGoogle = () => {
 
     }
 }
-
+export const getErrorMessage = (error) => {
+    return error;
+}
 export const login = (uid, displayName, email, photoURL) => {
     return {
         type: types.login,
