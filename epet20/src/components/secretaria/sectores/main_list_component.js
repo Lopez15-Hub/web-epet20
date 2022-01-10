@@ -9,41 +9,23 @@ export const MainList = ({ label, admin }) => {
 
     const currentDate = new Date();
     useEffect(() => {
-        label !== 'Anuncios' ? getFormsFromFirebase() : getAnunciosFromFirebase()
+        getDataFromFirebase();
         console.log(currentDate.toDateString().toLocaleString())
         console.log(currentDate.toDateString().toLocaleString() === '9/1/2022' ? true : false)
 
 
     }, [])
     const [listData, setListData] = useState([]);
-    const getFormsFromFirebase = async () => {
-        const list = []
 
-        const formsRef = collection(db, "forms");
-        const q = query(formsRef, where("label", "==", label));
-        const querySnapshot = await getDocs(q);
-
-        if (querySnapshot.empty) {
-            list.push({ message: 'empty', id: null })
-
-            console.log(listData[0])
-        } else {
-            querySnapshot.forEach(doc => {
-
-                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
-            })
-        }
-        setListData(list)
-    }
     const formatDate = (date) => {
         const formatDate = date.toDate().toLocaleString().substring(0, 8);
         return formatDate
 
     }
-    const getAnunciosFromFirebase = async () => {
+    const getDataFromFirebase = async () => {
         const list = []
 
-        const querySnapshot = await getDocs(collection(db, "anuncios"));
+        const querySnapshot = await getDocs(collection(db, label === "Anuncios" ? "anuncios" : 'forms'));
         if (querySnapshot.empty) {
             list.push({ message: 'empty', id: null })
 
