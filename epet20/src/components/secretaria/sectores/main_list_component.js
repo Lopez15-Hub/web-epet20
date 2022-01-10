@@ -56,18 +56,20 @@ export const MainList = ({ label, admin }) => {
         }
         setListData(list)
     }
-    const deleteFromFirebase = () => async (id, bdRef) => {
+    const deleteFromFirebase = async (id) => {
         const confirm = window.confirm("¿Estás seguro de que quieres eliminar este " + (label === 'Anuncios' ? 'Anuncio' : 'Formulario') + "?");
+        const bdRef = doc(db, label === 'Anuncios' ? 'anuncios' : 'forms', id);
         if (confirm) {
-            const ref = doc(db, bdRef, id);
-            await deleteDoc(ref).then(() => {
-                window.alert("Formulario eliminado correctamente.");
+            await deleteDoc(bdRef).then(() => {
+                window.alert((label === 'Anuncios' ? 'Anuncio' : 'Formulario') + "eliminado correctamente.");
                 window.location.reload();
             }).catch(err => {
                 console.log(err);
             });
         }
+
     }
+
     return (
         <>
             {/*Barra de navegación*/}
@@ -104,7 +106,7 @@ export const MainList = ({ label, admin }) => {
                                                                 <div>
                                                                     {label !== 'Anuncios' ? <Link to={"/admin/secretaria/forms" + "/edit/"} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/admin/secretaria/anuncios" + "/edit/"} className='btn btn-warning mr-2'>Editar</Link>}
 
-                                                                    <button onClick={deleteFromFirebase(e.id, label !== 'Anuncios' ? 'forms' : 'anuncios')} className='btn btn-danger '>Eliminar</button>
+                                                                    <button onClick={() => deleteFromFirebase(e.id)} className='btn btn-danger '>Eliminar</button>
 
                                                                 </div> : ''}
                                                     </li>
