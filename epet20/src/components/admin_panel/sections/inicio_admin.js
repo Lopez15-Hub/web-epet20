@@ -12,7 +12,7 @@ import { Title } from '../../text-styles/title'
 
 export const InicioAdmin = () => {
     const { handleChange, values } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,restartAlertsState } = UseLoading();
     const { presentacion, alcances, perfilTec } = values;
     const getDataFromFirestore = async () => {
         setAlertMessage("Obteniendo datos.");
@@ -38,7 +38,7 @@ export const InicioAdmin = () => {
         }
     }
     useEffect(() => {
-      getDataFromFirestore();
+        getDataFromFirestore();
     }, []);
     const [presentaciones, setPresentaciones] = useState({
         presentacion: presentacion,
@@ -77,6 +77,7 @@ export const InicioAdmin = () => {
             setAlertMessage("Debes editar al menos un campo para actualizar los textos.");
             setLoading(false);
             setWarning(true);
+            restartAlertsState();
         }
 
     }

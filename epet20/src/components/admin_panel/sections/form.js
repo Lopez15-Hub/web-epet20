@@ -53,7 +53,7 @@ export const Form = ({ currentRole }) => {
         user
     );
     const { name, apellido, email, password, phone, role } = values;
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,  restartAlertsState } = UseLoading();
   
     const handleSubmit = async e => {
         e.preventDefault();
@@ -95,6 +95,7 @@ export const Form = ({ currentRole }) => {
                 setAlertMessage("Debe editar al menos un campo.")
                 setLoading(false);
                 setWarning(true);
+                restartAlertsState();
             }
 
         } else {
@@ -102,6 +103,7 @@ export const Form = ({ currentRole }) => {
                 setAlertMessage("Todos los campos son obligatorios.")
                 setLoading(false);
                 setWarning(true);
+                restartAlertsState();
             } else {
                 await addDoc(collection(db, "users"), {
                     name: name,
@@ -115,10 +117,12 @@ export const Form = ({ currentRole }) => {
                     setAlertMessage("Usuario creado exitosamente.")
                     setLoading(false);
                     setSuccess(true);
+             
                 }).catch(err => {
                     setAlertMessage("Ha ocurrido un error: ", err.code)
                     setLoading(false);
                     setError(true);
+                    restartAlertsState();
                 });
             }
 

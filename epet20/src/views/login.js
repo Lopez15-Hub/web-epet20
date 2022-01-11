@@ -17,7 +17,7 @@ export const Login = () => {
     const { values, handleChange } = useForm(
 
     );
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,restartAlertsState} = UseLoading();
 
 
     const { email, password } = values;
@@ -43,18 +43,15 @@ export const Login = () => {
                     setAlertMessage("Error:Usuario o contraseña incorrectos.");
                     setLoading(false);
                     setError(true);
-
-                    setTimeout(() => {
-                        console.log("Usuario o contraseña incorrectos")
-                        setSuccess(false);
-                        setError(false);
-                    }, 3000)
+                    restartAlertsState();
+                   
                 }
             }, 3000)
         } else {
             setAlertMessage("Debe ingresar un usuario y contraseña");
             setLoading(false);
             setWarning(true);
+            restartAlertsState();
 
         }
 
@@ -77,7 +74,7 @@ export const Login = () => {
                     setSuccess(false);
                     handleRoute(navigate, 'usuario');
                 }, 2000)
-
+              
             }
 
         })

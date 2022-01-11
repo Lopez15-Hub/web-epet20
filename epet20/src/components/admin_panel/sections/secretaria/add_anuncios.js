@@ -1,7 +1,7 @@
 import { addDoc, collection } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React from 'react'
-import { Button, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
+import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { auth, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
@@ -11,12 +11,10 @@ import { Title } from '../../../text-styles/title'
 
 export const AñadirAnuncio = () => {
     const { handleChange, values } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
-    const { title, description, } = values;
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { title, description } = values;
     const date = new Date();
-
-    const createForm = async (e) => {
-        e.preventDefault();
+    const uploadForm = async () => {
         try {
             const docRef = await addDoc(collection(db, "anuncios"), {
                 title: title,
@@ -29,26 +27,39 @@ export const AñadirAnuncio = () => {
             setAlertMessage("Anuncio guardado exitosamente.")
             setLoading(false);
             setSuccess(true);
-
+            setTimeout(() => { window.location.reload() }, 1000)
         } catch (err) {
-            if (title === null || title === "" || description === null || description === "") {
+            if (title === undefined || !title || title === "" || description === undefined || !description || description === "") {
                 setLoading(false);
                 setWarning(true);
                 setAlertMessage("Debes rellenar todos los campos para crear un anuncio.");
+                restartAlertsState();
             } else {
                 setAlertMessage("Ha ocurrido un error al añadir los documentos: " + err.code)
                 setLoading(false);
                 setError(true);
-
-                console.error("Error adding document: ", e);
+                restartAlertsState();
+                console.error("Error adding document: ", err.code);
             }
 
 
         }
     }
-    const handleClick = (loading) => {
-        setLoading(loading);
+    const createForm = async (e) => {
+
+        e.preventDefault();
+        if (title === undefined || !title || title === "" || description === undefined || !description || description === "") {
+
+            setWarning(true);
+            setAlertMessage("Debes rellenar todos los campos para crear un anuncio.");
+            restartAlertsState();
+        } else {
+            setLoading(true);
+            uploadForm();
+        }
+
     }
+
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Container>
@@ -63,32 +74,40 @@ export const AñadirAnuncio = () => {
 
                     <Form onSubmit={createForm}>
                         <FormGroup>
-                            <Label htmlFor="exampleEmail">
+                            <Label >
                                 Titulo
                             </Label>
                             <Input
                                 onChange={handleChange}
-                                id="exampleEmail"
+
                                 name="title"
+                                value={title}
                                 placeholder="Ingrese un titulo"
                                 type="text"
+                                invalid={title === ""}
                             />
+                            <FormFeedback>
+                                El título es requerido.
+                            </FormFeedback>
                         </FormGroup>
                         <FormGroup>
-                            <Label htmlFor="exampleEmail">
+                            <Label>
                                 Descripción
                             </Label>
                             <Input
                                 onChange={handleChange}
-                                id="exampleEmail"
                                 name="description"
-
+                                value={description}
                                 type="textarea"
                                 maxLength="500"
+                                invalid={description === ""}
                             />
+                            <FormFeedback>
+                                Tiene que adjuntar una descripción.
+                            </FormFeedback>
                         </FormGroup>
 
-                        <Button type='submit' onClick={() => handleClick(true)} className='my-btn btn' >Añadir anuncio</Button>
+                        <Button type='submit' className='my-btn btn' >Añadir anuncio</Button>
                         {loading ? <LoadingSpinner text="Subiendo..." /> : ''}
                     </Form>
 

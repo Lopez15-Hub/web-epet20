@@ -14,7 +14,7 @@ export const UploadFile = () => {
         url: "",
 
     });
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,restartAlertsState } = UseLoading();
     const [showInputFile, setInputFile] = React.useState(false);
     const [fileUrl, setFileUrl] = React.useState("");
     const [isUploaded, setUploaded] = React.useState(false);
@@ -74,7 +74,7 @@ export const UploadFile = () => {
             setLoading(false);
             setAlertMessage("El archivo: " + file.name + " " + "se ha cargado exitosamente.");
             setSuccess(true);
-            setTimeout(() => { setSuccess(false) }, 3000)
+            restartAlertsState();
         }
 
     }
@@ -84,9 +84,7 @@ export const UploadFile = () => {
             setWarning(true);
             setAlertMessage("Debes rellenar todos los campos para crear un formulario.");
             console.log("Debes rellenar todos los campos.");
-            setTimeout(() => {
-                setWarning(warning);
-            }, 3000)
+            restartAlertsState();
 
 
         } else {

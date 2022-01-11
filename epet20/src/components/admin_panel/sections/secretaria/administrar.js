@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React from 'react'
-import { Container } from 'reactstrap'
+
 import { Anuncios } from '../../../secretaria/sectores/anuncios'
 import { DocentesList } from '../../../secretaria/sectores/docentes'
 import { EstudiantesList } from '../../../secretaria/sectores/estudiantes'

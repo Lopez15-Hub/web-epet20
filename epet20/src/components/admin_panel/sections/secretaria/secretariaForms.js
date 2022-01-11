@@ -14,7 +14,7 @@ export const SecretariaForms = () => {
         url: "",
 
     });
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,restartAlertsState } = UseLoading();
     const date = new Date();
     const { title, url, description, label } = values;
     const uploadForm = async () => {
@@ -32,13 +32,14 @@ export const SecretariaForms = () => {
             setAlertMessage("Formulario creado exitosamente.")
             setLoading(false);
             setSuccess(true);
+           
             setTimeout(() => { window.location.reload() }, 1000)
         } catch (err) {
 
             setLoading(false);
             setError(true);
             setAlertMessage(err.message);
-
+            restartAlertsState();
 
         }
     }
@@ -48,9 +49,7 @@ export const SecretariaForms = () => {
             setWarning(true);
             setAlertMessage("Debes rellenar todos los campos para crear un formulario.");
             console.log("Debes rellenar todos los campos.");
-            setTimeout(() => {
-                setWarning(warning);
-            }, 3000)
+            restartAlertsState();
 
 
         } else {

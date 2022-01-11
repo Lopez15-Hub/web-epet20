@@ -19,7 +19,7 @@ export const MainList = ({ label, admin }) => {
     const [listData, setListData] = useState([]);
 
     const formatDate = (date) => {
-        const formatDate = date.toDate().toLocaleString().substring(0, 8);
+        const formatDate = date.toDate().toLocaleString().substring(0, 9);
         return formatDate
 
     }
@@ -77,11 +77,11 @@ export const MainList = ({ label, admin }) => {
         setListData(list)
     }
     const deleteFromFirebase = async (id) => {
-        const confirm = window.confirm("¿Estás seguro de que quieres eliminar este " + (label === 'Anuncios' ? 'Anuncio' : 'Formulario') + "?");
+        const confirm = window.confirm("¿Estás seguro de que quieres eliminar este " + (label === 'Anuncios' ? 'anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'archivo' : 'formulario') + "?");
         const bdRef = doc(db, label === 'Anuncios' ? 'anuncios' : 'forms', id);
         if (confirm) {
             await deleteDoc(bdRef).then(() => {
-                window.alert((label === 'Anuncios' ? 'Anuncio' : 'Formulario') + "eliminado correctamente.");
+                window.alert((label === 'Anuncios' ? 'Anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo' : 'Formulario') + " " + "eliminado correctamente.");
                 window.location.reload();
             }).catch(err => {
                 console.log(err);
@@ -131,7 +131,7 @@ export const MainList = ({ label, admin }) => {
                                                                 </div> : ''}
                                                     </li>
 
-                                                </ul> : <h1 className='font-bold main-color'>{label === 'Anuncios' ? 'No hay anuncios disponibles.' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'No hay archivos subidos.':  'No hay formularios cargados.'}</h1>
+                                                </ul> : <h1 className='font-bold main-color'>{label === 'Anuncios' ? 'No hay anuncios disponibles.' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'No hay archivos subidos.' : 'No hay formularios cargados.'}</h1>
 
                                         }</>
                                 )) : <Loading text="Cargando" />

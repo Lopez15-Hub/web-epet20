@@ -6,5 +6,14 @@ export const UseLoading = () => {
     const [error, setError] = useState();
     const [warning, setWarning] = useState();
     const [alertMessage, setAlertMessage] = useState();
-    return { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage }
+    const restartAlertsState = () => {
+        setTimeout(() => {
+            setError(false);
+            setSuccess(false);
+            setWarning(false);
+            setLoading(false);
+            setAlertMessage('');
+        }, 3000)
+    }
+    return { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState }
 }
