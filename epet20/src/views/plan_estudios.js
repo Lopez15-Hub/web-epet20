@@ -11,10 +11,16 @@ import Footer from '../components/inicio/footer';
 import { UseLoading } from '../hooks/useLoading'
 import { LoadingSpinner } from '../components/general/loading'
 import { AlertNotification } from '../components/general/alertNotification'
+
 export const PlanDeEstudios = () => {
     const { loading, success, error, alertMessage, setLoading, setSuccess, setError, setAlertMessage, restartAlertsState } = UseLoading()
     const ref = useRef(null)
+    const date = new Date();
+    const formatDate = () => {
+        const formatDate = date.toLocaleString().substring(5, 9);
+        return formatDate
 
+    }
     const beforePrint = () => {
         setLoading(true)
     }
@@ -41,7 +47,8 @@ export const PlanDeEstudios = () => {
                 }
 
                 <ReactToPrint
-                    trigger={() => <button className="btn btn-outline-warning ml-4 "><p p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p> </button>}
+
+                    trigger={() => <div className='row'><button className="btn btn-outline-primary ml-4 col-2"><p p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p> </button><p className='col-2 text-muted text-justify '>Nota: También puedes guardar el plan en formato PDF.</p> </div>}
                     content={() => ref.current}
                     documentTitle='E.P.E.T N°20 - Plan de estudios.pdf'
 
@@ -53,6 +60,7 @@ export const PlanDeEstudios = () => {
 
 
                 />
+
                 {loading ? <LoadingSpinner text="Generando pdf..." /> : null}
 
             </div>
@@ -64,22 +72,30 @@ export const PlanDeEstudios = () => {
                         <div className="row p-7 col-10" >
                             <header className="bg-main-color shadow-md rounded-xl p-3">
 
-                                <p className="text-white text-center  uppercase font-bold mt-2">Escuela provincial de educación técnica número 20 </p>
+                                <dl >
+                                    <dt className="text-white col-md-12">E.P.E.T N°20 Escuela provincial de educación técnica número 20 </dt>
+                                    <div className='row'>
+                                        <dd className="text-white col-md-4">Ministerio de educación - Ciudad de Neuquén -Año {formatDate()} </dd>
+
+                                    </div>
+
+                                </dl>
 
 
                             </header>
                             <div className="col-xs-12 col-sm-12 col-md-8 col-lg-12 col-xl-12">
                                 <div className="mb-4">
                                     <Title text="Plan de estudios" />
-                                    <Subtitle text="Título: Técnico en programación - Plan 682" />
+                                    <div className='font-bold'> <Subtitle text="Título" /> </div>
+                                    <p>Técnico en programación - Plan 682</p>
                                 </div>
                                 <div>
-                                    <div className="font-bold">
-                                        <Subtitle text="Perfil del egresado" />
+                                    <div>
+                                        <div className="font-bold"> <Subtitle text="Perfil del egresado" /></div>
                                         <p className='text-justify'>El Técnico en Programación participa en proyectos de desarrollo de software desempeñando roles que tienen por objeto analizar, diseñar, desarrollar e implementar sistemas informáticos.</p>
                                     </div>
-                                    <div className="font-bold">
-                                        <Subtitle text="Alcance del título" />
+                                    <div>
+                                        <div className="font-bold"> <Subtitle text="Alcance del título" /></div>
                                         <p className='text-justify'>La actividad de un técnico en programación se basa en el constante aprendizaje de las tecnologías implementadas, la compresión, el planteamiento y la resolución de un problema, la constante documentación del proyecto, aplicación y estructuración de metodologías ágiles que optimicen los tiempos de producción y aplicación de normativas que gestionen y aseguren la calidad del producto.</p>
                                     </div>
                                 </div>
@@ -106,14 +122,6 @@ export const PlanDeEstudios = () => {
 
                             </div>
 
-
-
-
-                            <footer className="bg-main-color shadow-md rounded-xl p-3">
-
-                                <p className="text-white text-center  uppercase font-bold mt-2">Consejo provincial de educación - Instituto nacional de educación tecnológica</p>
-                                <p className="text-white text-center ">Ciudad del Neuquén </p>
-                            </footer>
                         </div>
                         <div className='col-1'></div>
 
