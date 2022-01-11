@@ -78,13 +78,13 @@ export const MainList = ({ label, admin }) => {
     }
     const deleteFromFirebase = async (id) => {
         const confirm = window.confirm("¿Estás seguro de que quieres eliminar este " + (label === 'Anuncios' ? 'anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'archivo' : 'formulario') + "?");
-        const bdRef = doc(db, label === 'Anuncios' ? 'anuncios' : 'forms', id);
+        const bdRef = doc(db, label === 'Anuncios' ? 'anuncios' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'estudiantes' : 'forms', id);
         if (confirm) {
             await deleteDoc(bdRef).then(() => {
                 window.alert((label === 'Anuncios' ? 'Anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo' : 'Formulario') + " " + "eliminado correctamente.");
                 window.location.reload();
             }).catch(err => {
-                console.log(err);
+                window.alert("Ha ocurrido un error: " + err.code);
             });
         }
 
