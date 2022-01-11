@@ -8,27 +8,52 @@ import { FaPrint } from 'react-icons/fa'
 import ReactToPrint from 'react-to-print';
 import { Container, Row } from 'reactstrap'
 import Footer from '../components/inicio/footer';
+import { UseLoading } from '../hooks/useLoading'
+import { LoadingSpinner } from '../components/general/loading'
+import { AlertNotification } from '../components/general/alertNotification'
 export const PlanDeEstudios = () => {
-    const [visible, setVisible] = React.useState(true)
+    const { loading, success, error, alertMessage, setLoading, setSuccess, setError, setAlertMessage, restartAlertsState } = UseLoading()
     const ref = useRef(null)
-    const printDoc = () => {
-        window.print()
 
-
-
+    const beforePrint = () => {
+        setLoading(true)
     }
+    const afterPrint = () => {
 
+        setLoading(false)
+        setAlertMessage("PDF generado exitosamente. ")
+        setSuccess(true)
+        restartAlertsState()
+    }
+    const errorPrint = () => {
+        setLoading(false)
+        setAlertMessage("Ocurrió un error al crear el PDF. ")
+        setError(true)
+        restartAlertsState()
+    }
     return (
         <>
             {/*Barra de navegación*/}
             <div fluid className='mt-2 mb-4'>
-
+                {success ?
+                    <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                    error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : ''
+                }
 
                 <ReactToPrint
-                    trigger={() => <button onClick={() => printDoc()} className="btn btn-outline-warning ml-4 "><p p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p> </button>}
+                    trigger={() => <button className="btn btn-outline-warning ml-4 "><p p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p> </button>}
                     content={() => ref.current}
-                />
+                    documentTitle='E.P.E.T N°20 - Plan de estudios.pdf'
 
+                    onPrintError={errorPrint}
+                    onAfterPrint={afterPrint}
+                    onBeforePrint={beforePrint}
+
+
+
+
+                />
+                {loading ? <LoadingSpinner text="Generando pdf..." /> : null}
 
             </div>
 
