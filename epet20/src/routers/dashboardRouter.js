@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom'
 import { Container, Row } from 'reactstrap';
 import { Menu } from '../components/admin_panel/menu';
+import { FilesOfStudents } from '../components/admin_panel/sections/estudiantes/administrar';
+import { UploadFile } from '../components/admin_panel/sections/estudiantes/upload_file';
 import { Form } from '../components/admin_panel/sections/form';
 import { InicioAdmin } from '../components/admin_panel/sections/inicio_admin';
 import { Loading } from '../components/admin_panel/sections/loading';
@@ -29,7 +31,7 @@ export const DashboardRouter = () => {
                 user.reload().then(() => { console.log("user reloaded") }).catch(() => { console.log("user not reloaded") });
                 console.log("user logged in")
 
-                if (role && auth.currentUser) {
+                if (role) {
                     setLoading(false);
                 }
             } else {
@@ -66,6 +68,8 @@ export const DashboardRouter = () => {
                                             <Route path="usuarios/:userId" element={<Form />} />
                                             <Route path="inicio" element={<InicioAdmin />} />
                                             <Route path="novedades" element={<PaginaEnConstruccion />} />
+                                            <Route path="estudiantes/admin" element={<FilesOfStudents />} />
+                                            <Route path="estudiantes/upload" element={<UploadFile />} />
                                             <Route path="secretaria/forms" element={<SecretariaForms />} />
                                             <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
                                             <Route path="secretaria/admin" element={<SecretariaAdmin />} />

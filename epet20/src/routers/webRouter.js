@@ -12,6 +12,9 @@ import { GeneralList } from '../components/secretaria/sectores/general';
 import { EstudiantesList } from '../components/secretaria/sectores/estudiantes';
 import { DocentesList } from '../components/secretaria/sectores/docentes';
 import { Anuncios } from '../components/secretaria/sectores/anuncios';
+import { Teoria } from '../components/estudiantes/teoria';
+import { Taller } from '../components/estudiantes/taller';
+import { EducacionFisica } from '../components/estudiantes/ed-fisica';
 export const WebRouter = () => {
     return (
         <>
@@ -22,6 +25,9 @@ export const WebRouter = () => {
                 <Route path="" element={<Inicio />} />
                 <Route path="inicio" element={<Inicio />} />
                 <Route path="novedades" element={<Novedades />} />
+                <Route path="estudiantes/teoria" element={<Teoria />} />
+                <Route path="estudiantes/taller" element={<Taller />} />
+                <Route path="estudiantes/ed-fisica" element={<EducacionFisica />} />
                 <Route path="estudiantes" element={<Estudiantes />} />
                 <Route path="secretaria/anuncios" element={<Anuncios />} />
                 <Route path="secretaria/estudiantes" element={<EstudiantesList />} />

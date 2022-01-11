@@ -25,7 +25,7 @@ function Navbar() {
                     displayName: user.displayName,
 
                 })
-         
+
             } else {
                 console.log("cargando...")
             }
@@ -58,7 +58,15 @@ function Navbar() {
                         <Link to="/novedades" className=" font-bold p-2 nav-color ">Novedades</Link>
                     </div>
                     <div className="m-2">
-                        <Link to="/estudiantes" className=" font-bold p-2 nav-color   ">Estudiantes</Link>
+                        <li class="nav-item dropdown ">
+                            <Link to="/estudiantes" className="dropdown-toggle font-bold p-2  nav-color  " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Estudiantes  </Link>
+                            <ul class="dropdown-menu showDropDown" aria-labelledby="navbarDropdown">
+                                <li><Link to="estudiantes/ed-fisica" class="dropdown-item font-bold main-color" >Educación Física</Link></li>
+                                <li><Link to="estudiantes/taller" class="dropdown-item font-bold main-color" >Taller</Link></li>
+                                <li><Link to="estudiantes/teoria" class="dropdown-item font-bold main-color" >Teoría</Link></li>
+
+                            </ul>
+                        </li>
                     </div>
                     <div className="m-2">
 

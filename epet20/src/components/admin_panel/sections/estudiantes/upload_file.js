@@ -1,50 +1,89 @@
+
 import { addDoc, collection } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
-import { db } from '../../../../firebase/firebaseConfig'
+import { app, db, storage } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
 import { LoadingSpinner } from '../../../general/loading'
 import { Title } from '../../../text-styles/title'
-
-export const SecretariaForms = () => {
+export const UploadFile = () => {
     const { handleChange, values, reset } = useForm({
         url: "",
 
     });
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const [showInputFile, setInputFile] = React.useState(false);
+    const [fileUrl, setFileUrl] = React.useState("");
+    const [isUploaded, setUploaded] = React.useState(false);
     const date = new Date();
     const { title, url, description, label } = values;
-    const uploadForm = async () => {
+    const handleClick = () => {
+
+        showInputFile ? setInputFile(false) : setInputFile(true);
+
+    }
+    const uploadForm = async (isFile) => {
         setLoading(true);
+        if (!isFile) {
+            setFileUrl(url);
+        }
         try {
-            const docRef = await addDoc(collection(db, "forms"), {
+            const docRef = await addDoc(collection(db, "estudiantes"), {
                 "title": title,
                 "description": description,
-                "url": url,
+                "url": fileUrl,
                 "label": label,
                 "submitAt": date,
+                "submitBy": app.auth().currentUser.displayName,
             });
             console.log("Document written with ID: ", docRef.id);
-            console.log(values);
-            setAlertMessage("Formulario creado exitosamente.")
+            setAlertMessage("Archivo creado exitosamente.")
             setLoading(false);
             setSuccess(true);
             setTimeout(() => { window.location.reload() }, 1000)
         } catch (err) {
-
             setLoading(false);
             setError(true);
-            setAlertMessage(err.message);
+            setAlertMessage(err.code);
 
 
         }
     }
+    const handleFile = async (e) => {
+        setLoading(true);
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref();
+        const filePath = storageRef.child(file.name);
+        await filePath.put(file).then(async () => {
+
+
+            console.log("File uploaded");
+
+
+        }).catch((err) => {
+            setLoading(false);
+            setAlertMessage("Error al subir el archivo: ", err.code);
+            setError(true);
+        })
+        const url = await filePath.getDownloadURL();
+        const finalUrl = url.toString();
+        if (finalUrl != undefined || finalUrl != null || finalUrl != "") {
+            setFileUrl(finalUrl);
+            console.log("URL: " + finalUrl);
+            setUploaded(true);
+            setLoading(false);
+            setAlertMessage("El archivo: " + file.name + " " + "se ha cargado exitosamente.");
+            setSuccess(true);
+            setTimeout(() => { setSuccess(false) }, 3000)
+        }
+
+    }
     const createForm = async (e) => {
         e.preventDefault();
-        if (title === null || title === undefined || description === null || description === undefined || url === "" || label === null || label === undefined) {
+        if (title === null || title === undefined || description === null || description === undefined || label === null || label === undefined) {
             setWarning(true);
             setAlertMessage("Debes rellenar todos los campos para crear un formulario.");
             console.log("Debes rellenar todos los campos.");
@@ -54,8 +93,26 @@ export const SecretariaForms = () => {
 
 
         } else {
-            uploadForm();
+            if (showInputFile == true) {
+                console.log("El archivo se sube localmente a firebase storage.");
+                try {
+                    if (isUploaded) {
+                        uploadForm(true);
+                    } else {
+                        setAlertMessage("El archivo aún se está subiendo.");
+                        setWarning(true);
+                    }
 
+                } catch (err) {
+                    setLoading(false);
+                    setError(true);
+                    setAlertMessage("Error al subir el archivo: ", err.code);
+                }
+
+            } else {
+                console.log("El archivo se envía por un enlace.")
+                uploadForm(false);
+            }
         }
 
     }
@@ -70,7 +127,7 @@ export const SecretariaForms = () => {
                         <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
                 }
                 <Row>
-                    <Title text="Añadir un formulario" />
+                    <Title text="Añadir un archivo" />
 
 
                     <Form onSubmit={createForm} onReset={reset}>
@@ -108,22 +165,7 @@ export const SecretariaForms = () => {
                                 {'Debe añadir una descripción.'}
                             </FormFeedback>
                         </FormGroup>
-                        <FormGroup>
-                            <Label htmlFor="exampleEmail">
-                                Link del formulario
-                            </Label>
-                            <Input
-                                onChange={handleChange}
-                                id="exampleEmail"
-                                name="url"
-                                invalid={url === "" || !url.startsWith("https://")}
-                                type="url"
 
-                            />
-                            <FormFeedback>
-                                {!url.startsWith("https://") && url !== "" ? 'Debe ingresar un link válido.' : url === "" ? 'Debe añadir un link.' : ''}
-                            </FormFeedback>
-                        </FormGroup>
                         <FormGroup >
                             <Label
                                 for="exampleSelect"
@@ -145,14 +187,14 @@ export const SecretariaForms = () => {
                                 <option value="">
                                     Seleccione una opción
                                 </option>
-                                <option value="estudiantes" >
-                                    Estudiantes
+                                <option value="teoria" >
+                                    Teoría
                                 </option>
-                                <option value="docentes">
-                                    Docentes
+                                <option value="taller">
+                                    Taller
                                 </option>
-                                <option value="general">
-                                    General
+                                <option value="educación física">
+                                    Educación física
                                 </option>
 
                             </Input>
@@ -160,8 +202,43 @@ export const SecretariaForms = () => {
                                 Debe seleccionar una opción.
                             </FormFeedback>
                         </FormGroup>
-                        <Button type='submit' className='my-btn btn' >Añadir formulario</Button>
-                        {loading ? <LoadingSpinner text="Creando formulario..." /> : ''}
+                        <FormGroup check>
+                            <Input name='file' onClick={handleClick} type="checkbox" />
+
+                            <Label check >
+                                {'Subir un archivo'}
+                            </Label>
+                        </FormGroup>
+
+                        {showInputFile ? <FormGroup>
+
+                            <Input
+                                id="exampleFile"
+                                name="file"
+                                type="file"
+                                onChange={handleFile}
+
+                            />
+
+                        </FormGroup> : <FormGroup>
+                            <Label htmlFor="exampleEmail">
+                                Enlace de descarga
+                            </Label>
+                            <Input
+                                onChange={handleChange}
+                                id="exampleEmail"
+                                name="url"
+                                invalid={url === "" || !url.startsWith("https://")}
+                                type="url"
+
+                            />
+                            <FormFeedback>
+                                {!url.startsWith("https://") && url !== "" ? 'Debe ingresar un link válido.' : url === "" ? 'Debe añadir un link.' : ''}
+                            </FormFeedback>
+                        </FormGroup>}
+
+                        <Button type='submit' className='my-btn btn' >Añadir archivo</Button>
+                        {loading ? <LoadingSpinner text="Subiendo..." /> : ''}
                     </Form>
 
 
@@ -170,6 +247,3 @@ export const SecretariaForms = () => {
         </motion.div>
     )
 }
-
-
-

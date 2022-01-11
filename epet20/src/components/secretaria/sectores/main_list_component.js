@@ -9,7 +9,8 @@ export const MainList = ({ label, admin }) => {
 
     const currentDate = new Date();
     useEffect(() => {
-        getDataFromFirebase();
+        console.log(label);
+        label === 'Docentes' || label === 'General' || label === 'Estudiantes' ? getFormsFromFirebaseByLabel() : label === 'Anuncios' ? getAnunciosFromFirebase() : getStudentsFilesFromFirebaseByLabel();
         console.log(currentDate.toDateString().toLocaleString())
         console.log(currentDate.toDateString().toLocaleString() === '9/1/2022' ? true : false)
 
@@ -22,10 +23,13 @@ export const MainList = ({ label, admin }) => {
         return formatDate
 
     }
-    const getDataFromFirebase = async () => {
+    const getStudentsFilesFromFirebaseByLabel = async () => {
         const list = []
 
-        const querySnapshot = await getDocs(collection(db, label === "Anuncios" ? "anuncios" : 'forms'));
+        const studentsRef = collection(db, "estudiantes");
+        const q = query(studentsRef, where("label", "==", label));
+        const querySnapshot = await getDocs(q);
+        console.log(querySnapshot);
         if (querySnapshot.empty) {
             list.push({ message: 'empty', id: null })
 
@@ -33,6 +37,40 @@ export const MainList = ({ label, admin }) => {
         } else {
             querySnapshot.forEach(doc => {
 
+                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+            })
+        }
+        setListData(list)
+    }
+    const getFormsFromFirebaseByLabel = async () => {
+        const list = []
+
+        const formsRef = collection(db, "forms");
+
+        const q = query(formsRef, where("label", "==", label));
+        const querySnapshot = await getDocs(q);
+        console.log(querySnapshot);
+        if (querySnapshot.empty) {
+            list.push({ message: 'empty', id: null })
+
+            console.log(listData[0])
+        } else {
+            querySnapshot.forEach(doc => {
+
+                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+            })
+        }
+        setListData(list)
+    }
+    const getAnunciosFromFirebase = async () => {
+        const list = []
+        const querySnapshot = await getDocs(collection(db, "anuncios"));
+        if (querySnapshot.empty) {
+            list.push({ message: 'empty', id: null })
+
+            console.log(listData[0])
+        } else {
+            querySnapshot.forEach(doc => {
                 list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
             })
         }
@@ -67,7 +105,7 @@ export const MainList = ({ label, admin }) => {
                     <hr className="mt-4" />
                     <div className="col-12 rounded-xl">
                         <div className="text-center ">
-                            <Title text={label === 'Anuncios' ? "" : 'Formularios disponibles'} />
+                            <Title text={label === 'Anuncios' ? "" : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivos subidos' : 'Formularios disponibles'} />
                         </div>
                         {
 
@@ -93,7 +131,7 @@ export const MainList = ({ label, admin }) => {
                                                                 </div> : ''}
                                                     </li>
 
-                                                </ul> : <h1 className='font-bold main-color'>{label === 'Anuncios' ? 'No hay anuncios disponibles.' : 'No hay formularios cargados.'}</h1>
+                                                </ul> : <h1 className='font-bold main-color'>{label === 'Anuncios' ? 'No hay anuncios disponibles.' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'No hay archivos subidos.':  'No hay formularios cargados.'}</h1>
 
                                         }</>
                                 )) : <Loading text="Cargando" />
