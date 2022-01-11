@@ -1,6 +1,8 @@
+import { useDate } from "../../hooks/useDate";
 
 
 export default function Footer() {
+  const { formatDate } = useDate();
   return <footer className="bg-main-color p-3">
     <div className="container-fluid">
 
@@ -12,7 +14,7 @@ export default function Footer() {
         <a href="https://regular.neuquen.gob.ar/Inscripciones2021/servlet/com.certiregu.verificatramite" className="link-social  p-2">Estado de inscripción</a>
       </div>
     </div>
-    <p className="text-white text-center  uppercase font-bold mt-2">2022 Escuela provincial de educación técnica número 20 - Intellect Solutions Todos los derechos reservados.</p>
-    <p className="text-white text-center ">Sitio web diseñado con amor, por estudiantes de la institución</p>
+    <p className="text-white text-center  uppercase font-bold mt-2">{formatDate()} Escuela provincial de educación técnica número 20.</p>
+    <p className="text-white text-center ">Sitio web diseñado con amor, por estudiantes de la institución.</p>
   </footer>;
 }

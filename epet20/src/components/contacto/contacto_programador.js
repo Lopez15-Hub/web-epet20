@@ -8,9 +8,7 @@ export const ContactoProgramador = () => {
                 <div className=" col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
                     <SingleContact personName="Ezequiel López" email="contacto.ezequiel.lopez@gmail.com" instagramURL="https://instagram.com/ezequielopez18" linkedlnURL="https://www.linkedin.com/in/ezequiel-l%C3%B3pez-94193b1b9" />
                 </div>
-                <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 p-2">
-                    <SingleContact personName="Tomás Castro" email="ttomycastro@gmail.com" instagramURL="https://instagram.com/ezequielopez18" linkedlnURL="https://www.linkedin.com/in/ezequiel-l%C3%B3pez-94193b1b9" />
-                </div>
+              
 
             </div>
         </div>

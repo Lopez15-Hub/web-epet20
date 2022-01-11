@@ -6,21 +6,18 @@ import { Materias } from '../components/plan_estudios/table/materias'
 import { Subtitle } from '../components/text-styles/subtitle'
 import { FaPrint } from 'react-icons/fa'
 import ReactToPrint from 'react-to-print';
-import { Container, Row } from 'reactstrap'
+import { Container } from 'reactstrap'
 import Footer from '../components/inicio/footer';
 import { UseLoading } from '../hooks/useLoading'
 import { LoadingSpinner } from '../components/general/loading'
 import { AlertNotification } from '../components/general/alertNotification'
+import { useDate } from '../hooks/useDate'
 
 export const PlanDeEstudios = () => {
     const { loading, success, error, alertMessage, setLoading, setSuccess, setError, setAlertMessage, restartAlertsState } = UseLoading()
     const ref = useRef(null)
-    const date = new Date();
-    const formatDate = () => {
-        const formatDate = date.toLocaleString().substring(5, 9);
-        return formatDate
-
-    }
+   
+    const { formatDate } = useDate();
     const beforePrint = () => {
         setLoading(true)
     }
@@ -73,11 +70,11 @@ export const PlanDeEstudios = () => {
                             <header className="bg-main-color shadow-md rounded-xl p-3">
 
                                 <dl >
-                                    <dt className="text-white col-md-12">E.P.E.T N°20 Escuela provincial de educación técnica número 20 </dt>
-                                    <div className='row'>
-                                        <dd className="text-white col-md-4">Ministerio de educación - Ciudad de Neuquén -Año {formatDate()} </dd>
+                                    <dt className="text-white">Escuela provincial de educación técnica número 20. </dt>
 
-                                    </div>
+                                    <dd className="text-white">Ministerio de educación - Ciudad de Neuquén - Año {formatDate()}. </dd>
+
+
 
                                 </dl>
 
