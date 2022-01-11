@@ -27,14 +27,11 @@ export const UploadFile = () => {
     }
     const uploadForm = async (isFile) => {
         setLoading(true);
-        if (!isFile) {
-            setFileUrl(url);
-        }
         try {
             const docRef = await addDoc(collection(db, "estudiantes"), {
                 "title": title,
                 "description": description,
-                "url": fileUrl,
+                "url": isFile ? fileUrl : url,
                 "label": label,
                 "submitAt": date,
                 "submitBy": app.auth().currentUser.displayName,
