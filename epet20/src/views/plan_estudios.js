@@ -37,6 +37,7 @@ export const PlanDeEstudios = () => {
     }
     return (
         <>
+            {plan ? <>
             {/*Módulo de impresión*/}
             <div fluid className='mt-2 mb-4'>
                 {success ?
@@ -64,8 +65,10 @@ export const PlanDeEstudios = () => {
             </div>
 
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" mt-4  " >
+
                 <Container>
                     <div className='row' ref={ref}>
+
                         <div className='col-1'></div>
                         <div className="row p-7 col-10" >
                             <header className="bg-main-color shadow-md rounded-xl p-3">
@@ -81,63 +84,64 @@ export const PlanDeEstudios = () => {
 
 
                             </header>
-                            {plan ? <>
 
 
-                                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-12 col-xl-12">
-                                    <div className="mb-4">
-                                        <Title text="Plan de estudios" />
-                                        <div className='font-bold'> <Subtitle text="Título" /> </div>
-                                        <p>{plan.title}</p>
+
+                            <div className="col-xs-12 col-sm-12 col-md-8 col-lg-12 col-xl-12">
+                                <div className="mb-4">
+                                    <Title text="Plan de estudios" />
+                                    <div className='font-bold'> <Subtitle text="Título" /> </div>
+                                    <p>{plan.title}</p>
+                                </div>
+                                <div>
+                                    <div>
+                                        <div className="font-bold"> <Subtitle text="Perfil del egresado" /></div>
+                                        <p className='text-justify'>{plan.profile}</p>
                                     </div>
                                     <div>
-                                        <div>
-                                            <div className="font-bold"> <Subtitle text="Perfil del egresado" /></div>
-                                            <p className='text-justify'>{plan.profile}</p>
-                                        </div>
-                                        <div>
-                                            <div className="font-bold"> <Subtitle text="Alcance del título" /></div>
-                                            <p className='text-justify'>{plan.alcances}</p>
-                                        </div>
+                                        <div className="font-bold"> <Subtitle text="Alcance del título" /></div>
+                                        <p className='text-justify'>{plan.alcances}</p>
                                     </div>
-                                    {/*Stack de materias*/}
-                                    <div >
-                                        <div className="mt-4">
-                                            <Title text="Listado de materias" />
-                                        </div>
-
-                                        <Container>
-                                            <Subtitle text="Ciclo Básico" />
-                                            <Materias showBasic={true} />
-                                            <Subtitle text="Ciclo Superior" />
-                                            <Materias />
-
-
-
-                                        </Container>
-                                    </div>
-
-
-
-
-
                                 </div>
-                            </> : <LoadingSpinner text="Cargando datos..." />}
+                                {/*Stack de materias*/}
+                                <div >
+                                    <div className="mt-4">
+                                        <Title text="Listado de materias" />
+                                    </div>
+
+                                    <Container>
+                                        <Subtitle text="Ciclo Básico" />
+                                        <Materias showBasic={true} />
+                                        <Subtitle text="Ciclo Superior" />
+                                        <Materias />
+
+
+
+                                    </Container>
+                                </div>
+
+
+
+
+
+                            </div>
+
 
                         </div>
                         <div className='col-1'></div>
 
+
                     </div>
 
+
+
                 </Container>
-
-
                 {/*FOOOTER*/}
                 <Footer />
 
-
             </motion.div>
-
+        </> : <LoadingSpinner text="Cargando datos..." />
+}
         </>
     )
 }

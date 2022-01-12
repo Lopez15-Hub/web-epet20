@@ -15,34 +15,44 @@ import { AñadirAnuncio } from '../components/admin_panel/sections/secretaria/ad
 import { SecretariaAdmin } from '../components/admin_panel/sections/secretaria/administrar';
 import { SecretariaForms } from '../components/admin_panel/sections/secretaria/secretariaForms';
 import { Usuarios } from '../components/admin_panel/sections/usuarios';
+import { AlertNotification } from '../components/general/alertNotification';
 import { NavbarAdmin } from '../components/inicio/navbar_admin';
 import { auth } from '../firebase/firebaseConfig';
+import { useConnection } from '../hooks/useConnection';
 import { UseLoading } from '../hooks/useLoading';
 import { useRole } from '../hooks/useRole';
 import { PaginaEnConstruccion } from "../views/we_working";
 export const DashboardRouter = () => {
 
     const { role } = useRole();
-    const { loading, setLoading } = UseLoading();
+    const { loading, setLoading, success, error, warning, alertMessage, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { connectionStatus } = useConnection();
+
     useEffect(() => {
-        auth.onAuthStateChanged(async (user) => {
+        if (connectionStatus===true) {
+            auth.onAuthStateChanged(async (user) => {
 
 
-            if (user) {
-                user.reload().then(() => { console.log("user reloaded") }).catch(() => { console.log("user not reloaded") });
-                console.log("user logged in")
+                if (user) {
+                    user.reload().then(() => { console.log("user reloaded") }).catch(() => { console.log("user not reloaded") });
+                    console.log("user logged in")
 
-                if (role) {
+                    if (role) {
+                        setLoading(false);
+                    }
+                } else {
+
+                    console.log("user not logged in")
+                    auth.signOut();
                     setLoading(false);
+                    window.location.replace("/");
                 }
-            } else {
+            });
+        } else {
+            setAlertMessage("Se ha perdido la conexión a internet. Intente de nuevo más tarde.")
+            setWarning(true);
+        }
 
-                console.log("user not logged in")
-                auth.signOut();
-                setLoading(false);
-                window.location.replace("/");
-            }
-        });
 
     }, [role, setLoading])
 
@@ -50,6 +60,11 @@ export const DashboardRouter = () => {
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <NavbarAdmin currentRole={role} />
+            {success ?
+                <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
+                    <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
+            }
             <Container>
                 {loading === false ?
                     <>
