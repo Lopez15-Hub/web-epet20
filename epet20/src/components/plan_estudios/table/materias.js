@@ -7,11 +7,12 @@ export const Materias = ({ showBasic }) => {
     const { plan } = usePlan();
     const materias = plan.materias ? plan.materias : [];
     const getCicloBasico = () => {
-        const cicloBásico = materias.filter(materia => materia.ciclo === 'basico');
+
+        const cicloBásico = materias.filter(materia => materia.ciclo === 'basico').sort((materia, materia2) => materia.año > materia2.año ? materia : -1);
         return cicloBásico;
     }
     const getCicloSuperior = () => {
-        const cicloSuperior = materias.filter(materia => materia.ciclo === 'superior');
+        const cicloSuperior = materias.filter(materia => materia.ciclo === 'superior').sort((materia, materia2) => materia.año > materia2.año ? materia : -1);
         return cicloSuperior;
     }
     const materiasCicloBasico = getCicloBasico();

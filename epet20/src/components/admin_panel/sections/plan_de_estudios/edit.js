@@ -1,7 +1,7 @@
 
 import { doc, setDoc } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { db } from '../../../../firebase/firebaseConfig'
 import { usePlan } from '../../../../hooks/query_hooks/usePlan'
@@ -13,13 +13,14 @@ import { Subtitle } from '../../../text-styles/subtitle'
 import { Title } from '../../../text-styles/title'
 
 export const EditPlanDeEstudios = () => {
-    const { handleChange, values, reset } = useForm({
-    });
+    const { handleChange, values, reset } = useForm({});
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { title, profile, materia, año, alcances } = values;
     const { plan } = usePlan();
-    const planMaterias = plan.materias ? plan.materias : [];
+    const planMaterias = plan && plan.materias ? plan.materias : [];
     const [materias, setMaterias] = React.useState([]);
+
+
     const singleMateria = {
         "materia": materia,
         "año": año,
@@ -29,50 +30,47 @@ export const EditPlanDeEstudios = () => {
         handleMaterias();
     }
     const handleMaterias = () => {
-        if (singleMateria.materia !== "" && singleMateria.año !== "" && singleMateria.materia !== undefined && singleMateria.año !== undefined) {
+
+        if (materia !== '' || año !== '' || singleMateria.materia !== "" && singleMateria.año !== "" && singleMateria.materia !== undefined && singleMateria.año !== undefined) {
+
             setMaterias([...materias, singleMateria]);
             console.log(materias);
             document.getElementById("formMateria").reset();
+            reset({ materia: '', año: '' });
         } else {
             setAlertMessage("Debes especificar una materia y su año para añadirla.");
             setWarning(true);
-            setTimeout(() => { restartAlertsState() }, 3000);
+            restartAlertsState();
         }
 
     }
     const deleteMateria = (index) => {
-        materias.splice(index, 1);
+        const newMaterias = [...materias];
+        newMaterias.splice(index, 1);
+        setMaterias(newMaterias);
     }
 
     const uploadPlan = async () => {
         setLoading(true);
-
         const planRef = doc(db, 'textos', 'planDeEstudios');
         await setDoc(planRef, {
             "title": title ? title : plan.title,
             "profile": profile ? profile : plan.profile,
             "alcances": alcances ? alcances : plan.alcances,
-            "materias": materias ? materias : plan.materias,
+            "materias": materias ? materias : materias && plan.materias ? materias.concat(plan.materias) : plan.materias,
 
         }).then(() => {
-            setAlertMessage("Archivo creado exitosamente.")
+            setAlertMessage("Plan editado exitosamente.")
             setLoading(false);
             setSuccess(true);
-            // setTimeout(() => { window.location.reload() }, 1000)
         }).catch((err) => {
-            if (err.code === undefined) {
-                setAlertMessage("Archivo creado exitosamente.")
-                console.log("El archivo se ha subido con exito pero ha ocurrido un error indefinido. Error: ", err);
-                setLoading(false);
-                setSuccess(true);
-                setTimeout(() => { window.location.reload() }, 1000)
-            } else {
-                setLoading(false);
-                setError(true);
-                setAlertMessage("Error al subir el plan: ", err.code);
-                console.log("Error al subir el plan: ", err.code);
-                setTimeout(() => { restartAlertsState() }, 3000);
-            }
+
+            setLoading(false);
+            setError(true);
+            setAlertMessage("Error al subir el plan: ", err.code);
+            console.log("Error al subir el plan: ", err.code);
+            setTimeout(() => { restartAlertsState() }, 3000);
+
 
         });;
 
@@ -83,7 +81,7 @@ export const EditPlanDeEstudios = () => {
 
         e.preventDefault();
 
-        if (plan.length === 0) {
+        if (plan.materias.length === 0) {
             if (title === null || title === undefined || profile === null
                 || profile === undefined || alcances === null || alcances === undefined
                 || materias.length === 0 || materias === null || materias === undefined
@@ -98,9 +96,6 @@ export const EditPlanDeEstudios = () => {
 
 
             } else {
-
-                console.log("Datos del plan de estudios: ", values);
-                console.log("Datos del plan de estudio añadidos y listos para subir.");
                 uploadPlan();
             }
 
@@ -123,6 +118,11 @@ export const EditPlanDeEstudios = () => {
 
     }
 
+    useEffect(() => {
+        if (plan && plan.materias.length > 0) {
+            setMaterias([...planMaterias]);
+        }
+    }, [planMaterias])
 
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -217,9 +217,9 @@ export const EditPlanDeEstudios = () => {
                             </form>
                         </div>
                         {
-                            materias.length !== 0 || planMaterias.length !== 0 ? <>
+                            materias.length !== 0 ? <>
                                 <Title text={"Materias añadidas"}></Title>
-                                <Subtitle text={"Total añadidas: " + planMaterias.length !== 0 ? planMaterias.length : materias.length} />
+                                <Subtitle text={"Materias totales: " + materias.length} />
                                 {materias.length !== 0 ? materias.map((materia, index) => {
                                     return (
                                         <ul className='border' key={index}>
@@ -230,17 +230,8 @@ export const EditPlanDeEstudios = () => {
 
                                         </ul>
                                     )
-                                }) : planMaterias.map((materia, index) => {
-                                    return (
-                                        <ul className='border' key={index}>
-                                            <div>
-                                                <li className='main-color font-bold p-2'>{materia.materia} - {materia.año} </li>
-                                                <button onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
-                                            </div>
+                                }) : ''}
 
-                                        </ul>
-                                    )
-                                })}
                             </> : ''
                         }
 
