@@ -12,11 +12,12 @@ import { UseLoading } from '../hooks/useLoading'
 import { LoadingSpinner } from '../components/general/loading'
 import { AlertNotification } from '../components/general/alertNotification'
 import { useDate } from '../hooks/useDate'
+import { usePlan } from '../hooks/query_hooks/usePlan'
 
 export const PlanDeEstudios = () => {
     const { loading, success, error, alertMessage, setLoading, setSuccess, setError, setAlertMessage, restartAlertsState } = UseLoading()
     const ref = useRef(null)
-   
+    const { plan } = usePlan();
     const { formatDate } = useDate();
     const beforePrint = () => {
         setLoading(true)
@@ -36,7 +37,7 @@ export const PlanDeEstudios = () => {
     }
     return (
         <>
-            {/*Barra de navegación*/}
+            {/*Módulo de impresión*/}
             <div fluid className='mt-2 mb-4'>
                 {success ?
                     <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
@@ -80,44 +81,48 @@ export const PlanDeEstudios = () => {
 
 
                             </header>
-                            <div className="col-xs-12 col-sm-12 col-md-8 col-lg-12 col-xl-12">
-                                <div className="mb-4">
-                                    <Title text="Plan de estudios" />
-                                    <div className='font-bold'> <Subtitle text="Título" /> </div>
-                                    <p>Técnico en programación - Plan 682</p>
-                                </div>
-                                <div>
-                                    <div>
-                                        <div className="font-bold"> <Subtitle text="Perfil del egresado" /></div>
-                                        <p className='text-justify'>El Técnico en Programación participa en proyectos de desarrollo de software desempeñando roles que tienen por objeto analizar, diseñar, desarrollar e implementar sistemas informáticos.</p>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold"> <Subtitle text="Alcance del título" /></div>
-                                        <p className='text-justify'>La actividad de un técnico en programación se basa en el constante aprendizaje de las tecnologías implementadas, la compresión, el planteamiento y la resolución de un problema, la constante documentación del proyecto, aplicación y estructuración de metodologías ágiles que optimicen los tiempos de producción y aplicación de normativas que gestionen y aseguren la calidad del producto.</p>
-                                    </div>
-                                </div>
-                                {/*Stack de materias*/}
-                                <div >
-                                    <div className="mt-4">
-                                        <Title text="Listado de materias" />
-                                    </div>
+                            {plan ? <>
 
+
+                                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-12 col-xl-12">
+                                    <div className="mb-4">
+                                        <Title text="Plan de estudios" />
+                                        <div className='font-bold'> <Subtitle text="Título" /> </div>
+                                        <p>{plan.title}</p>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div className="font-bold"> <Subtitle text="Perfil del egresado" /></div>
+                                            <p className='text-justify'>{plan.profile}</p>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold"> <Subtitle text="Alcance del título" /></div>
+                                            <p className='text-justify'>{plan.alcances}</p>
+                                        </div>
+                                    </div>
+                                    {/*Stack de materias*/}
                                     <div >
-                                        <Subtitle text="Ciclo Básico" />
-                                        <Materias />
-                                        <Subtitle text="Ciclo Superior" />
-                                        <Materias />
+                                        <div className="mt-4">
+                                            <Title text="Listado de materias" />
+                                        </div>
+
+                                        <Container>
+                                            <Subtitle text="Ciclo Básico" />
+                                            <Materias showBasic={true} />
+                                            <Subtitle text="Ciclo Superior" />
+                                            <Materias />
 
 
 
+                                        </Container>
                                     </div>
+
+
+
+
+
                                 </div>
-
-
-
-
-
-                            </div>
+                            </> : <LoadingSpinner text="Cargando datos..." />}
 
                         </div>
                         <div className='col-1'></div>

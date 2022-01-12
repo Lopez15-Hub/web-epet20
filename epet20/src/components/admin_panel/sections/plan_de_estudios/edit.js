@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { db } from '../../../../firebase/firebaseConfig'
+import { usePlan } from '../../../../hooks/query_hooks/usePlan'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
@@ -16,11 +17,13 @@ export const EditPlanDeEstudios = () => {
     });
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { title, profile, materia, año, alcances } = values;
-
+    const { plan } = usePlan();
+    const planMaterias = plan.materias ? plan.materias : [];
     const [materias, setMaterias] = React.useState([]);
     const singleMateria = {
         "materia": materia,
-        "año": año
+        "año": año,
+        "ciclo": año === '1°' || año === '2°' || año === '3°' ? 'basico' : 'superior',
     }
     const addMateria = () => {
         handleMaterias();
@@ -45,21 +48,21 @@ export const EditPlanDeEstudios = () => {
         setLoading(true);
 
         const planRef = doc(db, 'textos', 'planDeEstudios');
-        const docRef = await setDoc(planRef, {
-            "title": title,
-            "profile": profile,
-            "alcances": alcances,
-            "materias": materias
+        await setDoc(planRef, {
+            "title": title ? title : plan.title,
+            "profile": profile ? profile : plan.profile,
+            "alcances": alcances ? alcances : plan.alcances,
+            "materias": materias ? materias : plan.materias,
 
         }).then(() => {
-            console.log("Document written with ID: ", docRef.id);
             setAlertMessage("Archivo creado exitosamente.")
             setLoading(false);
             setSuccess(true);
-            setTimeout(() => { window.location.reload() }, 1000)
+            // setTimeout(() => { window.location.reload() }, 1000)
         }).catch((err) => {
             if (err.code === undefined) {
                 setAlertMessage("Archivo creado exitosamente.")
+                console.log("El archivo se ha subido con exito pero ha ocurrido un error indefinido. Error: ", err);
                 setLoading(false);
                 setSuccess(true);
                 setTimeout(() => { window.location.reload() }, 1000)
@@ -80,22 +83,42 @@ export const EditPlanDeEstudios = () => {
 
         e.preventDefault();
 
-        if (title === null || title === undefined || profile === null
+        if (plan.length === 0) {
+            if (title === null || title === undefined || profile === null
+                || profile === undefined || alcances === null || alcances === undefined
+                || materias.length === 0 || materias === null || materias === undefined
+                || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
+                || año === undefined || año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0) {
+
+
+                setWarning(true);
+                setAlertMessage("Debes rellenar todos los campos para editar el plan de estudios.");
+                console.log("Debes rellenar todos los campos.");
+                restartAlertsState();
+
+
+            } else {
+
+                console.log("Datos del plan de estudios: ", values);
+                console.log("Datos del plan de estudio añadidos y listos para subir.");
+                uploadPlan();
+            }
+
+        } else if (plan && title === null || title === undefined || profile === null
             || profile === undefined || alcances === null || alcances === undefined
             || materias.length === 0 || materias === null || materias === undefined
-            || materia === null || materia === undefined || año === null
-            || año === undefined || año === "" && materia === "" && profile === "" && title === "" && alcances === "") {
-            setWarning(true);
-            setAlertMessage("Debes rellenar todos los campos para editar el plan de estudios.");
-            console.log("Debes rellenar todos los campos.");
-            restartAlertsState();
-
-
-        } else {
+            || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
+            || año === undefined || año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0) {
 
             console.log("Datos del plan de estudios: ", values);
             console.log("Datos del plan de estudio añadidos y listos para subir.");
             uploadPlan();
+
+        } else {
+            setWarning(true);
+            setAlertMessage("Debes editar los datos para que los cambios surgan efecto.");
+            console.log("Debes rellenar todos los campos.");
+            restartAlertsState();
         }
 
     }
@@ -107,20 +130,22 @@ export const EditPlanDeEstudios = () => {
                 {success ?
                     <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
                     error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
-                        <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
+                        <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : loading ? <LoadingSpinner text="Subiendo..." /> : ''
                 }
                 <Row>
                     <Title text="Editar plan de estudios" />
 
-                    <div className='font-bold'><Subtitle text="Datos generales" /></div>
+
                     <Form onSubmit={createPlan} onReset={reset}>
+                        <Button type='submit' className='my-btn btn mt-4 mb-4' >Guardar cambios</Button>
+                        <div className='font-bold'><Subtitle text="Datos generales" /></div>
                         <FormGroup>
                             <Label >
                                 Titulo
                             </Label>
                             <Input
                                 onChange={handleChange}
-
+                                defaultValue={plan.title}
                                 name="title"
                                 placeholder="Ingrese un titulo"
                                 type="text"
@@ -136,7 +161,7 @@ export const EditPlanDeEstudios = () => {
                             </Label>
                             <Input
                                 onChange={handleChange}
-
+                                defaultValue={plan.profile}
                                 name="profile"
                                 placeholder="Ingrese el perfil del egresado"
                                 type="textarea"
@@ -153,7 +178,7 @@ export const EditPlanDeEstudios = () => {
                             </Label>
                             <Input
                                 onChange={handleChange}
-
+                                defaultValue={plan.alcances}
                                 name="alcances"
                                 placeholder="Ingrese los alcances del egresado"
                                 type="textarea"
@@ -192,10 +217,20 @@ export const EditPlanDeEstudios = () => {
                             </form>
                         </div>
                         {
-                            materias.length !== 0 ? <>
+                            materias.length !== 0 || planMaterias.length !== 0 ? <>
                                 <Title text={"Materias añadidas"}></Title>
-                                <Subtitle text={"Total añadidas: " + materias.length} />
-                                {materias.map((materia, index) => {
+                                <Subtitle text={"Total añadidas: " + planMaterias.length !== 0 ? planMaterias.length : materias.length} />
+                                {materias.length !== 0 ? materias.map((materia, index) => {
+                                    return (
+                                        <ul className='border' key={index}>
+                                            <div>
+                                                <li className='main-color font-bold p-2'>{materia.materia} - {materia.año} </li>
+                                                <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
+                                            </div>
+
+                                        </ul>
+                                    )
+                                }) : planMaterias.map((materia, index) => {
                                     return (
                                         <ul className='border' key={index}>
                                             <div>
@@ -208,8 +243,8 @@ export const EditPlanDeEstudios = () => {
                                 })}
                             </> : ''
                         }
-                        <Button type='submit' className='my-btn btn mt-4' >Guardar cambios</Button>
-                        {loading ? <LoadingSpinner text="Subiendo..." /> : ''}
+
+
                     </Form>
 
 

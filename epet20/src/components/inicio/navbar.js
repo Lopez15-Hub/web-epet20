@@ -71,7 +71,7 @@ function Navbar() {
                     <div className="m-2">
 
                         <li className="nav-item dropdown ">
-                            <Link to="/secretaria" NameName="dropdown-toggle font-bold p-2  nav-color  " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Secretaria  </Link>
+                            <Link to="/secretaria" className="dropdown-toggle font-bold p-2  nav-color  " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Secretaria  </Link>
                             <ul className="dropdown-menu showDropDown" aria-labelledby="navbarDropdown">
                                 <li><Link to="secretaria/anuncios" className="dropdown-item font-bold main-color" >Anuncios</Link></li>
                                 <li><Link to="secretaria/docentes" className="dropdown-item font-bold main-color" >Docentes</Link></li>
