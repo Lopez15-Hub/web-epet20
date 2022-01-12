@@ -7,7 +7,7 @@ export const InputMateria = ({ handleChange }) => {
     return (
 
         <FormGroup >
-            <div class="input-group mb-3">
+            <div className="input-group mb-3">
                 <input type="text" onChange={(e) => handleChange(e)} className="form-control" aria-label="Text input with dropdown button" placeholder="Nombre de la materia" />
 
                 <select onChange={(e) => handleChange(e)} className="btn btn-outline-secondary dropdown-toggle" type="button" >

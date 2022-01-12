@@ -65,7 +65,7 @@ export const Registro = () => {
                 <div className="container">
 
                     <div className="row m-6 ">
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                        <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
                         <div className="mt-4 col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4  shadow-lg">
                             <div className="mt-4">
                                 <Title text="Registráte y ¡Sé parte de nuestra comunidad!" />
@@ -78,14 +78,14 @@ export const Registro = () => {
                                 }
                             </div>
                             <form className=" p-6" onSubmit={handleSubmit}>
-                                <div class="mb-3 row">
-                                    <div class="col-sm-6">
+                                <div className="mb-3 row">
+                                    <div className="col-sm-6">
                                         <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
-                                        <input type="text" name='name' onChange={handleChange} class="form-control shadow-md " placeholder="Juan" />
+                                        <input type="text" name='name' onChange={handleChange} className="form-control shadow-md " placeholder="Juan" />
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div className="col-sm-6">
                                         <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
-                                        <input type="text" name='apellido' onChange={handleChange} class="form-control shadow-md" placeholder="Perez" />
+                                        <input type="text" name='apellido' onChange={handleChange} className="form-control shadow-md" placeholder="Perez" />
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
@@ -112,7 +112,7 @@ export const Registro = () => {
                             </form>
                         </div>
                         {loading ? <LoadingSpinner text={handleGoogle ? 'Ingresando con google' : "Creando el usuario.."} /> : null}
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
+                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
                     </div>
 
                 </div>

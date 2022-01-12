@@ -145,21 +145,21 @@ export const Form = ({ currentRole }) => {
                             <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
                     }
                     <div className="row m-6 ">
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3"></div>
+                        <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3"></div>
                         <div className="mt-4 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div className="mt-4">
                                 <Title text={userId ? "Editar usuario" : "Añadir un usuario"} />
                             </div>
 
                             <form className=" p-6" onSubmit={handleSubmit} >
-                                <div class="mb-3 row">
-                                    <div class="col-sm-6">
+                                <div className="mb-3 row">
+                                    <div className="col-sm-6">
                                         <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
-                                        <input onChange={handleChange} value={name} type="text" class="form-control shadow-md " placeholder={user.name ? user.name : ' '} name='name' />
+                                        <input onChange={handleChange} value={name} type="text" className="form-control shadow-md " placeholder={user.name ? user.name : ' '} name='name' />
                                     </div>
                                     <div className="col-sm-6">
                                         <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
-                                        <input onChange={handleChange} value={apellido} type="text" class="form-control shadow-md" placeholder={user.name ? user.apellido : ' '} name='apellido' />
+                                        <input onChange={handleChange} value={apellido} type="text" className="form-control shadow-md" placeholder={user.name ? user.apellido : ' '} name='apellido' />
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
@@ -184,7 +184,7 @@ export const Form = ({ currentRole }) => {
 
                                 <div>
                                     <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Rol de usuario</label>
-                                    <select onChange={handleChange} value={role} class="form-select mb-4 shadow-md" aria-label="Default select example" name='role'>
+                                    <select onChange={handleChange} value={role} className="form-select mb-4 shadow-md" aria-label="Default select example" name='role'>
                                         <option selected>{user.role ? user.role.toString().charAt(0).toUpperCase() + user.role.slice(1) + " (Rol actual)" : "Seleccione un rol"}</option>
                                         <option value="administrador">Administrador</option>
                                         <option value="direccion">Dirección</option>
@@ -200,7 +200,7 @@ export const Form = ({ currentRole }) => {
                             </form>
 
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
+                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
                     </div>
 
                 </div>

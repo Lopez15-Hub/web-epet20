@@ -97,7 +97,7 @@ export const Login = () => {
                 <div className="container">
 
                     <div className="row m-6 ">
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
+                        <div className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4"></div>
                         <div className="mt-4 col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4  shadow-lg">
                             <div className="mt-4">
                                 <Title text="Iniciar sesión" />
@@ -144,7 +144,7 @@ export const Login = () => {
 
                         </div>
                         {loading ? <Loading text="Iniciando sesión..." /> : null}
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
+                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
                     </div>
 
                 </div>

@@ -1,5 +1,5 @@
 
-import { addDoc, collection } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
@@ -29,7 +29,7 @@ export const EditPlanDeEstudios = () => {
         if (singleMateria.materia !== "" && singleMateria.año !== "" && singleMateria.materia !== undefined && singleMateria.año !== undefined) {
             setMaterias([...materias, singleMateria]);
             console.log(materias);
-            document.getElementById("formMaterias").reset();
+            document.getElementById("formMateria").reset();
         } else {
             setAlertMessage("Debes especificar una materia y su año para añadirla.");
             setWarning(true);
@@ -43,27 +43,37 @@ export const EditPlanDeEstudios = () => {
 
     const uploadPlan = async () => {
         setLoading(true);
-        try {
-            const docRef = await addDoc(collection(db, "textos"), {
-                "title": title,
-                "profile": profile,
-                "alcances": alcances,
-                "materias": materias
 
-            })
+        const planRef = doc(db, 'textos', 'planDeEstudios');
+        const docRef = await setDoc(planRef, {
+            "title": title,
+            "profile": profile,
+            "alcances": alcances,
+            "materias": materias
+
+        }).then(() => {
             console.log("Document written with ID: ", docRef.id);
             setAlertMessage("Archivo creado exitosamente.")
             setLoading(false);
             setSuccess(true);
             setTimeout(() => { window.location.reload() }, 1000)
-        } catch (err) {
+        }).catch((err) => {
+            if (err.code === undefined) {
+                setAlertMessage("Archivo creado exitosamente.")
+                setLoading(false);
+                setSuccess(true);
+                setTimeout(() => { window.location.reload() }, 1000)
+            } else {
+                setLoading(false);
+                setError(true);
+                setAlertMessage("Error al subir el plan: ", err.code);
+                console.log("Error al subir el plan: ", err.code);
+                setTimeout(() => { restartAlertsState() }, 3000);
+            }
 
-            setLoading(false);
-            setError(true);
-            setAlertMessage("Error al subir el plan: ", err.code);
-            setTimeout(() => { restartAlertsState() }, 3000);
+        });;
 
-        }
+
     }
 
     const createPlan = async (e) => {
@@ -156,29 +166,31 @@ export const EditPlanDeEstudios = () => {
                         </FormGroup>
 
                         <div className='font-bold'><Subtitle text="Materias" /></div>
-                        <form id='formMaterias'>
-                            <FormGroup>
-                                <div class="input-group mb-3">
-                                    <input value={materia} onChange={handleChange} name="materia" type="text" className="form-control" aria-label="Text input with dropdown button" placeholder="Nombre de la materia" />
+                        <div>
+                            <form id='formMateria'>
+                                <FormGroup>
+                                    <div className="input-group mb-3">
+                                        <input id='inputMateria' onChange={handleChange} name="materia" type="text" className="form-control" aria-label="Text input with dropdown button" placeholder="Nombre de la materia" />
 
-                                    <select value={año} onChange={handleChange} name="año" className="btn btn-outline-secondary dropdown-toggle" type="button" >
-                                        <option>Año</option>
-                                        <option value="1°">Primero</option>
-                                        <option value="2°">Segundo</option>
-                                        <option value="3°">Tercero</option>
-                                        <option value="4°">Cuarto</option>
-                                        <option value="5°">Quinto</option>
-                                        <option value="6°">Sexto</option>
+                                        <select id='selectAño' onChange={handleChange} name="año" className="btn btn-outline-secondary dropdown-toggle" type="button" >
+                                            <option value={null}>Año</option>
+                                            <option value="1°">Primero</option>
+                                            <option value="2°">Segundo</option>
+                                            <option value="3°">Tercero</option>
+                                            <option value="4°">Cuarto</option>
+                                            <option value="5°">Quinto</option>
+                                            <option value="6°">Sexto</option>
 
-                                    </select>
-                                </div>
-                                <button type="reset" onClick={() => addMateria()} type='button' className='btn btn-outline-primary'>+ Añadir materia</button>
-
-
+                                        </select>
+                                    </div>
+                                    <button type="reset" onClick={() => addMateria()} type='button' className='btn btn-outline-primary'>+ Añadir materia</button>
 
 
-                            </FormGroup>
-                        </form>
+
+
+                                </FormGroup>
+                            </form>
+                        </div>
                         {
                             materias.length !== 0 ? <>
                                 <Title text={"Materias añadidas"}></Title>

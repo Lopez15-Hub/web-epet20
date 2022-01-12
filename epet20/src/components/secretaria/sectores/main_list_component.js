@@ -117,7 +117,7 @@ export const MainList = ({ label, admin }) => {
                                             e.id !== null ?
                                                 <ul key={e.id ? e.id : 0}>
 
-                                                    <li class="border p-4 m-2 shadow-md rounded-xl">
+                                                    <li className="border p-4 m-2 shadow-md rounded-xl">
                                                         <a href={e.url}>
                                                             <p className='main-color font-bold'>{e.title}</p> <p>{e.description}</p>
                                                             <p className='text-muted'>Fecha de publicación: {e.fecha}</p></a>
