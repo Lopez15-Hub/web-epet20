@@ -9,6 +9,7 @@ import { UploadFile } from '../components/admin_panel/sections/estudiantes/uploa
 import { Form } from '../components/admin_panel/sections/form';
 import { InicioAdmin } from '../components/admin_panel/sections/inicio_admin';
 import { Loading } from '../components/admin_panel/sections/loading';
+import { EditPlanDeEstudios } from '../components/admin_panel/sections/plan_de_estudios/edit';
 import { Profile } from '../components/admin_panel/sections/profile';
 import { AñadirAnuncio } from '../components/admin_panel/sections/secretaria/add_anuncios';
 import { SecretariaAdmin } from '../components/admin_panel/sections/secretaria/administrar';
@@ -60,8 +61,8 @@ export const DashboardRouter = () => {
                             <div className='col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 position-relative'>
                                 <Container>
                                     <Routes>
+                                        {    /*RUTAS DEL ROL ADMINISTRADOR*/}
                                         {role === "administrador" ? <>
-
                                             <Route path="perfil/" element={<Profile />} />
                                             <Route path="usuarios/" element={<Usuarios />} />
                                             <Route path="usuarios/add" element={<Form />} />
@@ -74,12 +75,14 @@ export const DashboardRouter = () => {
                                             <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
                                             <Route path="secretaria/admin" element={<SecretariaAdmin />} />
                                             <Route path="contacto" element={<PaginaEnConstruccion />} />
-                                            <Route path="plan-de-estudios" element={<PaginaEnConstruccion />} />
+                                            <Route path="plan-de-estudios" element={<EditPlanDeEstudios />} />
+                                            {/*RUTAS DEL ROL Secretaria*/}
                                         </> : role === "secretaria" ? <>
                                             <Route path="perfil/" element={<Profile />} />
                                             <Route path="secretaria/forms" element={<SecretariaForms />} />
                                             <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
                                             <Route path="secretaria/admin" element={<SecretariaAdmin />} />
+                                            {/*RUTAS DEL ROL Usuario*/}
                                         </> : role === "usuario" ? <>  <Route path="perfil/" element={<Profile />} /></> : role === '' || role === undefined || role === null ? window.location.replace("/") : <Route path="/" element={<Profile />} />
                                         }
 

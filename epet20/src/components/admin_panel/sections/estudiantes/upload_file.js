@@ -1,9 +1,9 @@
 
 import { addDoc, collection } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
-import { app, db, storage } from '../../../../firebase/firebaseConfig'
+import { app, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
