@@ -220,7 +220,7 @@ export const EditPlanDeEstudios = () => {
                             materias.length !== 0 ? <>
                                 <Title text={"Materias añadidas"}></Title>
                                 <Subtitle text={"Materias totales: " + materias.length} />
-                                {materias.length !== 0 ? materias.map((materia, index) => {
+                                {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
                                     return (
                                         <ul className='border' key={index}>
                                             <div>
