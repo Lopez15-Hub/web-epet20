@@ -7,7 +7,6 @@ import { Novedades } from '../views/novedades';
 import { Login } from '../views/login';
 import { Registro } from '../views/registro';
 import { PlanDeEstudios } from '../views/plan_estudios';
-import Navbar from '../components/inicio/navbar';
 import { GeneralList } from '../components/secretaria/sectores/general';
 import { EstudiantesList } from '../components/secretaria/sectores/estudiantes';
 import { DocentesList } from '../components/secretaria/sectores/docentes';
@@ -15,10 +14,12 @@ import { Anuncios } from '../components/secretaria/sectores/anuncios';
 import { Teoria } from '../components/estudiantes/teoria';
 import { Taller } from '../components/estudiantes/taller';
 import { EducacionFisica } from '../components/estudiantes/ed-fisica';
+import { Prueba } from '../components/general/navbar/prueba';
+import { MyNavbar } from '../components/general/navbar/custom_navbar';
 export const WebRouter = () => {
     return (
         <>
-            <Navbar />
+            <MyNavbar />
             <Routes>
 
                 <Route path="error" />
@@ -37,6 +38,7 @@ export const WebRouter = () => {
                 <Route path="plan-de-estudios" element={<PlanDeEstudios />} />
                 <Route path="login" element={<Login />} />
                 <Route path="registro" element={<Registro />} />
+                <Route path="prueba" element={<Prueba />} />
 
             </Routes>
         </>

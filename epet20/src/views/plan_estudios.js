@@ -38,110 +38,113 @@ export const PlanDeEstudios = () => {
     return (
         <>
             {plan ? <>
-            {/*Módulo de impresión*/}
-            <div fluid className='mt-2 mb-4'>
-                {success ?
-                    <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
-                    error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : ''
-                }
 
-                <ReactToPrint
-
-                    trigger={() => <div className='row'><button className="btn btn-outline-primary ml-4 col-2"><p p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p> </button><p className='col-2 text-muted text-justify '>Nota: También puedes guardar el plan en formato PDF.</p> </div>}
-                    content={() => ref.current}
-                    documentTitle='E.P.E.T N°20 - Plan de estudios.pdf'
-
-                    onPrintError={errorPrint}
-                    onAfterPrint={afterPrint}
-                    onBeforePrint={beforePrint}
+                <div name="main" fluid className='mt-2 mb-4'>
+                    {success ?
+                        <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                        error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : ''
+                    }
 
 
+                    {loading ? <LoadingSpinner text="Generando pdf..." /> : null}
+                </div>
 
+                <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" mt-4  " >
 
-                />
+                    <Container>
+                        <div className='row' ref={ref}>
 
-                {loading ? <LoadingSpinner text="Generando pdf..." /> : null}
+                            <div className='col-1'></div>
+                            <div className="row p-7 col-10" >
+                                <header className="bg-main-color shadow-md rounded-xl p-3">
 
-            </div>
+                                    <dl >
+                                        <dt className="text-white">Escuela provincial de educación técnica número 20. </dt>
 
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" mt-4  " >
-
-                <Container>
-                    <div className='row' ref={ref}>
-
-                        <div className='col-1'></div>
-                        <div className="row p-7 col-10" >
-                            <header className="bg-main-color shadow-md rounded-xl p-3">
-
-                                <dl >
-                                    <dt className="text-white">Escuela provincial de educación técnica número 20. </dt>
-
-                                    <dd className="text-white">Ministerio de educación - Ciudad de Neuquén - Año {formatDate()}. </dd>
+                                        <dd className="text-white">Ministerio de educación - Ciudad de Neuquén - Año {formatDate()}. </dd>
 
 
 
-                                </dl>
+                                    </dl>
 
 
-                            </header>
+                                </header>
 
 
 
-                            <div className="col-xs-12 col-sm-12 col-md-8 col-lg-12 col-xl-12">
-                                <div className="mb-4">
-                                    <Title text="Plan de estudios" />
-                                    <div className='font-bold'> <Subtitle text="Título" /> </div>
-                                    <p>{plan.title}</p>
-                                </div>
-                                <div>
-                                    <div>
-                                        <div className="font-bold"> <Subtitle text="Perfil del egresado" /></div>
-                                        <p className='text-justify'>{plan.profile}</p>
+                                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-12 col-xl-12">
+                                    <div className="mb-4">
+                                        <Title text="Plan de estudios" />
+                                        <div className='font-bold'> <Subtitle text="Título" /> </div>
+                                        <p>{plan.title}</p>
                                     </div>
                                     <div>
-                                        <div className="font-bold"> <Subtitle text="Alcance del título" /></div>
-                                        <p className='text-justify'>{plan.alcances}</p>
+                                        <div>
+                                            <div className="font-bold"> <Subtitle text="Perfil del egresado" /></div>
+                                            <p className='text-justify'>{plan.profile}</p>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold"> <Subtitle text="Alcance del título" /></div>
+                                            <p className='text-justify'>{plan.alcances}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                {/*Stack de materias*/}
-                                <div >
-                                    <div className="mt-4">
-                                        <Title text="Listado de materias" />
+                                    {/*Stack de materias*/}
+                                    <div >
+                                        <div className="mt-4">
+                                            <Title text="Listado de materias" />
+                                        </div>
+
+                                        <Container>
+                                            <Subtitle text="Ciclo Básico" />
+                                            <Materias showBasic={true} />
+                                            <Subtitle text="Ciclo Superior" />
+                                            <Materias />
+
+
+
+                                        </Container>
                                     </div>
 
-                                    <Container>
-                                        <Subtitle text="Ciclo Básico" />
-                                        <Materias showBasic={true} />
-                                        <Subtitle text="Ciclo Superior" />
-                                        <Materias />
 
 
 
-                                    </Container>
+
                                 </div>
-
-
-
 
 
                             </div>
+                            <div className='col-1'></div>
 
 
                         </div>
-                        <div className='col-1'></div>
+
+                        <div className='text-center'>
+                            {/*Módulo de impresión*/}
+                            <ReactToPrint
+
+                                trigger={() => <button className="btn btn-outline-primary ml-4 "><a href='#'><p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p></a> </button>}
+                                content={() => ref.current}
+                                documentTitle='E.P.E.T N°20 - Plan de estudios.pdf'
+
+                                onPrintError={errorPrint}
+                                onAfterPrint={afterPrint}
+                                onBeforePrint={beforePrint}
 
 
-                    </div>
 
 
+                            />
+                            <p className=' text-muted text-center mb-4'>Nota: También puedes guardar el plan en formato PDF.</p>
 
-                </Container>
-                {/*FOOOTER*/}
-                <Footer />
+                        </div>
 
-            </motion.div>
-        </> : <LoadingSpinner text="Cargando datos..." />
-}
+                    </Container>
+                    {/*FOOOTER*/}
+                    <Footer />
+
+                </motion.div>
+            </> : <LoadingSpinner text="Cargando datos..." />
+            }
         </>
     )
 }
