@@ -38,12 +38,12 @@ export const PlanDeEstudios = () => {
     return (
         <>
             {plan ? <>
+                {success ?
+                    <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                    error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : ''
+                }
+                <div name="main" fluid className='p-2 mb-4'>
 
-                <div name="main" fluid className='mt-2 mb-4'>
-                    {success ?
-                        <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
-                        error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : ''
-                    }
 
 
                     {loading ? <LoadingSpinner text="Generando pdf..." /> : null}

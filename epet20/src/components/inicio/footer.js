@@ -1,3 +1,4 @@
+import { FaLink } from "react-icons/fa";
 import { useDate } from "../../hooks/useDate";
 
 
@@ -7,11 +8,13 @@ export default function Footer() {
     <div className="container-fluid">
 
       <p className="text-white text-left font-bold ">Enlaces de interés</p>
-      <div className="d-flex">
-        <a href="https://www.neuquen.edu.ar/cargos-y-horas-vacantes/" className="link-social  p-2">Cargos y horas vacantes</a>
-        <a href="https://www.neuquen.edu.ar/" className="link-social  p-2">Consejo de educación</a>
-        <a href="https://regular.neuquen.gob.ar/" className="link-social  p-2">Certificado de estudiante regular</a>
-        <a href="https://regular.neuquen.gob.ar/Inscripciones2021/servlet/com.certiregu.verificatramite" className="link-social  p-2">Estado de inscripción</a>
+      <div className="row ">
+       
+          <a href="https://www.neuquen.edu.ar/cargos-y-horas-vacantes/" className="link-social col-sm-12 col-md-3  p-2 d-flex  "><FaLink/> Cargos y horas vacantes</a>
+          <a href="https://www.neuquen.edu.ar/" className="link-social col-sm-12 col-md-3  p-2 d-flex"> <FaLink/> Consejo de educación</a>
+          <a href="https://regular.neuquen.gob.ar/" className="link-social col-sm-12 col-md-3  p-2 d-flex"><FaLink/>  Certificado de estudiante regular</a>
+          <a href="https://regular.neuquen.gob.ar/Inscripciones2021/servlet/com.certiregu.verificatramite" className="link-social col-sm-12 col-md-3  p-2 row"> <div className="d-flex col-12"><FaLink/><p className="text-center"> Estado de inscripción</p></div></a>
+      
       </div>
     </div>
     <p className="text-white text-center  uppercase font-bold mt-2">{formatDate()} Escuela provincial de educación técnica número 20.</p>

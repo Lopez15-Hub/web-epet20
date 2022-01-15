@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./custom_navbar.css";
 import { Link } from "react-router-dom";
+import Menu from "../../../assets/menu.png";
 import Icon from "../../../assets/favicon.png";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase/firebaseConfig";
+
 export const MyNavbar = () => {
   const [user, setUser] = useState({
     photoUrl: "",
     displayName: "",
   });
-  const [menu, setMenu] = useState(true);
+  const [menu, setMenu] = useState(false);
   const [screenWidth, setWidth] = useState(window.innerWidth);
+  const [showDropdown, setshowDropdown] = useState(false);
+  const [showDropdown2, setshowDropdown2] = useState(false);
   useEffect(() => {
     const changeWidth = () => {
       setWidth(window.innerWidth);
@@ -27,7 +31,7 @@ export const MyNavbar = () => {
         });
       } else {
         setUser({
-          photoUrl: Icon,
+          photoUrl: Menu,
           displayName: "",
         });
         console.log("cargando...");
@@ -42,6 +46,12 @@ export const MyNavbar = () => {
     auth.signOut();
     window.location.replace("/");
   };
+  const dropdown = () => {
+    setshowDropdown(!showDropdown);
+  };
+  const dropdown2 = () => {
+    setshowDropdown2(!showDropdown2);
+  };
   /*
     Navbar ES LA SECCIÓN DE 
     LA PÁGINA DONDE SE ENCUENTRA 
@@ -49,30 +59,29 @@ export const MyNavbar = () => {
     */
 
   return (
-    <nav className="my-navbar shadow-xl container-fluid rounded-xl navbar">
-      <div className="menu rounded-md">
+    <nav className="my-navbar shadow-xl container-fluid rounded-b-xl navbar me-auto mb-4">
+      <div className="menu rounded-b-xl ">
         <div className="display-bar ">
           <div className="brand ">
-            <div className="brand-items">
-              <img
-                src={Icon}
-                className="shadow-xl rounded-xl logo "
-                alt="Logo"
-              />
-
+            <div className="brand-items p-2">
+              <button onClick={() => showMenu()} className=" hide-inPc">
+                <h1 className="menu-icon font-bold">|||</h1>
+              </button>
+              <img src={Icon} className="hide-inMobile shadow-md rounded-xl" />
               <h1 className="main-color font-bold navbar-brand ml-7">
                 <Link to="/inicio"> E.P.E.T. N°20</Link>
               </h1>
-              <button
-                onClick={() => showMenu()}
-                className=" hide-inPc img-profile-min"
-              >
-                <img
-                  className="shadow-xl rounded-xl "
-                  src={user.photoUrl}
-                  alt={"Foto de perfil de " + user.displayName}
-                />
-              </button>
+              {user.displayName !== "" ? (
+                <Link to="/admin" className="img-profile-min hide-inPc">
+                  <img
+                    className="shadow-xl rounded-50 "
+                    src={user.photoUrl}
+                    alt={"Foto de perfil de " + user.displayName}
+                  />
+                </Link>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
@@ -83,12 +92,74 @@ export const MyNavbar = () => {
                 <Link to="novedades" className="nav-element font-bold ">
                   Novedades
                 </Link>
-                <Link to="estudiantes" className="nav-element font-bold">
-                  Estudiantes
-                </Link>
-                <Link to="secretaria" className="nav-element font-bold">
-                  Secretaría
-                </Link>
+                <div class="dropdown">
+                  <Link
+                    class="nav-element font-bold   dropdown-toggle"
+                    to="/"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Estudiantes
+                  </Link>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li>
+                      <Link class="dropdown-item" to="estudiantes/ed-fisica">
+                        Educación Física
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="estudiantes/taller">
+                        Taller
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="estudiantes/teoria">
+                        Teoría
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <div class="dropdown">
+                  <Link
+                    class="nav-element font-bold   dropdown-toggle"
+                    to="/"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Secretaría
+                  </Link>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li>
+                      <Link class="dropdown-item" to="secretaria/anuncios">
+                        Anuncios
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="secretaria/estudiantes">
+                        Estudiantes
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="secretaria/docentes">
+                        Docentes
+                      </Link>
+                    </li>
+                    <li>
+                      <Link class="dropdown-item" to="secretaria/general">
+                        General
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+
                 <Link to="contacto" className="nav-element font-bold">
                   Contacto
                 </Link>
@@ -112,13 +183,13 @@ export const MyNavbar = () => {
                   <>
                     <Link
                       to="/login"
-                      className="btn btn-block btn-primary mt-2 font-bold hide-inPc"
+                      className="btn btn-primary btn-md m-4 font-bold hide-inPc"
                     >
                       Iniciar sesión
                     </Link>
                     <Link
                       to="registro"
-                      className="btn btn-outline-primary mt-2 btn-block font-bold hide-inPc"
+                      className="btn btn-outline-primary m-4 font-bold hide-inPc"
                     >
                       Registrarse
                     </Link>

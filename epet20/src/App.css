@@ -69,7 +69,6 @@
   border-color: #5d00ff !important;
   color: white;
   font-size: medium;
-  border-radius: 5%;
   transition: ease-in-out 0.3s;
 }
 .portada {
@@ -231,8 +230,8 @@
 .link-social:hover {
   color: deeppink;
   text-decoration-color: deeppink;
-  transition: ease-in-out 0.3s;
-  transform: scaleY(1.1) scaleX(1.1);
+  transition: ease-in-out 0.2s;
+  transform: scaleY(1.1) scaleX(1.05);
 }
 
 .img-profile-nav {
