@@ -251,6 +251,9 @@
   transition: ease-in-out 0.2s;
   transform: scale(1.1);
 }
+.my-shadow {
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+}
 @media screen and (max-width: 600px) {
   .navbar-collapse {
     background-color: white;

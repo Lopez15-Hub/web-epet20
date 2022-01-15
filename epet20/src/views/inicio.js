@@ -21,7 +21,7 @@ export const Inicio = () => {
 
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container  p-6 " >
 
-                <div className="row shadow-xl rounded-xl mt-5">
+                <div className="row my-shadow shadow-md rounded-xl mt-5">
 
                     <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
                         <div className="mb-4">

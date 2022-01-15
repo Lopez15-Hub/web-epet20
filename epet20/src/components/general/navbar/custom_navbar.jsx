@@ -50,7 +50,7 @@ export const MyNavbar = () => {
 
   return (
     <nav className="my-navbar shadow-xl container-fluid rounded-xl navbar">
-      <div className="menu">
+      <div className="menu rounded-md">
         <div className="display-bar ">
           <div className="brand ">
             <div className="brand-items">
