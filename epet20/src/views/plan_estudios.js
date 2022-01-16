@@ -19,11 +19,13 @@ export const PlanDeEstudios = () => {
     const ref = useRef(null)
     const { plan } = usePlan();
     const { formatDate } = useDate();
+    const [showMark, setShowMark] = React.useState(false);
     const beforePrint = () => {
+        setShowMark(true);
         setLoading(true)
     }
     const afterPrint = () => {
-
+        setShowMark(false);
         setLoading(false)
         setAlertMessage("PDF generado exitosamente. ")
         setSuccess(true)
@@ -101,16 +103,17 @@ export const PlanDeEstudios = () => {
 
 
                                         </Container>
-                                     
+
                                         <Container className='p-6 mt-4   mx-auto'>
                                             <div className='mt-2 mb-2'><Subtitle text="Ciclo Superior" /></div>
 
                                             <Materias />
                                         </Container>
+
                                     </div>
 
 
-
+                                    <p id='labelMark' className=' text-muted text-center mb-4'>Documento generado de la página oficial de la E.P.E.T. N°20 - Año {formatDate()}.</p> 
 
 
                                 </div>
@@ -129,7 +132,7 @@ export const PlanDeEstudios = () => {
                                 trigger={() => <button className="btn btn-outline-primary ml-4 "><a href='#'><p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p></a> </button>}
                                 content={() => ref.current}
                                 documentTitle='E.P.E.T N°20 - Plan de estudios.pdf'
-
+                                onBeforePrint={beforePrint}
                                 onPrintError={errorPrint}
                                 onAfterPrint={afterPrint}
                                 onBeforePrint={beforePrint}
