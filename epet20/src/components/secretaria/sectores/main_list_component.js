@@ -95,7 +95,7 @@ export const MainList = ({ label, admin }) => {
             {/*Barra de navegación*/}
 
 
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container shadow-xl bg-white rounded-xl mt-7 " >
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container shadow-xl bg-white rounded-xl p-6 mt-4 " >
 
                 <div className="row ">
 

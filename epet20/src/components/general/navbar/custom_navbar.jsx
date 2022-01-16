@@ -5,6 +5,8 @@ import Menu from "../../../assets/menu.png";
 import Icon from "../../../assets/favicon.png";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase/firebaseConfig";
+import { DropdownEstudiantes, DropdownOptions } from "./dropdowns_estudiantes";
+import { DropdownOptionsSecretaria } from "./dropdowns_secretaria";
 
 export const MyNavbar = () => {
   const [user, setUser] = useState({
@@ -89,81 +91,63 @@ export const MyNavbar = () => {
           <>
             <div id="menu" className="elements ">
               <div className="items">
-                <Link to="novedades" className="nav-element font-bold ">
+                <Link
+                  onClick={() => showMenu()}
+                  to="novedades"
+                  className="nav-element font-bold "
+                >
                   Novedades
                 </Link>
-                <div class="dropdown">
-                  <Link
-                    class="nav-element font-bold   dropdown-toggle"
-                    to="/"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Estudiantes
-                  </Link>
-                  <ul
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <Link class="dropdown-item" to="estudiantes/ed-fisica">
-                        Educación Física
-                      </Link>
-                    </li>
-                    <li>
-                      <Link class="dropdown-item" to="estudiantes/taller">
-                        Taller
-                      </Link>
-                    </li>
-                    <li>
-                      <Link class="dropdown-item" to="estudiantes/teoria">
-                        Teoría
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div class="dropdown">
-                  <Link
-                    class="nav-element font-bold   dropdown-toggle"
-                    to="/"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Secretaría
-                  </Link>
-                  <ul
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <Link class="dropdown-item" to="secretaria/anuncios">
-                        Anuncios
-                      </Link>
-                    </li>
-                    <li>
-                      <Link class="dropdown-item" to="secretaria/estudiantes">
-                        Estudiantes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link class="dropdown-item" to="secretaria/docentes">
-                        Docentes
-                      </Link>
-                    </li>
-                    <li>
-                      <Link class="dropdown-item" to="secretaria/general">
-                        General
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                <Link to="contacto" className="nav-element font-bold">
+                <a
+                  onClick={() => {
+                    dropdown();
+                  }}
+                  href="#"
+                  className="nav-element font-bold "
+                >
+                  Estudiantes {showDropdown ? "▲" : "▼"}
+                </a>
+                {showDropdown ? (
+                  <DropdownOptions
+                    click={() => {
+                      showMenu();
+                      dropdown();
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
+                <a
+                  onClick={() => {
+                    dropdown2();
+                  }}
+                  href="#"
+                  className="nav-element font-bold "
+                >
+                  Secretaría {showDropdown2 ? "▲" : "▼"}
+                </a>
+                {showDropdown2 ? (
+                  <DropdownOptionsSecretaria
+                    click={() => {
+                      showMenu();
+                      dropdown2();
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
+                <Link
+                  onClick={() => showMenu()}
+                  to="contacto"
+                  className="nav-element font-bold"
+                >
                   Contacto
                 </Link>
-                <Link to="plan-de-estudios" className="nav-element font-bold">
+                <Link
+                  onClick={() => showMenu()}
+                  to="plan-de-estudios"
+                  className="nav-element font-bold"
+                >
                   Plan de estudios
                 </Link>
                 <a
