@@ -16,6 +16,7 @@ import { SecretariaAdmin } from '../components/admin_panel/sections/secretaria/a
 import { SecretariaForms } from '../components/admin_panel/sections/secretaria/secretariaForms';
 import { Usuarios } from '../components/admin_panel/sections/usuarios';
 import { AlertNotification } from '../components/general/alertNotification';
+import { AdminNavbar } from '../components/general/navbar/custom_navbar_admin';
 import { NavbarAdmin } from '../components/inicio/navbar_admin';
 import { auth } from '../firebase/firebaseConfig';
 import { useConnection } from '../hooks/useConnection';
@@ -59,7 +60,7 @@ export const DashboardRouter = () => {
 
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <NavbarAdmin currentRole={role} />
+            <AdminNavbar currentRole={role} />
             {success ?
                 <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
                 error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?

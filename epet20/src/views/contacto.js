@@ -11,8 +11,8 @@ export const Contacto = () => {
     return (
         <>
             
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container mt-4 ">
-                <div className=" p-6 shadow-lg rounded-t-xl me-auto mt-5">
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container  me-auto  mt-5  ">
+                <div className=" p-6 my-shadow rounded-t-xl me-auto mt-5">
                     {/*Sección de contacto de la escuela */}
                     <Title text="Contáctanos" />
                     <Contactanos />

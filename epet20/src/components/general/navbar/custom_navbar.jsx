@@ -64,23 +64,23 @@ export const MyNavbar = () => {
     */
 
   return (
-    <nav className="my-navbar shadow-xl container-fluid rounded-b-xl navbar me-auto mb-4">
-      <div className="menu rounded-b-xl ">
+    <nav className="my-navbar container-fluid rounded-b-xl  me-auto ">
+      <div className="menu rounded-b-xl  ">
         <div className="display-bar ">
-          <div className="brand ">
+          <div className="brand">
             <div className="brand-items p-2">
               <button onClick={() => showMenu()} className=" hide-inPc">
                 <h1 className="menu-icon font-bold">|||</h1>
               </button>
-              <img src={Icon} className="hide-inMobile shadow-md rounded-xl" />
-              <h1 className="main-color font-bold navbar-brand ml-7">
+              <img src={Icon} className="hide-inMobile shadow-md rounded-xl logo" />
+              <h1 className="main-color font-bold">
                 <Link onClick={() => setMenu(false)} to="/inicio">
                   {" "}
                   E.P.E.T. N°20
                 </Link>
               </h1>
               {user.displayName !== "" ? (
-                <Link to="/admin" className="img-profile-min hide-inPc">
+                <Link to="/admin" className="img-profile-min  hide-inPc">
                   <img
                     className="shadow-xl rounded-50 "
                     src={user.photoUrl}
@@ -100,7 +100,7 @@ export const MyNavbar = () => {
                 <Link
                   onClick={() => showMenu()}
                   to="novedades"
-                  className="nav-element font-bold "
+                  className=" nav-element font-bold "
                 >
                   Novedades
                 </Link>
@@ -219,7 +219,7 @@ export const MyNavbar = () => {
               <div className="elements-right hide-inMobile">
                 <div className="items-right">
                   <Link to="/admin" className="">
-                    <img src={user.photoUrl} className=" img-profile-nav"></img>
+                    <img src={user.photoUrl} className="img-profile-nav"></img>
                   </Link>
                   <button
                     className="session-button nav-element my-outlined-button font-bold p-1 m-1"

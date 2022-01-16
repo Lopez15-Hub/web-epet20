@@ -19,9 +19,9 @@ export const Inicio = () => {
             {/*Barra de navegación*/}
 
 
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container  me-auto p-6 " >
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container  me-auto p-6 mt-4" >
 
-                <div className="row my-shadow shadow-md rounded-xl mt-2">
+                <div className="p-6 row my-shadow rounded-xl ">
 
                     <div className="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
                         <div className="mb-4">
