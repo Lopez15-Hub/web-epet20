@@ -10,6 +10,7 @@ import {
   DropdownOptionsSecretaria,
   DropdownSecretaria,
 } from "./dropdowns_secretaria";
+import { motion } from "framer-motion";
 
 export const MyNavbar = () => {
   const [user, setUser] = useState({
@@ -72,7 +73,10 @@ export const MyNavbar = () => {
               <button onClick={() => showMenu()} className=" hide-inPc">
                 <h1 className="menu-icon font-bold">|||</h1>
               </button>
-              <img src={Icon} className="hide-inMobile shadow-md rounded-xl logo" />
+              <img
+                src={Icon}
+                className="hide-inMobile shadow-md rounded-xl logo"
+              />
               <h1 className="main-color font-bold">
                 <Link onClick={() => setMenu(false)} to="/inicio">
                   {" "}
@@ -80,7 +84,10 @@ export const MyNavbar = () => {
                 </Link>
               </h1>
               {user.displayName !== "" ? (
-                <Link to="/dashboard" className="img-profile-min  hide-inPc">
+                <Link
+                  to="/dashboard/perfil"
+                  className="img-profile-min  hide-inPc"
+                >
                   <img
                     className="shadow-xl rounded-50 "
                     src={user.photoUrl}
@@ -95,7 +102,11 @@ export const MyNavbar = () => {
         </div>
         {menu || screenWidth > 800 ? (
           <>
-            <div id="menu" className="elements ">
+            <div
+
+              id="menu"
+              className="elements "
+            >
               <div className="items">
                 <Link
                   onClick={() => showMenu()}

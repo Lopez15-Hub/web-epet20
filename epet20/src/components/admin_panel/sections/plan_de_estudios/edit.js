@@ -137,7 +137,7 @@ export const EditPlanDeEstudios = () => {
 
 
                     <Form onSubmit={createPlan} onReset={reset}>
-                        <Button type='submit' className='my-btn btn mt-4 mb-4' >Guardar cambios</Button>
+                       
                         <div className='font-bold'><Subtitle text="Datos generales" /></div>
                         <FormGroup>
                             <Label >
@@ -214,6 +214,7 @@ export const EditPlanDeEstudios = () => {
 
 
                                 </FormGroup>
+                                <Button type='submit' className='my-btn btn mt-4 mb-4' >Guardar cambios</Button>
                             </form>
                         </div>
                         {

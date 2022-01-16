@@ -72,7 +72,7 @@ export const DashboardRouter = () => {
                 error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
                     <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
             }
-            <Container className='mt-5 p-6 me-auto'>
+            <Container className='mt-5 me-auto'>
                 {loading === false ?
                     <>
 

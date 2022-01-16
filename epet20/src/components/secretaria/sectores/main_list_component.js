@@ -145,7 +145,7 @@ export const MainList = ({ label, admin }) => {
             </motion.div>
 
 
-            <Footer />
+            {!admin ? <Footer /> : ''}
         </>
     )
 }

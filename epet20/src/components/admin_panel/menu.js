@@ -102,7 +102,7 @@ export const Menu = ({ role }) => {
                             </div>
                             <Link to="contacto" className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">   <MdOutlineContactMail className="mr-2 ml-1" />  Contacto</Link>
                             <Link to="plan-de-estudios" className=" list-group-item-action p-2 m-2 admin-item rounded-xl shadow-sm d-flex">   <MdLibraryBooks className="mr-2 ml-1" />  Plan de estudios</Link>
-
+                            <button className='btn btn-danger' onClick={() => logOut()}>Cerrar sesión</button>
                         </> : ''
                     }
 
