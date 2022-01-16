@@ -14,15 +14,15 @@ import { CardCredential } from '../profile/cardCredential'
 import { Loading } from './loading'
 
 export const Profile = () => {
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { handleChange, values } = useForm();
-    const { name, email, password } = values;
+    const { name, email, newPassword } = values;
 
 
     const redirect = () => {
         setTimeout(() => {
             window.location.reload();
-            window.location.replace("./")
+            window.location.replace("./perfil")
         }, 1500)
     }
 
@@ -30,7 +30,7 @@ export const Profile = () => {
         updateProfile(auth.currentUser, {
             displayName: name
         }).then(() => {
-            setAlertMessage("Nombre actualizado exitosamente.")
+            setAlertMessage("Datos actualizados exitosamente.")
             setSuccess(true);
             setLoading(false);
             redirect();
@@ -43,7 +43,7 @@ export const Profile = () => {
     }
     const handleEmail = () => {
         updateEmail(auth.currentUser, email).then(() => {
-            setAlertMessage("Email actualizado exitosamente.")
+            setAlertMessage("Datos actualizados exitosamente.")
             setSuccess(true);
             setLoading(false);
             redirect();
@@ -55,9 +55,14 @@ export const Profile = () => {
         });
     }
     const handlePassword = () => {
-        updatePassword(auth.currentUser, password).then(() => {
-            setSuccess(true);
+        updatePassword(auth.currentUser, newPassword).then(() => {
+
+
+            setAlertMessage("Datos actualizados exitosamente.")
+            console.log("Contraseña actualizada.")
+            console.log("nueva contraseña", newPassword);
             setLoading(false);
+            setSuccess(true);
             redirect();
         }).catch((error) => {
             setAlertMessage("Ha ocurrido un error al actualizar la contraseña: " + error.code);
@@ -71,24 +76,16 @@ export const Profile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true)
-        if (name) {
-            handleName();
-
-        } else if (email) {
-            handleEmail();
-        } else if (password) {
-            handlePassword();
-
-        } else if (!name && !email && !password) {
+        if (!values) {
             setAlertMessage("Debes rellenar al menos un campo para actualizar tu perfil.")
             setLoading(false);
             setWarning(true);
-        } else if (name && email && password) {
+            restartAlertsState();
+
+        } else {
             handleName();
             handleEmail();
             handlePassword();
-
-
         }
 
 
@@ -132,6 +129,7 @@ export const Profile = () => {
                                 <Input
                                     id="exampleEmail"
                                     name="email"
+                                    onChange={handleChange}
                                     placeholder={auth.currentUser.email}
                                     type="email"
                                 />
@@ -142,7 +140,8 @@ export const Profile = () => {
                                 </Label>
                                 <Input
                                     id="examplePassword"
-                                    name="Actualizar contraseña"
+                                    name="newPassword"
+                                    onChange={handleChange}
                                     placeholder="Nueva contraseña"
                                     type="password"
                                 />

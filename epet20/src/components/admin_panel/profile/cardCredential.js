@@ -2,7 +2,7 @@ import { deleteUser, onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react'
 import { auth } from '../../../firebase/firebaseConfig'
 import { Title } from '../../text-styles/title';
-
+import UserIcon from "../../../assets/user.png";
 export const CardCredential = () => {
     const [user, setUser] = useState();
 
@@ -54,7 +54,7 @@ export const CardCredential = () => {
                         {user ? <img
                             className='img-profile mx-auto  shadow-xl rounded-xl border'
                             alt="foto de perfil"
-                            src={user.photoURL ? user.photoURL : 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'}
+                            src={user.photoURL ? user.photoURL : UserIcon}
                            
 
                         /> : null}

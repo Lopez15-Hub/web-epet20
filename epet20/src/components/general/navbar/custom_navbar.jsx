@@ -6,6 +6,7 @@ import Icon from "../../../assets/favicon.png";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase/firebaseConfig";
 import { DropdownEstudiantes, DropdownOptions } from "./dropdowns_estudiantes";
+import UserIcon from "../../../assets/user.png";
 import {
   DropdownOptionsSecretaria,
   DropdownSecretaria,
@@ -89,7 +90,7 @@ export const MyNavbar = () => {
                 >
                   <img
                     className="shadow-xl rounded-50 "
-                    src={user.photoUrl}
+                    src={user.photoUrl ? user.photoUrl : UserIcon}
                     alt={"Foto de perfil de " + user.displayName}
                   />
                 </Link>
@@ -101,11 +102,7 @@ export const MyNavbar = () => {
         </div>
         {menu || screenWidth > 800 ? (
           <>
-            <div
-
-              id="menu"
-              className="elements "
-            >
+            <div id="menu" className="elements ">
               <div className="items">
                 <Link
                   onClick={() => showMenu()}
@@ -229,7 +226,7 @@ export const MyNavbar = () => {
               <div className="elements-right hide-inMobile">
                 <div className="items-right">
                   <Link to="/dashboard/perfil" className="">
-                    <img src={user.photoUrl} className="img-profile-nav"></img>
+                    <img src={user.photoUrl ? user.photoUrl : UserIcon} className="img-profile-nav"></img>
                   </Link>
                   <button
                     className="session-button nav-element my-outlined-button font-bold p-1 m-1"
