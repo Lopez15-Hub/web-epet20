@@ -71,7 +71,10 @@ export const MyNavbar = () => {
               </button>
               <img src={Icon} className="hide-inMobile shadow-md rounded-xl" />
               <h1 className="main-color font-bold navbar-brand ml-7">
-                <Link to="/inicio"> E.P.E.T. N°20</Link>
+                <Link onClick={() => setMenu(false)} to="/inicio">
+                  {" "}
+                  E.P.E.T. N°20
+                </Link>
               </h1>
               {user.displayName !== "" ? (
                 <Link to="/admin" className="img-profile-min hide-inPc">
