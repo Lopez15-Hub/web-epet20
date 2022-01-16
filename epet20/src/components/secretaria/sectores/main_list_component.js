@@ -5,6 +5,7 @@ import { Title } from '../../text-styles/title'
 import { db } from '../../../firebase/firebaseConfig';
 import { Loading } from '../../admin_panel/sections/loading';
 import { Link } from 'react-router-dom';
+import Footer from '../../inicio/footer';
 export const MainList = ({ label, admin }) => {
 
     const currentDate = new Date();
@@ -95,15 +96,15 @@ export const MainList = ({ label, admin }) => {
             {/*Barra de navegación*/}
 
 
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container shadow-xl bg-white rounded-xl p-6 mt-4 " >
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container my-shadow rounded-xl pt-6 mt-5 me-auto " >
 
-                <div className="row ">
+                <div className="row mt-2 mb-4">
 
                     <Title text={label} />
                     {/* <img className='portada' src={label.toLowerCase() === 'docentes' ? docentes : label.toLowerCase() === 'estudiantes' ? estudiantes : general} /> */}
 
                     <hr className="mt-4" />
-                    <div className="col-12 rounded-xl">
+                    <div className="col-12 rounded-xl m-2">
                         <div className="text-center ">
                             <Title text={label === 'Anuncios' ? "" : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivos subidos' : 'Formularios disponibles'} />
                         </div>
@@ -117,7 +118,7 @@ export const MainList = ({ label, admin }) => {
                                             e.id !== null ?
                                                 <ul key={e.id ? e.id : 0}>
 
-                                                    <li className="border p-4 m-2 shadow-md rounded-xl">
+                                                    <li className="border p-3 m-2 rounded-xl">
                                                         <a href={e.url}>
                                                             <p className='main-color font-bold'>{e.title}</p> <p>{e.description}</p>
                                                             <p className='text-muted'>Fecha de publicación: {e.fecha}</p></a>
@@ -141,10 +142,10 @@ export const MainList = ({ label, admin }) => {
                     </div>
                 </div>
 
-
             </motion.div>
 
 
+            <Footer />
         </>
     )
 }

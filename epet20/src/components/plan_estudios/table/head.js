@@ -2,15 +2,15 @@ import React from 'react'
 
 export const Head = () => {
     return (
-        <thead>
+        <thead >
             <tr>
-                <th>
-                    #ID Materia
+                <th scope="col">
+                    #Id
                 </th>
-                <th>
+                <th scope="col">
                     Materia
                 </th>
-                <th>
+                <th scope="col">
                     Año
                 </th>
             </tr>

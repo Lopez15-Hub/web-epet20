@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { Route, Routes } from 'react-router-dom'
 import { Container, Row } from 'reactstrap';
 import { Menu } from '../components/admin_panel/menu';
@@ -17,20 +17,24 @@ import { SecretariaForms } from '../components/admin_panel/sections/secretaria/s
 import { Usuarios } from '../components/admin_panel/sections/usuarios';
 import { AlertNotification } from '../components/general/alertNotification';
 import { AdminNavbar } from '../components/general/navbar/custom_navbar_admin';
-import { NavbarAdmin } from '../components/inicio/navbar_admin';
 import { auth } from '../firebase/firebaseConfig';
 import { useConnection } from '../hooks/useConnection';
 import { UseLoading } from '../hooks/useLoading';
 import { useRole } from '../hooks/useRole';
 import { PaginaEnConstruccion } from "../views/we_working";
 export const DashboardRouter = () => {
+    const [screenWidth, setWidth] = useState(window.innerWidth);
 
     const { role } = useRole();
     const { loading, setLoading, success, error, warning, alertMessage, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { connectionStatus } = useConnection();
 
     useEffect(() => {
-        if (connectionStatus===true) {
+        const changeWidth = () => {
+            setWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", changeWidth);
+        if (connectionStatus === true) {
             auth.onAuthStateChanged(async (user) => {
 
 
@@ -54,7 +58,9 @@ export const DashboardRouter = () => {
             setWarning(true);
         }
 
-
+        return () => {
+            window.removeEventListener("resize", changeWidth);
+        }
     }, [role, setLoading])
 
 
@@ -66,13 +72,13 @@ export const DashboardRouter = () => {
                 error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
                     <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
             }
-            <Container>
+            <Container className='mt-5 p-6 me-auto'>
                 {loading === false ?
                     <>
 
                         <Row >
                             <div className='col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
-                                <Menu role={role} />
+                                {screenWidth > 800 ? <Menu role={role} /> : ''}
                             </div>
                             <div className='col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 position-relative'>
                                 <Container>

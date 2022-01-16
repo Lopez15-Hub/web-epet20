@@ -20,7 +20,7 @@ export const Materias = ({ showBasic }) => {
 
     return (
         <div>
-            <Table bordered>
+            <Table bordered >
                 <Head />
                 <tbody>
                     {
@@ -29,9 +29,10 @@ export const Materias = ({ showBasic }) => {
                                 <tr key={index}>
 
 
-                                    <th>{materia.ciclo === 'basico' ? 'CB0' + index : ''}</th>
-                                    <th>{materia.materia}</th>
-                                    <th>{materia.año}</th>
+
+                                    <th scope="row">{'CB0' + index}</th>
+                                    <th  >{materia.materia}</th>
+                                    <th >{materia.año}</th>
 
 
                                 </tr>
@@ -42,8 +43,8 @@ export const Materias = ({ showBasic }) => {
 
 
 
-                                    <th>{materia.ciclo === 'superior' ? 'CS0' + index : ''}</th>
-                                    <th>{materia.materia}</th>
+                                    <th scope="row">{'CS0' + index}</th>
+                                    <th >{materia.materia}</th>
                                     <th>{materia.año}</th>
 
 

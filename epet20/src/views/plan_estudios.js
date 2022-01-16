@@ -94,14 +94,18 @@ export const PlanDeEstudios = () => {
                                             <Title text="Listado de materias" />
                                         </div>
 
-                                        <Container>
-                                            <Subtitle text="Ciclo Básico" />
+                                        <Container className='p-6 mt-4  mx-auto'>
+                                            <div className='mb-2'><Subtitle text="Ciclo Básico " /></div>
+
                                             <Materias showBasic={true} />
-                                            <Subtitle text="Ciclo Superior" />
+
+
+                                        </Container>
+                                     
+                                        <Container className='p-6 mt-4   mx-auto'>
+                                            <div className='mt-2 mb-2'><Subtitle text="Ciclo Superior" /></div>
+
                                             <Materias />
-
-
-
                                         </Container>
                                     </div>
 
@@ -143,7 +147,7 @@ export const PlanDeEstudios = () => {
                     <Footer />
 
                 </motion.div>
-            </> : <LoadingSpinner text="Cargando datos..." />
+            </> : <div className='mx-auto p-6'><LoadingSpinner text="Cargando datos..." /></div>
             }
         </>
     )

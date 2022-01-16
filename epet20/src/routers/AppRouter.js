@@ -12,10 +12,10 @@ export const AppRouter = () => {
 
         <BrowserRouter>
             <AnimatePresence>
-         
+
                 <Routes>
                     <Route path="/*" element={<WebRouter />} />
-                    <Route path="admin/*" element={<DashboardRouter />} />
+                    <Route path="dashboard/*" element={<DashboardRouter />} />
 
                 </Routes>
             </AnimatePresence>

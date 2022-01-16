@@ -80,7 +80,7 @@ export const MyNavbar = () => {
                 </Link>
               </h1>
               {user.displayName !== "" ? (
-                <Link to="/admin" className="img-profile-min  hide-inPc">
+                <Link to="/dashboard" className="img-profile-min  hide-inPc">
                   <img
                     className="shadow-xl rounded-50 "
                     src={user.photoUrl}
@@ -218,7 +218,7 @@ export const MyNavbar = () => {
             ) : (
               <div className="elements-right hide-inMobile">
                 <div className="items-right">
-                  <Link to="/admin" className="">
+                  <Link to="/dashboard" className="">
                     <img src={user.photoUrl} className="img-profile-nav"></img>
                   </Link>
                   <button
