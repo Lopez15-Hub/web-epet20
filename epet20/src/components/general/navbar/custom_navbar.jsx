@@ -10,7 +10,6 @@ import {
   DropdownOptionsSecretaria,
   DropdownSecretaria,
 } from "./dropdowns_secretaria";
-import { motion } from "framer-motion";
 
 export const MyNavbar = () => {
   const [user, setUser] = useState({
@@ -229,7 +228,7 @@ export const MyNavbar = () => {
             ) : (
               <div className="elements-right hide-inMobile">
                 <div className="items-right">
-                  <Link to="/dashboard" className="">
+                  <Link to="/dashboard/perfil" className="">
                     <img src={user.photoUrl} className="img-profile-nav"></img>
                   </Link>
                   <button
