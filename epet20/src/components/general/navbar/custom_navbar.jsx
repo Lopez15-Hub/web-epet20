@@ -6,7 +6,10 @@ import Icon from "../../../assets/favicon.png";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase/firebaseConfig";
 import { DropdownEstudiantes, DropdownOptions } from "./dropdowns_estudiantes";
-import { DropdownOptionsSecretaria } from "./dropdowns_secretaria";
+import {
+  DropdownOptionsSecretaria,
+  DropdownSecretaria,
+} from "./dropdowns_secretaria";
 
 export const MyNavbar = () => {
   const [user, setUser] = useState({
@@ -101,44 +104,55 @@ export const MyNavbar = () => {
                 >
                   Novedades
                 </Link>
-                <a
-                  onClick={() => {
-                    dropdown();
-                  }}
-                  href="#"
-                  className="nav-element font-bold "
-                >
-                  Estudiantes {showDropdown ? "▲" : "▼"}
-                </a>
-                {showDropdown ? (
-                  <DropdownOptions
-                    click={() => {
-                      showMenu();
-                      dropdown();
-                    }}
-                  />
+
+                {screenWidth > 800 ? (
+                  <>
+                    <DropdownEstudiantes />
+                    <DropdownSecretaria />
+                  </>
                 ) : (
-                  ""
+                  <>
+                    <a
+                      onClick={() => {
+                        dropdown();
+                      }}
+                      href="#"
+                      className="nav-element font-bold "
+                    >
+                      Estudiantes {showDropdown ? "▲" : "▼"}
+                    </a>
+                    {showDropdown ? (
+                      <DropdownOptions
+                        click={() => {
+                          showMenu();
+                          dropdown();
+                        }}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    <a
+                      onClick={() => {
+                        dropdown2();
+                      }}
+                      href="#"
+                      className="nav-element font-bold "
+                    >
+                      Secretaría {showDropdown2 ? "▲" : "▼"}
+                    </a>
+                    {showDropdown2 ? (
+                      <DropdownOptionsSecretaria
+                        click={() => {
+                          showMenu();
+                          dropdown2();
+                        }}
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </>
                 )}
-                <a
-                  onClick={() => {
-                    dropdown2();
-                  }}
-                  href="#"
-                  className="nav-element font-bold "
-                >
-                  Secretaría {showDropdown2 ? "▲" : "▼"}
-                </a>
-                {showDropdown2 ? (
-                  <DropdownOptionsSecretaria
-                    click={() => {
-                      showMenu();
-                      dropdown2();
-                    }}
-                  />
-                ) : (
-                  ""
-                )}
+
                 <Link
                   onClick={() => showMenu()}
                   to="contacto"
