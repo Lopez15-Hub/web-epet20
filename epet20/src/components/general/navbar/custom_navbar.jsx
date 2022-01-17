@@ -249,13 +249,13 @@ export const MyNavbar = () => {
                   ) : (
                     <div className="elements-right hide-inMobile">
                       <div className="items-right">
-                        <Link to="/dashboard" className="">
+                        <a href="/dashboard">
                           <img
                             src={user.photoUrl ? user.photoUrl : UserIcon}
                             className="img-profile-nav"
                             alt={"Foto de perfil de " + user.displayName}
                           ></img>
-                        </Link>
+                        </a>
                         <button
                           className="session-button nav-element my-outlined-button font-bold p-1 m-1"
                           onClick={handleSignOut}
