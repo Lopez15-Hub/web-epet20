@@ -2,7 +2,7 @@
 import { doc, setDoc } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React, { useEffect } from 'react'
-import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
+import { Button, Container, Form, FormFeedback, FormGroup, Input, InputGroup, Label, Row } from 'reactstrap'
 import { db } from '../../../../firebase/firebaseConfig'
 import { usePlan } from '../../../../hooks/query_hooks/usePlan'
 import { useForm } from '../../../../hooks/useForm'
@@ -13,13 +13,31 @@ import { Subtitle } from '../../../text-styles/subtitle'
 import { Title } from '../../../text-styles/title'
 
 export const EditPlanDeEstudios = () => {
+
     const { handleChange, values, reset } = useForm({});
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
-    const { title, profile, materia, año, alcances } = values;
+    const { title, profile, materia, año, alcances, search } = values;
     const { plan } = usePlan();
-    const planMaterias = plan && plan.materias ? plan.materias : [];
+    const planMaterias = plan.materias;
     const [materias, setMaterias] = React.useState([]);
+    const [startSearch, setStartSearch] = React.useState(false);
+    const [searchMaterias, setSearchMaterias] = React.useState([]);
+    useEffect(() => {
+        if (planMaterias) {
+            setMaterias([...planMaterias]);
+            if (search) {
+                searchMateria();
+            }
+            if (search !== undefined) {
+                if (search.length > search.length) {
+                    reset({ search: '' });
+                }
+            }
+        }
 
+
+
+    }, [planMaterias, search]);
 
     const singleMateria = {
         "materia": materia,
@@ -50,7 +68,28 @@ export const EditPlanDeEstudios = () => {
         newMaterias.splice(index, 1);
         setMaterias(newMaterias);
     }
+    const searchMateria = () => {
+        setStartSearch(true);
+        var materia = planMaterias.filter(
+            materia => materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(search) !== -1
+                || materia.materia.toLowerCase() === search.toLowerCase()
+                || materia.año.toLowerCase().indexOf(search) !== -1
+                || materia.año.toLowerCase() === search.toLowerCase()
+                || materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(search) !== -1
+                || materia.materia === search);
 
+        if (materia.length === 0) {
+            restartAlertsState();
+            setSearchMaterias(materia);
+
+        } else {
+            setStartSearch(false)
+            setSearchMaterias(materia);
+            restartAlertsState();
+
+        }
+        console.log("Materia ", searchMaterias);
+    }
     const uploadPlan = async () => {
         setLoading(true);
         const planRef = doc(db, 'textos', 'planDeEstudios');
@@ -88,7 +127,7 @@ export const EditPlanDeEstudios = () => {
                 || profile === undefined || alcances === null || alcances === undefined
                 || materias.length === 0 || materias === null || materias === undefined
                 || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
-                || año === undefined || año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0 ||plan.title ===title && plan.profile === profile && plan.alcances === alcances && plan.materias === materias) {
+                || año === undefined || año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0 || plan.title === title && plan.profile === profile && plan.alcances === alcances && plan.materias === materias) {
 
 
                 setWarning(true);
@@ -120,12 +159,6 @@ export const EditPlanDeEstudios = () => {
 
     }
 
-    useEffect(() => {
-        if (plan && plan.materias.length > 0) {
-            setMaterias([...planMaterias]);
-        }
-        reset({ materia: '', año: ''});
-    }, [plan, planMaterias, reset])
 
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -224,24 +257,60 @@ export const EditPlanDeEstudios = () => {
 
                         <input type='submit' className='my-btn btn mt-4 mb-4' value="Guardar cambios" />
                     </Form>
-                    {
-                        materias.length !== 0 ? <>
-                            <Title text={"Materias añadidas"}></Title>
-                            <Subtitle text={"Materias totales: " + materias.length} />
-                            {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
-                                return (
-                                    <ul className='border mb-4' key={index}>
-                                        <div>
-                                            <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
-                                            <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
-                                        </div>
 
-                                    </ul>
-                                )
-                            }) : ''}
+                    <Container>
+                        <form>
+                            <FormGroup>
+                                <Subtitle text="Buscar materias" />
 
-                        </> : ''
-                    }
+                                <Input onChange={handleChange} placeholder='Ingrese el nombre o el año de la materia' type="text" name="search" />
+                            </FormGroup>
+
+                        </form>
+
+                        {search === undefined || search === "" ? <>
+                            {
+                                materias.length > 0 ? <>
+                                    <Title text={"Todas las materias"}></Title>
+
+                                    <Subtitle text={"Materias totales: " + materias.length} />
+                                    {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
+                                        return (
+                                            <ul className='border mb-4' key={index}>
+                                                <div>
+                                                    <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
+                                                    <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
+                                                </div>
+
+                                            </ul>
+                                        )
+                                    }) : ''}
+
+                                </> : ''
+                            }
+                        </> : <>
+
+                            {
+                                searchMaterias.length !== 0 ? <>
+                                    <Title text={"Materias encontradas:"}></Title>
+
+                                    <Subtitle text={"Materias totales: " + searchMaterias.length} />
+                                    {searchMaterias.length !== 0 ? searchMaterias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
+                                        return (
+                                            <ul className='border mb-4' key={index}>
+                                                <div>
+                                                    <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
+                                                    <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
+                                                </div>
+
+                                            </ul>
+                                        )
+                                    }) : ''}
+
+                                </> : search ? <div className='font-bold'><Subtitle text="No se han encontrado resultados." /></div> : ''
+                            }
+                        </>}
+                    </Container>
 
                 </Row>
             </Container>
