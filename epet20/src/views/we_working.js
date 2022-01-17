@@ -15,7 +15,7 @@ export const PaginaEnConstruccion = () => {
 
 
 
-                <div className="text-center position-fixed top-50 right-0 left-0 ">
+                <div className="text-center position-fixed top-50 bottom-0 right-0 left-0 ">
 
                     <Title text="¡Oops! Continuamos trabajando. Muy pronto podrás visitar esta sección." />
                     <Subtitle text="¡Inténtalo de nuevo más tarde! ;))" />
