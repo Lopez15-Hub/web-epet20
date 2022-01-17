@@ -152,7 +152,7 @@ export const AdminNavbar = ({ currentRole }) => {
                     >
                       Novedades
                     </Link>
-                    {screenWidth <= 1366 ? (
+                    {screenWidth > 1366 ? (
                       <>
                         <DropdownEstudiantes />
                         <DropdownSecretaria />
