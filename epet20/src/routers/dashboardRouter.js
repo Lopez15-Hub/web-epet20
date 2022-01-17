@@ -32,6 +32,45 @@ export const DashboardRouter = () => {
         if (window.location.pathname === "/dashboard") {
             window.location.replace("dashboard/perfil");
         }
+        if (
+            window.location.pathname !== '/dashboard'
+            && role === "administrador"
+            && window.location.pathname !== "/dasboard/usuarios/"
+            && window.location.pathname !== '/dashboard/perfil'
+            && window.location.pathname !== '/dashboard/usuarios/add'
+            && window.location.pathname !== '/dasboard/contacto'
+            && window.location.pathname !== '/dashboard/novedades'
+            && window.location.pathname !== '/dashboard/secretaria/forms'
+            && window.location.pathname !== '/dashboard/secretaria/anuncios'
+            && window.location.pathname !== '/dashboard/secretaria/admin'
+            && window.location.pathname !== "/dashboard/estudiantes/admin"
+            && window.location.pathname !== "/dashboard/estudiantes/upload"
+            && window.location.pathname !== "/dashboard/contacto"
+            && window.location.pathname !== "/dashboard/plan-de-estudios"
+            && window.location.pathname !== "/dashboard/usuarios/:userId"
+            && window.location.pathname !== "/dashboard/docentes"
+            && window.location.pathname !== '/404') {
+            return window.location.replace('/404');
+
+        }
+        else if (
+            window.location.pathname !== '/dashboard'
+            && role === "secretaria"
+            && window.location.pathname !== '/dashboard/perfil'
+            && window.location.pathname !== '/dashboard/secretaria/forms'
+            && window.location.pathname !== '/dashboard/secretaria/anuncios'
+            && window.location.pathname !== '/dashboard/secretaria/admin'
+            && window.location.pathname !== '/404') {
+            return window.location.replace('/404');
+
+        } else if (
+            window.location.pathname !== '/dashboard'
+            && role === "usuario"
+            && window.location.pathname !== '/dashboard/perfil'
+            && window.location.pathname !== '/404') {
+            return window.location.replace('/404');
+
+        }
         const changeWidth = () => {
             setWidth(window.innerWidth);
         };
@@ -163,7 +202,7 @@ export const DashboardRouter = () => {
                 </Container>
 
 
-            </motion.div>}{window.location.pathname !== '/' ? window.location.replace("/") : ''}
+            </motion.div>}
         </>
     )
 }

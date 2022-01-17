@@ -18,9 +18,26 @@ import { MyNavbar } from '../components/general/navbar/custom_navbar';
 import { PaginaEnConstruccion } from '../views/we_working';
 import { Error404 } from '../views/404';
 export const WebRouter = () => {
-    useEffect(() => {
+    React.useEffect(() => {
 
-        if (window.location.pathname !== '/inicio' && window.location.pathname !== '/404') {
+        if (
+            window.location.pathname !== '/'
+            && window.location.pathname !== '/inicio'
+            && window.location.pathname !== '/'
+            && window.location.pathname !== '/novedades'
+            && window.location.pathname !== '/contacto'
+            && window.location.pathname !== '/registro'
+            && window.location.pathname !== '/login'
+            && window.location.pathname !== '/plan-de-estudios'
+            && window.location.pathname !== "estudiantes/teoria"
+            && window.location.pathname !== "estudiantes/taller"
+            && window.location.pathname !== "estudiantes/ed-fisica"
+            && window.location.pathname !== "secretaria/anuncios"
+            && window.location.pathname !== "secretaria/estudiantes"
+            && window.location.pathname !== "secretaria/general"
+            && window.location.pathname !== "secretaria/docentes"
+            && window.location.pathname !== '/prueba'
+            && window.location.pathname !== '/404') {
             return window.location.replace('/404');
 
         }
