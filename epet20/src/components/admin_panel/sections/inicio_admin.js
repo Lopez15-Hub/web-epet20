@@ -121,7 +121,7 @@ export const InicioAdmin = () => {
 
 
                                 </div>
-                                <button type="submit" className=" my-btn btn-lg mt-4 ">Guardar cambios</button>
+                                <button type="submit" className=" my-btn btn-lg mt-4 mb-4 ">Guardar cambios</button>
 
                             </form>
                         </Row>
