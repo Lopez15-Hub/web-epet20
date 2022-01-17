@@ -9,17 +9,17 @@ export const PaginaEnConstruccion = () => {
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 
 
-            <div className="container-fluid top-40  position-absolute ">
+            <div className="container-fluid me-auto">
 
 
-                <div className="row ">
+                <div className="row mx-auto">
                     <div className="col-12" />
-                   { 
-                   
-                   Image?
-                   <img className="img-fluid img p-2 w-auto mx-auto shadow-lg rounded-xl" src={Image} alt="estamos trabajando" />: <LoadingSpinner />
-                   
-                   }
+                    {
+
+                        Image ?
+                            <img className="img-fluid img p-2 w-auto mx-auto shadow-lg rounded-xl" src={Image} alt="estamos trabajando" /> : <LoadingSpinner />
+
+                    }
 
 
                 </div>
