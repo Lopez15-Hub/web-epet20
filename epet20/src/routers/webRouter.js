@@ -16,6 +16,7 @@ import { Taller } from '../components/estudiantes/taller';
 import { EducacionFisica } from '../components/estudiantes/ed-fisica';
 import { Prueba } from '../components/general/navbar/prueba';
 import { MyNavbar } from '../components/general/navbar/custom_navbar';
+import { PaginaEnConstruccion } from '../views/we_working';
 export const WebRouter = () => {
     return (
         <>
@@ -25,7 +26,7 @@ export const WebRouter = () => {
                 <Route path="error" />
                 <Route path="" element={<Inicio />} />
                 <Route path="inicio" element={<Inicio />} />
-                <Route path="novedades" element={<Novedades />} />
+                <Route path="novedades" element={<PaginaEnConstruccion />} />
                 <Route path="estudiantes/teoria" element={<Teoria />} />
                 <Route path="estudiantes/taller" element={<Taller />} />
                 <Route path="estudiantes/ed-fisica" element={<EducacionFisica />} />

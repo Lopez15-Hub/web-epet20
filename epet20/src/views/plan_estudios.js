@@ -40,19 +40,16 @@ export const PlanDeEstudios = () => {
     return (
         <>
             {plan ? <>
-                {success ?
-                    <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
-                    error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : ''
-                }
-                <div name="main" fluid className='p-2 mb-4'>
 
 
 
-                    {loading ? <LoadingSpinner text="Generando pdf..." /> : null}
-                </div>
+                <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" mt-4  " name="main" >
+                    <div fluid className='p-2 mb-4'>
 
-                <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" mt-4  " >
 
+
+
+                    </div>
                     <Container>
                         <div className='row' ref={ref}>
 
@@ -113,7 +110,7 @@ export const PlanDeEstudios = () => {
                                     </div>
 
 
-                                    <p id='labelMark' className=' text-muted text-center mb-4'>Documento generado de la página oficial de la E.P.E.T. N°20 - Año {formatDate()}.</p> 
+                                    <p id='labelMark' className=' text-muted text-center mb-4'>Documento generado de la página oficial de la E.P.E.T. N°20 - Año {formatDate()}.</p>
 
 
                                 </div>
@@ -124,26 +121,34 @@ export const PlanDeEstudios = () => {
 
 
                         </div>
+                        <Container>
 
-                        <div className='text-center'>
-                            {/*Módulo de impresión*/}
-                            <ReactToPrint
+                            <div className='text-center'>
+                                {success ?
+                                    <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                                    error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : ''
+                                }
+                                {loading ? <LoadingSpinner text="Generando pdf..." /> : null}
+                                {/*Módulo de impresión*/}
+                                <ReactToPrint
 
-                                trigger={() => <button className="btn btn-outline-primary ml-4 "><a href='#'><p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p></a> </button>}
-                                content={() => ref.current}
-                                documentTitle='E.P.E.T N°20 - Plan de estudios.pdf'
-                                onBeforePrint={beforePrint}
-                                onPrintError={errorPrint}
-                                onAfterPrint={afterPrint}
-                                onBeforePrint={beforePrint}
+                                    trigger={() => <button className="btn btn-outline-primary ml-4 "><p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p> </button>}
+                                    content={() => ref.current}
+                                    documentTitle='E.P.E.T N°20 - Plan de estudios.pdf'
+                                    onBeforePrint={beforePrint}
+                                    onPrintError={errorPrint}
+                                    onAfterPrint={afterPrint}
 
 
 
 
-                            />
-                            <p className=' text-muted text-center mb-4'>Nota: También puedes guardar el plan en formato PDF.</p>
 
-                        </div>
+                                />
+                                <p className=' text-muted text-center mb-4'>Nota: También puedes guardar el plan en formato PDF.</p>
+
+                            </div>
+                        </Container>
+
 
                     </Container>
                     {/*FOOOTER*/}
