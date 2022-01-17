@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Contacto } from '../views/contacto';
 import { Estudiantes } from '../views/estudiantes';
@@ -16,13 +16,23 @@ import { EducacionFisica } from '../components/estudiantes/ed-fisica';
 import { Prueba } from '../components/general/navbar/prueba';
 import { MyNavbar } from '../components/general/navbar/custom_navbar';
 import { PaginaEnConstruccion } from '../views/we_working';
+import { Error404 } from '../views/404';
 export const WebRouter = () => {
+    useEffect(() => {
+
+        if (window.location.pathname !== '/inicio' && window.location.pathname !== '/404') {
+            return window.location.replace('/404');
+
+        }
+
+
+    }, [])
     return (
         <>
             <MyNavbar />
             <Routes>
 
-                <Route path="error" />
+                <Route path="404" element={<Error404 />} />
                 <Route path="" element={<Inicio />} />
                 <Route path="inicio" element={<Inicio />} />
                 <Route path="novedades" element={<PaginaEnConstruccion />} />

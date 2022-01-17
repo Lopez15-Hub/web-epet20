@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useParams } from 'react-router-dom'
 import { Container, Row } from 'reactstrap';
 import { Menu } from '../components/admin_panel/menu';
 import { FilesOfStudents } from '../components/admin_panel/sections/estudiantes/administrar';
@@ -24,7 +24,6 @@ import { useRole } from '../hooks/useRole';
 import { PaginaEnConstruccion } from "../views/we_working";
 export const DashboardRouter = () => {
     const [screenWidth, setWidth] = useState(window.innerWidth);
-
     const { role } = useRole();
     const { loading, setLoading, success, error, warning, alertMessage, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
     const { connectionStatus } = useConnection();
@@ -164,7 +163,7 @@ export const DashboardRouter = () => {
                 </Container>
 
 
-            </motion.div>}
+            </motion.div>}{window.location.pathname !== '/' ? window.location.replace("/") : ''}
         </>
     )
 }
