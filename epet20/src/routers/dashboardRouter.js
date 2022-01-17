@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom'
 import { Container, Row } from 'reactstrap';
 import { Menu } from '../components/admin_panel/menu';
@@ -30,6 +30,9 @@ export const DashboardRouter = () => {
     const { connectionStatus } = useConnection();
 
     useEffect(() => {
+        if (window.location.pathname === "/dashboard") {
+            window.location.replace("dashboard/perfil");
+        }
         const changeWidth = () => {
             setWidth(window.innerWidth);
         };
@@ -85,6 +88,7 @@ export const DashboardRouter = () => {
                                     <Routes>
                                         {    /*RUTAS DEL ROL ADMINISTRADOR*/}
                                         {role === "administrador" ? <>
+
                                             <Route path="perfil/" element={<Profile />} />
                                             <Route path="usuarios/" element={<Usuarios />} />
                                             <Route path="usuarios/add" element={<Form />} />
