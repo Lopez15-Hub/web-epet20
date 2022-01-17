@@ -364,8 +364,8 @@
   .img-profile-nav:hover {
     display: inline-flex;
     background-color: #5d00ff;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     transition: ease-in-out 0.2s;
     transform: scale(1.1);

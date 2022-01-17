@@ -110,7 +110,7 @@ export const MyNavbar = () => {
                         className="hide-inPc"
                       >
                         <img
-                          className="shadow-xl rounded-50 "
+                          className="shadow-xl rounded-50 img-profile-nav "
                           src={user.photoUrl ? user.photoUrl : UserIcon}
                           alt={"Foto de perfil de " + user.displayName}
                         />
