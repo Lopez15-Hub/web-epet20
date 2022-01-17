@@ -134,7 +134,7 @@ export const MyNavbar = () => {
                         Novedades
                       </Link>
 
-                      {screenWidth > 800 ? (
+                      {screenWidth > 1365 ? (
                         <>
                           <DropdownEstudiantes />
                           <DropdownSecretaria />
@@ -188,7 +188,8 @@ export const MyNavbar = () => {
                       >
                         Contacto
                       </Link>
-                      {screenWidth > 1600 ? (
+                      {(screenWidth >= 1600 && screenWidth >= 1366) ||
+                      (screenWidth <= 900) || (screenWidth>900 && screenWidth<1365 ) ? (
                         <>
                           {" "}
                           <Link
@@ -206,7 +207,7 @@ export const MyNavbar = () => {
                           </a>
                         </>
                       ) : (
-                        <DropdownGeneral showMenu={showMenu} />
+                        <DropdownGeneral />
                       )}
 
                       {user.displayName !== "" ? (
