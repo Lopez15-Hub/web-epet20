@@ -223,9 +223,9 @@ export const EditPlanDeEstudios = () => {
                                 <Subtitle text={"Materias totales: " + materias.length} />
                                 {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
                                     return (
-                                        <ul className='border' key={index}>
+                                        <ul className='border mb-4' key={index}>
                                             <div>
-                                                <li className='main-color font-bold p-2'>{materia.materia} - {materia.año} </li>
+                                                <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
                                                 <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
                                             </div>
 
