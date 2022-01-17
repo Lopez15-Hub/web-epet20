@@ -85,7 +85,7 @@ export const InicioAdmin = () => {
 
 
     return (
-        <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} >
             <Container>
                 {success ?
                     <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :

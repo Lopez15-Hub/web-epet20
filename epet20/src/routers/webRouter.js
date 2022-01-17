@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom'
 import { Contacto } from '../views/contacto';
 import { Estudiantes } from '../views/estudiantes';
 import { Inicio } from '../views/inicio';
-import { Novedades } from '../views/novedades';
 import { Login } from '../views/login';
 import { Registro } from '../views/registro';
 import { PlanDeEstudios } from '../views/plan_estudios';

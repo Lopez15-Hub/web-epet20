@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-concat */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
@@ -82,7 +84,7 @@ export const MainList = ({ label, admin }) => {
         const bdRef = doc(db, label === 'Anuncios' ? 'anuncios' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'estudiantes' : 'forms', id);
         if (confirm) {
             await deleteDoc(bdRef).then(() => {
-                window.alert((label === 'Anuncios' ? 'Anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo' : 'Formulario') + " " + "eliminado correctamente.");
+                window.alert((label === 'Anuncios' ? 'Anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo' : 'Formulario') + "eliminado correctamente.");
                 window.location.reload();
             }).catch(err => {
                 window.alert("Ha ocurrido un error: " + err.code);

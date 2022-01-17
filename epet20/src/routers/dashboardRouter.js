@@ -80,7 +80,7 @@ export const DashboardRouter = () => {
                             <div className='col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
                                 {screenWidth > 1366 ? <Menu role={role} /> : ''}
                             </div>
-                            <div className='col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 position-relative'>
+                            <div className='col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10'>
                                 <Container>
                                     <Routes>
                                         {    /*RUTAS DEL ROL ADMINISTRADOR*/}

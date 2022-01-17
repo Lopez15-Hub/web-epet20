@@ -106,7 +106,7 @@ export const Profile = () => {
                             }
                         </div>
 
-                        <Form className='mx-auto p-6 col-sm-12 col-xs-12 col-md-12 border shadow-md rounded-xl' onSubmit={handleSubmit}>
+                        <Form className='mx-auto p-6 col-sm-12 col-xs-12 col-md-12 border shadow-md rounded-xl mb-4' onSubmit={handleSubmit}>
                             <Title text="Actualizar datos" />
                             <Subtitle text="Editar datos personales" />
                             <FormGroup>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import "./custom_navbar.css";
@@ -41,29 +42,6 @@ export const HeaderNav = ({ click, disable }) => {
 export const HeaderNavAdmin = ({ click, disable, currentRole }) => {
   /* eslint-disable jsx-a11y/anchor-is-valid */
 
-  const [user, setUser] = useState({
-    photoUrl: "",
-    displayName: "",
-  });
-  useEffect(() => {
-    handleUserData();
-  }, []);
-  const handleUserData = () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser({
-          photoUrl: user.photoURL,
-          displayName: user.displayName,
-        });
-      } else {
-        setUser({
-          photoUrl: Menu,
-          displayName: "",
-        });
-        console.log("cargando...");
-      }
-    });
-  };
   return (
     <>
       <nav className="my-navbar hide-inPc">

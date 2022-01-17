@@ -46,7 +46,7 @@ export const CardCredential = () => {
 
         <div className='mx-auto  p-4'>
 
-            <div className=' p-4 border shadow-md rounded-xl'>
+            <div className=' p-6 border shadow-md rounded-xl'>
                 <Title text="Datos personales" />
                 <div >
                     <div >
@@ -61,7 +61,7 @@ export const CardCredential = () => {
                     </div>
 
                     <div >
-                        <ul className='m-4 '>
+                        <ul>
                             <li >
                                 <p className='font-bold'>Nombre</p> <p className='main-color'>
                                     {user ? user.displayName : null}
