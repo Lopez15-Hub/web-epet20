@@ -44,6 +44,7 @@ export const Menu = ({ role }) => {
                         role === "usuario" || role === undefined || role === null ? <>
                             <Link to="perfil" className=" list-group-item-action p-2 mt-2 admin-item rounded-xl shadow-sm d-flex">   <FaUserAlt className="mr-2 ml-1" /> Mi Perfil</Link>
                             <button className='btn btn-danger mt-2' onClick={() => logOut()}>Cerrar sesión</button>
+                            <Link to="/" className='btn btn-primary mt-2'>Volver a inicio</Link >
                         </> : ''
                     }
                     {
@@ -62,7 +63,7 @@ export const Menu = ({ role }) => {
 
                                         </motion.div> : ''
                                 }
-                               
+
                             </div>
                             <button className='btn btn-danger btn-block mt-2' onClick={() => logOut()}>Cerrar sesión</button>
                         </> : ''
