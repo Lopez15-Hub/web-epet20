@@ -116,7 +116,7 @@ export const AdminNavbar = ({ currentRole }) => {
                       className="hide-inPc"
                     >
                       <img
-                        className="shadow-xl rounded-50 "
+                        className="shadow-xl img-profile-nav rounded-50 "
                         src={user.photoUrl ? user.photoUrl : UserIcon}
                         alt={"Foto de perfil de " + user.displayName}
                       />
