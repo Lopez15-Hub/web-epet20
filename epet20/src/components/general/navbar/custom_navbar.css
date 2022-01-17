@@ -168,7 +168,7 @@
 .full-expanded{
   width: 100%;
 }
-@media screen and (max-width: 1366px) {
+@media screen and (max-width: 1365px) {
   .my-navbar {
     z-index: 10 !important;
   }

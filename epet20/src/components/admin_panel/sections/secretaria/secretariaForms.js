@@ -1,6 +1,6 @@
-import { addDoc, collection } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import React from 'react'
+import React,{ useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
@@ -8,8 +8,10 @@ import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
 import { LoadingSpinner } from '../../../general/loading'
 import { Title } from '../../../text-styles/title'
+import { addDoc, collection, getDoc, doc, setDoc } from "firebase/firestore";
 
 export const SecretariaForms = () => {
+    const { id } = useParams();
     const { handleChange, values, reset } = useForm({
         url: "",
 
@@ -17,6 +19,36 @@ export const SecretariaForms = () => {
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,restartAlertsState } = UseLoading();
     const date = new Date();
     const { title, url, description, label } = values;
+    const [form, setForm] = useState({});
+    const getForm = async () => {
+        if (id) {
+            const usersRef = doc(db, "users", id);
+            const docSnap = await getDoc(usersRef);
+            try {
+                if (docSnap.exists()) {
+
+                    const initialState = {
+                        name: docSnap.data().name || "",
+                        apellido: docSnap.data().apellido || "",
+                        email: docSnap.data().email || "",
+                        password: docSnap.data().password || "",
+                        phone: docSnap.data().phone || "",
+                        role: docSnap.data().role || "",
+
+                    }
+                    setForm(initialState)
+                    console.log(initialState.role)
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            } catch (e) { console.log(e) }
+
+        } else {
+            console.log("No userId");
+        }
+
+    }
     const uploadForm = async () => {
         setLoading(true);
         try {

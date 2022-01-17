@@ -14,6 +14,7 @@ import {
   DropdownSecretaria,
 } from "./dropdowns_secretaria";
 import { HeaderNav } from "./header";
+import { DropdownGeneral } from "./dropdown_general";
 
 export const MyNavbar = () => {
   const [user, setUser] = useState({
@@ -76,7 +77,7 @@ export const MyNavbar = () => {
         click={() => showMenu()}
         disable={() => (menu ? showMenu(false) : "")}
       />
-      {menu || screenWidth > 1366 ? (
+      {menu || screenWidth > 1365 ? (
         <>
           <nav className="my-navbar  me-auto ">
             <motion.div
@@ -121,7 +122,7 @@ export const MyNavbar = () => {
                   </div>
                 </div>
               </div>
-              {menu || screenWidth > 1366 ? (
+              {menu || screenWidth > 1365 ? (
                 <>
                   <div id="menu" className="elements  ">
                     <div className="items">
@@ -180,7 +181,6 @@ export const MyNavbar = () => {
                           )}
                         </>
                       )}
-
                       <Link
                         onClick={() => showMenu()}
                         to="contacto"
@@ -188,19 +188,27 @@ export const MyNavbar = () => {
                       >
                         Contacto
                       </Link>
-                      <Link
-                        onClick={() => showMenu()}
-                        to="plan-de-estudios"
-                        className="nav-element font-bold"
-                      >
-                        Plan de estudios
-                      </Link>
-                      <a
-                        href="https://regular.neuquen.gob.ar/Inscripciones2021/servlet/com.certiregu.verificatramite"
-                        className="nav-element font-bold"
-                      >
-                        ¿Estoy inscripto?
-                      </a>
+                      {screenWidth > 1600 ? (
+                        <>
+                          {" "}
+                          <Link
+                            onClick={() => showMenu()}
+                            to="plan-de-estudios"
+                            className="nav-element font-bold"
+                          >
+                            Plan de estudios
+                          </Link>
+                          <a
+                            href="https://regular.neuquen.gob.ar/Inscripciones2021/servlet/com.certiregu.verificatramite"
+                            className="nav-element font-bold"
+                          >
+                            ¿Estoy inscripto?
+                          </a>
+                        </>
+                      ) : (
+                        <DropdownGeneral showMenu={showMenu} />
+                      )}
+
                       {user.displayName !== "" ? (
                         <button
                           className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1"
@@ -232,7 +240,6 @@ export const MyNavbar = () => {
                     <div className="elements-right hide-inMobile">
                       <div className="items-right">
                         <Link
-                        
                           to="login"
                           className="session-button p-1 m-1 btn my-btn text-white nav-element font-bold"
                         >

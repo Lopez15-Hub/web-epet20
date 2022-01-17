@@ -1,6 +1,7 @@
 import { addDoc, collection } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { auth, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
@@ -10,6 +11,7 @@ import { LoadingSpinner } from '../../../general/loading'
 import { Title } from '../../../text-styles/title'
 
 export const AñadirAnuncio = () => {
+    const { id } = useParams();
     const { handleChange, values } = useForm();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { title, description } = values;

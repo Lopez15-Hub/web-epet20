@@ -39,17 +39,19 @@ export const DashboardRouter = () => {
             && window.location.pathname !== "/dashboard/inicio"
             && window.location.pathname !== '/dashboard/perfil'
             && window.location.pathname !== '/dashboard/usuarios'
+            && window.location.pathname !== "/dashboard/usuarios/:userId"
             && window.location.pathname !== '/dashboard/usuarios/add'
             && window.location.pathname !== '/dasboard/contacto'
             && window.location.pathname !== '/dashboard/novedades'
             && window.location.pathname !== '/dashboard/secretaria/forms'
             && window.location.pathname !== '/dashboard/secretaria/anuncios'
             && window.location.pathname !== '/dashboard/secretaria/admin'
+            && window.location.pathname !== "/dashboard/secretaria/anuncios/:id"
+            && window.location.pathname !== "/dashboard/secretaria/forms/:id"
             && window.location.pathname !== "/dashboard/estudiantes/admin"
             && window.location.pathname !== "/dashboard/estudiantes/upload"
             && window.location.pathname !== "/dashboard/contacto"
             && window.location.pathname !== "/dashboard/plan-de-estudios"
-            && window.location.pathname !== "/dashboard/usuarios/:userId"
             && window.location.pathname !== "/dashboard/docentes"
             && window.location.pathname !== '/404') {
             return window.location.replace('/404');
@@ -62,6 +64,8 @@ export const DashboardRouter = () => {
             && window.location.pathname !== '/dashboard/secretaria/forms'
             && window.location.pathname !== '/dashboard/secretaria/anuncios'
             && window.location.pathname !== '/dashboard/secretaria/admin'
+            && window.location.pathname !== "/dashboard/secretaria/anuncios/:id"
+            && window.location.pathname !== "/dashboard/secretaria/forms/:id"
             && window.location.pathname !== '/404') {
             return window.location.replace('/404');
 
@@ -129,12 +133,15 @@ export const DashboardRouter = () => {
                                             <Route path="usuarios/" element={<Usuarios />} />
                                             <Route path="usuarios/add" element={<Form />} />
                                             <Route path="usuarios/:userId" element={<Form />} />
+                              
                                             <Route path="inicio" element={<InicioAdmin />} />
                                             <Route path="novedades" element={<PaginaEnConstruccion />} />
                                             <Route path="estudiantes/admin" element={<FilesOfStudents />} />
                                             <Route path="estudiantes/upload" element={<UploadFile />} />
                                             <Route path="secretaria/forms" element={<SecretariaForms />} />
+                                            <Route path="secretaria/forms/:id" element={<SecretariaForms />} />
                                             <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
+                                            <Route path="secretaria/anuncios/:id" element={<SecretariaForms />} />
                                             <Route path="secretaria/admin" element={<SecretariaAdmin />} />
                                             <Route path="contacto" element={<PaginaEnConstruccion />} />
                                             <Route path="plan-de-estudios" element={<EditPlanDeEstudios />} />
@@ -142,7 +149,9 @@ export const DashboardRouter = () => {
                                         </> : role === "secretaria" ? <>
                                             <Route path="perfil/" element={<Profile />} />
                                             <Route path="secretaria/forms" element={<SecretariaForms />} />
+                                            <Route path="secretaria/forms/:id" element={<SecretariaForms />} />
                                             <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
+                                            <Route path="secretaria/anuncios/:id" element={<SecretariaForms />} />
                                             <Route path="secretaria/admin" element={<SecretariaAdmin />} />
                                             {/*RUTAS DEL ROL Usuario*/}
                                         </> : role === "usuario" ? <>  <Route path="perfil/" element={<Profile />} /></> : role === '' || role === undefined || role === null ? window.location.replace("/inicio") : ''}
@@ -156,7 +165,7 @@ export const DashboardRouter = () => {
                             </> : <>
                                 <Row >
                                     <div className='col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
-                                        {screenWidth > 1366 ? <Menu role={role} /> : ''}
+                                        {screenWidth >= 1366 ? <Menu role={role} /> : ''}
                                     </div>
                                     <div className='col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10'>
                                         <Container>

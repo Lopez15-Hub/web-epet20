@@ -84,7 +84,7 @@ export const MainList = ({ label, admin }) => {
         const bdRef = doc(db, label === 'Anuncios' ? 'anuncios' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'estudiantes' : 'forms', id);
         if (confirm) {
             await deleteDoc(bdRef).then(() => {
-                window.alert((label === 'Anuncios' ? 'Anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo' : 'Formulario') + "eliminado correctamente.");
+                window.alert((label === 'Anuncios' ? 'Anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo' : 'Formulario') + " " + " eliminado correctamente.");
                 window.location.reload();
             }).catch(err => {
                 window.alert("Ha ocurrido un error: " + err.code);
@@ -103,7 +103,6 @@ export const MainList = ({ label, admin }) => {
                 <div className="row mt-4 mb-4">
 
                     <Title text={label} />
-                    {/* <img className='portada' src={label.toLowerCase() === 'docentes' ? docentes : label.toLowerCase() === 'estudiantes' ? estudiantes : general} /> */}
 
                     <hr className="mt-4" />
                     <div className="col-12 rounded-xl me-auto">
@@ -127,7 +126,7 @@ export const MainList = ({ label, admin }) => {
                                                         {
                                                             admin ?
                                                                 <div>
-                                                                    {label !== 'Anuncios' ? <Link to={"/admin/secretaria/forms" + "/edit/"} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/admin/secretaria/anuncios" + "/edit/"} className='btn btn-warning mr-2'>Editar</Link>}
+                                                                    {label !== 'Anuncios' ? <Link to={"/dashboard/secretaria/forms" + "/" + e.id} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/dashboard/secretaria/anuncios"  + "/" + e.id} className='btn btn-warning mr-2'>Editar</Link>}
 
                                                                     <button onClick={() => deleteFromFirebase(e.id)} className='btn btn-danger '>Eliminar</button>
 
