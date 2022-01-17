@@ -80,6 +80,7 @@ export const AdminNavbar = ({ currentRole }) => {
               <img
                 src={Icon}
                 className="hide-inMobile shadow-md rounded-xl logo "
+                alt="logo"
               />
               <h1 className="main-color text-center ml-7 pl-2 hide-inMobile mx-auto  navbar-brand font-bold">
                 <Link onClick={() => setMenu(false)} to="/inicio">
@@ -92,7 +93,7 @@ export const AdminNavbar = ({ currentRole }) => {
               {user.displayName !== "" ? (
                 <Link
                   to="/dashboard/perfil"
-                  className="img-profile-min  hide-inPc"
+                  className="  hide-inPc"
                 >
                   <img
                     className="shadow-xl rounded-50 "
@@ -149,7 +150,7 @@ export const AdminNavbar = ({ currentRole }) => {
                       onClick={() => {
                         dropdown();
                       }}
-                      href="#"
+                      href="..."
                       className="nav-element font-bold "
                     >
                       Estudiantes {showDropdown ? "▲" : "▼"}
@@ -168,7 +169,7 @@ export const AdminNavbar = ({ currentRole }) => {
                       onClick={() => {
                         dropdown2();
                       }}
-                      href="#"
+                      href="..."
                       className="nav-element font-bold "
                     >
                       Secretaría {showDropdown2 ? "▲" : "▼"}
@@ -200,7 +201,7 @@ export const AdminNavbar = ({ currentRole }) => {
                 >
                   Plan de estudios
                 </Link>
-                {user.displayName != "" ? (
+                {user.displayName !== "" ? (
                   <button
                     className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1"
                     onClick={handleSignOut}
@@ -225,7 +226,7 @@ export const AdminNavbar = ({ currentRole }) => {
                 )}
               </div>
             </div>
-            {user.displayName == "" ? (
+            {user.displayName === "" ? (
               <div className="elements-right hide-inMobile">
                 <div className="items-right">
                   <Link
@@ -249,6 +250,7 @@ export const AdminNavbar = ({ currentRole }) => {
                     <img  
                       src={user.photoUrl ? user.photoUrl : UserIcon}
                       className="img-profile-nav"
+                      alt={"Foto de perfil de " + user.displayName}
                     ></img>
                   </Link>
                   <button

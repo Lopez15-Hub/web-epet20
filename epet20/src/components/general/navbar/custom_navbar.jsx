@@ -76,6 +76,7 @@ export const MyNavbar = () => {
               <img
                 src={Icon}
                 className="hide-inMobile shadow-md rounded-xl logo"
+                alt="logo"
               />
               <h1 className="hide-inMobile main-color font-bold navbar-brand text-center pl-5 ml-5">
                 <Link onClick={() => setMenu(false)} to="/inicio">
@@ -86,7 +87,7 @@ export const MyNavbar = () => {
               {user.displayName !== "" ? (
                 <Link
                   to="/dashboard/perfil"
-                  className="img-profile-min  hide-inPc"
+                  className="hide-inPc"
                 >
                   <img
                     className="shadow-xl rounded-50 "
@@ -100,7 +101,7 @@ export const MyNavbar = () => {
             </div>
           </div>
         </div>
-        {menu || screenWidth > 800 ? (
+        {menu || screenWidth > 1366 ? (
           <>
             <div id="menu" className="elements ">
               <div className="items">
@@ -123,7 +124,7 @@ export const MyNavbar = () => {
                       onClick={() => {
                         dropdown();
                       }}
-                      href="#"
+                      href="..."
                       className="nav-element font-bold "
                     >
                       Estudiantes {showDropdown ? "▲" : "▼"}
@@ -142,7 +143,7 @@ export const MyNavbar = () => {
                       onClick={() => {
                         dropdown2();
                       }}
-                      href="#"
+                      href="..."
                       className="nav-element font-bold "
                     >
                       Secretaría {showDropdown2 ? "▲" : "▼"}
@@ -180,7 +181,7 @@ export const MyNavbar = () => {
                 >
                   ¿Estoy inscripto?
                 </a>
-                {user.displayName != "" ? (
+                {user.displayName !== "" ? (
                   <button
                     className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1"
                     onClick={handleSignOut}
@@ -205,7 +206,7 @@ export const MyNavbar = () => {
                 )}
               </div>
             </div>
-            {user.displayName == "" ? (
+            {user.displayName === "" ? (
               <div className="elements-right hide-inMobile">
                 <div className="items-right">
                   <Link
@@ -226,7 +227,11 @@ export const MyNavbar = () => {
               <div className="elements-right hide-inMobile">
                 <div className="items-right">
                   <Link to="/dashboard/perfil" className="">
-                    <img src={user.photoUrl ? user.photoUrl : UserIcon} className="img-profile-nav"></img>
+                    <img
+                      src={user.photoUrl ? user.photoUrl : UserIcon}
+                      className="img-profile-nav"
+                      alt={"Foto de perfil de " + user.displayName}
+                    ></img>
                   </Link>
                   <button
                     className="session-button nav-element my-outlined-button font-bold p-1 m-1"
