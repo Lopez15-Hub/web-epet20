@@ -123,10 +123,12 @@ export const MainList = ({ label, admin }) => {
                                                         <a href={e.url}>
                                                             <p className='main-color font-bold'>{e.title}</p> <p>{e.description}</p>
                                                             <p className='text-muted'>Fecha de publicación: {e.fecha}</p></a>
+                                                        <p className='text-muted'>{admin && e.updatedBy ? 'Editado por: ' + e.updatedBy : ''}</p>
+                                                        <p className='text-muted'>{admin && e.updatedAt ? "Fecha de edición: " + formatDate(e.updatedAt) : ''} </p>
                                                         {
                                                             admin ?
                                                                 <div>
-                                                                    {label !== 'Anuncios' ? <Link to={"/dashboard/secretaria/forms" + "/" + e.id} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/dashboard/secretaria/anuncios"  + "/" + e.id} className='btn btn-warning mr-2'>Editar</Link>}
+                                                                    {label !== 'Anuncios' ? <Link to={"/dashboard/secretaria/forms" + "/" + e.id} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/dashboard/secretaria/anuncios" + "/" + e.id} className='btn btn-warning mr-2'>Editar</Link>}
 
                                                                     <button onClick={() => deleteFromFirebase(e.id)} className='btn btn-danger '>Eliminar</button>
 

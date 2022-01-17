@@ -34,10 +34,13 @@ export const AdminNavbar = ({ currentRole }) => {
     };
     window.addEventListener("resize", changeWidth);
     handleUserData();
+    if (screenWidth >= 1366) {
+      setMenu(false);
+    }
     return () => {
       window.removeEventListener("resize", changeWidth);
     };
-  }, []);
+  }, [screenWidth]);
   const handleUserData = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -241,7 +244,6 @@ export const AdminNavbar = ({ currentRole }) => {
                     )}
                   </div>
                 </div>
-        
               </>
             ) : (
               ""

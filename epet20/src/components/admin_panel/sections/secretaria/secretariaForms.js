@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
-import React,{ useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
-import { db } from '../../../../firebase/firebaseConfig'
+import { auth, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
@@ -16,28 +16,29 @@ export const SecretariaForms = () => {
         url: "",
 
     });
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const date = new Date();
     const { title, url, description, label } = values;
     const [form, setForm] = useState({});
     const getForm = async () => {
         if (id) {
-            const usersRef = doc(db, "users", id);
-            const docSnap = await getDoc(usersRef);
+            const formRef = doc(db, "forms", id);
+            const docSnap = await getDoc(formRef);
             try {
                 if (docSnap.exists()) {
 
                     const initialState = {
-                        name: docSnap.data().name || "",
-                        apellido: docSnap.data().apellido || "",
-                        email: docSnap.data().email || "",
-                        password: docSnap.data().password || "",
-                        phone: docSnap.data().phone || "",
-                        role: docSnap.data().role || "",
+                        title: docSnap.data().title.toString() || '',
+                        url: docSnap.data().url || '',
+                        description: docSnap.data().description || '',
+                        label: docSnap.data().label || '',
+                        submitAt: docSnap.data().submitAt || '',
+                        submitBy: docSnap.data().submitBy || '',
+
 
                     }
                     setForm(initialState)
-                    console.log(initialState.role)
+                    console.log(form.title)
                 } else {
                     // doc.data() will be undefined in this case
                     console.log("No such document!");
@@ -49,22 +50,57 @@ export const SecretariaForms = () => {
         }
 
     }
+    const updateForm = async () => {
+        const formRef = doc(db, "forms", id);
+        const newFormData = {
+            "title": !title ? '' : title,
+            "description": description ? description : form.description,
+            "submitAt": form.submitAt,
+            "updatedAt": date,
+            "submitBy": form.submitBy,
+            "updatedBy": auth.currentUser.displayName,
+
+        }
+        await setDoc(formRef, newFormData, { merge: true }).then(() => {
+            setAlertMessage("Anuncio actualizado exitosamente.")
+            console.log("Anuncio actualizado")
+            setLoading(false);
+            setSuccess(true);
+
+            setTimeout(() => {
+                window.location.replace("/dashboard/secretaria/admin");
+            }, 1000)
+        }).catch(err => {
+            if (title === form.title || description === form.description || title === '' || description === '') {
+                setLoading(false);
+                setWarning(true);
+                setAlertMessage("Debes editar al menos un campo para editar el formulario.");
+                restartAlertsState();
+            } else {
+                setAlertMessage("Ha ocurrido un error al añadir los documentos: " + err.code)
+                setLoading(false);
+                setError(true);
+                restartAlertsState();
+                console.error("Error adding document: ", err.code);
+            }
+        });
+    }
     const uploadForm = async () => {
         setLoading(true);
         try {
             const docRef = await addDoc(collection(db, "forms"), {
-                "title": title,
-                "description": description,
-                "url": url,
-                "label": label,
-                "submitAt": date,
+                "title": title? title : '',
+                "description": description? description : '',
+                "url": url? url : '',
+                "label": label? label : '',
+                "submitAt": date? date : '',
             });
             console.log("Document written with ID: ", docRef.id);
             console.log(values);
             setAlertMessage("Formulario creado exitosamente.")
             setLoading(false);
             setSuccess(true);
-           
+
             setTimeout(() => { window.location.reload() }, 1000)
         } catch (err) {
 
@@ -77,20 +113,31 @@ export const SecretariaForms = () => {
     }
     const createForm = async (e) => {
         e.preventDefault();
-        if (title === null || title === undefined || description === null || description === undefined || url === "" || label === null || label === undefined) {
+        if (!id) {
+            if (title === null || title === undefined || description === null || description === undefined || url === "" || label === null || label === undefined) {
+                setWarning(true);
+                setAlertMessage("Debes rellenar todos los campos para crear un formulario.");
+                console.log("Debes rellenar todos los campos.");
+                restartAlertsState();
+
+            }
+
+
+        } else { uploadForm(); }
+        if (id && (title !== '' || description !== '' || url !== '' || label !== '' || !form.title || !form.description || !form.url || !form.label)) {
+            updateForm();
+        } else {
             setWarning(true);
-            setAlertMessage("Debes rellenar todos los campos para crear un formulario.");
+            setAlertMessage("Debes editar al menos un campo para guardar el formulario.");
             console.log("Debes rellenar todos los campos.");
             restartAlertsState();
-
-
-        } else {
-            uploadForm();
-
         }
-
     }
 
+
+    useEffect(() => {
+        getForm();
+    }, [])
 
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -101,7 +148,7 @@ export const SecretariaForms = () => {
                         <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
                 }
                 <Row>
-                    <Title text="Añadir un formulario" />
+                    {id ? <Title text="Editar formulario" /> : <Title text="Crear formulario" />}
 
 
                     <Form onSubmit={createForm} onReset={reset}>
@@ -113,7 +160,9 @@ export const SecretariaForms = () => {
                                 onChange={handleChange}
                                 id="exampleEmail"
                                 name="title"
-                                placeholder="Ingrese un titulo"
+                                value={title}
+                                defaultValue={form.title}
+                                placeholder={form.title}
                                 type="text"
                                 invalid={title === ""}
                             />
@@ -128,11 +177,11 @@ export const SecretariaForms = () => {
                             <Input
                                 onChange={handleChange}
                                 id="exampleEmail"
+                                value={description}
                                 name="description"
+                                defaultValue={form.description}
                                 invalid={description === ""}
                                 type="textarea"
-
-                                value={description}
                                 maxLength="500"
                             />
                             <FormFeedback>
@@ -145,14 +194,16 @@ export const SecretariaForms = () => {
                             </Label>
                             <Input
                                 onChange={handleChange}
+                                defaultValue={form.url}
+
                                 id="exampleEmail"
                                 name="url"
-                                invalid={url === "" || !url.startsWith("https://")}
+                                invalid={url === "" || form.url === "" || !url.startsWith("https://") || !form.url.startsWith("https://")}
                                 type="url"
 
                             />
                             <FormFeedback>
-                                {!url.startsWith("https://") && url !== "" ? 'Debe ingresar un link válido.' : url === "" ? 'Debe añadir un link.' : ''}
+                                {!url.startsWith("https://") && url !== "" ? 'Debe ingresar un link válido.' : url === "" || form.url === '' ? 'Debe añadir un link.' : ''}
                             </FormFeedback>
                         </FormGroup>
                         <FormGroup >
@@ -167,14 +218,15 @@ export const SecretariaForms = () => {
                             <Input
                                 onChange={handleChange}
                                 id="exampleSelect"
+
                                 name="label"
                                 type="select"
-                                invalid={!label || label === null || label === ''}
+                                invalid={!label || label === null || label === '' || form.label === ''}
                                 value={label}
 
                             >
-                                <option value="">
-                                    Seleccione una opción
+                                <option value={id ? form.label : ''}>
+                                    {form.label ? form.label + " " + "(Area actual)" : 'Seleccione una opción'}
                                 </option>
                                 <option value="estudiantes" >
                                     Estudiantes
@@ -191,7 +243,7 @@ export const SecretariaForms = () => {
                                 Debe seleccionar una opción.
                             </FormFeedback>
                         </FormGroup>
-                        <Button type='submit' className='my-btn btn' >Añadir formulario</Button>
+                        <Button type='submit' className='my-btn btn' >{id ? 'Guardar cambios' : 'Añadir formulario'}</Button>
                         {loading ? <LoadingSpinner text="Creando formulario..." /> : ''}
                     </Form>
 

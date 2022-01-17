@@ -45,6 +45,7 @@ export const DashboardRouter = () => {
             && window.location.pathname !== '/dashboard/novedades'
             && window.location.pathname !== '/dashboard/secretaria/forms'
             && window.location.pathname !== '/dashboard/secretaria/anuncios'
+            && window.location.pathname !== '/dashboard/secretaria/anuncios'
             && window.location.pathname !== '/dashboard/secretaria/admin'
             && window.location.pathname !== "/dashboard/secretaria/anuncios/:id"
             && window.location.pathname !== "/dashboard/secretaria/forms/:id"
@@ -141,7 +142,7 @@ export const DashboardRouter = () => {
                                             <Route path="secretaria/forms" element={<SecretariaForms />} />
                                             <Route path="secretaria/forms/:id" element={<SecretariaForms />} />
                                             <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
-                                            <Route path="secretaria/anuncios/:id" element={<SecretariaForms />} />
+                                            <Route path="secretaria/anuncios/:id" element={<AñadirAnuncio />} />
                                             <Route path="secretaria/admin" element={<SecretariaAdmin />} />
                                             <Route path="contacto" element={<PaginaEnConstruccion />} />
                                             <Route path="plan-de-estudios" element={<EditPlanDeEstudios />} />
@@ -183,6 +184,8 @@ export const DashboardRouter = () => {
                                                     <Route path="estudiantes/upload" element={<UploadFile />} />
                                                     <Route path="secretaria/forms" element={<SecretariaForms />} />
                                                     <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
+                                                    <Route path="secretaria/forms/:id" element={<SecretariaForms />} />
+                                                    <Route path="secretaria/anuncios/:id" element={<AñadirAnuncio />} />
                                                     <Route path="secretaria/admin" element={<SecretariaAdmin />} />
                                                     <Route path="contacto" element={<PaginaEnConstruccion />} />
                                                     <Route path="plan-de-estudios" element={<EditPlanDeEstudios />} />

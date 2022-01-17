@@ -11,13 +11,13 @@ import { AlertNotification } from '../../general/alertNotification';
 import { updateProfile } from 'firebase/auth';
 import { UseLoading } from '../../../hooks/useLoading';
 export const Form = ({ currentRole }) => {
-    const { userId } = useParams();
+    const {  formId } = useParams();
     const [user, setUser] = useState({});
 
 
     const getUser = async () => {
-        if (userId) {
-            const usersRef = doc(db, "users", userId);
+        if (formId) {
+            const usersRef = doc(db, "users", formId);
             const docSnap = await getDoc(usersRef);
             try {
                 if (docSnap.exists()) {
@@ -40,7 +40,7 @@ export const Form = ({ currentRole }) => {
             } catch (e) { console.log(e) }
 
         } else {
-            console.log("No userId");
+            console.log("No Id");
         }
 
     }
@@ -57,8 +57,8 @@ export const Form = ({ currentRole }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        if (userId) {
-            const usersRef = doc(db, "users", userId);
+        if (formId) {
+            const usersRef = doc(db, "users", formId);
             if (name || apellido || email || password || phone || role) {
                 setDoc(usersRef, {
 
@@ -72,7 +72,7 @@ export const Form = ({ currentRole }) => {
 
 
                 }, { merge: true }).then(() => {
-                    updateProfile(userId, {
+                    updateProfile(formId, {
                         displayName: name + ' ' + apellido,
                         phoneNumber: phone,
                         email: email,
@@ -148,7 +148,7 @@ export const Form = ({ currentRole }) => {
                         <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3"></div>
                         <div className="mt-4 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div className="mt-4">
-                                <Title text={userId ? "Editar usuario" : "Añadir un usuario"} />
+                                <Title text={formId ? "Editar usuario" : "Añadir un usuario"} />
                             </div>
 
                             <form className=" p-6" onSubmit={handleSubmit} >
@@ -192,7 +192,7 @@ export const Form = ({ currentRole }) => {
                                         <option value="secretaria">Secretaría</option>
                                         <option value="usuario">Usuario</option>
                                     </select>
-                                    <button type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block" onClick={() => setLoading(true)} >{userId ? "Guardar cambios" : "Añadir"} </button>
+                                    <button type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block" onClick={() => setLoading(true)} >{formId ? "Guardar cambios" : "Añadir"} </button>
                                     {loading ? <Loading text="Guardando usuario..." /> : null}
 
                                 </div>
