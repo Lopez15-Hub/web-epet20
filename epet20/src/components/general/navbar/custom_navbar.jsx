@@ -77,7 +77,7 @@ export const MyNavbar = () => {
                 src={Icon}
                 className="hide-inMobile shadow-md rounded-xl logo"
               />
-              <h1 className="main-color font-bold">
+              <h1 className="hide-inMobile main-color font-bold navbar-brand text-center pl-5 ml-5">
                 <Link onClick={() => setMenu(false)} to="/inicio">
                   {" "}
                   E.P.E.T. N°20

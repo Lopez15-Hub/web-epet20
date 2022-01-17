@@ -81,7 +81,7 @@ export const AdminNavbar = ({ currentRole }) => {
                 src={Icon}
                 className="hide-inMobile shadow-md rounded-xl logo "
               />
-              <h1 className="main-color text-center ml-7 pl-2  mx-auto  navbar-brand font-bold">
+              <h1 className="main-color text-center ml-7 pl-2 hide-inMobile mx-auto  navbar-brand font-bold">
                 <Link onClick={() => setMenu(false)} to="/inicio">
                   {" "}
                   {currentRole === "administrador"
@@ -246,7 +246,7 @@ export const AdminNavbar = ({ currentRole }) => {
               <div className="elements-right hide-inMobile">
                 <div className="items-right">
                   <Link to="/dashboard" className="">
-                    <img
+                    <img  
                       src={user.photoUrl ? user.photoUrl : UserIcon}
                       className="img-profile-nav"
                     ></img>
