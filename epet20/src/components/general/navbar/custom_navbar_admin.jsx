@@ -112,7 +112,7 @@ export const AdminNavbar = ({ currentRole }) => {
                   {user.displayName !== "" ? (
                     <Link
                       onClick={() => setMenu(!menu)}
-                      to="/dashboard/perfil"
+                      to="/dashboard"
                       className="hide-inPc"
                     >
                       <img

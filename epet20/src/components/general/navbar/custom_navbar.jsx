@@ -106,7 +106,7 @@ export const MyNavbar = () => {
                     {user.displayName !== "" ? (
                       <a
                         onClick={() => setMenu(!menu)}
-                        href="/dashboard/perfil"
+                        href="/dashboard"
                         className="hide-inPc"
                       >
                         <img
@@ -249,7 +249,7 @@ export const MyNavbar = () => {
                   ) : (
                     <div className="elements-right hide-inMobile">
                       <div className="items-right">
-                        <Link to="/dashboard/perfil" className="">
+                        <Link to="/dashboard" className="">
                           <img
                             src={user.photoUrl ? user.photoUrl : UserIcon}
                             className="img-profile-nav"
