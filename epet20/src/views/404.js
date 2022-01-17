@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import React from 'react'
-import { Subtitle } from '../components/text-styles/subtitle'
 import { Title } from '../components/text-styles/title'
 
 export const Error404 = () => {
