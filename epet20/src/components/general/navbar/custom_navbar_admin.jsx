@@ -112,7 +112,7 @@ export const AdminNavbar = ({ currentRole }) => {
                   {user.displayName !== "" ? (
                     <Link
                       onClick={() => setMenu(!menu)}
-                      to="/dashboard"
+                      to="./perfil"
                       className="hide-inPc"
                     >
                       <img
@@ -231,7 +231,7 @@ export const AdminNavbar = ({ currentRole }) => {
                           Iniciar sesión
                         </Link>
                         <Link
-                        onClick={() => showMenu()}
+                          onClick={() => showMenu()}
                           to="registro"
                           className="btn btn-outline-primary m-4 font-bold hide-inPc"
                         >

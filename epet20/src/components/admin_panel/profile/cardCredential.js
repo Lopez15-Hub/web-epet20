@@ -44,7 +44,7 @@ export const CardCredential = () => {
 
 
 
-        <div className='mx-auto  p-4'>
+        <div className=' p-4'>
 
             <div className=' p-6 border shadow-md rounded-xl'>
                 <Title text="Datos personales" />
@@ -52,7 +52,7 @@ export const CardCredential = () => {
                     <div >
 
                         {user ? <img
-                            className='img-profile mx-auto  shadow-xl rounded-xl border'
+                            className='img-profile  shadow-xl rounded-xl border'
                             alt="foto de perfil"
                             src={user.photoURL ? user.photoURL : UserIcon}
                            

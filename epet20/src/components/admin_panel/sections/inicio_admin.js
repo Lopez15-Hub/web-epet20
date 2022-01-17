@@ -12,7 +12,7 @@ import { Title } from '../../text-styles/title'
 
 export const InicioAdmin = () => {
     const { handleChange, values } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { presentacion, alcances, perfilTec } = values;
     const getDataFromFirestore = async () => {
         setAlertMessage("Obteniendo datos.");
@@ -98,24 +98,25 @@ export const InicioAdmin = () => {
                         <LoadingSpinner text={alertMessage} /> :
                         <Row>
                             <Title text="Inicio" />
-                            <form className='mx-auto mt-4 p-4' onSubmit={editPresentacion} >
+
+                            <form className='mt-4' onSubmit={editPresentacion} >
 
 
-                                <div className='from-group row shadow-md'>
+                                <div className='from-group row'>
                                     <div className=' col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
                                         <div className='font-bold'> <Subtitle text="Editar párrafo de presentación" /></div>
-                                        <textarea value={presentacion} type="textarea" onChange={handleChange} defaultValue={presentaciones.presentacion} className='form-control-lg border' name="presentacion" cols="30" rows="10" />
+                                        <textarea value={presentacion} type="textarea" onChange={handleChange} defaultValue={presentaciones.presentacion} className='m-4 form-control-lg border' name="presentacion" cols="30" rows="10" />
 
                                     </div>
 
                                     <div className='col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
                                         <div className='font-bold'><Subtitle text="Editar párrafo de perfil técnico" /></div>
-                                        <textarea value={perfilTec} onChange={handleChange} defaultValue={presentaciones.perfilTecnico} className='form-control-lg border' name="perfilTec" cols="30" rows="10" />
+                                        <textarea value={perfilTec} onChange={handleChange} defaultValue={presentaciones.perfilTecnico} className='m-4  form-control-lg border' name="perfilTec" cols="30" rows="10" />
                                     </div>
                                     <div className='col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
                                         <div className='font-bold'><Subtitle text="Editar párrafo de alcances" /></div>
 
-                                        <textarea value={alcances} onChange={handleChange} defaultValue={presentaciones.alcances} className='form-control-lg border' name="alcances" cols="30" rows="10" />
+                                        <textarea value={alcances} onChange={handleChange} defaultValue={presentaciones.alcances} className='m-4  form-control-lg border' name="alcances" cols="30" rows="10" />
                                     </div>
 
 

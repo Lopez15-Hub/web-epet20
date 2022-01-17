@@ -78,47 +78,83 @@ export const DashboardRouter = () => {
             <Container className='me-auto'>
                 {loading === false ?
                     <>
+                        {screenWidth < 1366 ? <>
+                            <Container>
+                                <Routes>
+                                    {    /*RUTAS DEL ROL ADMINISTRADOR*/}
+                                    {role === "administrador" ? <>
 
-                        <Row >
-                            <div className='col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
-                                {screenWidth > 1366 ? <Menu role={role} /> : ''}
-                            </div>
-                            <div className='col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10'>
-                                <Container>
-                                    <Routes>
-                                        {    /*RUTAS DEL ROL ADMINISTRADOR*/}
-                                        {role === "administrador" ? <>
-
-                                            <Route path="perfil/" element={<Profile />} />
-                                            <Route path="usuarios/" element={<Usuarios />} />
-                                            <Route path="usuarios/add" element={<Form />} />
-                                            <Route path="usuarios/:userId" element={<Form />} />
-                                            <Route path="inicio" element={<InicioAdmin />} />
-                                            <Route path="novedades" element={<PaginaEnConstruccion />} />
-                                            <Route path="estudiantes/admin" element={<FilesOfStudents />} />
-                                            <Route path="estudiantes/upload" element={<UploadFile />} />
-                                            <Route path="secretaria/forms" element={<SecretariaForms />} />
-                                            <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
-                                            <Route path="secretaria/admin" element={<SecretariaAdmin />} />
-                                            <Route path="contacto" element={<PaginaEnConstruccion />} />
-                                            <Route path="plan-de-estudios" element={<EditPlanDeEstudios />} />
-                                            {/*RUTAS DEL ROL Secretaria*/}
-                                        </> : role === "secretaria" ? <>
-                                            <Route path="perfil/" element={<Profile />} />
-                                            <Route path="secretaria/forms" element={<SecretariaForms />} />
-                                            <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
-                                            <Route path="secretaria/admin" element={<SecretariaAdmin />} />
-                                            {/*RUTAS DEL ROL Usuario*/}
-                                        </> : role === "usuario" ? <>  <Route path="perfil/" element={<Profile />} /></> : role === '' || role === undefined || role === null ? window.location.replace("/") : <Route path="/" element={<Profile />} />
-                                        }
+                                        <Route path="perfil/" element={<Profile />} />
+                                        <Route path="usuarios/" element={<Usuarios />} />
+                                        <Route path="usuarios/add" element={<Form />} />
+                                        <Route path="usuarios/:userId" element={<Form />} />
+                                        <Route path="inicio" element={<InicioAdmin />} />
+                                        <Route path="novedades" element={<PaginaEnConstruccion />} />
+                                        <Route path="estudiantes/admin" element={<FilesOfStudents />} />
+                                        <Route path="estudiantes/upload" element={<UploadFile />} />
+                                        <Route path="secretaria/forms" element={<SecretariaForms />} />
+                                        <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
+                                        <Route path="secretaria/admin" element={<SecretariaAdmin />} />
+                                        <Route path="contacto" element={<PaginaEnConstruccion />} />
+                                        <Route path="plan-de-estudios" element={<EditPlanDeEstudios />} />
+                                        {/*RUTAS DEL ROL Secretaria*/}
+                                    </> : role === "secretaria" ? <>
+                                        <Route path="perfil/" element={<Profile />} />
+                                        <Route path="secretaria/forms" element={<SecretariaForms />} />
+                                        <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
+                                        <Route path="secretaria/admin" element={<SecretariaAdmin />} />
+                                        {/*RUTAS DEL ROL Usuario*/}
+                                    </> : role === "usuario" ? <>  <Route path="perfil/" element={<Profile />} /></> : role === '' || role === undefined || role === null ? window.location.replace("/") : <Route path="/" element={<Profile />} />
+                                    }
 
 
 
-                                    </Routes>
-                                </Container>
+                                </Routes>
+                            </Container>
 
-                            </div>
-                        </Row>
+                        </> : <>
+                            <Row >
+                                <div className='col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
+                                    {screenWidth > 1366 ? <Menu role={role} /> : ''}
+                                </div>
+                                <div className='col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10'>
+                                    <Container>
+                                        <Routes>
+                                            {    /*RUTAS DEL ROL ADMINISTRADOR*/}
+                                            {role === "administrador" ? <>
+
+                                                <Route path="perfil/" element={<Profile />} />
+                                                <Route path="usuarios/" element={<Usuarios />} />
+                                                <Route path="usuarios/add" element={<Form />} />
+                                                <Route path="usuarios/:userId" element={<Form />} />
+                                                <Route path="inicio" element={<InicioAdmin />} />
+                                                <Route path="novedades" element={<PaginaEnConstruccion />} />
+                                                <Route path="estudiantes/admin" element={<FilesOfStudents />} />
+                                                <Route path="estudiantes/upload" element={<UploadFile />} />
+                                                <Route path="secretaria/forms" element={<SecretariaForms />} />
+                                                <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
+                                                <Route path="secretaria/admin" element={<SecretariaAdmin />} />
+                                                <Route path="contacto" element={<PaginaEnConstruccion />} />
+                                                <Route path="plan-de-estudios" element={<EditPlanDeEstudios />} />
+                                                {/*RUTAS DEL ROL Secretaria*/}
+                                            </> : role === "secretaria" ? <>
+                                                <Route path="perfil/" element={<Profile />} />
+                                                <Route path="secretaria/forms" element={<SecretariaForms />} />
+                                                <Route path="secretaria/anuncios" element={<AñadirAnuncio />} />
+                                                <Route path="secretaria/admin" element={<SecretariaAdmin />} />
+                                                {/*RUTAS DEL ROL Usuario*/}
+                                            </> : role === "usuario" ? <>  <Route path="perfil/" element={<Profile />} /></> : role === '' || role === undefined || role === null ? window.location.replace("/") : <Route path="/" element={<Profile />} />
+                                            }
+
+
+
+                                        </Routes>
+                                    </Container>
+
+                                </div>
+                            </Row>
+                        </>}
+
 
 
 
