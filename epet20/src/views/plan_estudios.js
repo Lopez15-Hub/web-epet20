@@ -41,77 +41,76 @@ export const PlanDeEstudios = () => {
 
 
                 <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} name="main">
-          
-                    <Container className='me-auto'>
-                        <div className='row' ref={ref}>
 
-                            <div className='col-xs-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'></div>
-                            <div className='col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10'>
-                                <header className="bg-main-color shadow-md rounded-xl p-4  mt-4">
+                    <Container>
+                        <div>
+                            <div className='row  m-6' ref={ref}>
 
-                                    <dl >
-                                        <dt className="text-white">Escuela provincial de educación técnica número 20. </dt>
+                                <div className='col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3'></div>
+                                <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 '>
+                                    <header className="bg-main-color shadow-md rounded-xl p-3 mt-4">
 
-                                        <dd className="text-white">Ministerio de educación - Ciudad de Neuquén - Año {formatDate()}. </dd>
+                                        <dl >
+                                            <dt className="text-white">Escuela provincial de educación técnica número 20. </dt>
 
-
-
-                                    </dl>
-
-
-                                </header>
+                                            <dd className="text-white">Ministerio de educación - Ciudad de Neuquén - Año {formatDate()}. </dd>
 
 
 
-                                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-12 col-xl-12">
-                                    <div className="mb-4">
-                                        <Title text="Plan de estudios" />
-                                        <div className='font-bold'> <Subtitle text="Título" /> </div>
-                                        <p>{plan.title}</p>
-                                    </div>
+                                        </dl>
+
+
+                                    </header>
                                     <div>
-                                        <div>
-                                            <div className="font-bold"> <Subtitle text="Perfil del egresado" /></div>
-                                            <p className='text-justify'>{plan.profile}</p>
+                                        <div className="mb-4">
+                                            <Title text="Plan de estudios" />
+                                            <div className='font-bold'> <Subtitle text="Título" /> </div>
+                                            <p>{plan.title}</p>
                                         </div>
                                         <div>
-                                            <div className="font-bold"> <Subtitle text="Alcance del título" /></div>
-                                            <p className='text-justify'>{plan.alcances}</p>
+                                            <div>
+                                                <div className="font-bold"> <Subtitle text="Perfil del egresado" /></div>
+                                                <p className='text-justify'>{plan.profile}</p>
+                                            </div>
+                                            <div>
+                                                <div className="font-bold"> <Subtitle text="Alcance del título" /></div>
+                                                <p className='text-justify'>{plan.alcances}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    {/*Stack de materias*/}
-                                    <div >
-                                        <div className="mt-4">
-                                            <Title text="Listado de materias" />
+                                        {/*Stack de materias*/}
+                                        <div >
+                                            <div className="mt-4">
+                                                <Title text="Listado de materias" />
+                                            </div>
+
+                                            <Container className='p-6 mt-4  mx-auto'>
+                                                <div className='mb-2'><Subtitle text="Ciclo Básico " /></div>
+
+                                                <Materias showBasic={true} />
+
+
+                                            </Container>
+
+                                            <Container className='p-6 mt-4   mx-auto'>
+                                                <div className='mt-2 mb-2'><Subtitle text="Ciclo Superior" /></div>
+
+                                                <Materias />
+                                            </Container>
+
                                         </div>
 
-                                        <Container className='p-6 mt-4  mx-auto'>
-                                            <div className='mb-2'><Subtitle text="Ciclo Básico " /></div>
 
-                                            <Materias showBasic={true} />
+                                        <p id='labelMark' className=' text-muted text-center mb-4'>Documento generado de la página oficial de la E.P.E.T. N°20 - Año {formatDate()}.</p>
 
-
-                                        </Container>
-
-                                        <Container className='p-6 mt-4   mx-auto'>
-                                            <div className='mt-2 mb-2'><Subtitle text="Ciclo Superior" /></div>
-
-                                            <Materias />
-                                        </Container>
 
                                     </div>
-
-
-                                    <p id='labelMark' className=' text-muted text-center mb-4'>Documento generado de la página oficial de la E.P.E.T. N°20 - Año {formatDate()}.</p>
 
 
                                 </div>
 
 
+
                             </div>
-                            <div className='col-xs-12 col-xl-1'></div>
-
-
                         </div>
                         <Container>
 
