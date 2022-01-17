@@ -26,7 +26,7 @@ export const DashboardRouter = () => {
     const [screenWidth, setWidth] = useState(window.innerWidth);
 
     const { role } = useRole();
-    const { loading, setLoading, success, error, warning, alertMessage, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, setLoading, success, error, warning, alertMessage, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
     const { connectionStatus } = useConnection();
 
     useEffect(() => {
@@ -61,7 +61,7 @@ export const DashboardRouter = () => {
         return () => {
             window.removeEventListener("resize", changeWidth);
         }
-    }, [role, setLoading])
+    }, [connectionStatus, role, setAlertMessage, setLoading, setWarning])
 
 
     return (
@@ -72,13 +72,13 @@ export const DashboardRouter = () => {
                 error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
                     <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
             }
-            <Container className='mt-5 me-auto'>
+            <Container className='me-auto'>
                 {loading === false ?
                     <>
 
                         <Row >
                             <div className='col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2'>
-                                {screenWidth > 800 ? <Menu role={role} /> : ''}
+                                {screenWidth > 1366 ? <Menu role={role} /> : ''}
                             </div>
                             <div className='col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 position-relative'>
                                 <Container>

@@ -19,13 +19,10 @@ export const PlanDeEstudios = () => {
     const ref = useRef(null)
     const { plan } = usePlan();
     const { formatDate } = useDate();
-    const [showMark, setShowMark] = React.useState(false);
     const beforePrint = () => {
-        setShowMark(true);
         setLoading(true)
     }
     const afterPrint = () => {
-        setShowMark(false);
         setLoading(false)
         setAlertMessage("PDF generado exitosamente. ")
         setSuccess(true)

@@ -51,3 +51,19 @@ export const DropdownOptions = ({click}) => {
     </>
   );
 };
+
+
+export const DropdownsAdminEstudiantes = ({click}) => {
+  return (
+    <>
+    <div className="border-bottom">
+      <Link onClick={click} to="./estudiantes/admin" className="nav-element ">
+        Administrar
+      </Link>
+      <Link onClick={click} to="./estudiantes/upload" className="nav-element ">
+        Añadir un archivo
+      </Link>
+    </div>
+  </>
+  )
+}

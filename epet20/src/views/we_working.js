@@ -9,7 +9,7 @@ export const PaginaEnConstruccion = () => {
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 
 
-            <div className="container-fluid top-80  position-absolute ">
+            <div className="container-fluid top-40  position-absolute ">
 
 
                 <div className="row ">

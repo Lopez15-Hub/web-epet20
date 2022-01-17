@@ -62,3 +62,21 @@ export const DropdownOptionsSecretaria = ({ click }) => {
     </>
   );
 };
+
+export const DropdownAdminSecretaria = ({ click }) => {
+  return (
+    <>
+      <div className="border-bottom">
+        <Link onClick={click} to="./secretaria/admin" className="nav-element ">
+          Administrar
+        </Link>
+        <Link onClick={click} to="./secretaria/anuncios" className="nav-element ">
+          Añadir un anuncio
+        </Link>
+        <Link onClick={click} to="./secretaria/forms" className="nav-element ">
+          Añadir un formulario
+        </Link>
+      </div>
+    </>
+  );
+};
