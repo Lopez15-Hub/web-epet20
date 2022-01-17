@@ -211,12 +211,14 @@ export const MyNavbar = () => {
                       ) : (
                         <>
                           <Link
+                            onClick={() => showMenu()}
                             to="/login"
                             className="btn btn-primary btn-md m-4 font-bold hide-inPc"
                           >
                             Iniciar sesión
                           </Link>
                           <Link
+                            onClick={() => showMenu()}
                             to="registro"
                             className="btn btn-outline-primary m-4 font-bold hide-inPc"
                           >
@@ -230,6 +232,7 @@ export const MyNavbar = () => {
                     <div className="elements-right hide-inMobile">
                       <div className="items-right">
                         <Link
+                        
                           to="login"
                           className="session-button p-1 m-1 btn my-btn text-white nav-element font-bold"
                         >
