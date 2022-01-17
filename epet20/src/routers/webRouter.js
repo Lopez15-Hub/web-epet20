@@ -24,6 +24,7 @@ export const WebRouter = () => {
             window.location.pathname !== '/'
             && window.location.pathname !== '/inicio'
             && window.location.pathname !== '/'
+            && window.location.pathname !== './'
             && window.location.pathname !== '/novedades'
             && window.location.pathname !== '/contacto'
             && window.location.pathname !== '/registro'

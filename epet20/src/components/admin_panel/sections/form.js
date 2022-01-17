@@ -46,15 +46,15 @@ export const Form = ({ currentRole }) => {
     }
     useEffect(() => {
         getUser()
-    
+
     })
 
     const { handleChange, values } = useForm(
         user
     );
     const { name, apellido, email, password, phone, role } = values;
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,  restartAlertsState } = UseLoading();
-  
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+
     const handleSubmit = async e => {
         e.preventDefault();
         if (userId) {
@@ -83,8 +83,8 @@ export const Form = ({ currentRole }) => {
                     setSuccess(true);
 
                     setTimeout(() => {
-                        window.location.replace("./");
-                    }, 3000)
+                        window.location.replace("/dashboard/usuarios");
+                    }, 1000)
                 }).catch(err => {
                     setAlertMessage("Ha ocurrido un error: ", err.code)
                     setLoading(false);
@@ -117,7 +117,7 @@ export const Form = ({ currentRole }) => {
                     setAlertMessage("Usuario creado exitosamente.")
                     setLoading(false);
                     setSuccess(true);
-             
+
                 }).catch(err => {
                     setAlertMessage("Ha ocurrido un error: ", err.code)
                     setLoading(false);

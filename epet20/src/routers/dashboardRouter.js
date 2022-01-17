@@ -37,6 +37,7 @@ export const DashboardRouter = () => {
             && role === "administrador"
             && window.location.pathname !== "/dasboard/usuarios/"
             && window.location.pathname !== '/dashboard/perfil'
+            && window.location.pathname !== '/dashboard/usuarios'
             && window.location.pathname !== '/dashboard/usuarios/add'
             && window.location.pathname !== '/dasboard/contacto'
             && window.location.pathname !== '/dashboard/novedades'
