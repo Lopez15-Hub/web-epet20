@@ -9,29 +9,17 @@ export const PaginaEnConstruccion = () => {
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 
 
-            <div className="container-fluid me-auto">
+            <div className="me-auto">
+
+                <img className="img-fluid position-fixed top-40 right-0 left-0 img  w-auto mx-auto shadow-lg rounded-xl" src={Image} alt="estamos trabajando" />
 
 
-                <div className="row mx-auto">
-                    <div className="col-12" />
-                    {
 
-                        Image ?
-                            <img className="img-fluid img p-2 w-auto mx-auto shadow-lg rounded-xl" src={Image} alt="estamos trabajando" /> : <LoadingSpinner />
+                <div className="text-center position-fixed top-50 right-0 left-0 ">
 
-                    }
+                    <Title text="¡Oops! Continuamos trabajando. Muy pronto podrás visitar esta sección." />
+                    <Subtitle text="¡Inténtalo de nuevo más tarde! ;))" />
 
-
-                </div>
-
-                <div className="row">
-
-                    <div className="text-center col-12">
-
-                        <Title text="¡Oops! Continuamos trabajando. Muy pronto podrás visitar esta sección." />
-                        <Subtitle text="¡Inténtalo de nuevo más tarde! ;))" />
-
-                    </div>
 
                 </div>
             </div>
