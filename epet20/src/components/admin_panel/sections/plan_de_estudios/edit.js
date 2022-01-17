@@ -27,6 +27,7 @@ export const EditPlanDeEstudios = () => {
         "ciclo": año === '1°' || año === '2°' || año === '3°' ? 'basico' : 'superior',
     }
     const addMateria = () => {
+        console.log(materia)
         handleMaterias();
     }
     const handleMaterias = () => {
@@ -63,6 +64,7 @@ export const EditPlanDeEstudios = () => {
             setAlertMessage("Plan editado exitosamente.")
             setLoading(false);
             setSuccess(true);
+            restartAlertsState();
         }).catch((err) => {
 
             setLoading(false);
@@ -86,7 +88,7 @@ export const EditPlanDeEstudios = () => {
                 || profile === undefined || alcances === null || alcances === undefined
                 || materias.length === 0 || materias === null || materias === undefined
                 || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
-                || año === undefined || año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0) {
+                || año === undefined || año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0 ||plan.title ===title && plan.profile === profile && plan.alcances === alcances && plan.materias === materias) {
 
 
                 setWarning(true);
@@ -122,7 +124,8 @@ export const EditPlanDeEstudios = () => {
         if (plan && plan.materias.length > 0) {
             setMaterias([...planMaterias]);
         }
-    }, [planMaterias])
+        reset({ materia: '', año: ''});
+    }, [plan, planMaterias, reset])
 
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -136,8 +139,8 @@ export const EditPlanDeEstudios = () => {
                     <Title text="Editar plan de estudios" />
 
 
-                    <Form onSubmit={createPlan} onReset={reset}>
-                       
+                    <Form onSubmit={createPlan}>
+
                         <div className='font-bold'><Subtitle text="Datos generales" /></div>
                         <FormGroup>
                             <Label >
@@ -192,7 +195,7 @@ export const EditPlanDeEstudios = () => {
 
                         <div className='font-bold'><Subtitle text="Materias" /></div>
                         <div>
-                            <form id='formMateria'>
+                            <form id='formMateria' onReset={reset}>
                                 <FormGroup>
                                     <div className="input-group mb-3">
                                         <input id='inputMateria' onChange={handleChange} name="materia" type="text" className="form-control" aria-label="Text input with dropdown button" placeholder="Nombre de la materia" />
@@ -208,37 +211,37 @@ export const EditPlanDeEstudios = () => {
 
                                         </select>
                                     </div>
-                                    <button type="reset" onClick={() => addMateria()} type='button' className='btn btn-outline-primary'>+ Añadir materia</button>
+                                    <button type="reset" onClick={() => addMateria()} className='btn btn-outline-primary'>+ Añadir materia</button>
 
 
 
 
                                 </FormGroup>
-                                <Button type='submit' className='my-btn btn mt-4 mb-4' >Guardar cambios</Button>
+
                             </form>
                         </div>
-                        {
-                            materias.length !== 0 ? <>
-                                <Title text={"Materias añadidas"}></Title>
-                                <Subtitle text={"Materias totales: " + materias.length} />
-                                {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
-                                    return (
-                                        <ul className='border mb-4' key={index}>
-                                            <div>
-                                                <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
-                                                <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
-                                            </div>
-
-                                        </ul>
-                                    )
-                                }) : ''}
-
-                            </> : ''
-                        }
 
 
+                        <input type='submit' className='my-btn btn mt-4 mb-4' value="Guardar cambios" />
                     </Form>
+                    {
+                        materias.length !== 0 ? <>
+                            <Title text={"Materias añadidas"}></Title>
+                            <Subtitle text={"Materias totales: " + materias.length} />
+                            {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
+                                return (
+                                    <ul className='border mb-4' key={index}>
+                                        <div>
+                                            <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
+                                            <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
+                                        </div>
 
+                                    </ul>
+                                )
+                            }) : ''}
+
+                        </> : ''
+                    }
 
                 </Row>
             </Container>

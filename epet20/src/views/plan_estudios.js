@@ -83,19 +83,35 @@ export const PlanDeEstudios = () => {
                                                 <Title text="Listado de materias" />
                                             </div>
 
-                                            <Container className='p-6 mt-4  mx-auto'>
-                                                <div className='mb-2'><Subtitle text="Ciclo Básico " /></div>
-
-                                                <Materias showBasic={true} />
+                                            <Container className='mx-auto'>
+                                                <div ><Subtitle text="Ciclo básico " /></div>
 
 
+                                                <Container className='mx-auto'>
+
+                                                    <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Primer año</h1>
+                                                    <Materias showBasic={true} año={"1°"} />
+                                                    <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Segundo año</h1>
+                                                    <Materias showBasic={true} año={"2°"} />
+                                                    <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Tercer año</h1>
+                                                    <Materias showBasic={true} año={"3°"} />
+                                                </Container>
+                                            </Container>
+                                            <Container className='mx-auto'>
+                                                <div><Subtitle text="Ciclo superior " /></div>
+
+
+                                                <Container className='mx-auto'>
+
+                                                    <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Cuarto año</h1>
+                                                    <Materias año={"4°"} />
+                                                    <h1 className=' font-bold mt-4 mb-2 pt-2 pb-2'>Quinto año</h1>
+                                                    <Materias año={"5°"} />
+                                                    <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Sexto año</h1>
+                                                    <Materias año={"6°"} />
+                                                </Container>
                                             </Container>
 
-                                            <Container className='p-6 mt-4   mx-auto'>
-                                                <div className='mt-2 mb-2'><Subtitle text="Ciclo Superior" /></div>
-
-                                                <Materias />
-                                            </Container>
 
                                         </div>
 
@@ -123,7 +139,7 @@ export const PlanDeEstudios = () => {
                                 {/*Módulo de impresión*/}
                                 <ReactToPrint
 
-                                    trigger={() => <button className="btn btn-outline-primary ml-4 "><p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p> </button>}
+                                    trigger={() => <button className="btn btn-outline-primary"><p className='d-flex'> <FaPrint className='mr-2' />Imprimir plan de estudios</p> </button>}
                                     content={() => ref.current}
                                     documentTitle='E.P.E.T N°20 - Plan de estudios.pdf'
                                     onBeforePrint={beforePrint}
