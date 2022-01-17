@@ -96,15 +96,15 @@ export const MainList = ({ label, admin }) => {
             {/*Barra de navegación*/}
 
 
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container my-shadow rounded-xl pt-6 mt-5 me-auto " >
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container my-shadow rounded-xl  me-auto " >
 
-                <div className="row mt-2 mb-4">
+                <div className="row mt-4 mb-4">
 
                     <Title text={label} />
                     {/* <img className='portada' src={label.toLowerCase() === 'docentes' ? docentes : label.toLowerCase() === 'estudiantes' ? estudiantes : general} /> */}
 
                     <hr className="mt-4" />
-                    <div className="col-12 rounded-xl m-2">
+                    <div className="col-12 rounded-xl me-auto">
                         <div className="text-center ">
                             <Title text={label === 'Anuncios' ? "" : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivos subidos' : 'Formularios disponibles'} />
                         </div>

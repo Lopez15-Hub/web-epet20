@@ -40,19 +40,14 @@ export const PlanDeEstudios = () => {
 
 
 
-                <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className=" mt-4  " name="main" >
-                    <div fluid className='p-2 mb-4'>
-
-
-
-
-                    </div>
-                    <Container>
+                <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} name="main">
+          
+                    <Container className='me-auto'>
                         <div className='row' ref={ref}>
 
-                            <div className='col-1'></div>
-                            <div className="row p-7 col-10" >
-                                <header className="bg-main-color shadow-md rounded-xl p-3">
+                            <div className='col-xs-12 col-sm-12 col-md-1 col-lg-1 col-xl-1'></div>
+                            <div className='col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10'>
+                                <header className="bg-main-color shadow-md rounded-xl p-4  mt-4">
 
                                     <dl >
                                         <dt className="text-white">Escuela provincial de educación técnica número 20. </dt>
@@ -114,7 +109,7 @@ export const PlanDeEstudios = () => {
 
 
                             </div>
-                            <div className='col-1'></div>
+                            <div className='col-xs-12 col-xl-1'></div>
 
 
                         </div>
