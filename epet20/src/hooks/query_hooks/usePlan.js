@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore';
+import {  doc, getDoc} from 'firebase/firestore';
 import React, { useEffect } from 'react'
 import { db } from '../../firebase/firebaseConfig';
 
@@ -6,8 +6,8 @@ export const usePlan = () => {
     const [plan, setPlan] = React.useState('');
     useEffect(() => {
         obtenerTextosDeFirebase();
-
-    }, [])
+        
+    },[])
     const obtenerTextosDeFirebase = async () => {
         const planRef = doc(db, 'textos', 'planDeEstudios');
 

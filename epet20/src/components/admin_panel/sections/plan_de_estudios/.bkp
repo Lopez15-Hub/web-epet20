@@ -1,0 +1,16 @@
+    const searchMateria = () => {
+        var materia = materias.filter(
+            materia => materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(searchValue.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()) !== -1
+                || materia.materia.toLowerCase() === searchValue.toLowerCase()
+                || materia.año.toLowerCase().indexOf(searchValue) !== -1
+                || materia.año.toLowerCase() === searchValue.toLowerCase()
+                || materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(searchValue.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) !== -1
+                || materia.materia === searchValue);
+
+        restartAlertsState();
+        setSearchMaterias(materia);
+
+
+        console.log("Materia ", searchMaterias);
+        return searchMaterias;
+    }

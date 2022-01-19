@@ -14,32 +14,33 @@ export const InicioAdmin = () => {
     const { handleChange, values } = useForm();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { presentacion, alcances, perfilTec } = values;
-    const getDataFromFirestore = async () => {
-        setAlertMessage("Obteniendo datos.");
-        setLoading(true);
 
-        const textsRef = doc(db, 'textos', 'presentacion');
-
-        const docSnap = await getDoc(textsRef);
-
-        if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-            setPresentaciones({
-                presentacion: docSnap.data().presentacion,
-                alcances: docSnap.data().alcances,
-                perfilTecnico: docSnap.data().perfilTecnico,
-            });
-            setLoading(false);
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-            setAlertMessage("No hay datos disponibles.");
-            setLoading(false);
-        }
-    }
     useEffect(() => {
+        const getDataFromFirestore = async () => {
+            setAlertMessage("Obteniendo datos.");
+            setLoading(true);
+    
+            const textsRef = doc(db, 'textos', 'presentacion');
+    
+            const docSnap = await getDoc(textsRef);
+    
+            if (docSnap.exists()) {
+                console.log("Document data:", docSnap.data());
+                setPresentaciones({
+                    presentacion: docSnap.data().presentacion,
+                    alcances: docSnap.data().alcances,
+                    perfilTecnico: docSnap.data().perfilTecnico,
+                });
+                setLoading(false);
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+                setAlertMessage("No hay datos disponibles.");
+                setLoading(false);
+            }
+        }
         getDataFromFirestore();
-    }, []);
+    }, [setAlertMessage, setLoading]);
     const [presentaciones, setPresentaciones] = useState({
         presentacion: presentacion,
         alcances: alcances,

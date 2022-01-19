@@ -20,36 +20,7 @@ export const SecretariaForms = () => {
     const date = new Date();
     const { title, url, description, label } = values;
     const [form, setForm] = useState({});
-    const getForm = async () => {
-        if (id) {
-            const formRef = doc(db, "forms", id);
-            const docSnap = await getDoc(formRef);
-            try {
-                if (docSnap.exists()) {
-
-                    const initialState = {
-                        title: docSnap.data().title.toString() || '',
-                        url: docSnap.data().url || '',
-                        description: docSnap.data().description || '',
-                        label: docSnap.data().label || '',
-                        submitAt: docSnap.data().submitAt || '',
-                        submitBy: docSnap.data().submitBy || '',
-
-
-                    }
-                    setForm(initialState)
-                    console.log(form.title)
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            } catch (e) { console.log(e) }
-
-        } else {
-            console.log("No userId");
-        }
-
-    }
+ 
     const updateForm = async () => {
         const formRef = doc(db, "forms", id);
         const newFormData = {
@@ -136,8 +107,38 @@ export const SecretariaForms = () => {
 
 
     useEffect(() => {
+        const getForm = async () => {
+            if (id) {
+                const formRef = doc(db, "forms", id);
+                const docSnap = await getDoc(formRef);
+                try {
+                    if (docSnap.exists()) {
+    
+                        const initialState = {
+                            title: docSnap.data().title.toString() || '',
+                            url: docSnap.data().url || '',
+                            description: docSnap.data().description || '',
+                            label: docSnap.data().label || '',
+                            submitAt: docSnap.data().submitAt || '',
+                            submitBy: docSnap.data().submitBy || '',
+    
+    
+                        }
+                        setForm(initialState)
+                        console.log(form.title)
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                } catch (e) { console.log(e) }
+    
+            } else {
+                console.log("No userId");
+            }
+    
+        }
         getForm();
-    }, [])
+    }, [form.title, id])
 
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -226,7 +227,7 @@ export const SecretariaForms = () => {
 
                             >
                                 <option value={id ? form.label : ''}>
-                                    {form.label ? form.label + " " + "(Area actual)" : 'Seleccione una opción'}
+                                    {form.label ? form.label  + " (Area actual)" : ' Seleccione una opción'}
                                 </option>
                                 <option value="estudiantes" >
                                     Estudiantes

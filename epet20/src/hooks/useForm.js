@@ -7,6 +7,6 @@ export const useForm = (initialValues = {}) => {
         const { name, value } = e.target;
         setValues({ ...values, [name]: value });
     }
-    return { reset, handleChange, values }
+    return { reset, handleChange, values };
 
 }

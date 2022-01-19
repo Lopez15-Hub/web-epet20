@@ -13,49 +13,42 @@ import { Subtitle } from '../../../text-styles/subtitle'
 import { Title } from '../../../text-styles/title'
 
 export const EditPlanDeEstudios = () => {
-
-    const { handleChange, values, reset } = useForm({});
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
-    const { title, profile, materia, año, alcances, search } = values;
+    console.log('Me estoy volviendo a generar, veces regeneras:');
     const { plan } = usePlan();
-    const planMaterias = plan.materias;
+
+    const { handleChange, values, reset } = useForm();
+
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { title, profile, materia, año, alcances, searchValue } = values;
     const [materias, setMaterias] = React.useState([]);
-    const [, setStartSearch] = React.useState(false);
     const [searchMaterias, setSearchMaterias] = React.useState([]);
     useEffect(() => {
-        const searchMateria = () => {
-            setStartSearch(true);
-            var materia = planMaterias.filter(
-                materia => materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(search) !== -1
-                    || materia.materia.toLowerCase() === search.toLowerCase()
-                    || materia.año.toLowerCase().indexOf(search) !== -1
-                    || materia.año.toLowerCase() === search.toLowerCase()
-                    || materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(search) !== -1
-                    || materia.materia === search);
+        if (plan && plan.materias) {
+            setMaterias(plan.materias);
+            setSearchMaterias(plan.materias);
 
-            if (materia.length === 0) {
-                restartAlertsState();
-                setSearchMaterias(materia);
-
-            } else {
-                setStartSearch(false)
-                setSearchMaterias(materia);
-                restartAlertsState();
-
-            }
-            console.log("Materia ", searchMaterias);
-        }
-        if (planMaterias) {
-            setMaterias([...planMaterias]);
-            if (search) {
-                searchMateria();
-            }
 
         }
+        return () => {
+            console.log('Desmontando');
+            console.log(materias)
+        };
+    }, [materias, plan]);
+    const startSearchMateria = (value) => {
+
+        var materia = materias.filter(
+            materia => materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()) !== -1
+                || materia.materia.toLowerCase() === value.toLowerCase()
+                || materia.año.toLowerCase().indexOf(value) !== -1
+                || materia.año.toLowerCase() === value.toLowerCase()
+                || materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) !== -1
+                || materia.materia === value);
+
+        restartAlertsState();
+        setSearchMaterias(materia);
+    }
 
 
-
-    }, [planMaterias, restartAlertsState, search, searchMaterias]);
 
     const singleMateria = {
         "materia": materia,
@@ -139,22 +132,22 @@ export const EditPlanDeEstudios = () => {
 
         } else if (
             plan && (
-               title === null 
-            || title === undefined 
-            || profile === null
-            || profile === undefined 
-            || alcances === null 
-            || alcances === undefined
-            || materias.length === 0 
-            || materias === null 
-            || materias === undefined
-            || materia === null 
-            || materia === undefined 
-            || año === null 
-            || plan.length === 0 
-            || plan === null 
-            || plan === undefined
-            || año === undefined) && (año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0)) {
+                title === null
+                || title === undefined
+                || profile === null
+                || profile === undefined
+                || alcances === null
+                || alcances === undefined
+                || materias.length === 0
+                || materias === null
+                || materias === undefined
+                || materia === null
+                || materia === undefined
+                || año === null
+                || plan.length === 0
+                || plan === null
+                || plan === undefined
+                || año === undefined) && (año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0)) {
 
             console.log("Datos del plan de estudios: ", values);
             console.log("Datos del plan de estudio añadidos y listos para subir.");
@@ -273,12 +266,12 @@ export const EditPlanDeEstudios = () => {
                             <FormGroup>
                                 <Subtitle text="Buscar materias" />
 
-                                <Input onChange={handleChange} placeholder='Ingrese el nombre o el año de la materia' type="text" name="search" />
+                                <Input id='inputSearch' value={searchValue} onChange={(e) => startSearchMateria(e.target.value)} placeholder='Ingrese el nombre o el año de la materia' type="text" name="searchValue" />
                             </FormGroup>
 
                         </form>
 
-                        {search === undefined || search === "" ? <>
+                        {searchValue ? <>
                             {
                                 materias.length > 0 ? <>
                                     <Title text={"Todas las materias"}></Title>
@@ -317,7 +310,7 @@ export const EditPlanDeEstudios = () => {
                                         )
                                     }) : ''}
 
-                                </> : search ? <div className='font-bold'><Subtitle text="No se han encontrado resultados." /></div> : ''
+                                </> : !searchValue ? <div className='font-bold'><Subtitle text="No se han encontrado resultados." /></div> : ''
                             }
                         </>}
                     </Container>

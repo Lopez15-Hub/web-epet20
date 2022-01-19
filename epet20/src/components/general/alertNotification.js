@@ -14,7 +14,7 @@ export const AlertNotification = ({ variant, color, dimiss, message }) => {
             setShow(show);
             console.log("Cerrando alerta")
         }
-    }, [])
+    }, [show])
 
     return (
         show ? <motion.div exit={{ opacity: 1 }} initial={{ opacity: 0 }} animate={{ opacity: 2 }}><Alert color={color} toggle={dimiss} variant={variant}>{message}</Alert></motion.div> : ''
