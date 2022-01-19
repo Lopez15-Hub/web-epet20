@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React, { useEffect, useState } from "react";
 import "./custom_navbar.css";
 import { Link } from "react-router-dom";
@@ -162,15 +162,15 @@ export const AdminNavbar = ({ currentRole }) => {
                       </>
                     ) : (
                       <>
-                        <a
+                        <button
                           onClick={() => {
                             dropdown();
                           }}
                           href="#"
-                          className="nav-element font-bold "
+                          className="nav-element font-bold w-100 "
                         >
                           Estudiantes {showDropdown ? "▲" : "▼"}
-                        </a>
+                        </button>
                         {showDropdown ? (
                           <DropdownsAdminEstudiantes
                             click={() => {
@@ -181,15 +181,15 @@ export const AdminNavbar = ({ currentRole }) => {
                         ) : (
                           ""
                         )}
-                        <a
+                        <button
                           onClick={() => {
                             dropdown2();
                           }}
                           href="#"
-                          className="nav-element font-bold "
+                          className="nav-element font-bold w-100"
                         >
                           Secretaría {showDropdown2 ? "▲" : "▼"}
-                        </a>
+                        </button>
                         {showDropdown2 ? (
                           <DropdownAdminSecretaria
                             click={() => {

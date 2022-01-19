@@ -2,7 +2,7 @@
 import { doc, setDoc } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React, { useEffect } from 'react'
-import { Button, Container, Form, FormFeedback, FormGroup, Input, InputGroup, Label, Row } from 'reactstrap'
+import { Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { db } from '../../../../firebase/firebaseConfig'
 import { usePlan } from '../../../../hooks/query_hooks/usePlan'
 import { useForm } from '../../../../hooks/useForm'
@@ -20,24 +20,42 @@ export const EditPlanDeEstudios = () => {
     const { plan } = usePlan();
     const planMaterias = plan.materias;
     const [materias, setMaterias] = React.useState([]);
-    const [startSearch, setStartSearch] = React.useState(false);
+    const [, setStartSearch] = React.useState(false);
     const [searchMaterias, setSearchMaterias] = React.useState([]);
     useEffect(() => {
+        const searchMateria = () => {
+            setStartSearch(true);
+            var materia = planMaterias.filter(
+                materia => materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(search) !== -1
+                    || materia.materia.toLowerCase() === search.toLowerCase()
+                    || materia.año.toLowerCase().indexOf(search) !== -1
+                    || materia.año.toLowerCase() === search.toLowerCase()
+                    || materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(search) !== -1
+                    || materia.materia === search);
+
+            if (materia.length === 0) {
+                restartAlertsState();
+                setSearchMaterias(materia);
+
+            } else {
+                setStartSearch(false)
+                setSearchMaterias(materia);
+                restartAlertsState();
+
+            }
+            console.log("Materia ", searchMaterias);
+        }
         if (planMaterias) {
             setMaterias([...planMaterias]);
             if (search) {
                 searchMateria();
             }
-            if (search !== undefined) {
-                if (search.length > search.length) {
-                    reset({ search: '' });
-                }
-            }
+
         }
 
 
 
-    }, [planMaterias, search]);
+    }, [planMaterias, restartAlertsState, search, searchMaterias]);
 
     const singleMateria = {
         "materia": materia,
@@ -50,7 +68,7 @@ export const EditPlanDeEstudios = () => {
     }
     const handleMaterias = () => {
 
-        if (materia !== '' || año !== '' || singleMateria.materia !== "" && singleMateria.año !== "" && singleMateria.materia !== undefined && singleMateria.año !== undefined) {
+        if ((materia !== '' || año !== '' || singleMateria.materia !== "") && singleMateria.año !== "" && singleMateria.materia !== undefined && singleMateria.año !== undefined) {
 
             setMaterias([...materias, singleMateria]);
             console.log(materias);
@@ -68,28 +86,7 @@ export const EditPlanDeEstudios = () => {
         newMaterias.splice(index, 1);
         setMaterias(newMaterias);
     }
-    const searchMateria = () => {
-        setStartSearch(true);
-        var materia = planMaterias.filter(
-            materia => materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(search) !== -1
-                || materia.materia.toLowerCase() === search.toLowerCase()
-                || materia.año.toLowerCase().indexOf(search) !== -1
-                || materia.año.toLowerCase() === search.toLowerCase()
-                || materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(search) !== -1
-                || materia.materia === search);
 
-        if (materia.length === 0) {
-            restartAlertsState();
-            setSearchMaterias(materia);
-
-        } else {
-            setStartSearch(false)
-            setSearchMaterias(materia);
-            restartAlertsState();
-
-        }
-        console.log("Materia ", searchMaterias);
-    }
     const uploadPlan = async () => {
         setLoading(true);
         const planRef = doc(db, 'textos', 'planDeEstudios');
@@ -127,7 +124,7 @@ export const EditPlanDeEstudios = () => {
                 || profile === undefined || alcances === null || alcances === undefined
                 || materias.length === 0 || materias === null || materias === undefined
                 || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
-                || año === undefined || año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0 || plan.title === title && plan.profile === profile && plan.alcances === alcances && plan.materias === materias) {
+                || año === undefined || (año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0) || (plan.title === title && plan.profile === profile && plan.alcances === alcances && plan.materias === materias)) {
 
 
                 setWarning(true);
@@ -140,11 +137,24 @@ export const EditPlanDeEstudios = () => {
                 uploadPlan();
             }
 
-        } else if (plan && title === null || title === undefined || profile === null
-            || profile === undefined || alcances === null || alcances === undefined
-            || materias.length === 0 || materias === null || materias === undefined
-            || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
-            || año === undefined || año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0) {
+        } else if (
+            plan && (
+               title === null 
+            || title === undefined 
+            || profile === null
+            || profile === undefined 
+            || alcances === null 
+            || alcances === undefined
+            || materias.length === 0 
+            || materias === null 
+            || materias === undefined
+            || materia === null 
+            || materia === undefined 
+            || año === null 
+            || plan.length === 0 
+            || plan === null 
+            || plan === undefined
+            || año === undefined) && (año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0)) {
 
             console.log("Datos del plan de estudios: ", values);
             console.log("Datos del plan de estudio añadidos y listos para subir.");

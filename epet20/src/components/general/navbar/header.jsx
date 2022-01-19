@@ -1,13 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from "react";
+
+import React from "react";
 import "./custom_navbar.css";
 import { Link } from "react-router-dom";
 import Icon from "../../../assets/favicon.png";
 import "./custom_navbar.css";
-import Menu from "../../../assets/menu.png";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../../firebase/firebaseConfig";
 export const HeaderNav = ({ click, disable }) => {
   return (
     <>
@@ -40,7 +36,7 @@ export const HeaderNav = ({ click, disable }) => {
 };
 
 export const HeaderNavAdmin = ({ click, disable, currentRole }) => {
-  /* eslint-disable jsx-a11y/anchor-is-valid */
+
 
   return (
     <>

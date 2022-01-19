@@ -1,5 +1,4 @@
-/* eslint-disable no-useless-concat */
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
@@ -10,81 +9,84 @@ import { Link } from 'react-router-dom';
 import Footer from '../../inicio/footer';
 export const MainList = ({ label, admin }) => {
 
-    const currentDate = new Date();
+
+    const [listData, setListData] = useState([]);
     useEffect(() => {
+        const currentDate = new Date();
+        const getStudentsFilesFromFirebaseByLabel = async () => {
+            const list = []
+
+            const studentsRef = collection(db, "estudiantes");
+            const q = query(studentsRef, where("label", "==", label));
+            const querySnapshot = await getDocs(q);
+            console.log(querySnapshot);
+            if (querySnapshot.empty) {
+                list.push({ message: 'empty', id: null })
+
+                console.log(listData[0])
+            } else {
+                querySnapshot.forEach(doc => {
+
+                    list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+                })
+            }
+            setListData(list)
+        }
+        const getFormsFromFirebaseByLabel = async () => {
+            const list = []
+
+            const formsRef = collection(db, "forms");
+
+            const q = query(formsRef, where("label", "==", label));
+            const querySnapshot = await getDocs(q);
+            console.log(querySnapshot);
+            if (querySnapshot.empty) {
+                list.push({ message: 'empty', id: null })
+
+                console.log(listData[0])
+            } else {
+                querySnapshot.forEach(doc => {
+
+                    list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+                })
+            }
+            setListData(list)
+        }
+        const getAnunciosFromFirebase = async () => {
+            const list = []
+            const querySnapshot = await getDocs(collection(db, "anuncios"));
+            if (querySnapshot.empty) {
+                list.push({ message: 'empty', id: null })
+
+                console.log(listData[0])
+            } else {
+                querySnapshot.forEach(doc => {
+                    list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+                })
+            }
+            setListData(list)
+        }
         console.log(label);
         label === 'Docentes' || label === 'General' || label === 'Estudiantes' ? getFormsFromFirebaseByLabel() : label === 'Anuncios' ? getAnunciosFromFirebase() : getStudentsFilesFromFirebaseByLabel();
         console.log(currentDate.toDateString().toLocaleString())
         console.log(currentDate.toDateString().toLocaleString() === '9/1/2022' ? true : false)
 
 
-    }, [])
-    const [listData, setListData] = useState([]);
+    }, [label, listData])
+
 
     const formatDate = (date) => {
         const formatDate = date.toDate().toLocaleString().substring(0, 9);
         return formatDate
 
     }
-    const getStudentsFilesFromFirebaseByLabel = async () => {
-        const list = []
 
-        const studentsRef = collection(db, "estudiantes");
-        const q = query(studentsRef, where("label", "==", label));
-        const querySnapshot = await getDocs(q);
-        console.log(querySnapshot);
-        if (querySnapshot.empty) {
-            list.push({ message: 'empty', id: null })
-
-            console.log(listData[0])
-        } else {
-            querySnapshot.forEach(doc => {
-
-                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
-            })
-        }
-        setListData(list)
-    }
-    const getFormsFromFirebaseByLabel = async () => {
-        const list = []
-
-        const formsRef = collection(db, "forms");
-
-        const q = query(formsRef, where("label", "==", label));
-        const querySnapshot = await getDocs(q);
-        console.log(querySnapshot);
-        if (querySnapshot.empty) {
-            list.push({ message: 'empty', id: null })
-
-            console.log(listData[0])
-        } else {
-            querySnapshot.forEach(doc => {
-
-                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
-            })
-        }
-        setListData(list)
-    }
-    const getAnunciosFromFirebase = async () => {
-        const list = []
-        const querySnapshot = await getDocs(collection(db, "anuncios"));
-        if (querySnapshot.empty) {
-            list.push({ message: 'empty', id: null })
-
-            console.log(listData[0])
-        } else {
-            querySnapshot.forEach(doc => {
-                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
-            })
-        }
-        setListData(list)
-    }
     const deleteFromFirebase = async (id) => {
         const confirm = window.confirm("¿Estás seguro de que quieres eliminar este " + (label === 'Anuncios' ? 'anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'archivo' : 'formulario') + "?");
         const bdRef = doc(db, label === 'Anuncios' ? 'anuncios' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'estudiantes' : 'forms', id);
         if (confirm) {
             await deleteDoc(bdRef).then(() => {
-                window.alert((label === 'Anuncios' ? 'Anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo' : 'Formulario') + " " + " eliminado correctamente.");
+                window.alert((label === 'Anuncios' ? 'Anuncio ' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo ' : 'Formulario ') + " eliminado correctamente.");
                 window.location.reload();
             }).catch(err => {
                 window.alert("Ha ocurrido un error: " + err.code);
@@ -128,7 +130,7 @@ export const MainList = ({ label, admin }) => {
                                                         {
                                                             admin ?
                                                                 <div>
-                                                                    {label !== 'Anuncios' ? <Link to={"/dashboard/secretaria/forms" + "/" + e.id} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/dashboard/secretaria/anuncios" + "/" + e.id} className='btn btn-warning mr-2'>Editar</Link>}
+                                                                    {label !== 'Anuncios' ? <Link to={"/dashboard/secretaria/forms/" + e.id} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/dashboard/secretaria/anuncios/" + e.id} className='btn btn-warning mr-2'>Editar</Link>}
 
                                                                     <button onClick={() => deleteFromFirebase(e.id)} className='btn btn-danger '>Eliminar</button>
 
