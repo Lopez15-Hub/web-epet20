@@ -1,7 +1,7 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
-import { Container, Row } from 'reactstrap'
+import { Container, Form, FormGroup, Input, Row } from 'reactstrap'
 import { db } from '../../../firebase/firebaseConfig'
 import { useForm } from '../../../hooks/useForm'
 import { UseLoading } from '../../../hooks/useLoading'
@@ -11,7 +11,7 @@ import { Subtitle } from '../../text-styles/subtitle'
 import { Title } from '../../text-styles/title'
 
 export const InicioAdmin = () => {
-    const { handleChange, values } = useForm();
+    const { handleChange, values, reset } = useForm();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { presentacion, alcances, perfilTec } = values;
 
@@ -19,11 +19,11 @@ export const InicioAdmin = () => {
         const getDataFromFirestore = async () => {
             setAlertMessage("Obteniendo datos.");
             setLoading(true);
-    
+
             const textsRef = doc(db, 'textos', 'presentacion');
-    
+
             const docSnap = await getDoc(textsRef);
-    
+
             if (docSnap.exists()) {
                 console.log("Document data:", docSnap.data());
                 setPresentaciones({
@@ -67,11 +67,18 @@ export const InicioAdmin = () => {
                 setAlertMessage("Textos actualizados exitosamente.");
                 setLoading(false);
                 setSuccess(true);
+                restartAlertsState();
+                reset({
+                    presentacion: undefined,
+                    alcances: undefined,
+                    perfilTec: undefined,
+                });
+               
             }).catch((err) => {
                 setAlertMessage("Ha ocurrido un error al actualizar los textos: " + err.code);
                 setLoading(false);
                 setError(true);
-
+                restartAlertsState();
             });
 
         } else {
@@ -99,32 +106,23 @@ export const InicioAdmin = () => {
                         <LoadingSpinner text={alertMessage} /> :
                         <Row>
                             <Title text="Inicio" />
+                            <Form onSubmit={editPresentacion}>
 
-                            <form className='mt-4' onSubmit={editPresentacion} >
+                                <FormGroup>
+                                    <div className='font-bold'> <Subtitle text="Editar párrafo de presentación" /></div>
+                                    <Input value={presentacion} type="textarea" onChange={handleChange} defaultValue={presentaciones.presentacion} name="presentacion" cols="20" rows="5" />
 
+                                    <div className='font-bold'><Subtitle text="Editar párrafo de perfil técnico" /></div>
+                                    <Input value={perfilTec} type="textarea" onChange={handleChange} defaultValue={presentaciones.perfilTecnico} name="perfilTec" cols="30" rows="5" />
 
-                                <div className='from-group row'>
-                                    <div className=' col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
-                                        <div className='font-bold'> <Subtitle text="Editar párrafo de presentación" /></div>
-                                        <textarea value={presentacion} type="textarea" onChange={handleChange} defaultValue={presentaciones.presentacion} className='m-4 form-control-lg border' name="presentacion" cols="30" rows="10" />
+                                    <div className='font-bold'><Subtitle text="Editar párrafo de alcances" /></div>
+                                    <Input value={alcances} type="textarea" onChange={handleChange} defaultValue={presentaciones.alcances} name="alcances" cols="30" rows="5" />
 
-                                    </div>
+                                </FormGroup>
 
-                                    <div className='col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
-                                        <div className='font-bold'><Subtitle text="Editar párrafo de perfil técnico" /></div>
-                                        <textarea value={perfilTec} onChange={handleChange} defaultValue={presentaciones.perfilTecnico} className='m-4  form-control-lg border' name="perfilTec" cols="30" rows="10" />
-                                    </div>
-                                    <div className='col-xs-12 col-sm-12 col-md-4 col-xl-4 col-lg-4'>
-                                        <div className='font-bold'><Subtitle text="Editar párrafo de alcances" /></div>
-
-                                        <textarea value={alcances} onChange={handleChange} defaultValue={presentaciones.alcances} className='m-4  form-control-lg border' name="alcances" cols="30" rows="10" />
-                                    </div>
-
-
-                                </div>
                                 <button type="submit" className=" my-btn btn-lg mt-4 mb-4 ">Guardar cambios</button>
+                            </Form>
 
-                            </form>
                         </Row>
                 }
 

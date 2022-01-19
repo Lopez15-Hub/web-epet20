@@ -71,7 +71,7 @@ export const SecretariaForms = () => {
             setAlertMessage("Formulario creado exitosamente.")
             setLoading(false);
             setSuccess(true);
-
+            
             setTimeout(() => { window.location.reload() }, 1000)
         } catch (err) {
 
@@ -97,6 +97,7 @@ export const SecretariaForms = () => {
         } else { uploadForm(); }
         if (id && (title !== '' || description !== '' || url !== '' || label !== '' || !form.title || !form.description || !form.url || !form.label)) {
             updateForm();
+            restartAlertsState();
         } else {
             setWarning(true);
             setAlertMessage("Debes editar al menos un campo para guardar el formulario.");
