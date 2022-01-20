@@ -34,7 +34,7 @@ export const CardCredential = memo(() => {
         updateProfile(auth.currentUser, {
             photoURL: fileUrl.toString()
         }).then(() => {
-            setAlertMessage("Datos actualizados exitosamente.")
+            setAlertMessage("Foto de perfil actualizada.")
             console.log("Foto de perfil: ", auth.currentUser.photoURL)
             setProfilePhoto(auth.currentUser.photoURL)
             setSuccess(true);

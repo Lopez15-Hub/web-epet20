@@ -8,46 +8,45 @@ import { Loading } from './loading';
 
 import { useForm } from '../../../hooks/useForm';
 import { AlertNotification } from '../../general/alertNotification';
-import { updateProfile } from 'firebase/auth';
+
 import { UseLoading } from '../../../hooks/useLoading';
 export const Form = ({ currentRole }) => {
-    const {  formId } = useParams();
+    const { userId } = useParams();
     const [user, setUser] = useState({});
 
 
-    const getUser = async () => {
-        if (formId) {
-            const usersRef = doc(db, "users", formId);
-            const docSnap = await getDoc(usersRef);
-            try {
-                if (docSnap.exists()) {
-
-                    const initialState = {
-                        name: docSnap.data().name || "",
-                        apellido: docSnap.data().apellido || "",
-                        email: docSnap.data().email || "",
-                        password: docSnap.data().password || "",
-                        phone: docSnap.data().phone || "",
-                        role: docSnap.data().role || "",
-
-                    }
-                    setUser(initialState)
-                    console.log(initialState.role)
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            } catch (e) { console.log(e) }
-
-        } else {
-            console.log("No Id");
-        }
-
-    }
     useEffect(() => {
-        getUser()
 
-    })
+        const getUser = async () => {
+            if (userId) {
+                const usersRef = doc(db, "users", userId);
+                const docSnap = await getDoc(usersRef);
+                try {
+                    if (docSnap.exists()) {
+
+                        const initialState = {
+                            name: docSnap.data().name || "",
+                            apellido: docSnap.data().apellido || "",
+                            email: docSnap.data().email || "",
+                            password: docSnap.data().password || "",
+                            phone: docSnap.data().phone || "",
+                            role: docSnap.data().role || "",
+
+                        }
+                        setUser(initialState)
+                        console.log(initialState.role)
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                } catch (e) { console.log(e) }
+
+            } else {
+            }
+
+        }
+        getUser();
+    }, [userId])
 
     const { handleChange, values } = useForm(
         user
@@ -57,8 +56,8 @@ export const Form = ({ currentRole }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        if (formId) {
-            const usersRef = doc(db, "users", formId);
+        if (userId) {
+            const usersRef = doc(db, "users", userId);
             if (name || apellido || email || password || phone || role) {
                 setDoc(usersRef, {
 
@@ -72,23 +71,19 @@ export const Form = ({ currentRole }) => {
 
 
                 }, { merge: true }).then(() => {
-                    updateProfile(formId, {
-                        displayName: name + ' ' + apellido,
-                        phoneNumber: phone,
-                        email: email,
-                    });
+
                     setAlertMessage("Usuario actualizado exitosamente.")
                     console.log("Usuario actualizado")
                     setLoading(false);
                     setSuccess(true);
+                    restartAlertsState();
 
-                    setTimeout(() => {
-                        window.location.replace("/dashboard/usuarios");
-                    }, 1000)
+
                 }).catch(err => {
                     setAlertMessage("Ha ocurrido un error: ", err.code)
                     setLoading(false);
                     setError(true);
+                    restartAlertsState();
                 });
 
             } else {
@@ -148,7 +143,7 @@ export const Form = ({ currentRole }) => {
                         <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3"></div>
                         <div className="mt-4 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                             <div className="mt-4">
-                                <Title text={formId ? "Editar usuario" : "Añadir un usuario"} />
+                                <Title text={userId ? "Editar usuario" : "Añadir un usuario"} />
                             </div>
 
                             <form className=" p-6" onSubmit={handleSubmit} >
@@ -192,7 +187,7 @@ export const Form = ({ currentRole }) => {
                                         <option value="secretaria">Secretaría</option>
                                         <option value="usuario">Usuario</option>
                                     </select>
-                                    <button type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block" onClick={() => setLoading(true)} >{formId ? "Guardar cambios" : "Añadir"} </button>
+                                    <button type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block" onClick={() => setLoading(true)} >{userId ? "Guardar cambios" : "Añadir"} </button>
                                     {loading ? <Loading text="Guardando usuario..." /> : null}
 
                                 </div>
