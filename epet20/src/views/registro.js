@@ -15,14 +15,14 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
 import { useEffect } from 'react';
-export const addToFirestore = async (loginType, name, apellido, email, password) => {
+export const addToFirestore = async (loginType, name, apellido, email, password, role) => {
     const usersRef = doc(db, 'users', auth.currentUser.uid)
     await setDoc(usersRef, {
         "name": name ? name : auth.currentUser.displayName,
         "apellido": apellido ? apellido : "",
         "email": email ? email : auth.currentUser.email,
         "password": password ? password : "",
-        "role": "Usuario",
+        "role": role ? role : "Usuario",
         "loginType": loginType,
 
 

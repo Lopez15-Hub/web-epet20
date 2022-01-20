@@ -1,23 +1,42 @@
 
 import { updateEmail, updatePassword, updateProfile } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, FormGroup, Form, Input, Label, Row } from 'reactstrap'
 
-import { auth } from '../../../firebase/firebaseConfig'
+import { auth, db } from '../../../firebase/firebaseConfig'
 import { useForm } from '../../../hooks/useForm'
 import { UseLoading } from '../../../hooks/useLoading'
+import { useRole } from '../../../hooks/useRole'
 import { AlertNotification } from '../../general/alertNotification'
 import { Subtitle } from '../../text-styles/subtitle'
 import { Title } from '../../text-styles/title'
 import { CardCredential } from '../profile/cardCredential'
 import { Loading } from './loading'
+export const updateUserInFirestore = async (loginType, name, apellido, email, password, role) => {
+    const usersRef = doc(db, 'users', auth.currentUser.uid)
+    await setDoc(usersRef, {
+        "name": name ? name : auth.currentUser.displayName,
+        "apellido": apellido ? apellido : "",
+        "email": email ? email : auth.currentUser.email,
+        "password": password ? password : "",
+        "role": role,
+        "loginType": loginType,
 
+
+    }).then(() => {
+        console.log("Usuario creado correctamente en la base de datos.");
+    }).catch(err => {
+        console.log("Ha ocurrido un error al guardar en la bd: ", err.code)
+    });
+
+}
 export const Profile = () => {
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { handleChange, values } = useForm();
     const { name, email, newPassword } = values;
-
+    const { role } = useRole();
 
     const redirect = () => {
         setTimeout(() => {
@@ -42,7 +61,7 @@ export const Profile = () => {
         });
     }
     const handleEmail = () => {
-        
+
         updateEmail(auth.currentUser, email).then(() => {
             setAlertMessage("Datos actualizados exitosamente.")
             setSuccess(true);
@@ -87,10 +106,19 @@ export const Profile = () => {
             handleName();
             handleEmail();
             handlePassword();
+
         }
 
 
     }
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            if (user && role) {
+                console.log(role);
+                updateUserInFirestore("FirebaseAuth", auth.currentUser.displayName, '', auth.currentUser.email, newPassword, role);
+            }
+        })
+    })
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Container>

@@ -118,7 +118,7 @@ export const CardCredential = memo(() => {
                             <div>
 
                                 {profilePhoto ? <img
-                                    onCha
+
                                     className='img-profile mx-auto  shadow-md rounded-xl border'
                                     alt="foto de perfil"
                                     src={profilePhoto ? profilePhoto : UserIcon}
