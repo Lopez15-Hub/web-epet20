@@ -14,7 +14,7 @@ export const UploadFile = () => {
         url: "",
 
     });
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const [showInputFile, setInputFile] = React.useState(false);
     const [fileUrl, setFileUrl] = React.useState("");
     const [isUploaded, setUploaded] = React.useState(false);
@@ -67,12 +67,12 @@ export const UploadFile = () => {
         })
         const url = await filePath.getDownloadURL();
         const finalUrl = url.toString();
-        if (finalUrl != undefined || finalUrl != null || finalUrl != "") {
+        if (finalUrl !== undefined || finalUrl !== null || finalUrl !== "") {
             setFileUrl(finalUrl);
             console.log("URL: " + finalUrl);
             setUploaded(true);
             setLoading(false);
-            setAlertMessage("El archivo: " + file.name + " " + "se ha cargado exitosamente.");
+            setAlertMessage("El archivo: " + file.name, " se ha cargado exitosamente.");
             setSuccess(true);
             restartAlertsState();
         }
@@ -88,7 +88,7 @@ export const UploadFile = () => {
 
 
         } else {
-            if (showInputFile == true) {
+            if (showInputFile === true) {
                 console.log("El archivo se sube localmente a firebase storage.");
                 try {
                     if (isUploaded) {

@@ -3,9 +3,6 @@ import { useState, useEffect } from 'react'
 import { auth, db } from '../firebase/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 export const useRole = () => {
-    useEffect(() => {
-        handleRole();
-    })
     const [role, setRole] = useState();
     const handleRole = async () => {
         auth.onAuthStateChanged(async (user) => {
@@ -29,5 +26,9 @@ export const useRole = () => {
 
 
     }
+    useEffect(() => {
+        handleRole();
+    }, [role])
+
     return { role }
 }

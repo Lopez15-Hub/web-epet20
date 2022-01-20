@@ -42,6 +42,7 @@ export const Profile = () => {
         });
     }
     const handleEmail = () => {
+        
         updateEmail(auth.currentUser, email).then(() => {
             setAlertMessage("Datos actualizados exitosamente.")
             setSuccess(true);

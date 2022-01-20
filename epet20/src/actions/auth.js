@@ -2,7 +2,6 @@ import { types } from "../types/types"
 import { auth, db, googleAuth } from '../firebase/firebaseConfig';
 import { GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { UseLoading } from "../hooks/useLoading";
 export const signIn = (email, password) => {
     return async (dispatch) => {
         signInWithEmailAndPassword(auth, email, password)

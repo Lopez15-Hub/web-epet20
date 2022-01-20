@@ -1,30 +1,93 @@
-import { deleteUser, onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useState } from 'react'
-import { auth } from '../../../firebase/firebaseConfig'
+import { deleteUser, onAuthStateChanged, updateProfile } from 'firebase/auth';
+import React, { useEffect, useState, memo } from 'react'
+import { app, auth } from '../../../firebase/firebaseConfig'
 import { Title } from '../../text-styles/title';
-import UserIcon from "../../../assets/user.png";
-export const CardCredential = () => {
-    const [user, setUser] = useState();
 
+import UserIcon from "../../../assets/user.png";
+import { Form, FormGroup, Input, Label } from 'reactstrap';
+import { UseLoading } from '../../../hooks/useLoading';
+import { LoadingSpinner } from '../../general/loading';
+import { AlertNotification } from '../../general/alertNotification';
+export const CardCredential = memo(() => {
+    const [user, setUser] = useState();
+    const [profilePhoto, setProfilePhoto] = useState();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     useEffect(() => {
-        handleUserData();
-    }, [])
-    const handleUserData = () => {
         onAuthStateChanged(auth, (user) => {
-            if (user) {
+            if (user.photoURL) {
+
                 setUser({
                     displayName: user.displayName,
                     email: user.email,
                     photoURL: user.photoURL,
 
                 })
-
+                console.log(user)
+                setProfilePhoto(user.photoURL)
             } else {
                 console.log("cargando...")
             }
         });
-    }
 
+    }, [])
+    const handleProfilePhoto = (fileUrl) => {
+        updateProfile(auth.currentUser, {
+            photoURL: fileUrl.toString()
+        }).then(() => {
+            setAlertMessage("Datos actualizados exitosamente.")
+            console.log("Foto de perfil: ", auth.currentUser.photoURL)
+            setProfilePhoto(auth.currentUser.photoURL)
+            setSuccess(true);
+            setLoading(false);
+            restartAlertsState();
+        }).catch((error) => {
+            setAlertMessage("Ha ocurrido un error al actualizar el nombre: " + error.code)
+            setError();
+            setLoading(false);
+            console.log(error)
+            restartAlertsState();
+        });
+    }
+    const handleProfileImageFile = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const file = e.target.files[0];
+        if (file.name.split(".").pop() !== "jpg" && file.name.split(".").pop() !== "png") {
+            document.getElementById("form-profile").reset();
+            setLoading(false);
+
+            setAlertMessage("Solo se permiten archivos .jpg y .png");
+
+            setWarning(true);
+            restartAlertsState();
+        } else {
+            const storageRef = app.storage().ref();
+            const filePath = storageRef.child(file.name);
+            await filePath.put(file).then(async () => {
+
+
+                console.log("File uploaded");
+
+            }).catch((err) => {
+                setLoading(false);
+                setAlertMessage("Error al subir el archivo: ", err.code);
+                setError(true);
+                restartAlertsState();
+            })
+            const url = await filePath.getDownloadURL();
+            const finalUrl = url.toString();
+            if (finalUrl !== undefined || finalUrl !== null || finalUrl !== "") {
+                console.log("URL: " + finalUrl);
+                handleProfilePhoto(finalUrl);
+                document.getElementById("form-profile").reset();
+            }
+        }
+
+
+
+
+
+    }
     const handleDeleteAccount = () => {
         var confirm = window.confirm("Esta seguro que desea eliminar su cuenta?");
         if (confirm) {
@@ -51,13 +114,31 @@ export const CardCredential = () => {
                 <div >
                     <div >
 
-                        {user ? <img
-                            className='img-profile mx-auto  shadow-xl rounded-xl border'
-                            alt="foto de perfil"
-                            src={user.photoURL ? user.photoURL : UserIcon}
-                           
+                        {user ? <>
+                            <div>
 
-                        /> : null}
+                                {profilePhoto ? <img
+                                    onCha
+                                    className='img-profile mx-auto  shadow-md rounded-xl border'
+                                    alt="foto de perfil"
+                                    src={profilePhoto ? profilePhoto : UserIcon}
+
+
+                                /> : <LoadingSpinner text="Cargando imagen..." />}
+                                <Form onChange={handleProfileImageFile} id='form-profile'>
+                                    <FormGroup className='mt-2' >
+                                        <Label className='font-bold'>Editar foto de perfil</Label>
+                                        <Input type="file" />
+                                    </FormGroup>
+                                </Form>
+                                {success ?
+                                    <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                                    error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
+                                        <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
+                                }
+                                {loading ? <LoadingSpinner text="Subiendo imágen..." /> : ''}
+                            </div>
+                        </> : null}
                     </div>
 
                     <div >
@@ -85,3 +166,4 @@ export const CardCredential = () => {
 
     )
 }
+)
