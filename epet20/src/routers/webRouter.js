@@ -1,4 +1,4 @@
-import React  from 'react'
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Contacto } from '../views/contacto';
 import { Estudiantes } from '../views/estudiantes';
@@ -17,6 +17,7 @@ import { Prueba } from '../components/general/navbar/prueba';
 import { MyNavbar } from '../components/general/navbar/custom_navbar';
 import { PaginaEnConstruccion } from '../views/we_working';
 import { Error404 } from '../views/404';
+import { auth } from '../firebase/firebaseConfig';
 export const WebRouter = () => {
     React.useEffect(() => {
 
@@ -42,7 +43,10 @@ export const WebRouter = () => {
             return window.location.replace('/404');
 
         }
-
+        if ((window.location.pathname && !auth.currentUser) !== '/registro'
+            && (window.location.pathname && !auth.currentUser) !== '/login' && window.location.pathname !== '/') {
+            return window.location.replace('/');
+        }
 
     }, [])
     return (

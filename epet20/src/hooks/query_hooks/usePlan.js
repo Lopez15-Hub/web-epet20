@@ -4,18 +4,18 @@ import { db } from '../../firebase/firebaseConfig';
 
 export const usePlan = () => {
     const [plan, setPlan] = React.useState([]);
-    useEffect(() => {
-        const obtenerTextosDeFirebase = async () => {
-            const planRef = doc(db, 'textos', 'planDeEstudios');
+    const obtenerTextosDeFirebase = async () => {
+        const planRef = doc(db, 'textos', 'planDeEstudios');
 
-            await getDoc(planRef).then(doc => {
-                setPlan(doc.data());
-            }).catch(err => {
-                console.log(err);
-            });
-        }
+        await getDoc(planRef).then(doc => {
+            setPlan(doc.data());
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+    useEffect(() => {
         obtenerTextosDeFirebase();
-    }, [])
+    });
 
     return { plan }
 }

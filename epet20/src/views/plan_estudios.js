@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title'
 
@@ -34,6 +34,8 @@ export const PlanDeEstudios = () => {
         setError(true)
         restartAlertsState()
     }
+
+
     return (
         <>
             {plan ? <>

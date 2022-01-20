@@ -1,55 +1,54 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { LoadingSpinner } from '../components/general/loading';
 
-import { useDispatch } from 'react-redux';
-import { signInWithGoogle, signUp } from '../actions/auth';
+
 import { useForm } from '../hooks/useForm';
 import { AlertNotification } from '../components/general/alertNotification';
 import { UseLoading } from '../hooks/useLoading';
 import { auth, db, googleAuth } from '../firebase/firebaseConfig';
-import { handleRoute } from '../actions/handleRoute';
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+
+import { useEffect } from 'react';
+export const addToFirestore = async (loginType, name, apellido, email, password) => {
+    const usersRef = doc(db, 'users', auth.currentUser.uid)
+    await setDoc(usersRef, {
+        "name": name ? name : auth.currentUser.displayName,
+        "apellido": apellido ? apellido : "",
+        "email": email ? email : auth.currentUser.email,
+        "password": password ? password : "",
+        "role": "Usuario",
+        "loginType": loginType,
+
+
+    }).then(() => {
+        console.log("Usuario creado correctamente en la base de datos.");
+        window.location.replace("/");
+    }).catch(err => {
+        console.log("Ha ocurrido un error al guardar en la bd: ", err.code)
+    });
+
+}
 export const Registro = () => {
-    const dispatch = useDispatch();
     const { handleChange, values } = useForm();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
 
     const { password, apellido, email, name } = values;
     const navigate = useNavigate();
-    const addToFirestore = async (loginType) => {
-        const usersRef = doc(db, 'users', auth.currentUser.uid)
-        await setDoc(usersRef, {
-            "name": name ? name : auth.currentUser.displayName,
-            "apellido": apellido ? apellido : "",
-            "email": email ? email : auth.currentUser.email,
-            "password": password ? password : "",
-            "role": "Usuario",
-            "loginType": loginType,
 
-
-        }).then(() => {
-            console.log("Usuario creado correctamente en la base de datos.");
-        }).catch(err => {
-            console.log("Ha ocurrido un error al guardar en la bd: ", err.code)
-        });
-
-    }
     const signUp = async () => {
         setLoading(true);
         await auth.createUserWithEmailAndPassword(email, password).then((user) => {
             if (user) {
-                addToFirestore("FirebaseAuth");
+                addToFirestore("FirebaseAuth", name, apellido, email, password);
                 setLoading(false);
                 setAlertMessage("Usuario registrado exitosamente.")
                 setSuccess(true);
-                setTimeout(() => {
-                    navigate("/");
-                }, 1500);
             } else {
                 console.log("No se pudo crear el usuario");
             }
@@ -89,6 +88,7 @@ export const Registro = () => {
                     setLoading(false);
                     setAlertMessage("Registro con google cancelado.");
                     setWarning(true);
+                    restartAlertsState();
 
                 } else {
                     console.log(error);
@@ -112,33 +112,16 @@ export const Registro = () => {
         e.preventDefault();
         setLoading(true);
         signUpWithGoogle();
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setAlertMessage("Sesión iniciada correctamente.");
-                setLoading(false);
-                setSuccess(true);
-
-                setTimeout(() => {
-                    console.log("Sesión iniciada");
-                    setSuccess(false);
-                    handleRoute(navigate, 'usuario');
-                }, 2000)
-
-            } else {
-                console.log(alertMessage)
-
-            }
-
-        })
-
-
-
-
-
-
-
     }
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                navigate("/");
+            }
+        })
+    }, [apellido, email, name, navigate, password]);
+
 
     return (
 

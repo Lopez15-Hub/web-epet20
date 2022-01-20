@@ -4,14 +4,13 @@ import { Title } from '../components/text-styles/title';
 import { Link, useNavigate } from 'react-router-dom';
 import { handleRoute } from '../actions/handleRoute';
 import { useForm } from '../hooks/useForm';
-import { useDispatch } from 'react-redux';
-import { signInWithGoogle } from '../actions/auth';
 import { Loading } from '../components/admin_panel/sections/loading';
-import { auth, db } from '../firebase/firebaseConfig';
+import { auth, db, googleAuth } from '../firebase/firebaseConfig';
 import { AlertNotification } from '../components/general/alertNotification';
-import { onAuthStateChanged } from 'firebase/auth';
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 import { UseLoading } from '../hooks/useLoading';
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import { addToFirestore } from './registro';
 
 
 
@@ -33,17 +32,17 @@ export const deleteUser = async (id) => {
 
 
 export const Login = () => {
-    const dispatch = useDispatch();
-    const { values, handleChange } = useForm(
-
-    );
+    const { values, handleChange } = useForm();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { email, password } = values;
+    const navigate = useNavigate();
     const searchUserInFirestore = async (id) => {
         const docRef = doc(db, "users", id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
             console.log("Usuario encontrado");
-            navigate('/');
+            navigate("/");
         } else {
 
 
@@ -60,12 +59,6 @@ export const Login = () => {
 
         }
     }
-
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
-
-
-    const { email, password } = values;
-    const navigate = useNavigate();
     const signIn = (email, password) => {
         auth.signInWithEmailAndPassword(email, password).then(user => {
             if (user) {
@@ -91,6 +84,38 @@ export const Login = () => {
                 restartAlertsState()
             }
         });
+    }
+    const signInWithGoogle = async () => {
+        setLoading(true);
+        signInWithPopup(auth, googleAuth)
+            .then(async (result) => {
+
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                if (credential) {
+                    addToFirestore("GoogleAuth");
+                    console.log("Usuario registrado con Google exitosamente");
+                    setLoading(false);
+                    setAlertMessage("Usuario registrado con Google exitosamente.")
+                    setSuccess(true);
+                    restartAlertsState();
+
+                }
+
+            }).catch((error) => {
+                if (error.code === "auth/popup-closed-by-user") {
+                    console.log("El usuario ha cerrado la ventana de autenticación.");
+                    setLoading(false);
+                    setAlertMessage("Registro con google cancelado.");
+                    setWarning(true);
+                    restartAlertsState();
+
+                } else {
+                    console.log(error);
+                    setLoading(false);
+                }
+            });
+
     }
     const handleSubmit = async e => {
         e.preventDefault();
@@ -130,7 +155,7 @@ export const Login = () => {
         e.preventDefault();
         setLoading(true);
 
-        dispatch(signInWithGoogle());
+        signInWithGoogle();
 
 
         onAuthStateChanged(auth, (user) => {
