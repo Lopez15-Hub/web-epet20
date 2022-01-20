@@ -1,52 +1,122 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title';
 import { Link, useNavigate } from 'react-router-dom';
 import { handleRoute } from '../actions/handleRoute';
 import { useForm } from '../hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { signInWithGoogle, signIn } from '../actions/auth';
+import { signInWithGoogle } from '../actions/auth';
 import { Loading } from '../components/admin_panel/sections/loading';
-import { auth } from '../firebase/firebaseConfig';
+import { auth, db } from '../firebase/firebaseConfig';
 import { AlertNotification } from '../components/general/alertNotification';
 import { onAuthStateChanged } from 'firebase/auth';
 import { UseLoading } from '../hooks/useLoading';
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
+
+
+
+export const deleteUser = async (id) => {
+
+    const userRef = doc(db, 'users', id);
+    await deleteDoc(userRef).then(() => {
+        window.alert("Usuario eliminado correctamente.");
+
+
+        window.location.reload();
+    }).catch(err => {
+        console.log(err);
+    });
+
+
+
+}
+
 
 export const Login = () => {
     const dispatch = useDispatch();
     const { values, handleChange } = useForm(
 
     );
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage,restartAlertsState} = UseLoading();
+    const searchUserInFirestore = async (id) => {
+        const docRef = doc(db, "users", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("Usuario encontrado");
+            navigate('/');
+        } else {
+
+
+            console.log("Usuario no encontrado");
+            deleteUser(auth.currentUser.uid);
+            auth.currentUser.delete().then(function () {
+                console.log("Usuario eliminado");
+                setLoading(false);
+                setAlertMessage("Ha ocurrido un error: El usuario no existe.");
+                setError(true);
+                restartAlertsState();
+            }).catch(function (error) { console.log(error); })
+
+
+        }
+    }
+
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
 
 
     const { email, password } = values;
     const navigate = useNavigate();
+    const signIn = (email, password) => {
+        auth.signInWithEmailAndPassword(email, password).then(user => {
+            if (user) {
+                searchUserInFirestore(auth.currentUser.uid);
 
+            }
+        }).catch(function (error) {
+            if (error.code === 'auth/user-not-found') {
+                setLoading(false);
+                setAlertMessage("Ha ocurrido un error: El usuario no existe.");
+                setError(true);
+                restartAlertsState();
+
+            } else if (error.code === 'auth/wrong-password') {
+                setLoading(false);
+                setAlertMessage("Ha ocurrido un error: La contraseña es incorrecta.");
+                setError(true);
+                restartAlertsState();
+            } else {
+                setLoading(false);
+                setAlertMessage("Ha ocurrido un error: " + error.message);
+                setError(true);
+                restartAlertsState()
+            }
+        });
+    }
     const handleSubmit = async e => {
         e.preventDefault();
         if (email && password) {
             setLoading(true);
-            dispatch(signIn(email, password));
-            setTimeout(() => {
-                if (auth.currentUser != null) {
-                    setLoading(false);
-                    setSuccess(true);
-                    setAlertMessage("Sesión iniciada correctamente.");
-                    setTimeout(() => {
+            signIn(email, password);
 
-                        console.log("Sesión iniciada");
-                        setSuccess(false);
-                        handleRoute(navigate, 'usuario');
-                    }, 2000)
-                } else {
-                    setAlertMessage("Error:Usuario o contraseña incorrectos.");
-                    setLoading(false);
-                    setError(true);
-                    restartAlertsState();
-                   
-                }
-            }, 3000)
+            // setTimeout(() => {
+            //     if (auth.currentUser != null) {
+            //         setLoading(false);
+            //         setSuccess(true);
+            //         setAlertMessage("Sesión iniciada correctamente.");
+            //         setTimeout(() => {
+
+            //             console.log("Sesión iniciada");
+            //             setSuccess(false);
+            //             handleRoute(navigate, 'usuario');
+            //         }, 2000)
+            //     } else {
+            //         setAlertMessage("Error:Usuario o contraseña incorrectos.");
+            //         setLoading(false);
+            //         setError(true);
+            //         restartAlertsState();
+
+            //     }
+            // }, 3000)
         } else {
             setAlertMessage("Debe ingresar un usuario y contraseña");
             setLoading(false);
@@ -74,7 +144,7 @@ export const Login = () => {
                     setSuccess(false);
                     handleRoute(navigate, 'usuario');
                 }, 2000)
-              
+
             }
 
         })

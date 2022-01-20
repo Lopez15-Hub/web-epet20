@@ -26,6 +26,7 @@ export const MyNavbar = () => {
   const [showDropdown, setshowDropdown] = useState(false);
   const [showDropdown2, setshowDropdown2] = useState(false);
   useEffect(() => {
+    
     const changeWidth = () => {
       setWidth(window.innerWidth);
     };

@@ -6,29 +6,112 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LoadingSpinner } from '../components/general/loading';
 
 import { useDispatch } from 'react-redux';
-import { getErrorMessage, signInWithGoogle, signUp } from '../actions/auth';
+import { signInWithGoogle, signUp } from '../actions/auth';
 import { useForm } from '../hooks/useForm';
 import { AlertNotification } from '../components/general/alertNotification';
 import { UseLoading } from '../hooks/useLoading';
-import { auth } from '../firebase/firebaseConfig';
+import { auth, db, googleAuth } from '../firebase/firebaseConfig';
 import { handleRoute } from '../actions/handleRoute';
-import { onAuthStateChanged } from 'firebase/auth';
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 export const Registro = () => {
     const dispatch = useDispatch();
     const { handleChange, values } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
 
     const { password, apellido, email, name } = values;
     const navigate = useNavigate();
+    const addToFirestore = async (loginType) => {
+        const usersRef = doc(db, 'users', auth.currentUser.uid)
+        await setDoc(usersRef, {
+            "name": name ? name : auth.currentUser.displayName,
+            "apellido": apellido ? apellido : "",
+            "email": email ? email : auth.currentUser.email,
+            "password": password ? password : "",
+            "role": "Usuario",
+            "loginType": loginType,
 
+
+        }).then(() => {
+            console.log("Usuario creado correctamente en la base de datos.");
+        }).catch(err => {
+            console.log("Ha ocurrido un error al guardar en la bd: ", err.code)
+        });
+
+    }
+    const signUp = async () => {
+        setLoading(true);
+        await auth.createUserWithEmailAndPassword(email, password).then((user) => {
+            if (user) {
+                addToFirestore("FirebaseAuth");
+                setLoading(false);
+                setAlertMessage("Usuario registrado exitosamente.")
+                setSuccess(true);
+                setTimeout(() => {
+                    navigate("/");
+                }, 1500);
+            } else {
+                console.log("No se pudo crear el usuario");
+            }
+        }).catch(err => {
+            if (err.code === "auth/email-already-in-use") {
+                setAlertMessage("El correo ya está en uso.")
+                setLoading(false);
+                setWarning(true);
+                restartAlertsState();
+            } else {
+                setAlertMessage("Ha ocurrido un error: ", err.code)
+                setLoading(false);
+                setError(true);
+                restartAlertsState();
+            }
+        })
+    }
+    const signUpWithGoogle = async () => {
+        setLoading(true);
+        signInWithPopup(auth, googleAuth)
+            .then(async (result) => {
+
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                if (credential) {
+                    addToFirestore("GoogleAuth");
+                    console.log("Usuario registrado con Google exitosamente");
+                    setLoading(false);
+                    setAlertMessage("Usuario registrado con Google exitosamente.")
+                    setSuccess(true);
+
+                }
+
+            }).catch((error) => {
+                if (error.code === "auth/popup-closed-by-user") {
+                    console.log("El usuario ha cerrado la ventana de autenticación.");
+                    setLoading(false);
+                    setAlertMessage("Registro con google cancelado.");
+                    setWarning(true);
+
+                } else {
+                    console.log(error);
+                    setLoading(false);
+                }
+            });
+
+    }
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log(dispatch(signUp(email, password, name, apellido)))
+        if (!email || !password || !name || !apellido) {
+            setAlertMessage("Todos los campos son obligatorios.")
+            setLoading(false);
+            setWarning(true);
+            restartAlertsState();
+        } else {
+            signUp(email, password, name, apellido);
+        }
     }
     const handleGoogle = async e => {
         e.preventDefault();
         setLoading(true);
-        dispatch(signInWithGoogle());
+        signUpWithGoogle();
 
         onAuthStateChanged(auth, (user) => {
             if (user) {

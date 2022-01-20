@@ -20,7 +20,6 @@ export const EditPlanDeEstudios = () => {
     const planMaterias = plan.materias;
     const [materias, setMaterias] = React.useState([]);
     const [search, setSearch] = React.useState(false);
-    const [save, setSave] = React.useState(false);
     const singleMateria = {
         "materia": materia,
         "año": año,
