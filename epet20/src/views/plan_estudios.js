@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title'
 
