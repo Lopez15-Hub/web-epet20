@@ -1,0 +1,18 @@
+    const startSearchMateria = (value) => {
+        var materia = materias.filter(
+            materia => materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()) !== -1
+                || materia.materia.toLowerCase() === value.toLowerCase()
+                || materia.año.toLowerCase().indexOf(value) !== -1
+                || materia.año.toLowerCase() === value.toLowerCase()
+                || materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) !== -1
+                || materia.materia === value);
+        console.log("search materias", materia);
+        restartAlertsState();
+        setSearchMaterias(materia);
+        if (value.length === 0) {
+            console.log("LONG: ", value.length);
+            setSearchMaterias([]);
+            console.log('No hay nada');
+
+        }
+    }

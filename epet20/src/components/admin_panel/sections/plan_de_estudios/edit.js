@@ -13,43 +13,14 @@ import { Subtitle } from '../../../text-styles/subtitle'
 import { Title } from '../../../text-styles/title'
 
 export const EditPlanDeEstudios = () => {
-    console.log('Me estoy volviendo a generar, veces regeneras:');
-    const { plan } = usePlan();
-
-    const { handleChange, values, reset } = useForm();
-
+    const { handleChange, values, reset } = useForm({});
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
-    const { title, profile, materia, año, alcances, searchValue } = values;
+    const { title, profile, materia, año, alcances } = values;
+    const { plan } = usePlan();
+    const planMaterias = plan.materias;
     const [materias, setMaterias] = React.useState([]);
-    const [searchMaterias, setSearchMaterias] = React.useState([]);
-    useEffect(() => {
-        if (plan && plan.materias) {
-            setMaterias(plan.materias);
-            setSearchMaterias(plan.materias);
-
-
-        }
-        return () => {
-            console.log('Desmontando');
-            console.log(materias)
-        };
-    }, [materias, plan]);
-    const startSearchMateria = (value) => {
-
-        var materia = materias.filter(
-            materia => materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()) !== -1
-                || materia.materia.toLowerCase() === value.toLowerCase()
-                || materia.año.toLowerCase().indexOf(value) !== -1
-                || materia.año.toLowerCase() === value.toLowerCase()
-                || materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) !== -1
-                || materia.materia === value);
-
-        restartAlertsState();
-        setSearchMaterias(materia);
-    }
-
-
-
+    const [search, setSearch] = React.useState(false);
+    const [save, setSave] = React.useState(false);
     const singleMateria = {
         "materia": materia,
         "año": año,
@@ -66,6 +37,7 @@ export const EditPlanDeEstudios = () => {
             setMaterias([...materias, singleMateria]);
             console.log(materias);
             document.getElementById("formMateria").reset();
+
             reset({ materia: '', año: '' });
         } else {
             setAlertMessage("Debes especificar una materia y su año para añadirla.");
@@ -75,9 +47,23 @@ export const EditPlanDeEstudios = () => {
 
     }
     const deleteMateria = (index) => {
-        const newMaterias = [...materias];
-        newMaterias.splice(index, 1);
-        setMaterias(newMaterias);
+        setLoading(true);
+        if (search === true) {
+            const newMaterias = [...planMaterias];
+            newMaterias.splice(index, 1);
+            planMaterias.splice(index, 1);
+            setMaterias(newMaterias);
+            document.getElementById("form-search").reset();
+            setLoading(false);
+        } else {
+            const newMaterias = [...materias];
+            newMaterias.splice(index, 1);
+            document.getElementById("form-search").reset();
+            setMaterias(newMaterias);
+            setLoading(false);
+
+        }
+
     }
 
     const uploadPlan = async () => {
@@ -107,17 +93,32 @@ export const EditPlanDeEstudios = () => {
 
 
     }
-
+    const searchMateria = (e) => {
+        const { value } = e.target;
+        if (value) {
+            console.log(search);
+            setSearch(true);
+        } else {
+            console.log("Empty");
+        }
+        setMaterias(planMaterias.filter(
+            materia => materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()) !== -1
+                || materia.materia.toLowerCase() === value.toLowerCase()
+                || materia.año.toLowerCase().indexOf(value) !== -1
+                || materia.año.toLowerCase() === value.toLowerCase()
+                || materia.materia.normalize("NFD").replace(/[\u0300-\u036f]/g, "").indexOf(value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) !== -1
+                || materia.materia === value));
+    }
     const createPlan = async (e) => {
 
         e.preventDefault();
 
         if (plan.materias.length === 0) {
-            if (title === null || title === undefined || profile === null
+            if ((title === null || title === undefined || profile === null
                 || profile === undefined || alcances === null || alcances === undefined
                 || materias.length === 0 || materias === null || materias === undefined
                 || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
-                || año === undefined || (año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0) || (plan.title === title && plan.profile === profile && plan.alcances === alcances && plan.materias === materias)) {
+                || año === undefined || año === "") || (materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0) || (plan.title === title && plan.profile === profile && plan.alcances === alcances && !plan.materias)) {
 
 
                 setWarning(true);
@@ -130,24 +131,11 @@ export const EditPlanDeEstudios = () => {
                 uploadPlan();
             }
 
-        } else if (
-            plan && (
-                title === null
-                || title === undefined
-                || profile === null
-                || profile === undefined
-                || alcances === null
-                || alcances === undefined
-                || materias.length === 0
-                || materias === null
-                || materias === undefined
-                || materia === null
-                || materia === undefined
-                || año === null
-                || plan.length === 0
-                || plan === null
-                || plan === undefined
-                || año === undefined) && (año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0)) {
+        } else if ((plan && title === null) || (title === undefined || profile === null
+            || profile === undefined || alcances === null || alcances === undefined
+            || materias.length === 0 || materias === null || materias === undefined
+            || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
+            || año === undefined) || (año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0)) {
 
             console.log("Datos del plan de estudios: ", values);
             console.log("Datos del plan de estudio añadidos y listos para subir.");
@@ -161,6 +149,15 @@ export const EditPlanDeEstudios = () => {
         }
 
     }
+
+    useEffect(() => {
+        if (plan && plan.materias) {
+            setMaterias([...planMaterias]);
+            var mat = planMaterias[0].materia;
+            console.log(mat);
+        }
+
+    }, [plan, planMaterias])
 
 
     return (
@@ -260,60 +257,30 @@ export const EditPlanDeEstudios = () => {
 
                         <input type='submit' className='my-btn btn mt-4 mb-4' value="Guardar cambios" />
                     </Form>
+                    <form id="form-search">
+                        <Subtitle text="Buscar materia" />
+                        <input onChange={(e) => searchMateria(e)} className='form-control mb-4' placeholder={"Ingrese la materia o nombre"} />
+                    </form>
+                    {
+                        materias.length !== 0 ? <>
+                            <Title text={"Materias añadidas"}></Title>
 
-                    <Container>
-                        <form>
-                            <FormGroup>
-                                <Subtitle text="Buscar materias" />
+                            <Subtitle text={"Materias totales: " + materias.length} />
+                            {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
+                                return (
+                                    <ul className='border mb-4' key={index}>
+                                        <div>
+                                            <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
+                                          
+                                            <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
+                                        </div>
 
-                                <Input id='inputSearch' value={searchValue} onChange={(e) => startSearchMateria(e.target.value)} placeholder='Ingrese el nombre o el año de la materia' type="text" name="searchValue" />
-                            </FormGroup>
+                                    </ul>
+                                )
+                            }) : ''}
 
-                        </form>
-
-                        {searchValue ? <>
-                            {
-                                materias.length > 0 ? <>
-                                    <Title text={"Todas las materias"}></Title>
-
-                                    <Subtitle text={"Materias totales: " + materias.length} />
-                                    {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
-                                        return (
-                                            <ul className='border mb-4' key={index}>
-                                                <div>
-                                                    <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
-                                                    <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
-                                                </div>
-
-                                            </ul>
-                                        )
-                                    }) : ''}
-
-                                </> : ''
-                            }
-                        </> : <>
-
-                            {
-                                searchMaterias.length !== 0 ? <>
-                                    <Title text={"Materias encontradas:"}></Title>
-
-                                    <Subtitle text={"Materias totales: " + searchMaterias.length} />
-                                    {searchMaterias.length !== 0 ? searchMaterias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
-                                        return (
-                                            <ul className='border mb-4' key={index}>
-                                                <div>
-                                                    <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
-                                                    <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
-                                                </div>
-
-                                            </ul>
-                                        )
-                                    }) : ''}
-
-                                </> : !searchValue ? <div className='font-bold'><Subtitle text="No se han encontrado resultados." /></div> : ''
-                            }
-                        </>}
-                    </Container>
+                        </> : materias.length === 0 ? <Subtitle text="No hay materias añadidas" /> : ''
+                    }
 
                 </Row>
             </Container>
