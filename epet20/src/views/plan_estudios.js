@@ -1,4 +1,4 @@
-import React, {useRef } from 'react'
+import React, { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title'
 
@@ -50,9 +50,9 @@ export const PlanDeEstudios = () => {
 
                                 <div className='col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3'></div>
                                 <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 '>
-                                    <header className="bg-main-color shadow-md rounded-xl p-3 mt-4">
+                                    <header className="bg-main-color my-shadow rounded-xl p-3 mt-4">
 
-                                        <dl >
+                                        <dl className='text-center' >
                                             <dt className="text-white">Escuela provincial de educación técnica número 20. </dt>
 
                                             <dd className="text-white">Ministerio de educación - Ciudad de Neuquén - Año {formatDate()}. </dd>
@@ -80,7 +80,7 @@ export const PlanDeEstudios = () => {
                                             </div>
                                         </div>
                                         {/*Stack de materias*/}
-                                        <div >
+                                        {plan && plan.materias.length > 0 ? <div >
                                             <div className="mt-4">
                                                 <Title text="Listado de materias" />
                                             </div>
@@ -115,10 +115,10 @@ export const PlanDeEstudios = () => {
                                             </Container>
 
 
-                                        </div>
+                                        </div> : ''}
 
 
-                                        <p id='labelMark' className=' text-muted text-center mb-4'>Documento generado de la página oficial de la E.P.E.T. N°20 - Año {formatDate()}.</p>
+                                        <p id='labelMark' className=' text-muted text-center mb-4 mt-4'>Documento generado de la página oficial de la E.P.E.T. N°20 - Año {formatDate()}.</p>
 
 
                                     </div>
