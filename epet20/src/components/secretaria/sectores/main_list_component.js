@@ -8,9 +8,8 @@ import { Loading } from '../../admin_panel/sections/loading';
 import { Link } from 'react-router-dom';
 import Footer from '../../inicio/footer';
 export const MainList = ({ label, admin }) => {
-
-
     const [listData, setListData] = useState([]);
+
     useEffect(() => {
         let mounted = true;
         console.log("Mounted")
@@ -20,11 +19,10 @@ export const MainList = ({ label, admin }) => {
             const studentsRef = collection(db, "estudiantes");
             const q = query(studentsRef, where("label", "==", label));
             const querySnapshot = await getDocs(q);
-            console.log(querySnapshot);
+
             if (querySnapshot.empty) {
                 list.push({ message: 'empty', id: null })
 
-                console.log(listData[0])
             } else {
                 querySnapshot.forEach(doc => {
 
@@ -40,11 +38,8 @@ export const MainList = ({ label, admin }) => {
 
             const q = query(formsRef, where("label", "==", label));
             const querySnapshot = await getDocs(q);
-            console.log(querySnapshot);
             if (querySnapshot.empty) {
                 list.push({ message: 'empty', id: null })
-
-                console.log(listData[0])
             } else {
                 querySnapshot.forEach(doc => {
 
@@ -58,8 +53,6 @@ export const MainList = ({ label, admin }) => {
             const querySnapshot = await getDocs(collection(db, "anuncios"));
             if (querySnapshot.empty) {
                 list.push({ message: 'empty', id: null })
-
-                console.log(listData[0])
             } else {
                 querySnapshot.forEach(doc => {
                     list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
@@ -78,9 +71,9 @@ export const MainList = ({ label, admin }) => {
             }
         }
 
-        return () => mounted = false; 
+        return () => mounted = false;
 
-    }, [])
+    }, [label])
 
 
     const formatDate = (date) => {
@@ -95,7 +88,7 @@ export const MainList = ({ label, admin }) => {
         if (confirm) {
             await deleteDoc(bdRef).then(async () => {
                 if ((label === 'teoria' || label === 'taller' || label === 'educación física') && fileName) {
-                    const storageRef = app.storage().ref('/estudiantes-files/'+fileName);
+                    const storageRef = app.storage().ref('/estudiantes-files/' + fileName);
                     await storageRef.delete().then(() => {
                         console.log("Archivo eliminado exitosamente de storage.");
                         window.alert("Imágen eliminada correctamente de la base de datos y de storage.");

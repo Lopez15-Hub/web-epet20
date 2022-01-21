@@ -10,7 +10,7 @@ import { AlertNotification } from '../../../general/alertNotification'
 import { LoadingSpinner } from '../../../general/loading'
 import { Subtitle } from '../../../text-styles/subtitle'
 import { Title } from '../../../text-styles/title'
-import { getStorage, ref, deleteObject } from "firebase/storage";
+
 export const SliderImages = () => {
     const { handleChange, values, reset } = useForm();
     const { loading, setLoading, alertMessage, setError, setWarning, setAlertMessage, restartAlertsState, successFile, setSuccessFile, errorFile, warningFile, setErrorFile, setWarningFile } = UseLoading();
