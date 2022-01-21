@@ -1,26 +1,27 @@
 import React from 'react'
-import {Row,Card} from 'react-bootstrap';
+import { CardText, CardTitle } from 'reactstrap';
 
 
-export default function Advertisements () {
-
-    return (
-        <>
-                <Row  className="justify-content-md-center">
-                    <Card style={{ width: '50rem' }}>
-                    <Card.Img variant="top" src="https://upload.wikimedia.org/wikipedia/commons/5/59/%C3%8Dcono_Computadora_-_Internet.JPG" />
-                            <Card.Body>
-                            <Card.Title className="text-center">Anuncios</Card.Title>
-                            <Card.Text className="text-center">
-                            Lopez es un wachin que le hizo la aplicación a Meng de Flutter
-                            </Card.Text>
-                            <br />
-                            <Card.Text className="text-right">
-                                Por: Castro Tomás (Desarrollador)
-                            </Card.Text>
-                            </Card.Body>
-                        </Card>
-                </Row>
-        </>
-    )
-}
+export const Anuncio = () => {
+    return <>
+        <div className='border rounded-t-lg p-4'>
+            <CardTitle tag="h5">
+                Card Title
+            </CardTitle>
+            <CardText>
+                This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+            </CardText>
+            <CardText>
+                <small className="text-muted">
+                    Last updated 3 mins ago
+                </small>
+            </CardText>
+        </div>
+        <img
+            className='img-anuncio w-100'
+            alt="anuncio imagen"
+            src="https://picsum.photos/200/200"
+            top
+        />
+    </>;
+};

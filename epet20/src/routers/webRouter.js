@@ -17,6 +17,7 @@ import { Prueba } from '../components/general/navbar/prueba';
 import { MyNavbar } from '../components/general/navbar/custom_navbar';
 import { PaginaEnConstruccion } from '../views/we_working';
 import { Error404 } from '../views/404';
+import { Novedades } from '../views/novedades';
 export const WebRouter = () => {
     React.useEffect(() => {
 
@@ -60,7 +61,7 @@ export const WebRouter = () => {
                 <Route path="404" element={<Error404 />} />
                 <Route path="" element={<Inicio />} />
                 <Route path="inicio" element={<Inicio />} />
-                <Route path="novedades" element={<PaginaEnConstruccion />} />
+                <Route path="novedades" element={<Novedades />} />
                 <Route path="estudiantes/teoria" element={<Teoria />} />
                 <Route path="estudiantes/taller" element={<Taller />} />
                 <Route path="estudiantes/ed-fisica" element={<EducacionFisica />} />
