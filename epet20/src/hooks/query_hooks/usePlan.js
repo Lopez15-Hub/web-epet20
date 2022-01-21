@@ -15,7 +15,7 @@ export const usePlan = () => {
     }
     useEffect(() => {
         obtenerTextosDeFirebase();
-    });
+    },[]);
 
     return { plan }
 }

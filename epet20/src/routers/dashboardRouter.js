@@ -98,7 +98,6 @@ export const DashboardRouter = () => {
                     console.log("user not logged in")
                     auth.signOut();
                     setLoading(false);
-                    window.location.replace("/");
                 }
             });
         } else {

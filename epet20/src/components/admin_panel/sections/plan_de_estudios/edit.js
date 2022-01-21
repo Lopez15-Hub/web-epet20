@@ -35,7 +35,6 @@ export const EditPlanDeEstudios = () => {
 
             setMaterias([...materias, singleMateria]);
             console.log(materias);
-            document.getElementById("formMateria").reset();
 
             reset({ materia: '', año: '' });
         } else {
@@ -112,51 +111,45 @@ export const EditPlanDeEstudios = () => {
 
         e.preventDefault();
 
-        if (plan.materias.length === 0) {
-            if ((title === null || title === undefined || profile === null
-                || profile === undefined || alcances === null || alcances === undefined
-                || materias.length === 0 || materias === null || materias === undefined
-                || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
-                || año === undefined || año === "") || (materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0 && plan.length === 0) || (plan.title === title && plan.profile === profile && plan.alcances === alcances && !plan.materias)) {
+        if (plan && (!title || !profile || !materia || !año || !alcances || !values) && (singleMateria.año === '' && singleMateria.materia === '') && (materias.length === 0)) {
 
 
-                setWarning(true);
-                setAlertMessage("Debes rellenar todos los campos para editar el plan de estudios.");
-                console.log("Debes rellenar todos los campos.");
-                restartAlertsState();
+            setWarning(true);
+            setAlertMessage("Debes rellenar todos los campos para editar el plan de estudios.");
+            console.log("Debes rellenar todos los campos.");
+            console.log(values);
+            console.log(materias);
+            restartAlertsState();
 
 
-            } else {
-                uploadPlan();
-            }
 
-        } else if ((plan && title === null) || (title === undefined || profile === null
-            || profile === undefined || alcances === null || alcances === undefined
-            || materias.length === 0 || materias === null || materias === undefined
-            || materia === null || materia === undefined || año === null || plan.length === 0 || plan === null || plan === undefined
-            || año === undefined) || (año === "" && materia === "" && profile === "" && title === "" && alcances === "" && materias.length === 0)) {
+
+        } else {
 
             console.log("Datos del plan de estudios: ", values);
             console.log("Datos del plan de estudio añadidos y listos para subir.");
             uploadPlan();
 
-        } else {
-            setWarning(true);
-            setAlertMessage("Debes editar los datos para que los cambios surgan efecto.");
-            console.log("Debes rellenar todos los campos.");
-            restartAlertsState();
         }
 
     }
-
     useEffect(() => {
-        if (plan && plan.materias) {
-            setMaterias([...planMaterias]);
-            var mat = planMaterias[0].materia;
-            console.log(mat);
+        console.log(plan.materias);
+        let mounted = true;
+        console.log("mounted")
+
+        if (mounted) {
+            if (planMaterias) {
+                setMaterias(planMaterias);
+            }
+
         }
 
-    }, [plan, planMaterias])
+
+        return () => mounted = false
+
+    }, [planMaterias, plan])
+
 
 
     return (
@@ -187,7 +180,7 @@ export const EditPlanDeEstudios = () => {
                                 invalid={title === ""}
                             />
                             <FormFeedback>
-                                Perfil del egresado
+                                El titulo es requerido
                             </FormFeedback>
                         </FormGroup>
                         <FormGroup>
@@ -201,7 +194,7 @@ export const EditPlanDeEstudios = () => {
                                 placeholder="Ingrese el perfil del egresado"
                                 type="textarea"
                                 maxLength={500}
-                                invalid={title === ""}
+                                invalid={profile === ""}
                             />
                             <FormFeedback>
                                 Este campo es requerido.
@@ -218,7 +211,7 @@ export const EditPlanDeEstudios = () => {
                                 placeholder="Ingrese los alcances del egresado"
                                 type="textarea"
                                 maxLength={500}
-                                invalid={title === ""}
+                                invalid={alcances === ""}
                             />
                             <FormFeedback>
                                 Este campo es requerido.
@@ -227,30 +220,30 @@ export const EditPlanDeEstudios = () => {
 
                         <div className='font-bold'><Subtitle text="Materias" /></div>
                         <div>
-                            <form id='formMateria' onReset={reset}>
-                                <FormGroup>
-                                    <div className="input-group mb-3">
-                                        <input id='inputMateria' onChange={handleChange} name="materia" type="text" className="form-control" aria-label="Text input with dropdown button" placeholder="Nombre de la materia" />
 
-                                        <select id='selectAño' onChange={handleChange} name="año" className="btn btn-outline-secondary dropdown-toggle" type="button" >
-                                            <option value={null}>Año</option>
-                                            <option value="1°">Primero</option>
-                                            <option value="2°">Segundo</option>
-                                            <option value="3°">Tercero</option>
-                                            <option value="4°">Cuarto</option>
-                                            <option value="5°">Quinto</option>
-                                            <option value="6°">Sexto</option>
+                            <FormGroup>
+                                <div className="input-group mb-3">
+                                    <input id='inputMateria' onChange={handleChange} name="materia" type="text" className="form-control" aria-label="Text input with dropdown button" placeholder="Nombre de la materia" />
 
-                                        </select>
-                                    </div>
-                                    <button type="reset" onClick={() => addMateria()} className='btn btn-outline-primary'>+ Añadir materia</button>
+                                    <select id='selectAño' onChange={handleChange} name="año" className="btn btn-outline-secondary dropdown-toggle" type="button" >
+                                        <option value={null}>Año</option>
+                                        <option value="1°">Primero</option>
+                                        <option value="2°">Segundo</option>
+                                        <option value="3°">Tercero</option>
+                                        <option value="4°">Cuarto</option>
+                                        <option value="5°">Quinto</option>
+                                        <option value="6°">Sexto</option>
 
-
+                                    </select>
+                                </div>
+                                <button type="reset" onClick={() => addMateria()} className='btn btn-outline-primary'>+ Añadir materia</button>
 
 
-                                </FormGroup>
 
-                            </form>
+
+                            </FormGroup>
+
+
                         </div>
 
 
@@ -270,7 +263,7 @@ export const EditPlanDeEstudios = () => {
                                     <ul className='border mb-4' key={index}>
                                         <div>
                                             <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
-                                          
+
                                             <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
                                         </div>
 
