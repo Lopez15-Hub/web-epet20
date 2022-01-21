@@ -23,3 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 #enviroments
 /.env
+#firebase
+.firebase
+firebase.json
+firestore.rules
