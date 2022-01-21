@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "./custom_navbar.css";
 import { Link } from "react-router-dom";
@@ -17,6 +16,7 @@ import {
 } from "./dropdowns_secretaria";
 import { motion } from "framer-motion";
 import { HeaderNavAdmin } from "./header";
+import { DropdownInicio } from "./dropdown_inicio";
 
 export const AdminNavbar = ({ currentRole }) => {
   const [user, setUser] = useState({
@@ -27,6 +27,7 @@ export const AdminNavbar = ({ currentRole }) => {
 
   const [showDropdown, setshowDropdown] = useState(false);
   const [showDropdown2, setshowDropdown2] = useState(false);
+  const [showDropdown3, setshowDropdown3] = useState(false);
   const [screenWidth, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     const changeWidth = () => {
@@ -70,6 +71,9 @@ export const AdminNavbar = ({ currentRole }) => {
   };
   const dropdown2 = () => {
     setshowDropdown2(!showDropdown2);
+  };
+  const dropdown3 = () => {
+    setshowDropdown3(!showDropdown3);
   };
   /*
         Navbar ES LA SECCIÓN DE 
@@ -141,13 +145,25 @@ export const AdminNavbar = ({ currentRole }) => {
                     >
                       Usuarios
                     </Link>
-                    <Link
-                      onClick={() => showMenu()}
-                      to="inicio"
-                      className=" nav-element font-bold "
+                    <button
+                      onClick={() => {
+                        dropdown3();
+                      }}
+                      href="#"
+                      className="nav-element font-bold w-100"
                     >
-                      Inicio
-                    </Link>
+                      Inicio {showDropdown3 ? "▲" : "▼"}
+                    </button>
+                    {showDropdown3 ? (
+                      <DropdownInicio
+                        click={() => {
+                          showMenu();
+                          dropdown3();
+                        }}
+                      />
+                    ) : (
+                      ""
+                    )}
                     <Link
                       onClick={() => showMenu()}
                       to="novedades"
@@ -176,6 +192,25 @@ export const AdminNavbar = ({ currentRole }) => {
                             click={() => {
                               showMenu();
                               dropdown();
+                            }}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        <button
+                          onClick={() => {
+                            dropdown2();
+                          }}
+                          href="#"
+                          className="nav-element font-bold w-100"
+                        >
+                          Secretaría {showDropdown2 ? "▲" : "▼"}
+                        </button>
+                        {showDropdown2 ? (
+                          <DropdownAdminSecretaria
+                            click={() => {
+                              showMenu();
+                              dropdown2();
                             }}
                           />
                         ) : (
