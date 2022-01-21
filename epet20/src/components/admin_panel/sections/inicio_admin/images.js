@@ -68,12 +68,10 @@ export const SliderImages = () => {
         handleDisabled();
         setUpload(true);
         const file = e.target.files[0];
-        if (file.name.split(".").pop() !== "jpg" && file.name.split(".").pop() !== "png") {
+        if (file.name.split(".").pop() !== "jpg" && file.name.split(".").pop() !== "png" && file.name.split(".").pop() !== "jpeg") {
             document.getElementById("form-image").reset();
             setUpload(false);
-
             setAlertMessage("Solo se permiten archivos .jpg y .png");
-
             setWarning(true);
             restartAlertsState();
         }
