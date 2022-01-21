@@ -1,17 +1,13 @@
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import Image1 from "../../assets/carousel1.png";
-import Image2 from "../../assets/carousel2.jpg";
-import Image3 from "../../assets/carousel3.jpg";
 import { db } from "../../firebase/firebaseConfig";
-import { UseLoading } from "../../hooks/useLoading";
 import { LoadingSpinner } from "../general/loading";
 export default function MyCarousel() {
-  const { loading, setLoading } = UseLoading();
+
   const [imagesFiles, setImagesFiles] = useState([])
   useEffect(() => {
     const getImagesFromFirestore = async () => {
-      setLoading(true)
+ 
       const querySnapshot = await getDocs(collection(db, "images"));
       const imagesDocs = [];
 
@@ -22,14 +18,14 @@ export default function MyCarousel() {
 
       });
       setImagesFiles(imagesDocs);
-      setLoading(false)
+ 
     }
     let enabled = true;
     if (enabled) {
       getImagesFromFirestore()
     }
     return () => enabled = false;
-  }, [setLoading]);
+  }, []);
   return <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
     {imagesFiles.length !== 0 ? <>
       <div className="carousel-inner rounded-lg shadow-md">
