@@ -255,27 +255,29 @@ export const EditPlanDeEstudios = () => {
                         <Subtitle text="Buscar materia" />
                         <input onChange={(e) => searchMateria(e)} className='form-control mb-4' placeholder={"Ingrese la materia o nombre"} />
                     </form>
-                    {
-                        materias.length !== 0 ? <>
-                            <Title text={"Materias añadidas"}></Title>
+                    <Container>
+                        {
+                            materias.length !== 0 ? <>
+                                <Title text={"Materias añadidas"}></Title>
 
-                            <Subtitle text={"Materias totales: " + materias.length} />
-                            {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
-                                return (
-                                    <ul className='border mb-4' key={index}>
-                                        <div>
-                                            <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
+                                <Subtitle text={"Materias totales: " + materias.length} />
+                                {materias.length !== 0 ? materias.sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1).map((materia, index) => {
+                                    return (
+                                        <ul className='border mb-4' key={index}>
+                                            <div>
+                                                <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
 
-                                            <button type='button' onClick={() => deleteMateria(index, materia.materia)} className='btn btn-outline-danger'>Eliminar</button>
-                                        </div>
+                                                <button type='button' onClick={() => deleteMateria(index, materia.materia)} className='btn btn-outline-danger'>Eliminar</button>
+                                            </div>
 
-                                    </ul>
-                                )
-                            }) : ''}
+                                        </ul>
+                                    )
+                                }) : ''}
 
-                        </> : materias.length === 0 ? <Subtitle text="No hay materias añadidas" /> : ''
-                    }
+                            </> : materias.length === 0 ? <Subtitle text="No hay materias añadidas" /> : ''
+                        }
 
+                    </Container>
                 </Row>
             </Container>
         </motion.div>
