@@ -24,6 +24,6 @@ yarn-error.log*
 #enviroments
 /.env
 #firebase
-.firebase
-firebase.json
+/.firebase
+/firebase.json
 firestore.rules
