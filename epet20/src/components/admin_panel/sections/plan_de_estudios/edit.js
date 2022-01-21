@@ -44,12 +44,13 @@ export const EditPlanDeEstudios = () => {
         }
 
     }
-    const deleteMateria = (index) => {
+    const deleteMateria = (index, materia) => {
         setLoading(true);
         if (search === true) {
+            console.log("Materia que se va a eliminar: ", materia)
             const newMaterias = [...planMaterias];
-            newMaterias.splice(index, 1);
-            planMaterias.splice(index, 1);
+            newMaterias.splice(materia, 1);
+            planMaterias.splice(materia, 1);
             setMaterias(newMaterias);
             document.getElementById("form-search").reset();
             setLoading(false);
@@ -97,6 +98,7 @@ export const EditPlanDeEstudios = () => {
             console.log(search);
             setSearch(true);
         } else {
+            setMaterias(planMaterias);
             console.log("Empty");
         }
         setMaterias(planMaterias.filter(
@@ -264,7 +266,7 @@ export const EditPlanDeEstudios = () => {
                                         <div>
                                             <li className='main-color font-bold p-2 '>{materia.materia} - {materia.año} </li>
 
-                                            <button type='button' onClick={() => deleteMateria(index)} className='btn btn-outline-danger'>Eliminar</button>
+                                            <button type='button' onClick={() => deleteMateria(index, materia.materia)} className='btn btn-outline-danger'>Eliminar</button>
                                         </div>
 
                                     </ul>
