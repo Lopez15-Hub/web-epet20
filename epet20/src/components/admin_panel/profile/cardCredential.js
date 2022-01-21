@@ -52,11 +52,18 @@ export const CardCredential = memo(() => {
         e.preventDefault();
         setLoading(true);
         const file = e.target.files[0];
-        if (file.name.split(".").pop() !== "jpg" && file.name.split(".").pop() !== "png") {
+        if (file.name.split(".").pop() !== "jpg" && file.name.split(".").pop() !== "png" && file.name.split(".").pop() !== "jpeg") {
             document.getElementById("form-profile").reset();
             setLoading(false);
 
-            setAlertMessage("Solo se permiten archivos .jpg y .png");
+            setAlertMessage("Solo se permiten archivos .jpg, jpeg y .png");
+
+            setWarning(true);
+            restartAlertsState();
+        } if (file.size > 5000000) {
+            setLoading(false);
+
+            setAlertMessage("El archivo es mayor a 5Mb.");
 
             setWarning(true);
             restartAlertsState();
@@ -129,6 +136,7 @@ export const CardCredential = memo(() => {
                                     <FormGroup className='mt-2' >
                                         <Label className='font-bold'>Editar foto de perfil</Label>
                                         <Input type="file" />
+                                        <p className='text-muted'>El archivo no debe pesar más de 5Mb.</p>
                                     </FormGroup>
                                 </Form>
                                 {success ?

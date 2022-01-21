@@ -71,7 +71,14 @@ export const SliderImages = () => {
         if (file.name.split(".").pop() !== "jpg" && file.name.split(".").pop() !== "png" && file.name.split(".").pop() !== "jpeg") {
             document.getElementById("form-image").reset();
             setUpload(false);
-            setAlertMessage("Solo se permiten archivos .jpg y .png");
+            setAlertMessage("Solo se permiten archivos .jpg,jpeg, o .png");
+            setWarning(true);
+            restartAlertsState();
+        } if (file.size > 8000000) {
+            setLoading(false);
+
+            setAlertMessage("El archivo es mayor a 8Mb.");
+
             setWarning(true);
             restartAlertsState();
         }
@@ -164,7 +171,7 @@ export const SliderImages = () => {
                         <p className='text-muted'>Máximo 120 carácteres</p>
                         <Input id="image1" onChange={handleChange} type="text" maxLength={120} className='mb-4' name="descriptionPhoto" />
                         <Input id="input1" type="file" onChange={handleImageFile} />
-
+                        <p className='text-muted'>El peso de la imágen no debe ser mayor a 8Mb.</p>
 
 
                     </FormGroup>
