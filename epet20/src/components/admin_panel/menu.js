@@ -11,6 +11,7 @@ export const Menu = ({ role }) => {
 
     const [visible, setVisible] = useState(false);
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
 
     const showEstudiantes = () => {
         visible ? setVisible(false) : setVisible(true);
@@ -18,20 +19,13 @@ export const Menu = ({ role }) => {
     const showSecretaria = () => {
         show ? setShow(false) : setShow(true);
     }
+    const showInicio = () => {
+        show2 ? setShow2(false) : setShow2(true);
+    }
     const logOut = () => {
         auth.signOut();
         window.location.replace("/inicio");
     }
-
-
-
-
-
-
-
-
-
-
 
     return (
         <div>
@@ -73,8 +67,21 @@ export const Menu = ({ role }) => {
                         role === "administrador" ? <>
                             <Link to="perfil" className=" list-group-item-action p-2 mt-2 admin-item rounded-xl shadow-sm d-flex">   <FaUserAlt className="mr-2 ml-1" /> Mi Perfil</Link>
                             <Link to="usuarios" className=" list-group-item-action p-2 mt-2 admin-item rounded-xl shadow-sm d-flex">   <FaUsers className="mr-2 ml-1" />  Usuarios</Link>
-                            <Link to="inicio" className=" list-group-item-action p-2 mt-2 admin-item rounded-xl shadow-sm d-flex">   <FaHome className="mr-2 ml-1" />  Inicio</Link>
                             <Link to="novedades" className=" list-group-item-action p-2 mt-2 admin-item rounded-xl shadow-sm d-flex">   <FaNewspaper className="mr-2 ml-1" />  Novedades</Link>
+
+                            <div>
+                                <button onClick={() => showInicio()} className=" list-group-item-action p-2 mt-2 admin-item rounded-xl shadow-sm d-flex">
+                                    <FaHome className="mr-2 ml-1" />  Inicio<div className='mx-auto'></div> {
+                                        show2 ? <FaArrowDown className="mt-1 d-flex   mx-auto" /> : <FaArrowRight className="mt-1 d-flex   mx-auto" />}</button>
+                                {
+                                    show2 ?
+                                        <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                            <Link to="inicio" className="list-group-item-action p-2 mt-2 d-flex">Editar datos generales</Link>
+                                            <Link to="inicio/images" className="list-group-item-action p-2 mt-2 d-flex">Editar imágenes del slider</Link>
+
+                                        </motion.div> : ''
+                                }
+                            </div>
                             <div>
                                 <button onClick={() => showEstudiantes()} className=" list-group-item-action p-2 mt-2 admin-item rounded-xl shadow-sm d-flex">
                                     <MdSchool className="mr-2 ml-1" />  Estudiantes <div className='mx-auto'></div> {
@@ -111,6 +118,6 @@ export const Menu = ({ role }) => {
 
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

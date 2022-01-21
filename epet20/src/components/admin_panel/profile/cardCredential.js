@@ -61,8 +61,8 @@ export const CardCredential = memo(() => {
             setWarning(true);
             restartAlertsState();
         } else {
-            const storageRef = app.storage().ref();
-            const filePath = storageRef.child(file.name);
+            const storageRef = app.storage().ref("/profile-images/");
+            const filePath = storageRef.child(auth.currentUser.uid);
             await filePath.put(file).then(async () => {
 
 

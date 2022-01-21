@@ -7,7 +7,8 @@ import { Menu } from '../components/admin_panel/menu';
 import { FilesOfStudents } from '../components/admin_panel/sections/estudiantes/administrar';
 import { UploadFile } from '../components/admin_panel/sections/estudiantes/upload_file';
 import { Form } from '../components/admin_panel/sections/form';
-import { InicioAdmin } from '../components/admin_panel/sections/inicio_admin';
+import { InicioAdmin } from '../components/admin_panel/sections/inicio_admin/inicio_admin';
+import { SliderImages } from '../components/admin_panel/sections/inicio_admin/images';
 import { Loading } from '../components/admin_panel/sections/loading';
 import { EditPlanDeEstudios } from '../components/admin_panel/sections/plan_de_estudios/edit';
 import { Profile } from '../components/admin_panel/sections/profile';
@@ -37,6 +38,7 @@ export const DashboardRouter = () => {
             && role === "administrador"
             && window.location.pathname !== "/dasboard/usuarios/"
             && window.location.pathname !== "/dashboard/inicio"
+            && window.location.pathname !== "/dashboard/inicio/images"
             && window.location.pathname !== '/dashboard/perfil'
             && window.location.pathname !== '/dashboard/usuarios'
             && window.location.pathname !== "/dashboard/usuarios/:userId"
@@ -133,8 +135,9 @@ export const DashboardRouter = () => {
                                             <Route path="usuarios/" element={<Usuarios />} />
                                             <Route path="usuarios/add" element={<Form />} />
                                             <Route path="usuarios/:userId" element={<Form />} />
-                              
+
                                             <Route path="inicio" element={<InicioAdmin />} />
+                                            <Route path="inicio/images" element={<SliderImages />} />
                                             <Route path="novedades" element={<PaginaEnConstruccion />} />
                                             <Route path="estudiantes/admin" element={<FilesOfStudents />} />
                                             <Route path="estudiantes/upload" element={<UploadFile />} />
@@ -178,6 +181,7 @@ export const DashboardRouter = () => {
                                                     <Route path="usuarios/add" element={<Form />} />
                                                     <Route path="usuarios/:userId" element={<Form />} />
                                                     <Route path="inicio" element={<InicioAdmin />} />
+                                                    <Route path="inicio/images" element={<SliderImages />} />
                                                     <Route path="novedades" element={<PaginaEnConstruccion />} />
                                                     <Route path="estudiantes/admin" element={<FilesOfStudents />} />
                                                     <Route path="estudiantes/upload" element={<UploadFile />} />

@@ -5,16 +5,10 @@ import { db } from '../../firebase/firebaseConfig';
 
 export const useGet = (initialValue = []) => {
     const [users, setUsers] = useState(initialValue)
-    useEffect(() => {
-
-
-        obtenerDatos();
-    }, [])
-
     const obtenerDatos = async () => {
         const querySnapshot = await getDocs(collection(db, "users"));
         const usersDocs = [];
-        
+
         querySnapshot.forEach(doc => {
 
             usersDocs.push({ ...doc.data(), id: doc.id })
@@ -23,5 +17,15 @@ export const useGet = (initialValue = []) => {
         });
         setUsers(usersDocs);
     }
+    useEffect(() => {
+        let mounted = true;
+        if (mounted) {
+            obtenerDatos();
+        }
+
+        return () => mounted = false;
+    }, [])
+
+
     return { users }
 }

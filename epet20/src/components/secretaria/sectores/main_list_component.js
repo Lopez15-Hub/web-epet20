@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
 import { Title } from '../../text-styles/title'
-import { db } from '../../../firebase/firebaseConfig';
+import { app, db } from '../../../firebase/firebaseConfig';
 import { Loading } from '../../admin_panel/sections/loading';
 import { Link } from 'react-router-dom';
 import Footer from '../../inicio/footer';
@@ -12,7 +12,8 @@ export const MainList = ({ label, admin }) => {
 
     const [listData, setListData] = useState([]);
     useEffect(() => {
-        const currentDate = new Date();
+        let mounted = true;
+        console.log("Mounted")
         const getStudentsFilesFromFirebaseByLabel = async () => {
             const list = []
 
@@ -66,13 +67,20 @@ export const MainList = ({ label, admin }) => {
             }
             setListData(list)
         }
-        console.log(label);
-        label === 'Docentes' || label === 'General' || label === 'Estudiantes' ? getFormsFromFirebaseByLabel() : label === 'Anuncios' ? getAnunciosFromFirebase() : getStudentsFilesFromFirebaseByLabel();
-        console.log(currentDate.toDateString().toLocaleString())
-        console.log(currentDate.toDateString().toLocaleString() === '9/1/2022' ? true : false)
 
+        if (mounted) {
+            if (label === 'Docentes' || label === 'General' || label === 'Estudiantes') {
+                getFormsFromFirebaseByLabel()
+            } else if (label === 'Anuncios') {
+                getAnunciosFromFirebase()
+            } else {
+                getStudentsFilesFromFirebaseByLabel();
+            }
+        }
 
-    }, [label, listData])
+        return () => mounted = false; 
+
+    }, [])
 
 
     const formatDate = (date) => {
@@ -81,13 +89,26 @@ export const MainList = ({ label, admin }) => {
 
     }
 
-    const deleteFromFirebase = async (id) => {
+    const deleteFromFirebase = async (id, fileName) => {
         const confirm = window.confirm("¿Estás seguro de que quieres eliminar este " + (label === 'Anuncios' ? 'anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'archivo' : 'formulario') + "?");
         const bdRef = doc(db, label === 'Anuncios' ? 'anuncios' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'estudiantes' : 'forms', id);
         if (confirm) {
-            await deleteDoc(bdRef).then(() => {
-                window.alert((label === 'Anuncios' ? 'Anuncio ' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo ' : 'Formulario ') + " eliminado correctamente.");
-                window.location.reload();
+            await deleteDoc(bdRef).then(async () => {
+                if ((label === 'teoria' || label === 'taller' || label === 'educación física') && fileName) {
+                    const storageRef = app.storage().ref('/estudiantes-files/'+fileName);
+                    await storageRef.delete().then(() => {
+                        console.log("Archivo eliminado exitosamente de storage.");
+                        window.alert("Imágen eliminada correctamente de la base de datos y de storage.");
+                        window.location.reload();
+                    }).catch((err) => {
+                        console.log("Ha ocurrido un error al eliminar el archivo. Error:", err.code);
+                    });
+                } else {
+                    window.alert((label === 'Anuncios' ? 'Anuncio ' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'Archivo ' : 'Formulario ') + " eliminado correctamente.");
+                    window.location.reload();
+                }
+
+
             }).catch(err => {
                 window.alert("Ha ocurrido un error: " + err.code);
             });
@@ -132,7 +153,7 @@ export const MainList = ({ label, admin }) => {
                                                                 <div>
                                                                     {label !== 'Anuncios' ? <Link to={"/dashboard/secretaria/forms/" + e.id} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/dashboard/secretaria/anuncios/" + e.id} className='btn btn-warning mr-2'>Editar</Link>}
 
-                                                                    <button onClick={() => deleteFromFirebase(e.id)} className='btn btn-danger '>Eliminar</button>
+                                                                    {label === 'teoria' || label === 'taller' || label === 'educación física' ? <button onClick={() => deleteFromFirebase(e.id, e.title)} className='btn btn-danger '>Eliminar</button> : <button onClick={() => deleteFromFirebase(e.id)} className='btn btn-danger '>Eliminar</button>}
 
                                                                 </div> : ''}
                                                     </li>

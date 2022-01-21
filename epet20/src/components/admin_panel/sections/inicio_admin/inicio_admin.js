@@ -1,21 +1,24 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, addDoc, collection } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { Container, Form, FormGroup, Input, Row } from 'reactstrap'
-import { db } from '../../../firebase/firebaseConfig'
-import { useForm } from '../../../hooks/useForm'
-import { UseLoading } from '../../../hooks/useLoading'
-import { AlertNotification } from '../../general/alertNotification'
-import { LoadingSpinner } from '../../general/loading'
-import { Subtitle } from '../../text-styles/subtitle'
-import { Title } from '../../text-styles/title'
+import { app, db } from '../../../../firebase/firebaseConfig'
+import { useForm } from '../../../../hooks/useForm'
+import { UseLoading } from '../../../../hooks/useLoading'
+import { AlertNotification } from '../../../general/alertNotification'
+import { LoadingSpinner } from '../../../general/loading'
+import { Subtitle } from '../../../text-styles/subtitle'
+import { Title } from '../../../text-styles/title'
 
 export const InicioAdmin = () => {
     const { handleChange, values, reset } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState} = UseLoading();
     const { presentacion, alcances, perfilTec } = values;
 
+
+
     useEffect(() => {
+        let mounted = true
         const getDataFromFirestore = async () => {
             setAlertMessage("Obteniendo datos.");
             setLoading(true);
@@ -39,7 +42,10 @@ export const InicioAdmin = () => {
                 setLoading(false);
             }
         }
-        getDataFromFirestore();
+        if (mounted) {
+            getDataFromFirestore();
+        }
+        return () => mounted = false;
     }, [setAlertMessage, setLoading]);
     const [presentaciones, setPresentaciones] = useState({
         presentacion: presentacion,
@@ -73,7 +79,7 @@ export const InicioAdmin = () => {
                     alcances: undefined,
                     perfilTec: undefined,
                 });
-               
+
             }).catch((err) => {
                 setAlertMessage("Ha ocurrido un error al actualizar los textos: " + err.code);
                 setLoading(false);
@@ -94,7 +100,7 @@ export const InicioAdmin = () => {
 
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} >
-            <Container>
+            <Container className='border'>
                 {success ?
                     <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
                     error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
@@ -105,9 +111,9 @@ export const InicioAdmin = () => {
                     loading ?
                         <LoadingSpinner text={alertMessage} /> :
                         <Row>
-                            <Title text="Inicio" />
-                            <Form onSubmit={editPresentacion}>
 
+                            <Form onSubmit={editPresentacion} className='p-4'>
+                                <Title text="Editar datos generales" />
                                 <FormGroup>
                                     <div className='font-bold'> <Subtitle text="Editar párrafo de presentación" /></div>
                                     <Input value={presentacion} type="textarea" onChange={handleChange} defaultValue={presentaciones.presentacion} name="presentacion" cols="20" rows="5" />
@@ -120,8 +126,12 @@ export const InicioAdmin = () => {
 
                                 </FormGroup>
 
-                                <button type="submit" className=" my-btn btn-lg mt-4 mb-4 ">Guardar cambios</button>
+                                <button type="submit" className=" btn my-btn  mt-4 mb-4 ">Guardar cambios</button>
+
+
                             </Form>
+                       
+
 
                         </Row>
                 }

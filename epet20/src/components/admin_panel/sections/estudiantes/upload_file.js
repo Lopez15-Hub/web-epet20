@@ -50,31 +50,45 @@ export const UploadFile = () => {
         }
     }
     const handleFile = async (e) => {
-        setLoading(true);
-        const file = e.target.files[0];
-        const storageRef = app.storage().ref();
-        const filePath = storageRef.child(file.name);
-        await filePath.put(file).then(async () => {
-
-
-            console.log("File uploaded");
-
-
-        }).catch((err) => {
+        if (title === undefined || title === "") {
             setLoading(false);
-            setAlertMessage("Error al subir el archivo: ", err.code);
-            setError(true);
-        })
-        const url = await filePath.getDownloadURL();
-        const finalUrl = url.toString();
-        if (finalUrl !== undefined || finalUrl !== null || finalUrl !== "") {
-            setFileUrl(finalUrl);
-            console.log("URL: " + finalUrl);
-            setUploaded(true);
-            setLoading(false);
-            setAlertMessage("El archivo: " + file.name, " se ha cargado exitosamente.");
-            setSuccess(true);
+            setAlertMessage("Para subir un archivo primero debes definir un título.");
+            setWarning(true);
             restartAlertsState();
+            document.getElementById("archivoFile").setAttribute("disabled", '');
+            setTimeout(() => {
+                document.getElementById("archivoFile").removeAttribute("disabled", '');
+                document.getElementById("archivoFile").value = "";
+            }, 3000)
+        } else {
+            setLoading(true);
+            document.getElementById("archivoFile").setAttribute("disabled", '');
+            const file = e.target.files[0];
+            const storageRef = app.storage().ref("/estudiantes-files/");
+            const filePath = storageRef.child(title);
+            await filePath.put(file).then(async () => {
+
+
+                console.log("File uploaded");
+
+
+            }).catch((err) => {
+                setLoading(false);
+                setAlertMessage("Error al subir el archivo: ", err.code);
+                setError(true);
+            })
+            const url = await filePath.getDownloadURL();
+            const finalUrl = url.toString();
+            if (finalUrl !== undefined || finalUrl !== null || finalUrl !== "") {
+                setFileUrl(finalUrl);
+                console.log("URL: " + finalUrl);
+                setUploaded(true);
+                setLoading(false);
+                setAlertMessage("El archivo: " + file.name, " se ha cargado exitosamente.");
+                setSuccess(true);
+                restartAlertsState();
+                document.getElementById("archivoFile").removeAttribute("disabled", '');
+            }
         }
 
     }
@@ -208,10 +222,12 @@ export const UploadFile = () => {
                         {showInputFile ? <FormGroup>
 
                             <Input
-                                id="exampleFile"
+
+                                id="archivoFile"
                                 name="file"
                                 type="file"
                                 onChange={handleFile}
+
 
                             />
 
