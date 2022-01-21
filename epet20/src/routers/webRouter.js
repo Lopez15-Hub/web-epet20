@@ -23,6 +23,7 @@ export const WebRouter = () => {
         if (
             window.location.pathname !== '/'
             && window.location.pathname !== '/inicio'
+            && window.location.pathname !== './logo192.png'
             && window.location.pathname !== '/'
             && window.location.pathname !== './'
             && window.location.pathname !== '/novedades'
@@ -37,6 +38,13 @@ export const WebRouter = () => {
             && window.location.pathname !== "secretaria/estudiantes"
             && window.location.pathname !== "secretaria/general"
             && window.location.pathname !== "secretaria/docentes"
+            && window.location.pathname !== "/estudiantes/teoria"
+            && window.location.pathname !== "/estudiantes/taller"
+            && window.location.pathname !== "/estudiantes/ed-fisica"
+            && window.location.pathname !== "/secretaria/anuncios"
+            && window.location.pathname !== "/secretaria/estudiantes"
+            && window.location.pathname !== "/secretaria/general"
+            && window.location.pathname !== "/secretaria/docentes"
             && window.location.pathname !== '/prueba'
             && window.location.pathname !== '/404') {
             return window.location.replace('/404');

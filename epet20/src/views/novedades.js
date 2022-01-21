@@ -14,10 +14,7 @@ export const Novedades = () => {
                {/*  Area de novedades de la escuela */}
             <Title text="Área de novedades" />
             {/* Sección de Anuncios */}
-            <Advertisements/>
-            {/* Caja de comentarios */}
-            <BoxComments/>
-            <br />
+
             <Footer/>
             </div>
             </motion.div>
