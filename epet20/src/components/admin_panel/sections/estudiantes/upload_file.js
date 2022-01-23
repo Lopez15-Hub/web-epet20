@@ -9,6 +9,7 @@ import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
 import { LoadingSpinner } from '../../../general/loading'
 import { Title } from '../../../text-styles/title'
+import { v4 as uuidv4 } from 'uuid';
 export const UploadFile = () => {
     const { handleChange, values, reset } = useForm({
         url: "",
@@ -64,8 +65,9 @@ export const UploadFile = () => {
             setLoading(true);
             document.getElementById("archivoFile").setAttribute("disabled", '');
             const file = e.target.files[0];
-            const storageRef = app.storage().ref(auth.currentUser.uid + "/estudiantes-files/");
-            const filePath = storageRef.child(title);
+            const fileName = file.name + uuidv4()
+            const storageRef = app.storage().ref("estudiantes-files/");
+            const filePath = storageRef.child(fileName);
             await filePath.put(file).then(async () => {
 
 
@@ -87,7 +89,10 @@ export const UploadFile = () => {
                 setAlertMessage("El archivo: " + file.name + " se ha cargado exitosamente.");
                 setSuccess(true);
                 restartAlertsState();
+                document.getElementById("resetForm").reset();
                 document.getElementById("archivoFile").removeAttribute("disabled", '');
+
+
             }
         }
 
@@ -139,7 +144,7 @@ export const UploadFile = () => {
                     <Title text="Añadir un archivo" />
 
 
-                    <Form onSubmit={createForm} onReset={reset}>
+                    <Form id="resetForm" onSubmit={createForm} onReset={reset}>
                         <FormGroup>
                             <Label htmlFor="exampleEmail">
                                 Titulo

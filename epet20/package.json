@@ -36,12 +36,13 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "craco   start",
-    "build": "craco   build", 
-     "test": "craco test",
+    "build": "craco   build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
