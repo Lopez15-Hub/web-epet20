@@ -11,7 +11,7 @@ import { AlertNotification } from '../components/general/alertNotification';
 import { UseLoading } from '../hooks/useLoading';
 import { auth, db, googleAuth } from '../firebase/firebaseConfig';
 
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
 import { useEffect } from 'react';
@@ -40,15 +40,33 @@ export const Registro = () => {
 
     const { password, apellido, email, name } = values;
     const navigate = useNavigate();
-
+    const handleProfile = () => {
+        updateProfile(auth.currentUser, {
+            displayName: name + " " + apellido,
+            photoURL: ""
+        }).then(() => {
+            setAlertMessage("Datos actualizados exitosamente.")
+            console.log(auth.currentUser.displayName)
+            setSuccess(true);
+            setLoading(false);
+        }).catch((error) => {
+            setAlertMessage("Ha ocurrido un error al actualizar el nombre: " + error.code)
+            setError();
+            setLoading(false);
+            console.log(error)
+        });
+    }
     const signUp = async () => {
         setLoading(true);
         await auth.createUserWithEmailAndPassword(email, password).then((user) => {
             if (user) {
+                handleProfile();
                 addToFirestore("FirebaseAuth", name, apellido, email, password);
+
                 setLoading(false);
                 setAlertMessage("Usuario registrado exitosamente.")
                 setSuccess(true);
+
             } else {
                 console.log("No se pudo crear el usuario");
             }
@@ -177,7 +195,7 @@ export const Registro = () => {
 
                             </form>
                         </div>
-                        {loading ? <LoadingSpinner text={handleGoogle ? 'Ingresando con google' : "Creando el usuario.."} /> : null}
+                        {loading ? <LoadingSpinner text={"Completando el registro..."} /> : null}
                         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
                     </div>
 

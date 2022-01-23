@@ -60,6 +60,7 @@ export const Profile = () => {
             console.log(error)
         });
     }
+
     const handleEmail = () => {
 
         updateEmail(auth.currentUser, email).then(() => {

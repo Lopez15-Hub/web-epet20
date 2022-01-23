@@ -3,7 +3,7 @@ import { addDoc, collection } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
-import { app, db } from '../../../../firebase/firebaseConfig'
+import { app, auth, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
@@ -64,7 +64,7 @@ export const UploadFile = () => {
             setLoading(true);
             document.getElementById("archivoFile").setAttribute("disabled", '');
             const file = e.target.files[0];
-            const storageRef = app.storage().ref("/estudiantes-files/");
+            const storageRef = app.storage().ref(auth.currentUser.uid + "/estudiantes-files/");
             const filePath = storageRef.child(title);
             await filePath.put(file).then(async () => {
 
@@ -84,7 +84,7 @@ export const UploadFile = () => {
                 console.log("URL: " + finalUrl);
                 setUploaded(true);
                 setLoading(false);
-                setAlertMessage("El archivo: " + file.name, " se ha cargado exitosamente.");
+                setAlertMessage("El archivo: " + file.name + " se ha cargado exitosamente.");
                 setSuccess(true);
                 restartAlertsState();
                 document.getElementById("archivoFile").removeAttribute("disabled", '');

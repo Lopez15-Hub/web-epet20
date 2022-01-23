@@ -121,14 +121,14 @@ export const CardCredential = memo(() => {
                 <div >
                     <div >
 
-                        {user ? <>
+                        {auth.currentUser ? <>
                             <div>
 
-                                {profilePhoto ? <img
+                                {auth.currentUser.photoURL || auth.currentUser.photoURL === null ? <img
 
                                     className='img-profile mx-auto  shadow-md rounded-xl border'
                                     alt="foto de perfil"
-                                    src={profilePhoto ? profilePhoto : UserIcon}
+                                    src={auth.currentUser.photoURL !== null ? profilePhoto : UserIcon}
 
 
                                 /> : <LoadingSpinner text="Cargando imagen..." />}
@@ -153,12 +153,12 @@ export const CardCredential = memo(() => {
                         <ul>
                             <li >
                                 <p className='font-bold'>Nombre</p> <p className='main-color'>
-                                    {user ? user.displayName : null}
+                                    {auth.currentUser.displayName}
                                 </p>
                             </li>
                             <li >
                                 <p className='font-bold'>Email</p>
-                                <p className='main-color'>  {user ? user.email : null}</p>
+                                <p className='main-color'>  {auth.currentUser.email}</p>
                             </li>
                         </ul>
 

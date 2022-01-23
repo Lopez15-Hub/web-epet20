@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { Container, Form, FormGroup, Input, ListGroup, ListGroupItem, Row } from 'reactstrap'
-import { app, db } from '../../../../firebase/firebaseConfig'
+import { app, auth, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
@@ -83,7 +83,7 @@ export const SliderImages = () => {
             restartAlertsState();
         }
         else {
-            const storageRef = app.storage().ref('/carousel-images/');
+            const storageRef = app.storage().ref(auth.currentUser.uid + '/carousel-images/');
             const filePath = storageRef.child("Carousel-image-" + file.name);
             await filePath.put(file).then(async () => {
                 console.log("File uploaded");

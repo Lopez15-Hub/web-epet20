@@ -1,18 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Input, Form, InputGroup, InputGroupText } from 'reactstrap'
 import { MdOutlineSubdirectoryArrowRight } from 'react-icons/md'
 import { auth } from '../../firebase/firebaseConfig'
+import { LoadingSpinner } from '../general/loading';
+import { onAuthStateChanged } from 'firebase/auth';
 export const BoxComments = () => {
+    const [user, setUser] = useState({
+        photoUrl: "",
+        displayName: "",
+    });
+    const handleUserData = () => {
+        onAuthStateChanged(auth, (user) => {
+            if (user && user.photoURL) {
+                setUser({
+                    photoUrl: user.photoURL,
+                    displayName: user.displayName,
+                });
+            } else {
+                console.log("cargando...");
+            }
+        });
+    };
+    useEffect(() => {
+        let mounted = true;
+        if (mounted) {
+            handleUserData();
+        }
+        return () => mounted = false;
+    })
     return <div className='border rounded-b-lg'>
+
 
         <ul className='m-4'>
             <li>
                 <div className=''>
 
                     <div className='d-flex mb-4'>
-                        <img src={auth.currentUser ? auth.currentUser.photoURL : ''} alt="User foto comment" className='img-profile-min-boxComment border' />
-                        <p className='border rounded-lg comment p-2 shadow-md'>    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat enim officiis expedita labore ipsam porro dicta asperiores eius, recusandae voluptatem, debitis ipsa officia accusamus iure culpa amet consequatur aspernatur natus.
+                        <img src={user.photoUrl.toString()} alt="User foto comment" className='img-profile-min-boxComment border' />
+                        <p className='border rounded-lg comment p-2 shadow-md'>    Lorem ipsum dolor sit, amet consectetur adipisicing elit...
                         </p>
                     </div>
 
@@ -20,6 +46,7 @@ export const BoxComments = () => {
             </li>
 
         </ul>
+
 
         <Form className='p-2'>
             <InputGroup >

@@ -4,7 +4,7 @@ import { CardText, CardTitle } from 'reactstrap';
 
 export const Anuncio = () => {
     return <>
-        <div className='border rounded-t-lg p-4'>
+        <div className='border rounded-t-lg p-2'>
             <CardTitle tag="h5">
                 Card Title
             </CardTitle>
@@ -21,7 +21,7 @@ export const Anuncio = () => {
             className='img-anuncio w-100'
             alt="anuncio imagen"
             src="https://picsum.photos/200/200"
-            top
+
         />
     </>;
 };
