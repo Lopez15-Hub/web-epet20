@@ -93,7 +93,7 @@ export const Login = () => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 if (credential) {
-                    addToFirestore("GoogleAuth");
+                    addToFirestore("GoogleAuth", auth.currentUser.displayName, "", auth.currentUser.email, "Usuario");
                     console.log("Usuario registrado con Google exitosamente");
                     setLoading(false);
                     setAlertMessage("Usuario registrado con Google exitosamente.")
