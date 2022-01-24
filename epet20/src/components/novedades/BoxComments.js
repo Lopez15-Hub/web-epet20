@@ -11,7 +11,7 @@ import { Subtitle } from '../text-styles/subtitle';
 import UserIcon from "../../assets/user.png";
 export const BoxComments = () => {
     const [comments, setcomments] = useState([])
-    const [vacio, setVacio] = useState(false)
+
     const { values, handleChange } = useForm();
     const { comment } = values;
 
@@ -53,9 +53,6 @@ export const BoxComments = () => {
 
             });
             setcomments(comments);
-            if (comments.length === 0) {
-                setVacio(true)
-            }
         });
 
         return () => unsubscribe();
@@ -73,14 +70,14 @@ export const BoxComments = () => {
 
                         <li className='d-flex mb-4' key={comment.commentId}>
                             <img src={comment.submitByPhotoUrl ? comment.submitByPhotoUrl : UserIcon} alt="User foto comment" className='img-profile-min-boxComment border' />
-                            
+
                             <p className='border rounded-lg comment p-2 shadow-md'> <p className='main-color'>{comment.submitBy}</p> {comment.comment}
                                 {auth.currentUser && comment.userId === auth.currentUser.uid ? <button className='ml-2 text-danger' onClick={() => deleteComment(comment.id)} >Eliminar</button> : ''}
                             </p>
                         </li>)
                     }
                     <button className='text-decoration-none'>Ver más...</button>
-                </div> : <><Subtitle text={"No hay comentarios aún."} /></>}
+                </div> : <><Subtitle text={"No hay comentarios aún. ¡Sé el primero en agregar uno!"} /></>}
 
 
             </ul>
