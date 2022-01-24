@@ -28,12 +28,14 @@ export const Novedades = () => {
                                 <div>
                                     <Anuncio />
                                     {/* Caja de comentarios */}
-                                    <BoxComments /> 
-                                  
+                                    <BoxComments />
+
                                 </div>
 
                             </div>
-                            <div className='col-sm-12 col-xs-12  col-md-3 col-lg-3 col-xl-3'></div>
+                            <div className='col-sm-12 col-xs-12  col-md-3 col-lg-3 col-xl-3 '>
+                            
+                            </div>
                         </Row>
                     </Container>
 
