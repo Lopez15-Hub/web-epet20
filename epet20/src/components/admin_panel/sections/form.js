@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import React, { useState, useEffect } from 'react'
 import { Title } from '../../text-styles/title'
 import { addDoc, collection, getDoc, doc, setDoc } from "firebase/firestore";
-import { db } from '../../../firebase/firebaseConfig';
+import { auth, db } from '../../../firebase/firebaseConfig';
 import { useParams } from 'react-router-dom';
 import { Loading } from './loading';
 
@@ -109,6 +109,17 @@ export const Form = ({ currentRole }) => {
                     role: role,
 
                 }).then(() => {
+                    auth.createUserWithEmailAndPassword(email, password).then(() => {
+                        setAlertMessage("Usuario creado exitosamente.")
+                        setLoading(false);
+                        setSuccess(true);
+                        restartAlertsState();
+                    }).catch(err => { 
+                        setAlertMessage("Ha ocurrido un error: ", err.code)
+                        setLoading(false);
+                        setError(true);
+                        restartAlertsState();
+                    })
                     setAlertMessage("Usuario creado exitosamente.")
                     setLoading(false);
                     setSuccess(true);

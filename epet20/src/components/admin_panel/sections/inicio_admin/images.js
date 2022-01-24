@@ -1,9 +1,9 @@
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc,  query, onSnapshot } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { Container, Form, FormGroup, Input, ListGroup, ListGroupItem, Row } from 'reactstrap'
-import { app, auth, db } from '../../../../firebase/firebaseConfig'
+import { app, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
@@ -17,12 +17,12 @@ export const SliderImages = () => {
     const { descriptionPhoto } = values;
     const [upload, setUpload] = useState(false)
     const [imagesFiles, setImagesFiles] = useState([])
-    const [reload, setReload] = useState(false)
+
 
     const addImageToFirestore = async (url, fileName) => {
         try {
             const imageRef = await addDoc(collection(db, "images"), {
-                "name": "Carousel-image-" + fileName,
+                "name": fileName,
                 "url": url.toString(),
                 "description": descriptionPhoto ? descriptionPhoto : 'No se ha adjuntado descripción'
             });
@@ -38,7 +38,6 @@ export const SliderImages = () => {
                 descriptionPhoto3: undefined,
             })
             setUpload(false)
-            setReload(true);
             setAlertMessage("Imágen subida exitosamente.");
             setSuccessFile(true);
             restartAlertsState();
@@ -118,48 +117,47 @@ export const SliderImages = () => {
                 const storageRef = app.storage().ref('/carousel-images/' + fileName);
                 await storageRef.delete().then(() => {
                     console.log("Archivo eliminado exitosamente de storage.");
-                    window.alert("Imágen eliminada correctamente de la base de datos y de storage.");
                     setLoading(false);
-                    window.location.reload();
+                    setAlertMessage("Imágen eliminada exitosamente.");
+                    setSuccessFile(true);
+                    restartAlertsState();
                 }).catch((err) => {
                     console.log("Ha ocurrido un error al eliminar el archivo. Error:", err.code);
+                    setLoading(false);
+                    setAlertMessage("Ha ocurrido un error al eliminar el archivo. Error: ", err.code);
+                    setErrorFile(true);
+                    setLoading(false);
+                    restartAlertsState();
                 });
 
             }).catch(err => {
                 console.log("Ha ocurrido un error al eliminar el archivo de la base de datos. Error:", err.code);
+                setLoading(false);
+                setAlertMessage("Ha ocurrido un error al eliminar el archivo. Error: ", err.code);
+                setErrorFile(true);
+                setLoading(false);
+                restartAlertsState();
             });
-            setLoading(false);
+
 
         }
 
 
     }
+
     useEffect(() => {
-        const getImagesFromFirestore = async () => {
-            setLoading(true)
-            const querySnapshot = await getDocs(collection(db, "images"));
-            const imagesDocs = [];
-
-            querySnapshot.forEach(doc => {
-
-                imagesDocs.push({ ...doc.data(), id: doc.id })
-
+        const q = query(collection(db, "images"));
+        const images = [];
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                images.push({ ...doc.data(), id: doc.id });
 
             });
-            setImagesFiles(imagesDocs);
-            setLoading(false)
-        }
-        let enabled = true;
-        if (enabled) {
-            setReload(true)
-            if (reload === true) {
-                getImagesFromFirestore()
-            }
+            setImagesFiles(images);
+        });
 
-
-        }
-        return () => { enabled = false; setReload(false); };
-    }, [reload, setLoading]);
+        return () => unsubscribe();
+    }, [imagesFiles]);
 
     return <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} >
         <Container className='border'>
@@ -194,7 +192,7 @@ export const SliderImages = () => {
                 </Form>
                 {
                     loading ? <LoadingSpinner text="Cargando imágenes..." /> : <>
-                        <Title text="Todas las imágenes" />
+                        <Title text={"Todas las imágenes (" + imagesFiles.length + ")"} />
 
                         {
                             imagesFiles.map(image =>

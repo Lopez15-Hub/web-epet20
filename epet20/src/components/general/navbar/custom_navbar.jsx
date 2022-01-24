@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "./custom_navbar.css";
 import { Link } from "react-router-dom";
@@ -26,7 +25,6 @@ export const MyNavbar = () => {
   const [showDropdown, setshowDropdown] = useState(false);
   const [showDropdown2, setshowDropdown2] = useState(false);
   useEffect(() => {
-    
     const changeWidth = () => {
       setWidth(window.innerWidth);
     };
@@ -55,6 +53,7 @@ export const MyNavbar = () => {
 
   const showMenu = () => {
     setMenu(!menu);
+
   };
   const handleSignOut = () => {
     auth.signOut();
@@ -82,10 +81,10 @@ export const MyNavbar = () => {
         <>
           <nav className="my-navbar  me-auto ">
             <motion.div
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              
+              transition={{ duration: 0.1 }}
               className="menu "
             >
               <div className="display-bar ">
@@ -149,7 +148,7 @@ export const MyNavbar = () => {
                             href="#"
                             className="nav-element font-bold w-100 "
                           >
-                            Estudiantes {showDropdown ? "▲" : "▼"}
+                          Estudiantes {showDropdown ? "▲" : "▼"}
                           </button>
                           {showDropdown ? (
                             <DropdownOptions
@@ -166,7 +165,7 @@ export const MyNavbar = () => {
                               dropdown2();
                             }}
                             href="#"
-                            className="nav-element font-bold w-100 "
+                            className="nav-element font-bold w-100  "
                           >
                             Secretaría {showDropdown2 ? "▲" : "▼"}
                           </button>
@@ -190,7 +189,8 @@ export const MyNavbar = () => {
                         Contacto
                       </Link>
                       {(screenWidth >= 1600 && screenWidth >= 1366) ||
-                      (screenWidth <= 900) || (screenWidth>900 && screenWidth<1365 ) ? (
+                      screenWidth <= 900 ||
+                      (screenWidth > 900 && screenWidth < 1365) ? (
                         <>
                           {" "}
                           <Link

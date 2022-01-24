@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 import { UseLoading } from '../../../hooks/useLoading';
 export const UserTable = () => {
     const { users } = useGet();
-    const { loading, setLoading} = UseLoading();
+    const { loading, setLoading, setAlertMessage, setSuccess, setError, restartAlertsState } = UseLoading();
+
 
 
 
@@ -21,11 +22,17 @@ export const UserTable = () => {
             setLoading(true);
             const userRef = doc(db, 'users', id);
             await deleteDoc(userRef).then(() => {
-                window.alert("Usuario eliminado correctamente.");
-                setLoading(false);
-                window.location.reload();
-            }).catch(err => {
 
+                setLoading(false);
+                console.log("Usuario eliminado.")
+                setAlertMessage("Usuario eliminado correctamente.")
+                setSuccess(true)
+                restartAlertsState();
+            }).catch(err => {
+                setLoading(false);
+                setAlertMessage("Ha ocurrido un error al eliminar al usuario: " + err.code)
+                setError(true)
+                restartAlertsState();
             });
             setLoading(false);
 

@@ -8,6 +8,7 @@ import { db } from '../../../firebase/firebaseConfig'
 import { useGet } from '../../../hooks/query_hooks/useGet'
 import { UseLoading } from '../../../hooks/useLoading'
 import { useScreenWidth } from '../../../hooks/useScreenWidth'
+import { AlertNotification } from '../../general/alertNotification'
 import { Subtitle } from '../../text-styles/subtitle'
 
 import { Title } from '../../text-styles/title'
@@ -18,7 +19,7 @@ import { Loading } from './loading'
 
 export const Usuarios = () => {
     const { users } = useGet();
-    const { loading, setLoading } = UseLoading();
+    const { loading, setLoading, alertMessage, setAlertMessage, setSuccess, success, warning, error, setError, setWarning, restartAlertsState } = UseLoading();
     const { screenWidth } = useScreenWidth();
     useEffect(() => {
         getId();
@@ -40,11 +41,17 @@ export const Usuarios = () => {
             setLoading(true);
             const userRef = doc(db, 'users', id);
             await deleteDoc(userRef).then(() => {
-                window.alert("Usuario eliminado correctamente.");
-                setLoading(false);
-                window.location.reload();
-            }).catch(err => {
 
+                setLoading(false);
+                console.log("Usuario eliminado.")
+                setAlertMessage("Usuario eliminado correctamente.")
+                setSuccess(true)
+                restartAlertsState();
+            }).catch(err => {
+                setLoading(false);
+                setAlertMessage("Ha ocurrido un error al eliminar al usuario: " + err.code)
+                setError(true)
+                restartAlertsState();
             });
             setLoading(false);
 
@@ -57,7 +64,11 @@ export const Usuarios = () => {
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 
             <Container>
-
+                {success ?
+                    <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
+                    error ? <AlertNotification color="danger" dimiss={() => setError(false)} message={alertMessage} /> : warning ?
+                        <AlertNotification color="warning" dimiss={() => setWarning(false)} message={alertMessage} /> : ''
+                }
                 {
                     loading ? <Loading text="Cargando usuarios..." /> :
 

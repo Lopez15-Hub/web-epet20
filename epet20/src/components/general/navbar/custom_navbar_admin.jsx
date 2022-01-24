@@ -91,10 +91,9 @@ export const AdminNavbar = ({ currentRole }) => {
       {menu || screenWidth >= 1365 ? (
         <nav className="my-navbar  me-auto">
           <motion.div
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.1 }}
             className="menu "
           >
             <div className="display-bar ">
@@ -216,25 +215,8 @@ export const AdminNavbar = ({ currentRole }) => {
                         ) : (
                           ""
                         )}
-                        <button
-                          onClick={() => {
-                            dropdown2();
-                          }}
-                          href="#"
-                          className="nav-element font-bold w-100"
-                        >
-                          Secretaría {showDropdown2 ? "▲" : "▼"}
-                        </button>
-                        {showDropdown2 ? (
-                          <DropdownAdminSecretaria
-                            click={() => {
-                              showMenu();
-                              dropdown2();
-                            }}
-                          />
-                        ) : (
-                          ""
-                        )}
+                    
+               
                       </>
                     )}
 

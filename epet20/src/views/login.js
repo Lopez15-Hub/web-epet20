@@ -122,26 +122,6 @@ export const Login = () => {
         if (email && password) {
             setLoading(true);
             signIn(email, password);
-
-            // setTimeout(() => {
-            //     if (auth.currentUser != null) {
-            //         setLoading(false);
-            //         setSuccess(true);
-            //         setAlertMessage("Sesión iniciada correctamente.");
-            //         setTimeout(() => {
-
-            //             console.log("Sesión iniciada");
-            //             setSuccess(false);
-            //             handleRoute(navigate, 'usuario');
-            //         }, 2000)
-            //     } else {
-            //         setAlertMessage("Error:Usuario o contraseña incorrectos.");
-            //         setLoading(false);
-            //         setError(true);
-            //         restartAlertsState();
-
-            //     }
-            // }, 3000)
         } else {
             setAlertMessage("Debe ingresar un usuario y contraseña");
             setLoading(false);

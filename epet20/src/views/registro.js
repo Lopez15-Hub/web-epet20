@@ -15,20 +15,30 @@ import { GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/aut
 import { doc, setDoc } from 'firebase/firestore';
 
 import { useEffect } from 'react';
-export const addToFirestore = async (loginType, name, apellido, email, password, role) => {
+export const handleProfile = (name, apellido) => {
+    updateProfile(auth.currentUser, {
+        displayName: name + " " + apellido,
+        photoURL: ""
+    }).then(() => {
+        console.log(auth.currentUser.displayName)
+    }).catch((error) => {
+
+        console.log(error)
+    });
+}
+export const addToFirestore = async (loginType, name, apellido, email, role) => {
     const usersRef = doc(db, 'users', auth.currentUser.uid)
     await setDoc(usersRef, {
-        "name": name ? name : auth.currentUser.displayName,
-        "apellido": apellido ? apellido : "",
-        "email": email ? email : auth.currentUser.email,
-        "password": password ? password : "",
-        "role": role ? role : "Usuario",
+        "name": name !== "" ? name : auth.currentUser.displayName,
+        "apellido": apellido !== "" ? apellido : "",
+        "email": email !== "" ? email : auth.currentUser.email,
+        "role": role !== "" ? role : "Usuario",
         "loginType": loginType,
 
 
     }).then(() => {
         console.log("Usuario creado correctamente en la base de datos.");
-        window.location.replace("/");
+        handleProfile(name, apellido);
     }).catch(err => {
         console.log("Ha ocurrido un error al guardar en la bd: ", err.code)
     });
@@ -40,27 +50,11 @@ export const Registro = () => {
 
     const { password, apellido, email, name } = values;
     const navigate = useNavigate();
-    const handleProfile = () => {
-        updateProfile(auth.currentUser, {
-            displayName: name + " " + apellido,
-            photoURL: ""
-        }).then(() => {
-            setAlertMessage("Datos actualizados exitosamente.")
-            console.log(auth.currentUser.displayName)
-            setSuccess(true);
-            setLoading(false);
-        }).catch((error) => {
-            setAlertMessage("Ha ocurrido un error al actualizar el nombre: " + error.code)
-            setError();
-            setLoading(false);
-            console.log(error)
-        });
-    }
+
     const signUp = async () => {
         setLoading(true);
         await auth.createUserWithEmailAndPassword(email, password).then((user) => {
             if (user) {
-                handleProfile();
                 addToFirestore("FirebaseAuth", name, apellido, email, password);
 
                 setLoading(false);
@@ -133,11 +127,15 @@ export const Registro = () => {
     }
 
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                navigate("/");
-            }
-        })
+        let mounted = true;
+        if (mounted) {
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    navigate("/");
+                }
+            })
+        }
+        return () => mounted = false;
     }, [apellido, email, name, navigate, password]);
 
 
