@@ -9,6 +9,7 @@ import { useForm } from '../../hooks/useForm';
 import { v4 as uuidv4 } from 'uuid';
 import { Subtitle } from '../text-styles/subtitle';
 import UserIcon from "../../assets/user.png";
+import { Link } from 'react-router-dom'
 export const BoxComments = () => {
     const [comments, setcomments] = useState([])
 
@@ -85,7 +86,7 @@ export const BoxComments = () => {
 
 
         <Form id="comment-form" className='p-2 border-t shadow-md' onSubmit={createComment}>
-            {auth.currentUser ? '' : <p className='text-muted'>Debes estar iniciar sesión para comentar</p>}
+            {auth.currentUser ? '' : <p className='text-muted'>Debes <Link to="/login" className='main-color'>iniciar sesión</Link> para comentar</p>}
             <InputGroup  >
 
                 {auth.currentUser ? <>
