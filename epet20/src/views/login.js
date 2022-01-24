@@ -96,7 +96,7 @@ export const Login = () => {
                     addToFirestore("GoogleAuth", auth.currentUser.displayName, "", auth.currentUser.email, "Usuario");
                     console.log("Usuario registrado con Google exitosamente");
                     setLoading(false);
-                    setAlertMessage("Usuario registrado con Google exitosamente.")
+                    setAlertMessage("Inicio de sesión exitoso.")
                     setSuccess(true);
                     restartAlertsState();
 

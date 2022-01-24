@@ -18,9 +18,8 @@ import { useEffect } from 'react';
 export const handleProfile = (name, apellido) => {
     updateProfile(auth.currentUser, {
         displayName: name + " " + apellido,
-        photoURL: ""
     }).then(() => {
-        console.log(auth.currentUser.displayName)
+        console.log(auth.currentUser.photoURL)
     }).catch((error) => {
 
         console.log(error)
@@ -39,6 +38,7 @@ export const addToFirestore = async (loginType, name, apellido, email, role) => 
     }).then(() => {
         console.log("Usuario creado correctamente en la base de datos.");
         handleProfile(name, apellido);
+
     }).catch(err => {
         console.log("Ha ocurrido un error al guardar en la bd: ", err.code)
     });
