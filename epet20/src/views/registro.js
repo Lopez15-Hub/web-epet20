@@ -32,7 +32,7 @@ export const addToFirestore = async (loginType, name, apellido, email, role) => 
         "name": name !== "" ? name : auth.currentUser.displayName,
         "apellido": apellido !== "" ? apellido : "",
         "email": email !== "" ? email : auth.currentUser.email,
-        "role": role !== "" ? role : "Usuario",
+        "role": role ? role : "Usuario",
         "loginType": loginType,
 
 
@@ -55,7 +55,7 @@ export const Registro = () => {
         setLoading(true);
         await auth.createUserWithEmailAndPassword(email, password).then((user) => {
             if (user) {
-                addToFirestore("FirebaseAuth", name, apellido, email, password);
+                addToFirestore("FirebaseAuth", name, apellido, email);
 
                 setLoading(false);
                 setAlertMessage("Usuario registrado exitosamente.")

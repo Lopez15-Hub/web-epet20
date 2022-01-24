@@ -41,10 +41,15 @@
 }
 .img-anuncio {
   width: 200px;
-  height: 600px;
+  height: 300px;
 }
 .comment {
   width: 90%;
+}
+.box-comment {
+  min-height: auto;
+  max-height: 200px !important;
+  overflow-y: scroll;
 }
 .nav-color:hover {
   border-radius: 5%;

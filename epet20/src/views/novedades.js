@@ -16,23 +16,24 @@ export const Novedades = () => {
 
     return (
         <>
-            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container mt-4 ">
-                <div className=" p-6">
+            <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 ">
+                <div className="mb-4">
                     {/*  Area de novedades de la escuela */}
                     <Title text="Área de novedades" />
                     {/* Sección de Anuncios */}
-                    <Container className='border'>
+                    <Container>
                         <Row>
-                            <div className='col-sm-12 col-xs-12  col-md-6 col-lg-3 col-xl-3'></div>
+                            <div className='col-sm-12 col-xs-12  col-md-3 col-lg-3 col-xl-3'></div>
                             <div className='col-sm-12 col-xs-12 col-md-6 col-lg-6 col-xl-6'>
                                 <div>
                                     <Anuncio />
                                     {/* Caja de comentarios */}
-                                    <BoxComments />
+                                    <BoxComments /> 
+                                  
                                 </div>
 
                             </div>
-                            <div className='col-sm-12 col-xs-12  col-md-6 col-lg-3 col-xl-3'></div>
+                            <div className='col-sm-12 col-xs-12  col-md-3 col-lg-3 col-xl-3'></div>
                         </Row>
                     </Container>
 
