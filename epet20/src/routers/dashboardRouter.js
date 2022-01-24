@@ -115,7 +115,7 @@ export const DashboardRouter = () => {
 
     return (
         <>
-            {!role ? '' : <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            {<motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <AdminNavbar currentRole={role} />
                 {success ?
                     <AlertNotification variant="success" dimiss={() => setSuccess(false)} message={alertMessage} /> :
