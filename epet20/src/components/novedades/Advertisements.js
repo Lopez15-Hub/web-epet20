@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { CardText, CardTitle } from 'reactstrap';
-import { collection, getDocs, orderBy } from 'firebase/firestore'
+import { collection, getDocs, orderBy, where } from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig';
 import { BoxComments } from './BoxComments';
 import { useDate } from '../../hooks/useDate';
@@ -12,17 +12,30 @@ export const Anuncio = () => {
     const [posts, setPosts] = useState([])
     const { formatDate } = useDate(0, 0);
     const { loading, setLoading } = useLoading();
+    const urlRegexSafe = require('url-regex-safe');
+    const detectUrls = (text) => {
+        if (text) {
+            const matches = text.match(urlRegexSafe());
+            if (matches) {
+                return <a href={matches}>{matches}</a>
+            }
+
+
+        }
+
+    }
     useEffect(() => {
         let mounted = true;
         const getNovedades = async () => {
             setLoading(true)
             const posts = []
-            const querySnapshot = await getDocs(collection(db, "novedades"), orderBy("submitAt", "desc"));
+            const querySnapshot = await getDocs(collection(db, "novedades"));
             querySnapshot.forEach((doc) => {
 
                 posts.push({ ...doc.data(), id: doc.id });
             });
-            setPosts(posts);
+
+            setPosts(posts.reverse());
             setLoading(false)
         }
         if (mounted) {
@@ -30,7 +43,7 @@ export const Anuncio = () => {
         }
 
         return () => mounted = false;
-    }, []);
+    }, [setLoading]);
 
     return <>
         <div>
@@ -51,7 +64,7 @@ export const Anuncio = () => {
                                     {post.title}
                                 </CardTitle>
                                 <CardText>
-                                    {post.description}
+                                    {detectUrls(post.description)}
                                 </CardText>
                                 <CardText>
                                     <small className="text-muted">
