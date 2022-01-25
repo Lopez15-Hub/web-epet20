@@ -59,7 +59,7 @@ export const BoxComments = ({ anuncioId }) => {
         });
 
         return () => unsubscribe();
-    }, [comments]);
+    }, [anuncioId, comments]);
 
 
     return <div className='border rounded-b-lg'>
@@ -74,8 +74,14 @@ export const BoxComments = ({ anuncioId }) => {
                         <li className='d-flex mb-4' key={comment.commentId}>
                             <img src={comment.submitByPhotoUrl ? comment.submitByPhotoUrl : UserIcon} alt="User foto comment" className='img-profile-min-boxComment border' />
 
-                            <p className='border rounded-lg comment p-2 shadow-md'> <p className='main-color'>{comment.submitBy}</p> {comment.comment}<p className='text-muted'>Subido el: {comment.submitAt.substring(0, 10)}</p>
-                                {auth.currentUser && comment.userId === auth.currentUser.uid ? <button className='ml-2 text-danger' onClick={() => deleteComment(comment.id)} >Eliminar</button> : ''}
+                            <p className='border rounded-lg comment p-2 shadow-md'>
+                                <div className='d-flex'>
+                                    <p className='main-color text-sm font-bold'>{comment.submitBy}</p>
+                                    <p className='text-muted ml-2 text-sm'>Publicado el: {comment.submitAt.substring(0, 10)}</p>
+                                </div>
+                                {comment.comment}
+                                {auth.currentUser && comment.userId === auth.currentUser.uid ?
+                                    <button className='ml-2 text-danger' onClick={() => deleteComment(comment.id)} >Eliminar</button> : ''}
                             </p>
                         </li>)
                     }

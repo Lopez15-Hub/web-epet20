@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { CardText, CardTitle } from 'reactstrap';
-import { collection, getDocs, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { collection, getDocs, orderBy } from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig';
 import { BoxComments } from './BoxComments';
 import { useDate } from '../../hooks/useDate';
+import UserIcon from "../../assets/user.png";
 
 
 export const Anuncio = () => {
@@ -32,6 +33,13 @@ export const Anuncio = () => {
             {posts.map((post) => <div className=' m-4'>
                 <div className=' border rounded-t-lg' key={post.id}>
                     <div className='p-4'>
+                        <div className='d-flex border-b mb-2'>
+                            <img src={post.submitByPhotoUrl ? post.submitByPhotoUrl : UserIcon} alt="User foto comment" className='img-profile-min-boxComment border' />
+
+                            <p className='m-2 font-bold main-color'>{post.submitBy}</p>
+
+                        </div>
+
                         <CardTitle>
                             {post.title}
                         </CardTitle>

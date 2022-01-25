@@ -3,7 +3,7 @@ import { addDoc, collection } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
-import { app, db } from '../../../../firebase/firebaseConfig'
+import { app, auth, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { UseLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
@@ -34,7 +34,9 @@ export const NovedadesAdmin = () => {
         "description": description,
         "url": isFile ? fileUrl : imageUrl ? imageUrl : "",
         "submitAt": date.toDateString(),
-        "submitBy": app.auth().currentUser.displayName,
+        "submitBy": auth.currentUser.displayName,
+        "userId": auth.currentUser.uid,
+        "submitByPhotoUrl": auth.currentUser.photoURL,
       });
       console.log("Document written with ID: ", docRef.id);
       setAlertMessage("Post creado exitosamente.")
@@ -66,7 +68,7 @@ export const NovedadesAdmin = () => {
       document.getElementById("archivoFile").setAttribute("disabled", '');
       const file = e.target.files[0];
       const fileName = file.name + uuidv4()
-      const storageRef = app.storage().ref("estudiantes-files/");
+      const storageRef = app.storage().ref("posts-files/");
       const filePath = storageRef.child(fileName);
       await filePath.put(file).then(async () => {
 
@@ -89,7 +91,7 @@ export const NovedadesAdmin = () => {
         setAlertMessage("El archivo: " + file.name + " se ha cargado exitosamente.");
         setSuccess(true);
         restartAlertsState();
-        document.getElementById("resetForm").reset();
+        document.getElementById("archivoFile").value = "";
         document.getElementById("archivoFile").removeAttribute("disabled", '');
 
 
