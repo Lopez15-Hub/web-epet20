@@ -1,26 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CardText, CardTitle } from 'reactstrap';
+import { collection, getDocs, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { db } from '../../firebase/firebaseConfig';
+import { BoxComments } from './BoxComments';
 
 
 export const Anuncio = () => {
-    return <>
-        <div className='border rounded-t-lg'>
-            <div className='p-4'>
-                <CardText>
-                    This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                </CardText>
-                <CardText>
-                    <small className="text-muted">
-                        Last updated 3 mins ago
-                    </small>
-                </CardText>
-            </div>
-        </div>
-        <img
-            className='img-anuncio w-100'
-            alt="anuncio imagen"
-            src="https://picsum.photos/200/200"
+    const [posts, setPosts] = useState([])
+    useEffect(() => {
+        let mounted = true;
+        const getNovedades = async () => {
+            const posts = []
+            const querySnapshot = await getDocs(collection(db, "novedades"), orderBy("submitAt", "desc"));
+            querySnapshot.forEach((doc) => {
 
-        />
+                posts.push({ ...doc.data(), id: doc.id });
+            });
+            setPosts(posts);
+        }
+        if (mounted) {
+            getNovedades();
+        }
+
+        return () => mounted = false;
+    }, []);
+
+    return <>
+        <div>
+            {posts.map((post) => <>
+                <div className='border rounded-t-lg' key={post.id}>
+                    <div className='p-4'>
+                        <CardTitle>
+                            {post.title}
+                        </CardTitle>
+                        <CardText>
+                            {post.description}
+                        </CardText>
+                        <CardText>
+                            <small className="text-muted">
+                                Subido el: {post.submitAt}
+                            </small>
+                        </CardText>
+                    </div>
+                </div>
+                {post.url !== "" ? <img
+                    className='img-anuncio w-100'
+                    alt="anuncio imagen"
+                    src={post.url} /> : ''}
+                <BoxComments anuncioId={post.id} />
+            </>
+            )}
+
+        </div>
     </>;
 };

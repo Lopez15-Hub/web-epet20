@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { collection, deleteDoc, doc, limit, onSnapshot, query, setDoc, } from "firebase/firestore";
+import { collection, deleteDoc, doc, limit, onSnapshot, query, setDoc, where, } from "firebase/firestore";
 import { db } from '../../firebase/firebaseConfig';
 import { Input, Form, InputGroup } from 'reactstrap'
 import { MdOutlineSubdirectoryArrowRight } from 'react-icons/md'
@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Subtitle } from '../text-styles/subtitle';
 import UserIcon from "../../assets/user.png";
 import { Link } from 'react-router-dom'
-export const BoxComments = ({anuncioId}) => {
+export const BoxComments = ({ anuncioId }) => {
     const [comments, setcomments] = useState([])
 
     const { values, handleChange } = useForm();
@@ -48,7 +48,7 @@ export const BoxComments = ({anuncioId}) => {
         });
     }
     useEffect(() => {
-        const q = query(collection(db, "comments"), limit(5));
+        const q = query(collection(db, "comments"), limit(5), where("anuncioId", "==", anuncioId));
         const comments = [];
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             querySnapshot.forEach((doc) => {

@@ -24,6 +24,7 @@ import { UseLoading } from '../hooks/useLoading';
 import { useRole } from '../hooks/useRole';
 import { PaginaEnConstruccion } from "../views/we_working";
 import { disableNetwork, enableNetwork } from 'firebase/firestore';
+import { NovedadesAdmin } from '../components/admin_panel/sections/novedades/novedades';
 export const DashboardRouter = () => {
     const [screenWidth, setWidth] = useState(window.innerWidth);
     const { role } = useRole();
@@ -31,7 +32,7 @@ export const DashboardRouter = () => {
     const { connectionStatus } = useConnection();
 
     useEffect(() => {
-        
+
         if (window.location.pathname === "/dashboard") {
             window.location.replace("dashboard/perfil");
         }
@@ -87,7 +88,7 @@ export const DashboardRouter = () => {
         };
         const getConnectionStatus = async () => {
             await enableNetwork(db);
-            
+
         }
         window.addEventListener("resize", changeWidth);
         if (connectionStatus === true) {
@@ -144,7 +145,7 @@ export const DashboardRouter = () => {
 
                                             <Route path="inicio" element={<InicioAdmin />} />
                                             <Route path="inicio/images" element={<SliderImages />} />
-                                            <Route path="novedades" element={<PaginaEnConstruccion />} />
+                                            <Route path="novedades" element={<NovedadesAdmin />} />
                                             <Route path="estudiantes/admin" element={<FilesOfStudents />} />
                                             <Route path="estudiantes/upload" element={<UploadFile />} />
                                             <Route path="secretaria/forms" element={<SecretariaForms />} />
@@ -188,7 +189,7 @@ export const DashboardRouter = () => {
                                                     <Route path="usuarios/:userId" element={<Form />} />
                                                     <Route path="inicio" element={<InicioAdmin />} />
                                                     <Route path="inicio/images" element={<SliderImages />} />
-                                                    <Route path="novedades" element={<PaginaEnConstruccion />} />
+                                                    <Route path="novedades" element={<NovedadesAdmin />} />
                                                     <Route path="estudiantes/admin" element={<FilesOfStudents />} />
                                                     <Route path="estudiantes/upload" element={<UploadFile />} />
                                                     <Route path="secretaria/forms" element={<SecretariaForms />} />

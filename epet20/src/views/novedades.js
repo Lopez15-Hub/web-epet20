@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import { Title } from '../components/text-styles/title'
@@ -10,8 +10,23 @@ import { Container, Row } from 'reactstrap'
 
 import { Anuncio } from '../components/novedades/Advertisements'
 import { BoxComments } from '../components/novedades/BoxComments'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { db } from '../firebase/firebaseConfig'
 export const Novedades = () => {
+    const [posts, setPosts] = useState([])
+    useEffect(() => {
+        const q = query(collection(db, "novedades"), orderBy("submitAt", "desc"));
+        const incomingPosts = [];
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                incomingPosts.push({ ...doc.data(), id: doc.id });
 
+            });
+
+        });
+        setPosts(incomingPosts);
+        return () => unsubscribe();
+    }, []);
 
 
     return (
@@ -25,15 +40,15 @@ export const Novedades = () => {
                         <Row>
                             <div className='col-sm-12 col-xs-12  col-md-3 col-lg-3 col-xl-3'></div>
                             <div className='col-sm-12 col-xs-12 col-md-6 col-lg-6 col-xl-6'>
-                                <div>
-                                    <Anuncio />
-                                    {/* Caja de comentarios */}
-                                    <BoxComments />
 
-                                </div>
+
+                                <Anuncio />
+                           
+
+
 
                             </div>
-                           
+
                         </Row>
                     </Container>
 
