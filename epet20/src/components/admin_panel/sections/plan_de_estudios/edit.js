@@ -136,10 +136,7 @@ export const EditPlanDeEstudios = () => {
 
     }
     useEffect(() => {
-        console.log(plan.materias);
         let mounted = true;
-        console.log("mounted")
-
         if (mounted) {
             if (planMaterias) {
                 setMaterias(planMaterias);

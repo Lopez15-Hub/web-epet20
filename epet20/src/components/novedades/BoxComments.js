@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Subtitle } from '../text-styles/subtitle';
 import UserIcon from "../../assets/user.png";
 import { Link } from 'react-router-dom'
-export const BoxComments = () => {
+export const BoxComments = ({anuncioId}) => {
     const [comments, setcomments] = useState([])
 
     const { values, handleChange } = useForm();
@@ -22,8 +22,10 @@ export const BoxComments = () => {
         const commentsRef = doc(db, "comments", commentId);
 
         setDoc(commentsRef, {
+            anuncioId: anuncioId,
             comment: comment,
             commentId: commentId,
+
             submitBy: auth.currentUser.displayName,
             userId: auth.currentUser.uid,
             submitByPhotoUrl: auth.currentUser.photoURL,

@@ -45,9 +45,12 @@ export const AñadirAnuncio = () => {
 
     }
     useEffect(() => {
-        console.log(id);
-        getAnuncio()
+        let mounted = true;
 
+        if (mounted) {
+            getAnuncio();
+        }
+        return () => mounted = false;
     })
     const updateAnuncio = async () => {
         const anunciosRef = doc(db, "anuncios", id);

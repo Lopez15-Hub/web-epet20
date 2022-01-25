@@ -18,11 +18,12 @@ import { SecretariaForms } from '../components/admin_panel/sections/secretaria/s
 import { Usuarios } from '../components/admin_panel/sections/usuarios';
 import { AlertNotification } from '../components/general/alertNotification';
 import { AdminNavbar } from '../components/general/navbar/custom_navbar_admin';
-import { auth } from '../firebase/firebaseConfig';
+import { auth, db } from '../firebase/firebaseConfig';
 import { useConnection } from '../hooks/useConnection';
 import { UseLoading } from '../hooks/useLoading';
 import { useRole } from '../hooks/useRole';
 import { PaginaEnConstruccion } from "../views/we_working";
+import { disableNetwork, enableNetwork } from 'firebase/firestore';
 export const DashboardRouter = () => {
     const [screenWidth, setWidth] = useState(window.innerWidth);
     const { role } = useRole();
@@ -30,6 +31,7 @@ export const DashboardRouter = () => {
     const { connectionStatus } = useConnection();
 
     useEffect(() => {
+        
         if (window.location.pathname === "/dashboard") {
             window.location.replace("dashboard/perfil");
         }
@@ -83,6 +85,10 @@ export const DashboardRouter = () => {
         const changeWidth = () => {
             setWidth(window.innerWidth);
         };
+        const getConnectionStatus = async () => {
+            await enableNetwork(db);
+            
+        }
         window.addEventListener("resize", changeWidth);
         if (connectionStatus === true) {
             auth.onAuthStateChanged(async (user) => {
@@ -106,7 +112,7 @@ export const DashboardRouter = () => {
             setAlertMessage("Se ha perdido la conexión a internet. Intente de nuevo más tarde.")
             setWarning(true);
         }
-
+        getConnectionStatus();
         return () => {
             window.removeEventListener("resize", changeWidth);
         }

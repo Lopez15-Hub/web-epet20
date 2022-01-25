@@ -16,7 +16,7 @@ export const Form = ({ currentRole }) => {
 
 
     useEffect(() => {
-
+        let mounted = true;
         const getUser = async () => {
             if (userId) {
                 const usersRef = doc(db, "users", userId);
@@ -45,7 +45,10 @@ export const Form = ({ currentRole }) => {
             }
 
         }
-        getUser();
+        if (mounted) {
+            getUser();
+        }
+        return () => mounted = false;
     }, [userId])
 
     const { handleChange, values } = useForm(
@@ -114,7 +117,7 @@ export const Form = ({ currentRole }) => {
                         setLoading(false);
                         setSuccess(true);
                         restartAlertsState();
-                    }).catch(err => { 
+                    }).catch(err => {
                         setAlertMessage("Ha ocurrido un error: ", err.code)
                         setLoading(false);
                         setError(true);

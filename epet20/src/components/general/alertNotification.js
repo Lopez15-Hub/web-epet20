@@ -6,14 +6,19 @@ import { Alert } from 'reactstrap'
 export const AlertNotification = ({ variant, color, dimiss, message }) => {
     const [show, setShow] = React.useState(true);
     useEffect(() => {
-        setTimeout(() => {
-            setShow(false);
+        let mounted = true;
+        if (mounted) {
+            setTimeout(() => {
+                setShow(false);
 
-        }, 3000);
+            }, 3000);
+        }
+
 
         return () => {
             setShow(true);
             console.log("Cerrando alerta")
+            mounted = false;
         }
     }, [])
 

@@ -2,12 +2,17 @@ import React, { useEffect } from 'react'
 
 export const useConnection = () => {
     const [connectionStatus, setConnectionStatus] = React.useState(true)
-    useEffect(() => {
-        getConnectionStatus();
-    }, [])
+
     const getConnectionStatus = () => {
 
         setConnectionStatus(true)
     }
+    useEffect(() => {
+        let mounted = true;
+        if (mounted) {
+            getConnectionStatus();
+        }
+        return () => mounted = false;
+    }, [])
     return { connectionStatus }
 }

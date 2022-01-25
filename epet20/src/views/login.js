@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { useForm } from '../hooks/useForm';
 import { Loading } from '../components/admin_panel/sections/loading';
 import { auth, db, googleAuth } from '../firebase/firebaseConfig';
 import { AlertNotification } from '../components/general/alertNotification';
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, browserSessionPersistence, inMemoryPersistence } from 'firebase/auth';
 import { UseLoading } from '../hooks/useLoading';
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { addToFirestore } from './registro';
@@ -35,12 +35,14 @@ export const Login = () => {
     const { values, handleChange } = useForm();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
     const { email, password } = values;
+    const [persistence, setPersistence] = useState(true);
     const navigate = useNavigate();
     const searchUserInFirestore = async (id) => {
         const docRef = doc(db, "users", id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
+            setSessionPersistence();
             console.log("Usuario encontrado");
             navigate("/");
         } else {
@@ -116,6 +118,21 @@ export const Login = () => {
                 }
             });
 
+    }
+    const handlePersistence = () => {
+        setPersistence(!persistence);
+        console.log(persistence);
+    }
+    const setSessionPersistence = () => {
+        if (persistence === true) {
+            setPersistence(auth, browserSessionPersistence).then(() => {
+                console.log("Persistencia activada");
+            });
+          
+        } else {
+            setPersistence(auth, inMemoryPersistence);
+            console.log("Persistencia desactivada");
+        }
     }
     const handleSubmit = async e => {
         e.preventDefault();
@@ -202,7 +219,7 @@ export const Login = () => {
                                     </div>
                                 </div>
                                 <div className="mb-3 form-check">
-                                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                    <input onClick={handlePersistence} type="checkbox" className="form-check-input" id="exampleCheck1" />
                                     <label className="form-check-label" for="exampleCheck1">Mantener inicado</label>
                                 </div>
                                 <div>

@@ -27,7 +27,11 @@ export const useRole = () => {
 
     }
     useEffect(() => {
-        handleRole();
+        let mounted = true;
+        if (mounted) {
+            handleRole();
+        }
+        return () => mounted = false;
     }, [role])
 
     return { role }

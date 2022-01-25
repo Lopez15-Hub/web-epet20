@@ -14,8 +14,12 @@ export const usePlan = () => {
         });
     }
     useEffect(() => {
-        obtenerTextosDeFirebase();
-    },[]);
+        let mounted = true;
+        if (mounted) {
+            obtenerTextosDeFirebase();
+        }
+        return () => mounted = false;
+    }, []);
 
     return { plan }
 }

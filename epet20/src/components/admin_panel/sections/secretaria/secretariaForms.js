@@ -108,6 +108,7 @@ export const SecretariaForms = () => {
 
 
     useEffect(() => {
+        let mounted=true;
         const getForm = async () => {
             if (id) {
                 const formRef = doc(db, "forms", id);
@@ -138,7 +139,10 @@ export const SecretariaForms = () => {
             }
     
         }
+       if(mounted){
         getForm();
+       }
+       return()=> mounted=false;
     }, [form.title, id])
 
     return (

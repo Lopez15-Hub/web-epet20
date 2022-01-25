@@ -113,12 +113,16 @@ export const Profile = () => {
 
     }
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            if (user && role) {
-                console.log(role);
-                updateUserInFirestore("FirebaseAuth", auth.currentUser.displayName, '', auth.currentUser.email, newPassword, role);
-            }
-        })
+        let mounted = true
+        if (mounted) {
+            auth.onAuthStateChanged(user => {
+                if (user && role) {
+                    console.log(role);
+                    updateUserInFirestore("FirebaseAuth", auth.currentUser.displayName, '', auth.currentUser.email, newPassword, role);
+                }
+            })
+        }
+        return () => mounted = false;
     })
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

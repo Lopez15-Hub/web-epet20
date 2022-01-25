@@ -18,14 +18,19 @@ export const Epet20 = () => {
     });
   }
   useEffect(() => {
-    if (auth.currentUser) {
-      getAuthState();
+    let mounted = true;
+    if (mounted) {
+      if (auth.currentUser) {
+        getAuthState();
+      }
+
     }
 
 
+    return () => mounted = false;
 
-
-  });
+  
+  },[]);
   return (
     <Provider store={store}>
       <AppRouter />

@@ -21,18 +21,25 @@ export const Usuarios = () => {
     const { users } = useGet();
     const { loading, setLoading, alertMessage, setAlertMessage, setSuccess, success, warning, error, setError, setWarning, restartAlertsState } = UseLoading();
     const { screenWidth } = useScreenWidth();
-    useEffect(() => {
-        getId();
-    })
-    const getId = () => {
-        setLoading(true);
-        const id = users.map(user => user.id);
-        if (id.length > 0) {
-            setLoading(false);
-            return id;
-        }
 
-    }
+    useEffect(() => {
+        let mounted = true;
+        const getId = () => {
+            setLoading(true);
+            const id = users.map(user => user.id);
+            if (id.length > 0) {
+                setLoading(false);
+                return id;
+            }
+
+        }
+        if (mounted) {
+            getId();
+        }
+        return () => mounted = false;
+
+    })
+
 
     const deleteUser = async (id) => {
         var confirm = window.confirm("Esta seguro que desea eliminar a este usuario? Esta acción es irreversible.");
