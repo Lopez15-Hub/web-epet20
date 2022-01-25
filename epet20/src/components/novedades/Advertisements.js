@@ -3,10 +3,12 @@ import { CardText, CardTitle } from 'reactstrap';
 import { collection, getDocs, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig';
 import { BoxComments } from './BoxComments';
+import { useDate } from '../../hooks/useDate';
 
 
 export const Anuncio = () => {
     const [posts, setPosts] = useState([])
+    const { formatDate } = useDate(0, 0);
     useEffect(() => {
         let mounted = true;
         const getNovedades = async () => {
@@ -27,8 +29,8 @@ export const Anuncio = () => {
 
     return <>
         <div>
-            {posts.map((post) => <>
-                <div className='border rounded-t-lg' key={post.id}>
+            {posts.map((post) => <div className=' m-4'>
+                <div className=' border rounded-t-lg' key={post.id}>
                     <div className='p-4'>
                         <CardTitle>
                             {post.title}
@@ -38,7 +40,7 @@ export const Anuncio = () => {
                         </CardText>
                         <CardText>
                             <small className="text-muted">
-                                Subido el: {post.submitAt}
+                                Subido el: {formatDate(post.submitAt)}
                             </small>
                         </CardText>
                     </div>
@@ -48,7 +50,8 @@ export const Anuncio = () => {
                     alt="anuncio imagen"
                     src={post.url} /> : ''}
                 <BoxComments anuncioId={post.id} />
-            </>
+            </div>
+
             )}
 
         </div>

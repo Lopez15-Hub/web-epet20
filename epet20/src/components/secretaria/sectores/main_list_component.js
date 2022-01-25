@@ -7,9 +7,10 @@ import { app, db } from '../../../firebase/firebaseConfig';
 import { Loading } from '../../admin_panel/sections/loading';
 import { Link } from 'react-router-dom';
 import Footer from '../../inicio/footer';
+import { useDate } from '../../../hooks/useDate';
 export const MainList = ({ label, admin }) => {
     const [listData, setListData] = useState([]);
-
+    const { formatDate } = useDate();
     useEffect(() => {
         let mounted = true;
         console.log("Mounted")
@@ -73,14 +74,10 @@ export const MainList = ({ label, admin }) => {
 
         return () => mounted = false;
 
-    }, [label])
+    }, [formatDate, label])
 
 
-    const formatDate = (date) => {
-        const formatDate = date.toDate().toLocaleString().substring(0, 9);
-        return formatDate
 
-    }
 
     const deleteFromFirebase = async (id, fileName) => {
         const confirm = window.confirm("¿Estás seguro de que quieres eliminar este " + (label === 'Anuncios' ? 'anuncio' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'archivo' : 'formulario') + "?");

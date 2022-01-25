@@ -18,7 +18,7 @@ export const PlanDeEstudios = () => {
     const { loading, success, error, alertMessage, setLoading, setSuccess, setError, setAlertMessage, restartAlertsState } = UseLoading()
     const ref = useRef(null)
     const { plan } = usePlan();
-    const { formatDate } = useDate();
+    const { formatYear } = useDate();
     const beforePrint = () => {
         setLoading(true)
     }
@@ -55,7 +55,7 @@ export const PlanDeEstudios = () => {
                                         <dl className='text-center' >
                                             <dt className="text-white">Escuela provincial de educación técnica número 20. </dt>
 
-                                            <dd className="text-white">Ministerio de educación - Ciudad de Neuquén - Año {formatDate()}. </dd>
+                                            <dd className="text-white">Ministerio de educación - Ciudad de Neuquén - Año {formatYear()}. </dd>
 
 
 
@@ -121,7 +121,7 @@ export const PlanDeEstudios = () => {
                                         </> : ''}
 
 
-                                        <p id='labelMark' className=' text-muted text-center mb-4 mt-4'>Documento generado de la página oficial de la E.P.E.T. N°20 - Año {formatDate()}.</p>
+                                        <p id='labelMark' className=' text-muted text-center mb-4 mt-4'>Documento generado de la página oficial de la E.P.E.T. N°20 - Año {formatYear()}.</p>
 
 
                                     </div>
