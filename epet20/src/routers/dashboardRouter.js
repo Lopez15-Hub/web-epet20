@@ -23,7 +23,7 @@ import { useConnection } from '../hooks/useConnection';
 import { useLoading } from '../hooks/useLoading';
 import { useRole } from '../hooks/useRole';
 import { PaginaEnConstruccion } from "../views/we_working";
-import { disableNetwork, enableNetwork } from 'firebase/firestore';
+import {  enableNetwork } from 'firebase/firestore';
 import { NovedadesAdmin } from '../components/admin_panel/sections/novedades/novedades';
 export const DashboardRouter = () => {
     const [screenWidth, setWidth] = useState(window.innerWidth);

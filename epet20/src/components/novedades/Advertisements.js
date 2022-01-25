@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { CardText, CardTitle } from 'reactstrap';
-import { collection, getDocs, orderBy, where } from 'firebase/firestore'
+import { collection, getDocs} from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig';
 import { BoxComments } from './BoxComments';
 import { useDate } from '../../hooks/useDate';
