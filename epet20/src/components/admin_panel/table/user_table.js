@@ -7,10 +7,10 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebaseConfig';
 import { Subtitle } from '../../text-styles/subtitle';
 import { Link } from 'react-router-dom';
-import { UseLoading } from '../../../hooks/useLoading';
+import { useLoading } from '../../../hooks/useLoading';
 export const UserTable = () => {
     const { users } = useGet();
-    const { loading, setLoading, setAlertMessage, setSuccess, setError, restartAlertsState } = UseLoading();
+    const { loading, setLoading, setAlertMessage, setSuccess, setError, restartAlertsState } = useLoading();
 
 
 

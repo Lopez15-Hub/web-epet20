@@ -20,7 +20,7 @@ import { AlertNotification } from '../components/general/alertNotification';
 import { AdminNavbar } from '../components/general/navbar/custom_navbar_admin';
 import { auth, db } from '../firebase/firebaseConfig';
 import { useConnection } from '../hooks/useConnection';
-import { UseLoading } from '../hooks/useLoading';
+import { useLoading } from '../hooks/useLoading';
 import { useRole } from '../hooks/useRole';
 import { PaginaEnConstruccion } from "../views/we_working";
 import { disableNetwork, enableNetwork } from 'firebase/firestore';
@@ -28,7 +28,7 @@ import { NovedadesAdmin } from '../components/admin_panel/sections/novedades/nov
 export const DashboardRouter = () => {
     const [screenWidth, setWidth] = useState(window.innerWidth);
     const { role } = useRole();
-    const { loading, setLoading, success, error, warning, alertMessage, setSuccess, setError, setWarning, setAlertMessage } = UseLoading();
+    const { loading, setLoading, success, error, warning, alertMessage, setSuccess, setError, setWarning, setAlertMessage } = useLoading();
     const { connectionStatus } = useConnection();
 
     useEffect(() => {

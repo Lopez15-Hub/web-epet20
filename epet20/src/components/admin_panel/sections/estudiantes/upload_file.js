@@ -5,7 +5,7 @@ import React from 'react'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { app, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
-import { UseLoading } from '../../../../hooks/useLoading'
+import { useLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
 import { LoadingSpinner } from '../../../general/loading'
 import { Title } from '../../../text-styles/title'
@@ -15,7 +15,7 @@ export const UploadFile = () => {
         url: "",
 
     });
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
     const [showInputFile, setInputFile] = React.useState(false);
     const [fileUrl, setFileUrl] = React.useState("");
     const [isUploaded, setUploaded] = React.useState(false);

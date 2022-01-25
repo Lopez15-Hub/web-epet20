@@ -8,7 +8,7 @@ import { LoadingSpinner } from '../components/general/loading';
 
 import { useForm } from '../hooks/useForm';
 import { AlertNotification } from '../components/general/alertNotification';
-import { UseLoading } from '../hooks/useLoading';
+import { useLoading } from '../hooks/useLoading';
 import { auth, db, googleAuth } from '../firebase/firebaseConfig';
 
 import { GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
@@ -46,7 +46,7 @@ export const addToFirestore = async (loginType, name, apellido, email, role) => 
 }
 export const Registro = () => {
     const { handleChange, values } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
 
     const { password, apellido, email, name, passwordConfirm } = values;
     const navigate = useNavigate();

@@ -5,7 +5,7 @@ import { FaTrash } from 'react-icons/fa'
 import { Container, Form, FormGroup, Input, ListGroup, ListGroupItem, Row } from 'reactstrap'
 import { app, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
-import { UseLoading } from '../../../../hooks/useLoading'
+import { useLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
 import { LoadingSpinner } from '../../../general/loading'
 import { Subtitle } from '../../../text-styles/subtitle'
@@ -13,7 +13,7 @@ import { Title } from '../../../text-styles/title'
 import { v4 as uuidv4 } from 'uuid';
 export const SliderImages = () => {
     const { handleChange, values, reset } = useForm();
-    const { loading, setLoading, alertMessage, setError, setWarning, setAlertMessage, restartAlertsState, successFile, setSuccessFile, errorFile, warningFile, setErrorFile, setWarningFile } = UseLoading();
+    const { loading, setLoading, alertMessage, setError, setWarning, setAlertMessage, restartAlertsState, successFile, setSuccessFile, errorFile, warningFile, setErrorFile, setWarningFile } = useLoading();
     const { descriptionPhoto } = values;
     const [upload, setUpload] = useState(false)
     const [imagesFiles, setImagesFiles] = useState([])

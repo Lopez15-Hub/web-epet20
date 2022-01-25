@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Container, Form, FormGroup, Input, Row } from 'reactstrap'
 import { app, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
-import { UseLoading } from '../../../../hooks/useLoading'
+import { useLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
 import { LoadingSpinner } from '../../../general/loading'
 import { Subtitle } from '../../../text-styles/subtitle'
@@ -12,7 +12,7 @@ import { Title } from '../../../text-styles/title'
 
 export const InicioAdmin = () => {
     const { handleChange, values, reset } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState} = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState} = useLoading();
     const { presentacion, alcances, perfilTec } = values;
 
 

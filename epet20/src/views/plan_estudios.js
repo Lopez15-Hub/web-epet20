@@ -8,14 +8,14 @@ import { FaPrint } from 'react-icons/fa'
 import ReactToPrint from 'react-to-print';
 import { Container } from 'reactstrap'
 import Footer from '../components/inicio/footer';
-import { UseLoading } from '../hooks/useLoading'
+import { useLoading } from '../hooks/useLoading'
 import { LoadingSpinner } from '../components/general/loading'
 import { AlertNotification } from '../components/general/alertNotification'
 import { useDate } from '../hooks/useDate'
 import { usePlan } from '../hooks/query_hooks/usePlan'
 
 export const PlanDeEstudios = () => {
-    const { loading, success, error, alertMessage, setLoading, setSuccess, setError, setAlertMessage, restartAlertsState } = UseLoading()
+    const { loading, success, error, alertMessage, setLoading, setSuccess, setError, setAlertMessage, restartAlertsState } = useLoading()
     const ref = useRef(null)
     const { plan } = usePlan();
     const { formatYear } = useDate();

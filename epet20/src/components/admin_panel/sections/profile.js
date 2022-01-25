@@ -7,7 +7,7 @@ import { Container, FormGroup, Form, Input, Label, Row } from 'reactstrap'
 
 import { auth, db } from '../../../firebase/firebaseConfig'
 import { useForm } from '../../../hooks/useForm'
-import { UseLoading } from '../../../hooks/useLoading'
+import { useLoading } from '../../../hooks/useLoading'
 import { useRole } from '../../../hooks/useRole'
 import { AlertNotification } from '../../general/alertNotification'
 import { Subtitle } from '../../text-styles/subtitle'
@@ -33,7 +33,7 @@ export const updateUserInFirestore = async (loginType, name, apellido, email, pa
 
 }
 export const Profile = () => {
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
     const { handleChange, values } = useForm();
     const { name, email, newPassword } = values;
     const { role } = useRole();

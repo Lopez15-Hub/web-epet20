@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const UseLoading = () => {
+export const useLoading = () => {
     const [loading, setLoading] = useState();
     const [success, setSuccess] = useState();
     const [error, setError] = useState();

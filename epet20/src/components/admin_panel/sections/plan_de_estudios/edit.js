@@ -6,7 +6,7 @@ import { Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'rea
 import { db } from '../../../../firebase/firebaseConfig'
 import { usePlan } from '../../../../hooks/query_hooks/usePlan'
 import { useForm } from '../../../../hooks/useForm'
-import { UseLoading } from '../../../../hooks/useLoading'
+import { useLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
 import { LoadingSpinner } from '../../../general/loading'
 import { Subtitle } from '../../../text-styles/subtitle'
@@ -14,7 +14,7 @@ import { Title } from '../../../text-styles/title'
 
 export const EditPlanDeEstudios = () => {
     const { handleChange, values, reset } = useForm({});
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
     const { title, profile, materia, año, alcances } = values;
     const { plan } = usePlan();
     const planMaterias = plan.materias;

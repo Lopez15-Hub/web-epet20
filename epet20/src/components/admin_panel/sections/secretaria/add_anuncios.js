@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { auth, db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
-import { UseLoading } from '../../../../hooks/useLoading'
+import { useLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
 import { LoadingSpinner } from '../../../general/loading'
 import { Title } from '../../../text-styles/title'
@@ -12,7 +12,7 @@ import { addDoc, collection, getDoc, doc, setDoc } from "firebase/firestore";
 export const AñadirAnuncio = () => {
     const { id } = useParams();
     const { handleChange, values } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
     const { title, description } = values;
     const date = new Date();
     const [anuncio, setAnuncio] = useState({});

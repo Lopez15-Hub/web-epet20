@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Container, ListGroup, ListGroupItem, Row } from 'reactstrap'
 import { db } from '../../../firebase/firebaseConfig'
 import { useGet } from '../../../hooks/query_hooks/useGet'
-import { UseLoading } from '../../../hooks/useLoading'
+import { useLoading } from '../../../hooks/useLoading'
 import { useScreenWidth } from '../../../hooks/useScreenWidth'
 import { AlertNotification } from '../../general/alertNotification'
 import { Subtitle } from '../../text-styles/subtitle'
@@ -19,7 +19,7 @@ import { Loading } from './loading'
 
 export const Usuarios = () => {
     const { users } = useGet();
-    const { loading, setLoading, alertMessage, setAlertMessage, setSuccess, success, warning, error, setError, setWarning, restartAlertsState } = UseLoading();
+    const { loading, setLoading, alertMessage, setAlertMessage, setSuccess, success, warning, error, setError, setWarning, restartAlertsState } = useLoading();
     const { screenWidth } = useScreenWidth();
 
     useEffect(() => {

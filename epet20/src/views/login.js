@@ -8,7 +8,7 @@ import { Loading } from '../components/admin_panel/sections/loading';
 import { auth, db, googleAuth } from '../firebase/firebaseConfig';
 import { AlertNotification } from '../components/general/alertNotification';
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, browserSessionPersistence, inMemoryPersistence } from 'firebase/auth';
-import { UseLoading } from '../hooks/useLoading';
+import { useLoading } from '../hooks/useLoading';
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { addToFirestore } from './registro';
 
@@ -33,7 +33,7 @@ export const deleteUser = async (id) => {
 
 export const Login = () => {
     const { values, handleChange } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
     const { email, password } = values;
     const [persistence, setPersistence] = useState(true);
     const navigate = useNavigate();

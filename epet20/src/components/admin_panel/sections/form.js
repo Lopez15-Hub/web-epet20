@@ -9,7 +9,7 @@ import { Loading } from './loading';
 import { useForm } from '../../../hooks/useForm';
 import { AlertNotification } from '../../general/alertNotification';
 
-import { UseLoading } from '../../../hooks/useLoading';
+import { useLoading } from '../../../hooks/useLoading';
 export const Form = ({ currentRole }) => {
     const { userId } = useParams();
     const [user, setUser] = useState({});
@@ -55,7 +55,7 @@ export const Form = ({ currentRole }) => {
         user
     );
     const { name, apellido, email, password, phone, role } = values;
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
 
     const handleSubmit = async e => {
         e.preventDefault();

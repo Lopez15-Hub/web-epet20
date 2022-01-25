@@ -5,13 +5,13 @@ import { Title } from '../../text-styles/title';
 
 import UserIcon from "../../../assets/user.png";
 import { Form, FormGroup, Input, Label } from 'reactstrap';
-import { UseLoading } from '../../../hooks/useLoading';
+import { useLoading } from '../../../hooks/useLoading';
 import { LoadingSpinner } from '../../general/loading';
 import { AlertNotification } from '../../general/alertNotification';
 export const CardCredential = memo(() => {
     const [user, setUser] = useState();
     const [profilePhoto, setProfilePhoto] = useState();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
     useEffect(() => {
         let mounted = true;
         if (mounted) {
