@@ -48,7 +48,7 @@ export const Registro = () => {
     const { handleChange, values } = useForm();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = UseLoading();
 
-    const { password, apellido, email, name } = values;
+    const { password, apellido, email, name, passwordConfirm } = values;
     const navigate = useNavigate();
 
     const signUp = async () => {
@@ -111,8 +111,19 @@ export const Registro = () => {
     }
     const handleSubmit = async e => {
         e.preventDefault();
-        if (!email || !password || !name || !apellido) {
+        if (!email || !password || !name || !apellido || !passwordConfirm) {
             setAlertMessage("Todos los campos son obligatorios.")
+            setLoading(false);
+            setWarning(true);
+            restartAlertsState();
+        } else if (name !== "" && apellido !== "" && email !== "" && password !== passwordConfirm && password.length > 8 && passwordConfirm.length > 8) {
+
+            setAlertMessage("Las contraseñas no coinciden.")
+            setLoading(false);
+            setWarning(true);
+            restartAlertsState();
+        } else if (name !== "" && apellido !== "" && email !== "" && password.length < 8 && passwordConfirm.length < 8) {
+            setAlertMessage("La contraseña debe tener al menos 8 caracteres.")
             setLoading(false);
             setWarning(true);
             restartAlertsState();
@@ -136,7 +147,7 @@ export const Registro = () => {
             })
         }
         return () => mounted = false;
-    }, [apellido, email, name, navigate, password]);
+    }, [navigate]);
 
 
     return (
@@ -180,7 +191,7 @@ export const Registro = () => {
                                     <input type="password" name='password' onChange={handleChange} placeholder="********" aria-invalid="true" className="form-control shadow-md" id="exampleInputPassword1" />
                                     <div id="emailHelp" className="form-text">Debe tener cómo mínimo 8 carácteres</div>
                                     <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Repetir contraseña</label>
-                                    <input type="password" placeholder="********" className="form-control shadow-md" id="exampleInputPassword1" />
+                                    <input name="passwordConfirm" onChange={handleChange} type="password" placeholder="********" className="form-control shadow-md" id="exampleInputPassword1" />
                                 </div>
 
                                 <div>
