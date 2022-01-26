@@ -1,6 +1,6 @@
 import React from 'react'
 import { Subtitle } from '../text-styles/subtitle'
-import { FaLink, FaMap } from "react-icons/fa";
+import { FaMap } from "react-icons/fa";
 export const ComoLlegar = () => {
     return (
         <div>
