@@ -17,7 +17,7 @@ export const useGet = (initialValue = []) => {
     }
     useEffect(() => {
         const q = query(collection(db, "users"), orderBy("name", "asc"));
-        const unsubscribe = onSnapshot(q, getRealTimeData);
+        const unsubscribe = onSnapshot(q, (qs) => getRealTimeData(qs));
 
         return () => unsubscribe();
     }, []);

@@ -70,7 +70,7 @@ export const BoxComments = ({ anuncioId }) => {
     useEffect(() => {
         console.log("Mounted");
         const q = query(collection(db, "comments"), where("anuncioId", "==", anuncioId));
-        const unsubscribe = onSnapshot(q, getRealTimeData);
+        const unsubscribe = onSnapshot(q, (qs) => getRealTimeData(qs));
 
         return () => unsubscribe();
     }, [anuncioId]);

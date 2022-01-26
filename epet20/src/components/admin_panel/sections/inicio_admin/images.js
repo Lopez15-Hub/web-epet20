@@ -156,7 +156,7 @@ export const SliderImages = () => {
     useEffect(() => {
         document.title = "Editar imágenes del slider - Panel de control"
         const q = query(collection(db, "images"));
-        const unsubscribe = onSnapshot(q, getImages);
+        const unsubscribe = onSnapshot(q,(qs)=> getImages(qs));
 
         return () => unsubscribe();
     }, []);
