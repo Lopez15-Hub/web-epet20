@@ -136,7 +136,7 @@ export const AdminNavbar = ({ currentRole }) => {
             {menu || screenWidth < 1365 ? (
               <>
                 {currentRole === "administrador" ? (
-                  <div id="menu" className="m-2 ">
+                  <div id="menu" className="elements ">
                     <div className="items">
                       <Link
                         onClick={() => showMenu()}
@@ -264,23 +264,25 @@ export const AdminNavbar = ({ currentRole }) => {
                     </div>
                   </div>
                 ) : currentRole === "usuario" ? (
-                  <div className="m-2">
-                    <button
-                      className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2"
-                      onClick={handleSignOut}
-                    >
-                      Cerrar sesión
-                    </button>
-                    <Link
-                      className="hide-inPc btn-primary  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2 mt-2"
-                      to="/inicio"
-                    >
-                      Volver a inicio
-                    </Link>
+                  <div className="elements">
+                    <div className="m-2">
+                      <button
+                        className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2"
+                        onClick={handleSignOut}
+                      >
+                        Cerrar sesión
+                      </button>
+                      <Link
+                        className="hide-inPc btn-primary  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2 mt-2"
+                        to="/inicio"
+                      >
+                        Volver a inicio
+                      </Link>
+                    </div>
                   </div>
                 ) : currentRole === "secretaria" ? (
                   <>
-                    <div className="m-2">
+                    <div className="elements">
                       <button
                         onClick={() => {
                           dropdown2();
@@ -300,18 +302,20 @@ export const AdminNavbar = ({ currentRole }) => {
                       ) : (
                         ""
                       )}
-                      <button
-                        className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2"
-                        onClick={handleSignOut}
-                      >
-                        Cerrar sesión
-                      </button>
-                      <Link
-                        className="hide-inPc btn-primary  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2 mt-2"
-                        to="/inicio"
-                      >
-                        Volver a inicio
-                      </Link>
+                      <div className="m-2">
+                        <button
+                          className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2"
+                          onClick={handleSignOut}
+                        >
+                          Cerrar sesión
+                        </button>
+                        <Link
+                          className="hide-inPc btn-primary  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2 mt-2"
+                          to="/inicio"
+                        >
+                          Volver a inicio
+                        </Link>
+                      </div>
                     </div>
                   </>
                 ) : (

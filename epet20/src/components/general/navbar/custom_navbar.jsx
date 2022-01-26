@@ -124,7 +124,7 @@ export const MyNavbar = () => {
               </div>
               {menu || screenWidth > 1365 ? (
                 <>
-                  <div id="menu" className="m-2 ">
+                  <div id="menu" className="elements ">
                     <div className="items">
                       <Link
                         onClick={() => showMenu()}
