@@ -37,8 +37,8 @@ export const Login = () => {
     const { email, password } = values;
     const [persistence, setPersistence] = useState(true);
     const navigate = useNavigate();
-    const searchUserInFirestore = async (id) => {
-        const docRef = doc(db, "users", id);
+    const searchUserInFirestore = async () => {
+        const docRef = doc(db, "users", auth.currentUser.uid);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -64,7 +64,7 @@ export const Login = () => {
     const signIn = (email, password) => {
         auth.signInWithEmailAndPassword(email, password).then(user => {
             if (user) {
-                searchUserInFirestore(auth.currentUser.uid);
+                searchUserInFirestore();
 
             }
         }).catch(function (error) {
@@ -178,7 +178,7 @@ export const Login = () => {
     }
     useEffect(() => {
         document.title = "Iniciar sesión - E.P.E.T. N°20";
-    },[])
+    }, [])
 
     return (
 
@@ -204,12 +204,12 @@ export const Login = () => {
                             <form className=" p-6 " onSubmit={handleSubmit}>
                                 <div className=" form-group">
                                     <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
-                                    <input type="email" name='email' onChange={handleChange} value={email} className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                    <input type="email" name='email' onChange={handleChange} value={email || ''} className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" />
                                     <div id="emailHelp" className="form-text">Ingresa tu email</div>
                                 </div>
                                 <div className="mb-3 form-group">
                                     <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
-                                    <input type="password" name='password' value={password} onChange={handleChange} aria-invalid="true" className="form-control shadow-md" id="exampleInputPassword1" />
+                                    <input type="password" name='password' value={password || ''} onChange={handleChange} aria-invalid="true" className="form-control shadow-md" id="exampleInputPassword1" />
                                     <div id="emailHelp" className="form-text">ej: 12345678</div>
                                     <div className="row">
                                         <div className="col-6"></div>
@@ -219,8 +219,8 @@ export const Login = () => {
                                     </div>
                                 </div>
                                 <div className="mb-3 form-check">
-                                    <input onClick={handlePersistence} type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                    <label className="form-check-label" for="exampleCheck1">Mantener inicado</label>
+                                    <input onClick={handlePersistence} value={persistence || false} type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                    <label className="form-check-label" htmlFor="exampleCheck1">Mantener inicado</label>
                                 </div>
                                 <div>
                                     <button onClick={handleSubmit} type="submit" className=" col-12 btn my-btn text-white text-center shadow-md font-bold btn-block">Iniciar sesión</button>

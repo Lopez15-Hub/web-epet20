@@ -184,7 +184,7 @@ export const UploadFile = () => {
 
                         <FormGroup >
                             <Label
-                                for="exampleSelect"
+                                htmlFor="exampleSelect"
                                 sm={2}
 
                             >

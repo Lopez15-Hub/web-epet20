@@ -175,24 +175,24 @@ export const Registro = () => {
                                 <div className="mb-3 row">
                                     <div className="col-sm-6">
                                         <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
-                                        <input type="text" name='name' onChange={handleChange} className="form-control shadow-md " placeholder="Juan" />
+                                        <input type="text" name='name' value={name || ''} onChange={handleChange} className="form-control shadow-md " placeholder="Juan" />
                                     </div>
                                     <div className="col-sm-6">
                                         <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
-                                        <input type="text" name='apellido' onChange={handleChange} className="form-control shadow-md" placeholder="Perez" />
+                                        <input type="text" name='apellido' value={apellido || ''} onChange={handleChange} className="form-control shadow-md" placeholder="Perez" />
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
                                     <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
-                                    <input type="email" name='email' onChange={handleChange} placeholder="juanperez@gmail.com" className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                    <input type="email" name='email' value={email || ''} onChange={handleChange} placeholder="juanperez@gmail.com" className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" />
 
                                 </div>
                                 <div className="mb-3 form-group">
-                                    <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
-                                    <input type="password" name='password' onChange={handleChange} placeholder="********" aria-invalid="true" className="form-control shadow-md" id="exampleInputPassword1" />
+                                    <label htmlFor="exampleInputPassword2" className="form-label main-color font-bold">Contraseña</label>
+                                    <input type="password" name='password' value={password || ''} onChange={handleChange} placeholder="********" aria-invalid="true" className="form-control shadow-md" id="exampleInputPassword2" />
                                     <div id="emailHelp" className="form-text">Debe tener cómo mínimo 8 carácteres</div>
                                     <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Repetir contraseña</label>
-                                    <input name="passwordConfirm" onChange={handleChange} type="password" placeholder="********" className="form-control shadow-md" id="exampleInputPassword1" />
+                                    <input name="passwordConfirm" value={passwordConfirm || ''} onChange={handleChange} type="password" placeholder="********" className="form-control shadow-md" id="exampleInputPassword1" />
                                 </div>
 
                                 <div>

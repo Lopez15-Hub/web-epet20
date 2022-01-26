@@ -220,7 +220,7 @@ export const SecretariaForms = () => {
                         </FormGroup>
                         <FormGroup >
                             <Label
-                                for="exampleSelect"
+                                htmlFor="exampleSelect"
                                 sm={2}
 
                             >

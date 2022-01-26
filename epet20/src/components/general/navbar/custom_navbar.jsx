@@ -51,13 +51,16 @@ export const MyNavbar = () => {
     };
   }, []);
 
-
   const showMenu = () => {
     setMenu(!menu);
   };
   const handleSignOut = () => {
     auth.signOut();
-    window.location.replace("/");
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.replace("/");
+      }
+    });
   };
   const dropdown = () => {
     setshowDropdown(!showDropdown);
