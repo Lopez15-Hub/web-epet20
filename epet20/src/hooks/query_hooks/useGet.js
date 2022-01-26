@@ -7,7 +7,7 @@ export const useGet = (initialValue = []) => {
     const [users, setUsers] = useState(initialValue)
     const getRealTimeData = async (querySnapshot) => {
         const users = []
-        await querySnapshot.foreach((doc) => {
+        await querySnapshot.forEach((doc) => {
             users.push({ ...doc.data(), id: doc.id });
 
         });
