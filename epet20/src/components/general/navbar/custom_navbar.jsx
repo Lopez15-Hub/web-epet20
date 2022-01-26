@@ -124,7 +124,7 @@ export const MyNavbar = () => {
               </div>
               {menu || screenWidth > 1365 ? (
                 <>
-                  <div id="menu" className="elements  ">
+                  <div id="menu" className="m-2 ">
                     <div className="items">
                       <Link
                         onClick={() => showMenu()}
@@ -212,12 +212,14 @@ export const MyNavbar = () => {
                       )}
 
                       {user.displayName !== "" ? (
+                       <div className="m-2">
                         <button
-                          className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1"
+                          className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1 w-100"
                           onClick={handleSignOut}
                         >
                           Cerrar sesión
                         </button>
+                       </div>
                       ) : (
                         <>
                           <Link

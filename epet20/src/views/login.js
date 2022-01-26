@@ -125,9 +125,7 @@ export const Login = () => {
     }
     const setSessionPersistence = () => {
         if (persistence === true) {
-            setPersistence(auth, browserSessionPersistence).then(() => {
-                console.log("Persistencia activada");
-            });
+            setPersistence(auth, browserSessionPersistence);
           
         } else {
             setPersistence(auth, inMemoryPersistence);

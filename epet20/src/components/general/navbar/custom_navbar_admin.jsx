@@ -135,132 +135,188 @@ export const AdminNavbar = ({ currentRole }) => {
             </div>
             {menu || screenWidth < 1365 ? (
               <>
-                <div id="menu" className="elements ">
-                  <div className="items">
-                    <Link
-                      onClick={() => showMenu()}
-                      to="usuarios"
-                      className=" nav-element font-bold "
-                    >
-                      Usuarios
-                    </Link>
-                    <button
-                      onClick={() => {
-                        dropdown3();
-                      }}
-                      href="#"
-                      className="nav-element font-bold w-100"
-                    >
-                      Inicio {showDropdown3 ? "▲" : "▼"}
-                    </button>
-                    {showDropdown3 ? (
-                      <DropdownInicio
-                        click={() => {
-                          showMenu();
+                {currentRole === "administrador" ? (
+                  <div id="menu" className="m-2 ">
+                    <div className="items">
+                      <Link
+                        onClick={() => showMenu()}
+                        to="usuarios"
+                        className=" nav-element font-bold "
+                      >
+                        Usuarios
+                      </Link>
+                      <button
+                        onClick={() => {
                           dropdown3();
                         }}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    <Link
-                      onClick={() => showMenu()}
-                      to="novedades"
-                      className=" nav-element font-bold "
-                    >
-                      Novedades
-                    </Link>
-                    {screenWidth > 1366 ? (
-                      <>
-                        <DropdownEstudiantes />
-                        <DropdownSecretaria />
-                      </>
-                    ) : (
-                      <>
-                        <button
-                          onClick={() => {
-                            dropdown();
+                        href="#"
+                        className="nav-element font-bold w-100"
+                      >
+                        Inicio {showDropdown3 ? "▲" : "▼"}
+                      </button>
+                      {showDropdown3 ? (
+                        <DropdownInicio
+                          click={() => {
+                            showMenu();
+                            dropdown3();
                           }}
-                          href="#"
-                          className="nav-element font-bold w-100 "
-                        >
-                          Estudiantes {showDropdown ? "▲" : "▼"}
-                        </button>
-                        {showDropdown ? (
-                          <DropdownsAdminEstudiantes
-                            click={() => {
-                              showMenu();
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <Link
+                        onClick={() => showMenu()}
+                        to="novedades"
+                        className=" nav-element font-bold "
+                      >
+                        Novedades
+                      </Link>
+                      {screenWidth > 1366 ? (
+                        <>
+                          <DropdownEstudiantes />
+                          <DropdownSecretaria />
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => {
                               dropdown();
                             }}
-                          />
-                        ) : (
-                          ""
-                        )}
-                        <button
-                          onClick={() => {
-                            dropdown2();
-                          }}
-                          href="#"
-                          className="nav-element font-bold w-100"
-                        >
-                          Secretaría {showDropdown2 ? "▲" : "▼"}
-                        </button>
-                        {showDropdown2 ? (
-                          <DropdownAdminSecretaria
-                            click={() => {
-                              showMenu();
+                            href="#"
+                            className="nav-element font-bold w-100 "
+                          >
+                            Estudiantes {showDropdown ? "▲" : "▼"}
+                          </button>
+                          {showDropdown ? (
+                            <DropdownsAdminEstudiantes
+                              click={() => {
+                                showMenu();
+                                dropdown();
+                              }}
+                            />
+                          ) : (
+                            ""
+                          )}
+
+                          <button
+                            onClick={() => {
                               dropdown2();
                             }}
-                          />
-                        ) : (
-                          ""
-                        )}
-                    
-               
-                      </>
-                    )}
+                            href="#"
+                            className="nav-element font-bold w-100"
+                          >
+                            Secretaría {showDropdown2 ? "▲" : "▼"}
+                          </button>
+                          {showDropdown2 ? (
+                            <DropdownAdminSecretaria
+                              click={() => {
+                                showMenu();
+                                dropdown2();
+                              }}
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </>
+                      )}
 
-                    <Link
-                      onClick={() => showMenu()}
-                      to="contacto"
-                      className="nav-element font-bold"
+                      <Link
+                        onClick={() => showMenu()}
+                        to="contacto"
+                        className="nav-element font-bold"
+                      >
+                        Contacto
+                      </Link>
+                      <Link
+                        onClick={() => showMenu()}
+                        to="plan-de-estudios"
+                        className="nav-element font-bold"
+                      >
+                        Plan de estudios
+                      </Link>
+                      {user.displayName !== "" ? (
+                        <div className="m-2">
+                          <button
+                            className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1 w-100"
+                            onClick={handleSignOut}
+                          >
+                            Cerrar sesión
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <Link
+                            onClick={() => showMenu()}
+                            to="/login"
+                            className="btn btn-primary btn-md m-4 font-bold hide-inPc"
+                          >
+                            Iniciar sesión
+                          </Link>
+                          <Link
+                            onClick={() => showMenu()}
+                            to="registro"
+                            className="btn btn-outline-primary m-4 font-bold hide-inPc"
+                          >
+                            Registrarse
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ) : currentRole === "usuario" ? (
+                  <div className="m-2">
+                    <button
+                      className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2"
+                      onClick={handleSignOut}
                     >
-                      Contacto
-                    </Link>
+                      Cerrar sesión
+                    </button>
                     <Link
-                      onClick={() => showMenu()}
-                      to="plan-de-estudios"
-                      className="nav-element font-bold"
+                      className="hide-inPc btn-primary  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2 mt-2"
+                      to="/inicio"
                     >
-                      Plan de estudios
+                      Volver a inicio
                     </Link>
-                    {user.displayName !== "" ? (
+                  </div>
+                ) : currentRole === "secretaria" ? (
+                  <>
+                    <div className="m-2">
                       <button
-                        className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1"
+                        onClick={() => {
+                          dropdown2();
+                        }}
+                        href="#"
+                        className="nav-element font-bold w-100"
+                      >
+                        Secretaría {showDropdown2 ? "▲" : "▼"}
+                      </button>
+                      {showDropdown2 ? (
+                        <DropdownAdminSecretaria
+                          click={() => {
+                            showMenu();
+                            dropdown2();
+                          }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <button
+                        className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2"
                         onClick={handleSignOut}
                       >
                         Cerrar sesión
                       </button>
-                    ) : (
-                      <>
-                        <Link
-                          onClick={() => showMenu()}
-                          to="/login"
-                          className="btn btn-primary btn-md m-4 font-bold hide-inPc"
-                        >
-                          Iniciar sesión
-                        </Link>
-                        <Link
-                          onClick={() => showMenu()}
-                          to="registro"
-                          className="btn btn-outline-primary m-4 font-bold hide-inPc"
-                        >
-                          Registrarse
-                        </Link>
-                      </>
-                    )}
-                  </div>
-                </div>
+                      <Link
+                        className="hide-inPc btn-primary  text-center font-bold rounded-md shadow-md mx-auto top-50 p-2 w-100 m-2 mt-2"
+                        to="/inicio"
+                      >
+                        Volver a inicio
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
               </>
             ) : (
               ""
