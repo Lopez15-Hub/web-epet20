@@ -81,7 +81,7 @@ export const BoxComments = ({ anuncioId }) => {
                                     <p className='text-muted ml-2 text-sm'>Publicado el: {comment.submitAt.substring(0, 10)}</p>
                                 </div>
                                 {comment.comment}
-                                {auth.currentUser && comment.userId === auth.currentUser.uid && role === "administrador" ?
+                                {(auth.currentUser && comment.userId === auth.currentUser.uid) || role === "administrador" ?
                                     <button className='ml-2 text-danger' onClick={() => deleteComment(comment.id)} >Eliminar</button> : ''}
                             </p>
                         </li>)
