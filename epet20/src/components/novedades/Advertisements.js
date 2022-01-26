@@ -3,14 +3,12 @@ import { CardText, CardTitle } from 'reactstrap';
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig';
 import { BoxComments } from './BoxComments';
-import { useDate } from '../../hooks/useDate';
 import UserIcon from "../../assets/user.png";
 import { LoadingSpinner } from '../general/loading';
 import { Title } from '../text-styles/title';
 import { useLoading } from "../../hooks/useLoading";
 export const Anuncio = () => {
     const [posts, setPosts] = useState([])
-    const { formatDate } = useDate();
     const { loading, setLoading } = useLoading();
     const urlRegexSafe = require('url-regex-safe');
     const detectUrls = (text) => {
@@ -51,8 +49,8 @@ export const Anuncio = () => {
             {loading ? <LoadingSpinner text="Obteniendo posts..." /> : <>
                 {posts.length !== 0 ? <div>
 
-                    {posts.map((post) => <div className=' m-4'>
-                        <div className=' border rounded-t-lg' key={post.id}>
+                    {posts.map((post) => <div className=' m-4 '  key={post.id}>
+                        <div className=' border rounded-t-lg'>
                             <div className='p-4'>
                                 <div className='d-flex border-b mb-2'>
                                     <img src={post.submitByPhotoUrl ? post.submitByPhotoUrl : UserIcon} alt="User foto comment" className='img-profile-min-boxComment border' />
@@ -61,15 +59,15 @@ export const Anuncio = () => {
 
                                 </div>
 
-                                <CardTitle>
+                                <CardTitle as="div">
                                     {post.title}
                                 </CardTitle>
-                                <CardText>
+                                <CardText as="div">
                                     {detectUrls(post.description)}
                                 </CardText>
-                                <CardText>
+                                <CardText as="div">
                                     <small className="text-muted">
-                                        Subido el: {formatDate(post.submitAt)}
+                                        Subido el: {post.submitAt.toDate().toLocaleDateString()}
                                     </small>
                                 </CardText>
                             </div>

@@ -57,11 +57,9 @@ export const BoxComments = ({ anuncioId }) => {
     }
 
     const getRealTimeData = async (querySnapshot) => {
-        const comments = await querySnapshot.forEach((doc) => {
-            return {
-                ...doc.data(),
-                commentId: doc.id,
-            }
+        const comments = []
+        await querySnapshot.forEach((doc) => {
+            comments.push({ ...doc.data(), id: doc.id });
 
         });
         setcomments(comments);
@@ -93,7 +91,11 @@ export const BoxComments = ({ anuncioId }) => {
                                     <p className='main-color text-sm font-bold'>{comment.submitBy}</p>
                                     <p className='text-muted ml-2 text-sm'>Publicado el: {comment.submitAt.substring(0, 10)}</p>
                                 </div>
-                                <p className='text-sm text-comment w-100'>{comment.comment.length <= 80 ? comment.comment : <><p>{showText === false ? comment.comment.substring(0, 80) + "..." : comment.comment}</p> <button className='text-primary' onClick={handleText}>{showText === true ? 'Ver menos' : 'Ver más'}</button></>}</p>
+                                <p className='text-sm text-comment w-100'>{comment.comment.length <= 80 ? comment.comment : <>
+                                    {showText === false ? comment.comment.substring(0, 80) + "..." : comment.comment}
+                                    <button className='text-primary' onClick={handleText}>{showText === true ? 'Ver menos' : 'Ver más'}</button>
+                                </>}
+                                </p>
                                 {(auth.currentUser && comment.userId === auth.currentUser.uid) || role === "administrador" ?
                                     <button className='ml-2 text-danger' onClick={() => deleteComment(comment.id)} >Eliminar</button> : ''}
                             </div>

@@ -145,18 +145,16 @@ export const SliderImages = () => {
 
     }
     const getImages = async (querySnapshot) => {
-        const images = await querySnapshot.forEach((doc) => {
-            return {
-                id: doc.id,
-                ...doc.data()
-            }
+        const images = []
+        await querySnapshot.forEach((doc) => {
+            images.push({ ...doc.data(), id: doc.id });
         });
         setImagesFiles(images);
     }
     useEffect(() => {
         document.title = "Editar imágenes del slider - Panel de control"
         const q = query(collection(db, "images"));
-        const unsubscribe = onSnapshot(q,(qs)=> getImages(qs));
+        const unsubscribe = onSnapshot(q, (qs) => getImages(qs));
 
         return () => unsubscribe();
     }, []);

@@ -46,7 +46,7 @@ export default function Section() {
 
 
         <h5 className="font-bold mb-2 mt-4">¿Qué voy a poder realizar? </h5>
-        <p className="text-justify">{data.alcances ? data.alcances : <LoadingSpinner />} </p>
+        {data.alcances ? <p className="text-justify"> {data.alcances}      </p> : <LoadingSpinner />}
         <Link to="/plan-de-estudios" className=" text-button text-center font-bold btn btn-sm btn-block text-large mt-4 mb-4">Ver más</Link>
     </section>
 

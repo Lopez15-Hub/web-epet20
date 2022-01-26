@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const DropdownGeneral = ({ showMenu }) => {
   return (
-    <div class="dropdown">
+    <div className="dropdown">
       <Link
-        class="nav-element font-bold   dropdown-toggle"
+        className="nav-element font-bold   dropdown-toggle"
         to="/"
         id="dropdownMenuButton1"
         data-bs-toggle="dropdown"
@@ -13,7 +13,7 @@ export const DropdownGeneral = ({ showMenu }) => {
       >
         Más
       </Link>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>
           <Link
             onClick={() => showMenu}

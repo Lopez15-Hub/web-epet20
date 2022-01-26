@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const DropdownSecretaria = () => {
   return (
-    <div class="dropdown">
+    <div className="dropdown">
       <Link
-        class="nav-element font-bold   dropdown-toggle"
+        className="nav-element font-bold   dropdown-toggle"
         to="/"
         id="dropdownMenuButton1"
         data-bs-toggle="dropdown"
@@ -13,24 +13,24 @@ export const DropdownSecretaria = () => {
       >
         Secretaría
       </Link>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li>
-          <Link class="dropdown-item" to="secretaria/anuncios">
+          <Link className="dropdown-item" to="secretaria/anuncios">
             Anuncios
           </Link>
         </li>
         <li>
-          <Link class="dropdown-item" to="secretaria/estudiantes">
+          <Link className="dropdown-item" to="secretaria/estudiantes">
             Estudiantes
           </Link>
         </li>
         <li>
-          <Link class="dropdown-item" to="secretaria/docentes">
+          <Link className="dropdown-item" to="secretaria/docentes">
             Docentes
           </Link>
         </li>
         <li>
-          <Link class="dropdown-item" to="secretaria/general">
+          <Link className="dropdown-item" to="secretaria/general">
             General
           </Link>
         </li>

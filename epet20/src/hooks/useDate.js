@@ -8,7 +8,7 @@ export const useDate = () => {
 
     }
     const formatDate = (date) => {
-        const formatDate = date.toLocaleString().substring(0, 10);
+        const formatDate = date.toDate().toLocaleString().substring(0, 10);
         return formatDate
 
     }

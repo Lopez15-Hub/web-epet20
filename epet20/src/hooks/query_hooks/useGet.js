@@ -6,11 +6,9 @@ import { db } from '../../firebase/firebaseConfig';
 export const useGet = (initialValue = []) => {
     const [users, setUsers] = useState(initialValue)
     const getRealTimeData = async (querySnapshot) => {
-        const users = await querySnapshot.map((doc) => {
-            return {
-                id: doc.id,
-                ...doc.data()
-            }
+        const users = []
+        await querySnapshot.foreach((doc) => {
+            users.push({ ...doc.data(), id: doc.id });
 
         });
         setUsers(users);

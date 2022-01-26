@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
 import { Title } from '../../text-styles/title'
 import { app, db } from '../../../firebase/firebaseConfig';
@@ -11,7 +11,11 @@ import { useDate } from '../../../hooks/useDate';
 export const MainList = ({ label, admin }) => {
     const [listData, setListData] = useState([]);
     const { formatDate } = useDate();
+    const mounted = useRef(false);
+
+
     const getStudentsFilesFromFirebaseByLabel = useCallback(async () => {
+
         const list = []
 
         const studentsRef = collection(db, "estudiantes");
@@ -27,9 +31,14 @@ export const MainList = ({ label, admin }) => {
                 list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
             })
         }
-        setListData(list)
+        console.log(list);
+        return setListData(list)
+
+
+
     }, [formatDate, label])
     const getFormsFromFirebaseByLabel = useCallback(async () => {
+
         const list = []
 
         const formsRef = collection(db, "forms");
@@ -44,38 +53,56 @@ export const MainList = ({ label, admin }) => {
                 list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
             })
         }
+        console.log(list);
         setListData(list)
+
     }, [formatDate, label])
     const getAnunciosFromFirebase = useCallback(async () => {
+
+
         const list = []
         const querySnapshot = await getDocs(collection(db, "anuncios"));
-        if (querySnapshot.empty) {
-            list.push({ message: 'empty', id: null })
-        } else {
-            querySnapshot.forEach(doc => {
-                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
-            })
-        }
+        querySnapshot.forEach(doc => {
+            list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+        })
+
         setListData(list)
+
     }, [formatDate])
+
     useEffect(() => {
-        let mounted = true;
         document.title = label.charAt(0).toUpperCase() + label.substring(1) + " - E.P.E.T. N°20";
+    }, [label])
 
 
-        if (mounted) {
+    useEffect(() => {
+        mounted.current = true;
+
+        if (mounted.current) {
             if (label === 'Docentes' || label === 'General' || label === 'Estudiantes') {
-                getFormsFromFirebaseByLabel()
-            } else if (label === 'Anuncios') {
-                getAnunciosFromFirebase()
-            } else {
+                getFormsFromFirebaseByLabel();
+            }
+            if (label === 'Anuncios') {
+                getAnunciosFromFirebase();
+            }
+            if (label === 'educación física' || label === "teoria" || label === "taller") {
                 getStudentsFilesFromFirebaseByLabel();
             }
         }
+        return () => mounted.current = false;
+    },[label])
 
-        return () => mounted = false;
 
-    }, [getAnunciosFromFirebase, getFormsFromFirebaseByLabel, getStudentsFilesFromFirebaseByLabel, label])
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -106,7 +133,6 @@ export const MainList = ({ label, admin }) => {
         }
 
     }
-
     return (
         <>
             {/*Barra de navegación*/}
@@ -128,30 +154,30 @@ export const MainList = ({ label, admin }) => {
                             listData.length !== 0 ?
 
                                 listData.map(e => (
-                                    <>
-                                        {
-                                            e.id !== null ?
-                                                <ul key={e.id ? e.id : 0}>
 
-                                                    <li className="border p-3 m-2 rounded-xl">
-                                                        <a href={e.url}>
-                                                            <p className='main-color font-bold'>{e.title}</p> <p>{e.description}</p>
-                                                            <p className='text-muted'>Fecha de publicación: {e.fecha}</p></a>
-                                                        <p className='text-muted'>{admin && e.updatedBy ? 'Editado por: ' + e.updatedBy : ''}</p>
-                                                        <p className='text-muted'>{admin && e.updatedAt ? "Fecha de edición: " + formatDate(e.updatedAt) : ''} </p>
-                                                        {
-                                                            admin ?
-                                                                <div>
-                                                                    {label !== 'Anuncios' ? <Link to={"/dashboard/secretaria/forms/" + e.id} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/dashboard/secretaria/anuncios/" + e.id} className='btn btn-warning mr-2'>Editar</Link>}
 
-                                                                    {label === 'teoria' || label === 'taller' || label === 'educación física' ? <button onClick={() => deleteFromFirebase(e.id, e.title)} className='btn btn-danger '>Eliminar</button> : <button onClick={() => deleteFromFirebase(e.id)} className='btn btn-danger '>Eliminar</button>}
 
-                                                                </div> : ''}
-                                                    </li>
+                                    <ul key={e.id}>
+                                        {e.id !== null ?
+                                            <li className="border p-3 m-2 rounded-xl">
+                                                <a href={e.url}>
+                                                    <p className='main-color font-bold'>{e.title}</p> <p>{e.description}</p>
+                                                    <p className='text-muted'>Fecha de publicación: {e.fecha}</p></a>
+                                                <p className='text-muted'>{admin && e.updatedBy ? 'Editado por: ' + e.updatedBy : ''}</p>
+                                                <p className='text-muted'>{admin && e.updatedAt ? "Fecha de edición: " + e.updatedAt : ''} </p>
+                                                {
+                                                    admin ?
+                                                        <div>
+                                                            {label !== 'Anuncios' ? <Link to={"/dashboard/secretaria/forms/" + e.id} className='btn btn-warning mr-2'>Editar</Link> : <Link to={"/dashboard/secretaria/anuncios/" + e.id} className='btn btn-warning mr-2'>Editar</Link>}
 
-                                                </ul> : <h1 className='font-bold main-color'>{label === 'Anuncios' ? 'No hay anuncios disponibles.' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'No hay archivos subidos.' : 'No hay formularios cargados.'}</h1>
+                                                            {label === 'teoria' || label === 'taller' || label === 'educación física' ? <button onClick={() => deleteFromFirebase(e.id, e.title)} className='btn btn-danger '>Eliminar</button> : <button onClick={() => deleteFromFirebase(e.id)} className='btn btn-danger '>Eliminar</button>}
 
-                                        }</>
+                                                        </div> : ''}
+                                            </li>
+                                            : <h1 className='font-bold main-color'>{label === 'Anuncios' ? 'No hay anuncios disponibles.' : label === 'teoria' || label === 'taller' || label === 'educación física' ? 'No hay archivos subidos.' : 'No hay formularios cargados.'}</h1>}
+                                    </ul>
+
+
                                 )) : <Loading text="Cargando" />
 
                         }
