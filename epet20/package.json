@@ -17,7 +17,7 @@
     "craco": "^0.0.3",
     "disqus-react": "^1.1.2",
     "firebase": "^9.6.0",
-    "firebase-admin": "^10.0.0",
+    "firebase-admin": "^10.0.2",
     "framer-motion": "^4.1.17",
     "html2canvas": "^1.4.0",
     "jspdf": "^2.5.0",
