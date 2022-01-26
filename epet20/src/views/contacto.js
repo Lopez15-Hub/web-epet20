@@ -10,7 +10,7 @@ import { Contactanos } from '../components/contacto/contactanos';
 import { useEffect } from 'react';
 export const Contacto = () => {
     useEffect(() => {
-        document.title = "Contacto";
+        document.title = "Contacto - E.P.E.T. N°20";
     })
     return (
         <>

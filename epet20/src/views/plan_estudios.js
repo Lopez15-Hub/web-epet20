@@ -35,7 +35,7 @@ export const PlanDeEstudios = () => {
         restartAlertsState()
     }
     useEffect(() => {
-        document.title = "Plan de estudios - E.P.E.T N°20";
+        document.title = "Plan de estudios - E.P.E.T. N°20";
     })
 
     return (

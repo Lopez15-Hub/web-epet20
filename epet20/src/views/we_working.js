@@ -5,7 +5,7 @@ import Image from '../assets/weWorking.jpg';
 import { motion } from 'framer-motion';
 export const PaginaEnConstruccion = () => {
     useEffect(() => {
-        document.title = "Sitio en construcción - E.P.E.T N°20";
+        document.title = "Sitio en construcción - E.P.E.T. N°20";
     })
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className='pt-5 mt-5'>

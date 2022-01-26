@@ -11,7 +11,7 @@ import { Container, Row } from 'reactstrap'
 import { Anuncio } from '../components/novedades/Advertisements'
 export const Novedades = () => {
     useEffect(() => {
-        document.title = "Página de novedades -  E.P.E.T N°20";
+        document.title = "Página de novedades -  E.P.E.T. N°20";
     })
     return (
         <>
