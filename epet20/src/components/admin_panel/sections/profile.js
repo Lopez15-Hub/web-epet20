@@ -113,8 +113,10 @@ export const Profile = () => {
 
     }
     useEffect(() => {
+        
         let mounted = true
         if (mounted) {
+            document.title = "Perfil"
             auth.onAuthStateChanged(user => {
                 if (user && role) {
                     console.log(role);

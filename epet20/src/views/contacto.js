@@ -7,10 +7,14 @@ import { ContactoProgramador } from '../components/contacto/contacto_programador
 import { ComoLlegar } from '../components/contacto/comoLlegar';
 import { SocialLinks } from '../components/contacto/social_links';
 import { Contactanos } from '../components/contacto/contactanos';
+import { useEffect } from 'react';
 export const Contacto = () => {
+    useEffect(() => {
+        document.title = "Contacto";
+    })
     return (
         <>
-            
+
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container  me-auto   ">
                 <div className=" p-6 my-shadow rounded-t-xl me-auto mt-4">
                     {/*Sección de contacto de la escuela */}

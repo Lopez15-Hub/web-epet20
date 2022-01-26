@@ -138,6 +138,7 @@ export const EditPlanDeEstudios = () => {
     useEffect(() => {
         let mounted = true;
         if (mounted) {
+            document.title = "Editar plan de estudios";
             if (planMaterias) {
                 setMaterias(planMaterias);
             }

@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc,  query, onSnapshot } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, query, onSnapshot } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { FaTrash } from 'react-icons/fa'
@@ -148,6 +148,7 @@ export const SliderImages = () => {
     useEffect(() => {
         const q = query(collection(db, "images"));
         const images = [];
+        document.title = "Editar imágenes del slider - Panel de control"
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 images.push({ ...doc.data(), id: doc.id });

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 
 import { Title } from '../components/text-styles/title'
@@ -10,7 +10,9 @@ import { Container, Row } from 'reactstrap'
 
 import { Anuncio } from '../components/novedades/Advertisements'
 export const Novedades = () => {
-
+    useEffect(() => {
+        document.title = "Página de novedades -  E.P.E.T N°20";
+    })
     return (
         <>
             <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 ">

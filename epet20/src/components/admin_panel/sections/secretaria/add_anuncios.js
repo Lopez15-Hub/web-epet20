@@ -151,7 +151,13 @@ export const AñadirAnuncio = () => {
         }
 
     }
-
+    React.useEffect(() => {
+        if (id) {
+            document.title = "Editar anuncio";
+        } else {
+            document.title = "Añadir anuncio";
+        }
+    }, [id])
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Container>

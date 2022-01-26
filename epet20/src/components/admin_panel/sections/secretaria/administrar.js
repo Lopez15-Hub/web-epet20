@@ -10,7 +10,9 @@ import { GeneralList } from '../../../secretaria/sectores/general'
 export const SecretariaAdmin = () => {
     const [toggle, setToggle] = React.useState(false)
     const [show, setShow] = React.useState(false)
-
+    React.useEffect(() => {
+        document.title = "Administrar Secretaria - Panel de control";
+    })
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} >
 

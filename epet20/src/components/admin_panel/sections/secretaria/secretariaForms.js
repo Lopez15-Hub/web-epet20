@@ -135,11 +135,17 @@ export const SecretariaForms = () => {
                 } catch (e) { console.log(e) }
 
             } else {
+           
                 console.log("No userId");
             }
 
         }
         if (mounted) {
+            if (id) {
+                document.title = "Editar formulario";
+            } else {
+                document.title = "Añadir formulario";
+            }
             getForm();
         }
         return () => mounted = false;

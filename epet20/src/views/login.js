@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title';
 import { Link, useNavigate } from 'react-router-dom';
@@ -126,7 +126,7 @@ export const Login = () => {
     const setSessionPersistence = () => {
         if (persistence === true) {
             setPersistence(auth, browserSessionPersistence);
-          
+
         } else {
             setPersistence(auth, inMemoryPersistence);
             console.log("Persistencia desactivada");
@@ -176,7 +176,9 @@ export const Login = () => {
 
 
     }
-
+    useEffect(() => {
+        document.title = "Iniciar sesión - E.P.E.T N°20";
+    })
 
     return (
 

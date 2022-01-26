@@ -134,7 +134,9 @@ export const NovedadesAdmin = () => {
     }
 
   }
-
+  React.useEffect(() => {
+    document.title = "Añadir novedad - Panel de control";
+  })
 
   return (
     <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

@@ -34,6 +34,7 @@ export const Usuarios = () => {
 
         }
         if (mounted) {
+            document.title = "Usuarios - Panel de control"
             getId();
         }
         return () => mounted = false;

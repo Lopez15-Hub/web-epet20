@@ -140,6 +140,7 @@ export const Registro = () => {
     useEffect(() => {
         let mounted = true;
         if (mounted) {
+            document.title = "Registro";
             auth.onAuthStateChanged(user => {
                 if (user) {
                     navigate("/");

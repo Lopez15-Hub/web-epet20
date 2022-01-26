@@ -13,7 +13,7 @@ export const MainList = ({ label, admin }) => {
     const { formatDate } = useDate();
     useEffect(() => {
         let mounted = true;
-        console.log("Mounted")
+        document.title = label.charAt(0).toUpperCase() + label.substring(1) + " - E.P.E.T. N°20";
         const getStudentsFilesFromFirebaseByLabel = async () => {
             const list = []
 
@@ -74,7 +74,7 @@ export const MainList = ({ label, admin }) => {
 
         return () => mounted = false;
 
-    }, [formatDate, label,listData,setListData])
+    }, [formatDate, label, listData, setListData])
 
 
 

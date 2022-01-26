@@ -3,7 +3,7 @@ import MyCarousel from '../components/inicio/carousel';
 
 import Footer from '../components/inicio/footer';
 import Section from '../components/inicio/section';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Title } from '../components/text-styles/title';
 
 import { motion } from 'framer-motion';
@@ -13,7 +13,9 @@ import { Signatures } from '../components/inicio/signatures';
 
 
 export const Inicio = () => {
-
+    useEffect(() => {
+        document.title = "Inicio - E.P.E.T. N°20";
+    })
     return (
         <>
             {/*Barra de navegación*/}

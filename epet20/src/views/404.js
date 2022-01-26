@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Title } from '../components/text-styles/title'
 
 export const Error404 = () => {
+    useEffect(() => {
+        document.title = "404";
+    })
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 

@@ -12,7 +12,7 @@ import { Title } from '../../../text-styles/title'
 
 export const InicioAdmin = () => {
     const { handleChange, values, reset } = useForm();
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState} = useLoading();
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
     const { presentacion, alcances, perfilTec } = values;
 
 
@@ -43,6 +43,7 @@ export const InicioAdmin = () => {
             }
         }
         if (mounted) {
+            document.title = "Editar Inicio - Panel de control"
             getDataFromFirestore();
         }
         return () => mounted = false;
@@ -130,7 +131,7 @@ export const InicioAdmin = () => {
 
 
                             </Form>
-                       
+
 
 
                         </Row>

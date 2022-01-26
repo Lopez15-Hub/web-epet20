@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Title } from '../components/text-styles/title'
 
@@ -34,7 +34,9 @@ export const PlanDeEstudios = () => {
         setError(true)
         restartAlertsState()
     }
-
+    useEffect(() => {
+        document.title = "Plan de estudios - E.P.E.T N°20";
+    })
 
     return (
         <>

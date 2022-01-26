@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Anuncios } from '../../../secretaria/sectores/anuncios'
 import { EducacionFisica } from '../../../estudiantes/ed-fisica'
 import { Teoria } from '../../../estudiantes/teoria'
 import { Taller } from '../../../estudiantes/taller'
@@ -8,7 +7,9 @@ import { Taller } from '../../../estudiantes/taller'
 export const FilesOfStudents = () => {
     const [toggle, setToggle] = React.useState(false)
     const [show, setShow] = React.useState(false)
-
+    React.useEffect(() => {
+        document.title = "Administrar archivos de estudiantes - Panel de control";
+      })
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} >
 

@@ -19,6 +19,7 @@ export const Form = ({ currentRole }) => {
         let mounted = true;
         const getUser = async () => {
             if (userId) {
+                document.title = "Editar Usuario - Panel de control"
                 const usersRef = doc(db, "users", userId);
                 const docSnap = await getDoc(usersRef);
                 try {
@@ -42,6 +43,7 @@ export const Form = ({ currentRole }) => {
                 } catch (e) { console.log(e) }
 
             } else {
+                document.title = "Añadir Usuario - Panel de control"
             }
 
         }
