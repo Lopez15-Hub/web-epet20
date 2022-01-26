@@ -25,3 +25,4 @@ yarn-error.log*
 /.env
 #firebase
 firestore.rules
+src/firebase/firebase-keys.json

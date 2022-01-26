@@ -13,7 +13,11 @@ import { useLoading } from '../../../hooks/useLoading';
 export const Form = ({ currentRole }) => {
     const { userId } = useParams();
     const [user, setUser] = useState({});
-
+    const { handleChange, values } = useForm(
+        user
+    );
+    const { name, apellido, email, password, phone, role } = values;
+    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
 
     useEffect(() => {
         let mounted = true;
@@ -35,7 +39,6 @@ export const Form = ({ currentRole }) => {
 
                         }
                         setUser(initialState)
-                        console.log(initialState.role)
                     } else {
                         // doc.data() will be undefined in this case
                         console.log("No such document!");
@@ -53,11 +56,8 @@ export const Form = ({ currentRole }) => {
         return () => mounted = false;
     }, [userId, user, setUser]);
 
-    const { handleChange, values } = useForm(
-        user
-    );
-    const { name, apellido, email, password, phone, role } = values;
-    const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
+
+
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -166,37 +166,34 @@ export const Form = ({ currentRole }) => {
                                 <div className="mb-3 row">
                                     <div className="col-sm-6">
                                         <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Nombre</label>
-                                        <input onChange={handleChange} value={name} type="text" className="form-control shadow-md " placeholder={user.name ? user.name : ' '} name='name' />
+                                        <input onChange={handleChange} value={name || ''} type="text" className="form-control shadow-md " placeholder={user.name ? user.name : ' '} name='name' />
                                     </div>
                                     <div className="col-sm-6">
                                         <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Apellido</label>
-                                        <input onChange={handleChange} value={apellido} type="text" className="form-control shadow-md" placeholder={user.name ? user.apellido : ' '} name='apellido' />
+                                        <input onChange={handleChange} value={apellido || ''} type="text" className="form-control shadow-md" placeholder={user.name ? user.apellido : ' '} name='apellido' />
                                     </div>
                                 </div>
                                 <div className="mb-3 form-group">
                                     <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Email</label>
-                                    <input onChange={handleChange} value={email} type="email" placeholder={user.email ? user.email : " "} className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' />
+                                    <input onChange={handleChange} value={email || ''} type="email" placeholder={user.email ? user.email : " "} className="form-control shadow-md" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' />
 
                                 </div>
                                 <div className="mb-3 form-group">
                                     <label htmlFor="exampleInputEmail1" className="form-label font-bold main-color">Teléfono</label>
-                                    <input onChange={handleChange} value={phone} placeholder={user.phone ? user.phone : "29955511444"} type="text" className="form-control shadow-md" name='phone' />
+                                    <input onChange={handleChange} value={phone || ''} placeholder={user.phone ? user.phone : "29955511444"} type="text" className="form-control shadow-md" name='phone' />
 
                                 </div>
                                 <div className="mb-3 form-group">
                                     <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Contraseña</label>
-                                    <input onChange={handleChange} type="password" placeholder={user.password ? "Nueva contraseña" : "********"} aria-invalid="true" minLength={8} className="form-control shadow-md" name='password' />
+                                    <input onChange={handleChange} value={password || ''} type="password" placeholder={user.password ? "Nueva contraseña" : "********"} aria-invalid="true" minLength={8} className="form-control shadow-md" name='password' />
                                     <div className="form-text">Debe tener cómo mínimo 8 carácteres</div>
-                                    <label htmlFor="exampleInputPassword2" className="form-label main-color font-bold">Repetir contraseña</label>
-                                    <input onChange={handleChange} type="password" placeholder={user.password ? " " : "********"} className="form-control shadow-md" minLength={8} />
-
                                 </div>
 
 
                                 <div>
                                     <label htmlFor="exampleInputPassword1" className="form-label main-color font-bold">Rol de usuario</label>
-                                    <select onChange={handleChange} value={role} className="form-select mb-4 shadow-md" aria-label="Default select example" name='role'>
-                                        <option selected>{user.role ? user.role.toString().charAt(0).toUpperCase() + user.role.slice(1) + " (Rol actual)" : "Seleccione un rol"}</option>
+                                    <select onChange={handleChange} value={role || ''} className="form-select mb-4 shadow-md" aria-label="Default select example" name='role'>
+                                        <option defaultValue={user.role || ''}>{user.role ? user.role.toString().charAt(0).toUpperCase() + user.role.slice(1) + " (Rol actual)" : "Seleccione un rol"}</option>
                                         <option value="administrador">Administrador</option>
                                         <option value="direccion">Dirección</option>
                                         <option value="preceptoria">Preceptoría</option>
