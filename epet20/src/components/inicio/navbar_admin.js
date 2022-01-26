@@ -12,9 +12,6 @@ export const NavbarAdmin = ({ currentRole }) => {
         auth.signOut();
         window.location.replace('/inicio');
     }
-    useEffect(() => {
-        handleUserData();
-    }, [user, setUser])
     const handleUserData = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -28,6 +25,10 @@ export const NavbarAdmin = ({ currentRole }) => {
             }
         });
     }
+    useEffect(() => {
+        handleUserData();
+    }, [])
+
     return <nav className="navbar bg-light sticky fixed-top navbar-expand-xl  navbar-light p-2 rounded-b-xl shadow-md ">
         <div className="container-fluid text-center ">
             <img src={Icon} className="shadow-xl rounded-xl " alt="Logo" />

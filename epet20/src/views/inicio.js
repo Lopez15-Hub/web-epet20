@@ -15,7 +15,7 @@ import { Signatures } from '../components/inicio/signatures';
 export const Inicio = () => {
     useEffect(() => {
         document.title = "Inicio - E.P.E.T. N°20";
-    })
+    },[])
     return (
         <>
             {/*Barra de navegación*/}

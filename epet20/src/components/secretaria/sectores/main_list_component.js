@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
 import { Title } from '../../text-styles/title'
 import { app, db } from '../../../firebase/firebaseConfig';
@@ -11,56 +11,57 @@ import { useDate } from '../../../hooks/useDate';
 export const MainList = ({ label, admin }) => {
     const [listData, setListData] = useState([]);
     const { formatDate } = useDate();
+    const getStudentsFilesFromFirebaseByLabel = useCallback(async () => {
+        const list = []
+
+        const studentsRef = collection(db, "estudiantes");
+        const q = query(studentsRef, where("label", "==", label));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+            list.push({ message: 'empty', id: null })
+
+        } else {
+            querySnapshot.forEach(doc => {
+
+                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+            })
+        }
+        setListData(list)
+    }, [formatDate, label])
+    const getFormsFromFirebaseByLabel = useCallback(async () => {
+        const list = []
+
+        const formsRef = collection(db, "forms");
+
+        const q = query(formsRef, where("label", "==", label));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
+            list.push({ message: 'empty', id: null })
+        } else {
+            querySnapshot.forEach(doc => {
+
+                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+            })
+        }
+        setListData(list)
+    }, [formatDate, label])
+    const getAnunciosFromFirebase = useCallback(async () => {
+        const list = []
+        const querySnapshot = await getDocs(collection(db, "anuncios"));
+        if (querySnapshot.empty) {
+            list.push({ message: 'empty', id: null })
+        } else {
+            querySnapshot.forEach(doc => {
+                list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
+            })
+        }
+        setListData(list)
+    }, [formatDate])
     useEffect(() => {
         let mounted = true;
         document.title = label.charAt(0).toUpperCase() + label.substring(1) + " - E.P.E.T. N°20";
-        const getStudentsFilesFromFirebaseByLabel = async () => {
-            const list = []
 
-            const studentsRef = collection(db, "estudiantes");
-            const q = query(studentsRef, where("label", "==", label));
-            const querySnapshot = await getDocs(q);
-
-            if (querySnapshot.empty) {
-                list.push({ message: 'empty', id: null })
-
-            } else {
-                querySnapshot.forEach(doc => {
-
-                    list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
-                })
-            }
-            setListData(list)
-        }
-        const getFormsFromFirebaseByLabel = async () => {
-            const list = []
-
-            const formsRef = collection(db, "forms");
-
-            const q = query(formsRef, where("label", "==", label));
-            const querySnapshot = await getDocs(q);
-            if (querySnapshot.empty) {
-                list.push({ message: 'empty', id: null })
-            } else {
-                querySnapshot.forEach(doc => {
-
-                    list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
-                })
-            }
-            setListData(list)
-        }
-        const getAnunciosFromFirebase = async () => {
-            const list = []
-            const querySnapshot = await getDocs(collection(db, "anuncios"));
-            if (querySnapshot.empty) {
-                list.push({ message: 'empty', id: null })
-            } else {
-                querySnapshot.forEach(doc => {
-                    list.push({ ...doc.data(), id: doc.id, fecha: formatDate(doc.data().submitAt) })
-                })
-            }
-            setListData(list)
-        }
 
         if (mounted) {
             if (label === 'Docentes' || label === 'General' || label === 'Estudiantes') {
@@ -74,7 +75,7 @@ export const MainList = ({ label, admin }) => {
 
         return () => mounted = false;
 
-    }, [formatDate, label, listData, setListData])
+    }, [getAnunciosFromFirebase, getFormsFromFirebaseByLabel, getStudentsFilesFromFirebaseByLabel, label])
 
 
 

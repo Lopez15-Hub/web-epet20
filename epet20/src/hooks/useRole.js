@@ -32,7 +32,7 @@ export const useRole = () => {
             handleRole();
         }
         return () => mounted = false;
-    }, [role,setRole])
+    }, [])
 
     return { role }
 }

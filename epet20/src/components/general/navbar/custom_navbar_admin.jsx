@@ -29,19 +29,6 @@ export const AdminNavbar = ({ currentRole }) => {
   const [showDropdown2, setshowDropdown2] = useState(false);
   const [showDropdown3, setshowDropdown3] = useState(false);
   const [screenWidth, setWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    const changeWidth = () => {
-      setWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", changeWidth);
-    handleUserData();
-    if (screenWidth >= 1366) {
-      setMenu(false);
-    }
-    return () => {
-      window.removeEventListener("resize", changeWidth);
-    };
-  }, [screenWidth, user, setUser]);
   const handleUserData = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -58,6 +45,19 @@ export const AdminNavbar = ({ currentRole }) => {
       }
     });
   };
+  useEffect(() => {
+    const changeWidth = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", changeWidth);
+    handleUserData();
+    if (screenWidth >= 1366) {
+      setMenu(false);
+    }
+    return () => {
+      window.removeEventListener("resize", changeWidth);
+    };
+  }, [screenWidth]);
 
   const showMenu = () => {
     setMenu(!menu);

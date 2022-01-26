@@ -1,8 +1,8 @@
-import { doc, getDoc, setDoc, addDoc, collection } from 'firebase/firestore'
+import { doc, getDoc, setDoc, } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Container, Form, FormGroup, Input, Row } from 'reactstrap'
-import { app, db } from '../../../../firebase/firebaseConfig'
+import { db } from '../../../../firebase/firebaseConfig'
 import { useForm } from '../../../../hooks/useForm'
 import { useLoading } from '../../../../hooks/useLoading'
 import { AlertNotification } from '../../../general/alertNotification'
@@ -14,48 +14,12 @@ export const InicioAdmin = () => {
     const { handleChange, values, reset } = useForm();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
     const { presentacion, alcances, perfilTec } = values;
-
-
-
-    useEffect(() => {
-        let mounted = true
-        const getDataFromFirestore = async () => {
-            setAlertMessage("Obteniendo datos.");
-            setLoading(true);
-
-            const textsRef = doc(db, 'textos', 'presentacion');
-
-            const docSnap = await getDoc(textsRef);
-
-            if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
-                setPresentaciones({
-                    presentacion: docSnap.data().presentacion,
-                    alcances: docSnap.data().alcances,
-                    perfilTecnico: docSnap.data().perfilTecnico,
-                });
-                setLoading(false);
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-                setAlertMessage("No hay datos disponibles.");
-                setLoading(false);
-            }
-        }
-        if (mounted) {
-            document.title = "Editar Inicio - Panel de control"
-            getDataFromFirestore();
-        }
-        return () => mounted = false;
-    }, [setAlertMessage, setLoading, setSuccess, setError, setWarning]);
     const [presentaciones, setPresentaciones] = useState({
         presentacion: presentacion,
         alcances: alcances,
         perfilTecnico: perfilTec,
 
     });
-    console.log(values);
-
 
     const editPresentacion = (e) => {
         e.preventDefault();
@@ -96,6 +60,42 @@ export const InicioAdmin = () => {
         }
 
     }
+
+    const getDataFromFirestore = useCallback(async () => {
+        setAlertMessage("Obteniendo datos.");
+        setLoading(true);
+
+        const textsRef = doc(db, 'textos', 'presentacion');
+
+        const docSnap = await getDoc(textsRef);
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            setPresentaciones({
+                presentacion: docSnap.data().presentacion,
+                alcances: docSnap.data().alcances,
+                perfilTecnico: docSnap.data().perfilTecnico,
+            });
+            setLoading(false);
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            setAlertMessage("No hay datos disponibles.");
+            setLoading(false);
+        }
+    }, [setAlertMessage, setLoading])
+    
+    useEffect(() => {
+        let mounted = true
+
+        if (mounted) {
+            document.title = "Editar Inicio - Panel de control"
+            getDataFromFirestore();
+        }
+        return () => mounted = false;
+    }, [getDataFromFirestore]);
+
+
 
 
 

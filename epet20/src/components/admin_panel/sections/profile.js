@@ -117,7 +117,7 @@ export const Profile = () => {
         let mounted = true
         if (mounted) {
             document.title = "Perfil"
-            auth.onAuthStateChanged(user => {
+            auth?.onAuthStateChanged(user => {
                 if (user && role) {
                     console.log(role);
                     updateUserInFirestore("FirebaseAuth", auth.currentUser.displayName, '', auth.currentUser.email, newPassword, role);

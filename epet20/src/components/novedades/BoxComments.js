@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { collection, deleteDoc, doc, limit, onSnapshot, query, setDoc, where, } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, query, setDoc, where, } from "firebase/firestore";
 import { db } from '../../firebase/firebaseConfig';
 import { Input, Form, InputGroup } from 'reactstrap'
 import { MdOutlineSubdirectoryArrowRight } from 'react-icons/md'

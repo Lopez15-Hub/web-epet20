@@ -10,24 +10,25 @@ import { LoadingSpinner } from "../general/loading";
 
 export default function Section() {
     const [data, setData] = useState({});
+    const obtenerTextosDeFirebase = async () => {
+        const querySnapshot = await getDocs(collection(db, "textos"));
+        querySnapshot.forEach((doc) => {
+            setData({
+                presentacion: doc.data().presentacion,
+                perfilTecnico: doc.data().perfilTecnico,
+                alcances: doc.data().alcances,
+            });
+        });
+    }
     useEffect(() => {
         let mounted = true;
-        const obtenerTextosDeFirebase = async () => {
-            const querySnapshot = await getDocs(collection(db, "textos"));
-            querySnapshot.forEach((doc) => {
-                setData({
-                    presentacion: doc.data().presentacion,
-                    perfilTecnico: doc.data().perfilTecnico,
-                    alcances: doc.data().alcances,
-                });
-            });
-        }
+
         if (mounted) {
             obtenerTextosDeFirebase();
         }
         return () => mounted = false;
 
-    }, [data, setData])
+    }, [])
 
     return <section className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 main-color text-bold text-justify">
         <Title text="Un poco de nuestra historia" />

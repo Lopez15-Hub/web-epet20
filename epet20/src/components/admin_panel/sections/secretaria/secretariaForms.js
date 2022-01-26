@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { auth, db } from '../../../../firebase/firebaseConfig'
@@ -105,41 +105,41 @@ export const SecretariaForms = () => {
             restartAlertsState();
         }
     }
+    const getForm = useCallback(async () => {
+        if (id) {
+            const formRef = doc(db, "forms", id);
+            const docSnap = await getDoc(formRef);
+            try {
+                if (docSnap.exists()) {
 
+                    const initialState = {
+                        title: docSnap.data().title.toString() || '',
+                        url: docSnap.data().url || '',
+                        description: docSnap.data().description || '',
+                        label: docSnap.data().label || '',
+                        submitAt: docSnap.data().submitAt || '',
+                        submitBy: docSnap.data().submitBy || '',
+
+
+                    }
+                    setForm(initialState)
+                    console.log(form.title)
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            } catch (e) { console.log(e) }
+
+        } else {
+
+            console.log("No userId");
+        }
+
+    }, [form.title, id])
 
     useEffect(() => {
         let mounted = true;
-        const getForm = async () => {
-            if (id) {
-                const formRef = doc(db, "forms", id);
-                const docSnap = await getDoc(formRef);
-                try {
-                    if (docSnap.exists()) {
 
-                        const initialState = {
-                            title: docSnap.data().title.toString() || '',
-                            url: docSnap.data().url || '',
-                            description: docSnap.data().description || '',
-                            label: docSnap.data().label || '',
-                            submitAt: docSnap.data().submitAt || '',
-                            submitBy: docSnap.data().submitBy || '',
-
-
-                        }
-                        setForm(initialState)
-                        console.log(form.title)
-                    } else {
-                        // doc.data() will be undefined in this case
-                        console.log("No such document!");
-                    }
-                } catch (e) { console.log(e) }
-
-            } else {
-           
-                console.log("No userId");
-            }
-
-        }
         if (mounted) {
             if (id) {
                 document.title = "Editar formulario";
@@ -149,7 +149,7 @@ export const SecretariaForms = () => {
             getForm();
         }
         return () => mounted = false;
-    }, [form.title, id, form, setForm])
+    }, [getForm, id])
 
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

@@ -9,7 +9,7 @@ export const FilesOfStudents = () => {
     const [show, setShow] = React.useState(false)
     React.useEffect(() => {
         document.title = "Administrar archivos de estudiantes - Panel de control";
-      })
+      },[])
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} >
 
@@ -21,18 +21,18 @@ export const FilesOfStudents = () => {
                         <button onClick={() => setToggle(0)} className='border p-4 m-2 col-12 btn-block shadow-md rounded-xl font-bold main-color'>Archivos</button>
                         <ul>
                             {
-                                show == 1 ?
+                                show === 1 ?
                                     <li>
                                         <button onClick={() => setShow(0)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Teoría</button>
                                         <Teoria admin={true} />
                                         <button onClick={() => setShow(2)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Taller</button>
                                         <button onClick={() => setShow(3)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Educación física</button>
-                                    </li> : show == 2 ? <li>
+                                    </li> : show === 2 ? <li>
                                         <button onClick={() => setShow(1)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Teoría</button>
                                         <button onClick={() => setShow(0)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Taller</button>
                                         <Taller admin={true} />
                                         <button onClick={() => setShow(3)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Educación física</button>
-                                    </li> : show == 3 ? <li>
+                                    </li> : show === 3 ? <li>
                                         <button onClick={() => setShow(1)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Teoría</button>
                                         <button onClick={() => setShow(2)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Taller</button>
                                         <button onClick={() => setShow(0)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Educación Física</button>

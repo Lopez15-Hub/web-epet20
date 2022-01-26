@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { CardText, CardTitle } from 'reactstrap';
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig';
@@ -24,26 +24,27 @@ export const Anuncio = () => {
         }
 
     }
+    const getNovedades = useCallback(async () => {
+        setLoading(true)
+        const posts = []
+        const querySnapshot = await getDocs(collection(db, "novedades"));
+        querySnapshot.forEach((doc) => {
+
+            posts.push({ ...doc.data(), id: doc.id });
+        });
+
+        setPosts(posts.reverse());
+        setLoading(false)
+    }, [setLoading])
     useEffect(() => {
         let mounted = true;
-        const getNovedades = async () => {
-            setLoading(true)
-            const posts = []
-            const querySnapshot = await getDocs(collection(db, "novedades"));
-            querySnapshot.forEach((doc) => {
 
-                posts.push({ ...doc.data(), id: doc.id });
-            });
-
-            setPosts(posts.reverse());
-            setLoading(false)
-        }
         if (mounted) {
             getNovedades();
         }
 
         return () => mounted = false;
-    }, [setLoading, posts, setPosts]);
+    }, [getNovedades]);
 
     return <>
         <div>

@@ -178,7 +178,7 @@ export const Login = () => {
     }
     useEffect(() => {
         document.title = "Iniciar sesión - E.P.E.T. N°20";
-    })
+    },[])
 
     return (
 

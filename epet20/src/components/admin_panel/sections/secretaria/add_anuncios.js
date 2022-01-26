@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { auth, db } from '../../../../firebase/firebaseConfig'
@@ -18,41 +18,33 @@ export const AñadirAnuncio = () => {
     const [anuncio, setAnuncio] = useState({});
 
 
-    useEffect(() => {
+    const getAnuncio = useCallback(async () => {
+        if (id) {
+            const anunciosRef = doc(db, "anuncios", id);
+            const docSnap = await getDoc(anunciosRef);
+            try {
+                if (docSnap.exists()) {
 
-        let mounted = true;
+                    const initialState = {
+                        title: docSnap.data().title || '',
+                        description: docSnap.data().description || '',
+                        submitAt: docSnap.data().submitAt || '',
+                        submitBy: docSnap.data().submitBy || '',
 
-        const getAnuncio = async () => {
-            if (id) {
-                const anunciosRef = doc(db, "anuncios", id);
-                const docSnap = await getDoc(anunciosRef);
-                try {
-                    if (docSnap.exists()) {
-
-                        const initialState = {
-                            title: docSnap.data().title || '',
-                            description: docSnap.data().description || '',
-                            submitAt: docSnap.data().submitAt || '',
-                            submitBy: docSnap.data().submitBy || '',
-
-                        }
-                        setAnuncio(initialState)
-                    } else {
-                        // doc.data() will be undefined in this case
-                        console.log("No such document!");
                     }
-                } catch (e) { console.log(e) }
+                    setAnuncio(initialState)
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            } catch (e) { console.log(e) }
 
-            } else {
-                console.log("No anuncio id");
-            }
+        } else {
+            console.log("No anuncio id");
+        }
 
-        }
-        if (mounted) {
-            getAnuncio();
-        }
-        return () => mounted = false;
-    }, [anuncio, id, setAnuncio]);
+    }, [id])
+
     const updateAnuncio = async () => {
         const anunciosRef = doc(db, "anuncios", id);
         const newAnuncioData = {
@@ -151,13 +143,22 @@ export const AñadirAnuncio = () => {
         }
 
     }
-    React.useEffect(() => {
+    useEffect(() => {
         if (id) {
             document.title = "Editar anuncio";
         } else {
             document.title = "Añadir anuncio";
         }
     }, [id])
+    useEffect(() => {
+
+        let mounted = true;
+
+        if (mounted) {
+            getAnuncio();
+        }
+        return () => mounted = false;
+    }, [getAnuncio]);
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Container>

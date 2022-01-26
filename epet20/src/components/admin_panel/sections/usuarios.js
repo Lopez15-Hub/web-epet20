@@ -24,22 +24,12 @@ export const Usuarios = () => {
 
     useEffect(() => {
         let mounted = true;
-        const getId = () => {
-            setLoading(true);
-            const id = users.map(user => user.id);
-            if (id.length > 0) {
-                setLoading(false);
-                return id;
-            }
-
-        }
         if (mounted) {
             document.title = "Usuarios - Panel de control"
-            getId();
         }
         return () => mounted = false;
 
-    }, [users, setLoading])
+    }, [])
 
 
     const deleteUser = async (id) => {

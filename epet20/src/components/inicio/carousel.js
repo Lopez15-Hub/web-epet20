@@ -5,27 +5,28 @@ import { LoadingSpinner } from "../general/loading";
 export default function MyCarousel() {
 
   const [imagesFiles, setImagesFiles] = useState([])
+  const getImagesFromFirestore = async () => {
+
+    const querySnapshot = await getDocs(collection(db, "images"));
+    const imagesDocs = [];
+
+    querySnapshot.forEach(doc => {
+
+      imagesDocs.push({ ...doc.data(), id: doc.id })
+
+
+    });
+    setImagesFiles(imagesDocs);
+
+  }
   useEffect(() => {
-    const getImagesFromFirestore = async () => {
 
-      const querySnapshot = await getDocs(collection(db, "images"));
-      const imagesDocs = [];
-
-      querySnapshot.forEach(doc => {
-
-        imagesDocs.push({ ...doc.data(), id: doc.id })
-
-
-      });
-      setImagesFiles(imagesDocs);
-
-    }
     let enabled = true;
     if (enabled) {
       getImagesFromFirestore()
     }
     return () => enabled = false;
-  }, [imagesFiles, setImagesFiles]);
+  }, []);
   return <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
     {imagesFiles.length !== 0 ? <>
       <div className="carousel-inner rounded-lg shadow-md">

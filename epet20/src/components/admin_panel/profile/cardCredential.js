@@ -9,20 +9,12 @@ import { useLoading } from '../../../hooks/useLoading';
 import { LoadingSpinner } from '../../general/loading';
 import { AlertNotification } from '../../general/alertNotification';
 export const CardCredential = memo(() => {
-    const [user, setUser] = useState();
     const [profilePhoto, setProfilePhoto] = useState();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
-
     const getUserData = (user) => {
-        if (user.photoURL) {
+        if (user?.photoURL) {
 
-            setUser({
-                displayName: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
 
-            })
-            console.log(user)
             setProfilePhoto(user.photoURL)
         } else {
             console.log("cargando...")
@@ -32,7 +24,7 @@ export const CardCredential = memo(() => {
     useEffect(() => {
         let mounted = true;
         if (mounted) {
-            onAuthStateChanged(auth, getUserData);
+            onAuthStateChanged(auth, (user) => getUserData(user));
         }
         return () => mounted = false;
     }, []);

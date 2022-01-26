@@ -20,7 +20,7 @@ export const Epet20 = () => {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      if (auth.currentUser) {
+      if (auth?.currentUser) {
         getAuthState();
       }
 

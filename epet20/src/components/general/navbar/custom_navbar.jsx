@@ -24,16 +24,6 @@ export const MyNavbar = () => {
   const [screenWidth, setWidth] = useState(window.innerWidth);
   const [showDropdown, setshowDropdown] = useState(false);
   const [showDropdown2, setshowDropdown2] = useState(false);
-  useEffect(() => {
-    const changeWidth = () => {
-      setWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", changeWidth);
-    handleUserData();
-    return () => {
-      window.removeEventListener("resize", changeWidth);
-    };
-  }, [user, setUser]);
   const handleUserData = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -50,6 +40,17 @@ export const MyNavbar = () => {
       }
     });
   };
+  useEffect(() => {
+    const changeWidth = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", changeWidth);
+    handleUserData();
+    return () => {
+      window.removeEventListener("resize", changeWidth);
+    };
+  }, []);
+
 
   const showMenu = () => {
     setMenu(!menu);
