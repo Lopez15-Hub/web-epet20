@@ -117,7 +117,7 @@ export const DashboardRouter = () => {
         return () => {
             window.removeEventListener("resize", changeWidth);
         }
-    }, [connectionStatus, role, setAlertMessage, setLoading, setWarning])
+    }, [connectionStatus, role, setAlertMessage, setLoading, setWarning, setError, setSuccess, setWidth,]);
 
 
     return (

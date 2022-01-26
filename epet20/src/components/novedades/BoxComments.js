@@ -14,6 +14,7 @@ import { useRole } from '../../hooks/useRole';
 export const BoxComments = ({ anuncioId }) => {
     const [comments, setcomments] = useState([])
     const [showText, setshowText] = useState(false)
+    const [showAllComments, setShowAllComments] = useState(false)
     const { values, handleChange } = useForm();
     const { comment } = values;
     const { role } = useRole();
@@ -51,8 +52,12 @@ export const BoxComments = ({ anuncioId }) => {
     const handleText = () => {
         setshowText(!showText)
     }
+    const handleComments = () => {
+        setShowAllComments(!showAllComments)
+    }
     useEffect(() => {
-        const q = query(collection(db, "comments"), limit(5), where("anuncioId", "==", anuncioId));
+        console.log("Mounted");
+        const q = query(collection(db, "comments"), where("anuncioId", "==", anuncioId));
         const comments = [];
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -63,7 +68,7 @@ export const BoxComments = ({ anuncioId }) => {
         });
 
         return () => unsubscribe();
-    }, [anuncioId, comments]);
+    }, [anuncioId, comments, showAllComments, setcomments]);
 
 
     return <div className='border rounded-b-lg'>
@@ -87,9 +92,11 @@ export const BoxComments = ({ anuncioId }) => {
                                 {(auth.currentUser && comment.userId === auth.currentUser.uid) || role === "administrador" ?
                                     <button className='ml-2 text-danger' onClick={() => deleteComment(comment.id)} >Eliminar</button> : ''}
                             </div>
-                        </li>)
+                        </li>
+
+                    )
                     }
-                    <button className='text-decoration-none'>Ver más...</button>
+                    {comments.length > 5 ? <button className='text-decoration-none' onClick={handleComments}>{showAllComments === false ? 'Ver más' : 'Ver menos'}.</button> : ''}
                 </div> : <><Subtitle text={"No hay comentarios aún. ¡Sé el primero en agregar uno!"} /></>}
 
 

@@ -41,7 +41,7 @@ export const AdminNavbar = ({ currentRole }) => {
     return () => {
       window.removeEventListener("resize", changeWidth);
     };
-  }, [screenWidth]);
+  }, [screenWidth, user, setUser]);
   const handleUserData = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { CardText, CardTitle } from 'reactstrap';
-import { collection, getDocs} from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../firebase/firebaseConfig';
 import { BoxComments } from './BoxComments';
 import { useDate } from '../../hooks/useDate';
@@ -10,7 +10,7 @@ import { Title } from '../text-styles/title';
 import { useLoading } from "../../hooks/useLoading";
 export const Anuncio = () => {
     const [posts, setPosts] = useState([])
-    const { formatDate } = useDate(0, 0);
+    const { formatDate } = useDate();
     const { loading, setLoading } = useLoading();
     const urlRegexSafe = require('url-regex-safe');
     const detectUrls = (text) => {
@@ -43,7 +43,7 @@ export const Anuncio = () => {
         }
 
         return () => mounted = false;
-    }, [setLoading]);
+    }, [setLoading, posts, setPosts]);
 
     return <>
         <div>

@@ -27,7 +27,7 @@ export default function Section() {
         }
         return () => mounted = false;
 
-    }, [])
+    }, [data, setData])
 
     return <section className="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 main-color text-bold text-justify">
         <Title text="Un poco de nuestra historia" />

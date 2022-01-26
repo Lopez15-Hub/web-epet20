@@ -38,7 +38,7 @@ export const Usuarios = () => {
         }
         return () => mounted = false;
 
-    })
+    }, [users, setLoading])
 
 
     const deleteUser = async (id) => {

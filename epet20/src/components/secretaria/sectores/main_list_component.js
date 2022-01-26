@@ -74,7 +74,7 @@ export const MainList = ({ label, admin }) => {
 
         return () => mounted = false;
 
-    }, [formatDate, label])
+    }, [formatDate, label,listData,setListData])
 
 
 

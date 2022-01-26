@@ -32,7 +32,7 @@ export const CardCredential = memo(() => {
             });
         }
         return () => mounted = false;
-    }, [])
+    }, [user, profilePhoto, setUser, setProfilePhoto]);
     const handleProfilePhoto = (fileUrl) => {
         updateProfile(auth.currentUser, {
             photoURL: fileUrl.toString()

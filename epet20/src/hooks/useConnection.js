@@ -13,6 +13,6 @@ export const useConnection = () => {
             getConnectionStatus();
         }
         return () => mounted = false;
-    }, [])
+    }, [connectionStatus,setConnectionStatus])
     return { connectionStatus }
 }

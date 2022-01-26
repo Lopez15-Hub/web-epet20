@@ -33,7 +33,7 @@ export const MyNavbar = () => {
     return () => {
       window.removeEventListener("resize", changeWidth);
     };
-  }, []);
+  }, [user, setUser]);
   const handleUserData = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -53,7 +53,6 @@ export const MyNavbar = () => {
 
   const showMenu = () => {
     setMenu(!menu);
-
   };
   const handleSignOut = () => {
     auth.signOut();
@@ -83,7 +82,6 @@ export const MyNavbar = () => {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              
               transition={{ duration: 0.1 }}
               className="menu "
             >
@@ -148,7 +146,7 @@ export const MyNavbar = () => {
                             href="#"
                             className="nav-element font-bold w-100 "
                           >
-                          Estudiantes {showDropdown ? "▲" : "▼"}
+                            Estudiantes {showDropdown ? "▲" : "▼"}
                           </button>
                           {showDropdown ? (
                             <DropdownOptions
@@ -212,14 +210,14 @@ export const MyNavbar = () => {
                       )}
 
                       {user.displayName !== "" ? (
-                       <div className="m-2">
-                        <button
-                          className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1 w-100"
-                          onClick={handleSignOut}
-                        >
-                          Cerrar sesión
-                        </button>
-                       </div>
+                        <div className="m-2">
+                          <button
+                            className="hide-inPc my-outlined-button  text-center font-bold rounded-md shadow-md mx-auto top-50 p-1 m-1 w-100"
+                            onClick={handleSignOut}
+                          >
+                            Cerrar sesión
+                          </button>
+                        </div>
                       ) : (
                         <>
                           <Link

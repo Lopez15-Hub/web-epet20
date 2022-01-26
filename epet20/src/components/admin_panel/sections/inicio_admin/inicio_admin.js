@@ -46,7 +46,7 @@ export const InicioAdmin = () => {
             getDataFromFirestore();
         }
         return () => mounted = false;
-    }, [setAlertMessage, setLoading]);
+    }, [setAlertMessage, setLoading, setSuccess, setError, setWarning]);
     const [presentaciones, setPresentaciones] = useState({
         presentacion: presentacion,
         alcances: alcances,

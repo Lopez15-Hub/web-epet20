@@ -20,7 +20,7 @@ export const SecretariaForms = () => {
     const date = new Date();
     const { title, url, description, label } = values;
     const [form, setForm] = useState({});
- 
+
     const updateForm = async () => {
         const formRef = doc(db, "forms", id);
         const newFormData = {
@@ -60,18 +60,18 @@ export const SecretariaForms = () => {
         setLoading(true);
         try {
             const docRef = await addDoc(collection(db, "forms"), {
-                "title": title? title : '',
-                "description": description? description : '',
-                "url": url? url : '',
-                "label": label? label : '',
-                "submitAt": date? date : '',
+                "title": title ? title : '',
+                "description": description ? description : '',
+                "url": url ? url : '',
+                "label": label ? label : '',
+                "submitAt": date ? date : '',
             });
             console.log("Document written with ID: ", docRef.id);
             console.log(values);
             setAlertMessage("Formulario creado exitosamente.")
             setLoading(false);
             setSuccess(true);
-            
+
             setTimeout(() => { window.location.reload() }, 1000)
         } catch (err) {
 
@@ -108,14 +108,14 @@ export const SecretariaForms = () => {
 
 
     useEffect(() => {
-        let mounted=true;
+        let mounted = true;
         const getForm = async () => {
             if (id) {
                 const formRef = doc(db, "forms", id);
                 const docSnap = await getDoc(formRef);
                 try {
                     if (docSnap.exists()) {
-    
+
                         const initialState = {
                             title: docSnap.data().title.toString() || '',
                             url: docSnap.data().url || '',
@@ -123,8 +123,8 @@ export const SecretariaForms = () => {
                             label: docSnap.data().label || '',
                             submitAt: docSnap.data().submitAt || '',
                             submitBy: docSnap.data().submitBy || '',
-    
-    
+
+
                         }
                         setForm(initialState)
                         console.log(form.title)
@@ -133,17 +133,17 @@ export const SecretariaForms = () => {
                         console.log("No such document!");
                     }
                 } catch (e) { console.log(e) }
-    
+
             } else {
                 console.log("No userId");
             }
-    
+
         }
-       if(mounted){
-        getForm();
-       }
-       return()=> mounted=false;
-    }, [form.title, id])
+        if (mounted) {
+            getForm();
+        }
+        return () => mounted = false;
+    }, [form.title, id, form, setForm])
 
     return (
         <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -232,7 +232,7 @@ export const SecretariaForms = () => {
 
                             >
                                 <option value={id ? form.label : ''}>
-                                    {form.label ? form.label  + " (Area actual)" : ' Seleccione una opción'}
+                                    {form.label ? form.label + " (Area actual)" : ' Seleccione una opción'}
                                 </option>
                                 <option value="estudiantes" >
                                     Estudiantes

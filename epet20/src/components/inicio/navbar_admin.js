@@ -14,7 +14,7 @@ export const NavbarAdmin = ({ currentRole }) => {
     }
     useEffect(() => {
         handleUserData();
-    }, [])
+    }, [user, setUser])
     const handleUserData = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {

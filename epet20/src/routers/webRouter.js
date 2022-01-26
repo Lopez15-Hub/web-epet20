@@ -15,7 +15,6 @@ import { Taller } from '../components/estudiantes/taller';
 import { EducacionFisica } from '../components/estudiantes/ed-fisica';
 import { Prueba } from '../components/general/navbar/prueba';
 import { MyNavbar } from '../components/general/navbar/custom_navbar';
-import { PaginaEnConstruccion } from '../views/we_working';
 import { Error404 } from '../views/404';
 import { Novedades } from '../views/novedades';
 export const WebRouter = () => {

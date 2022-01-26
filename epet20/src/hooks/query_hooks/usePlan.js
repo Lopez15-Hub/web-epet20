@@ -19,7 +19,7 @@ export const usePlan = () => {
             obtenerTextosDeFirebase();
         }
         return () => mounted = false;
-    }, []);
+    }, [plan, setPlan]);
 
     return { plan }
 }

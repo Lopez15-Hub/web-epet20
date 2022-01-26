@@ -49,7 +49,7 @@ export const Form = ({ currentRole }) => {
             getUser();
         }
         return () => mounted = false;
-    }, [userId])
+    }, [userId, user, setUser]);
 
     const { handleChange, values } = useForm(
         user

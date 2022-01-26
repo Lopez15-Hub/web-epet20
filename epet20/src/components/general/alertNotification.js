@@ -20,7 +20,7 @@ export const AlertNotification = ({ variant, color, dimiss, message }) => {
             console.log("Cerrando alerta")
             mounted = false;
         }
-    }, [])
+    }, [show, setShow])
 
 
     return (

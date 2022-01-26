@@ -17,7 +17,7 @@ export const useGet = (initialValue = []) => {
         });
 
         return () => unsubscribe();
-    }, [users]);
+    }, [users, setUsers]);
 
 
     return { users }

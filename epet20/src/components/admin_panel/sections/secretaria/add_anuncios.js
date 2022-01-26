@@ -18,40 +18,41 @@ export const AñadirAnuncio = () => {
     const [anuncio, setAnuncio] = useState({});
 
 
-    const getAnuncio = async () => {
-        if (id) {
-            const anunciosRef = doc(db, "anuncios", id);
-            const docSnap = await getDoc(anunciosRef);
-            try {
-                if (docSnap.exists()) {
-
-                    const initialState = {
-                        title: docSnap.data().title || '',
-                        description: docSnap.data().description || '',
-                        submitAt: docSnap.data().submitAt || '',
-                        submitBy: docSnap.data().submitBy || '',
-
-                    }
-                    setAnuncio(initialState)
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            } catch (e) { console.log(e) }
-
-        } else {
-            console.log("No anuncio id");
-        }
-
-    }
     useEffect(() => {
+
         let mounted = true;
 
+        const getAnuncio = async () => {
+            if (id) {
+                const anunciosRef = doc(db, "anuncios", id);
+                const docSnap = await getDoc(anunciosRef);
+                try {
+                    if (docSnap.exists()) {
+
+                        const initialState = {
+                            title: docSnap.data().title || '',
+                            description: docSnap.data().description || '',
+                            submitAt: docSnap.data().submitAt || '',
+                            submitBy: docSnap.data().submitBy || '',
+
+                        }
+                        setAnuncio(initialState)
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                } catch (e) { console.log(e) }
+
+            } else {
+                console.log("No anuncio id");
+            }
+
+        }
         if (mounted) {
             getAnuncio();
         }
         return () => mounted = false;
-    })
+    }, [anuncio, id, setAnuncio]);
     const updateAnuncio = async () => {
         const anunciosRef = doc(db, "anuncios", id);
         const newAnuncioData = {
