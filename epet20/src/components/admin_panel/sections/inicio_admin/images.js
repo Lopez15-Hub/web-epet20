@@ -144,21 +144,22 @@ export const SliderImages = () => {
 
 
     }
-
-    useEffect(() => {
-        const q = query(collection(db, "images"));
-        const images = [];
-        document.title = "Editar imágenes del slider - Panel de control"
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                images.push({ ...doc.data(), id: doc.id });
-
-            });
-            setImagesFiles(images);
+    const getImages = async (querySnapshot) => {
+        const images = await querySnapshot.forEach((doc) => {
+            return {
+                id: doc.id,
+                ...doc.data()
+            }
         });
+        setImagesFiles(images);
+    }
+    useEffect(() => {
+        document.title = "Editar imágenes del slider - Panel de control"
+        const q = query(collection(db, "images"));
+        const unsubscribe = onSnapshot(q, getImages);
 
         return () => unsubscribe();
-    }, [imagesFiles]);
+    }, []);
 
     return <motion.div exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} >
         <Container className='border'>

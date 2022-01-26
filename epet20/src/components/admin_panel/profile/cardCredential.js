@@ -12,27 +12,30 @@ export const CardCredential = memo(() => {
     const [user, setUser] = useState();
     const [profilePhoto, setProfilePhoto] = useState();
     const { loading, success, error, warning, alertMessage, setLoading, setSuccess, setError, setWarning, setAlertMessage, restartAlertsState } = useLoading();
+
+    const getUserData = (user) => {
+        if (user.photoURL) {
+
+            setUser({
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+
+            })
+            console.log(user)
+            setProfilePhoto(user.photoURL)
+        } else {
+            console.log("cargando...")
+        }
+    }
+
     useEffect(() => {
         let mounted = true;
         if (mounted) {
-            onAuthStateChanged(auth, (user) => {
-                if (user.photoURL) {
-
-                    setUser({
-                        displayName: user.displayName,
-                        email: user.email,
-                        photoURL: user.photoURL,
-
-                    })
-                    console.log(user)
-                    setProfilePhoto(user.photoURL)
-                } else {
-                    console.log("cargando...")
-                }
-            });
+            onAuthStateChanged(auth, getUserData);
         }
         return () => mounted = false;
-    }, [user, profilePhoto, setUser, setProfilePhoto]);
+    }, []);
     const handleProfilePhoto = (fileUrl) => {
         updateProfile(auth.currentUser, {
             photoURL: fileUrl.toString()

@@ -55,20 +55,25 @@ export const BoxComments = ({ anuncioId }) => {
     const handleComments = () => {
         setShowAllComments(!showAllComments)
     }
+
+    const getRealTimeData = async (querySnapshot) => {
+        const comments = await querySnapshot.forEach((doc) => {
+            return {
+                ...doc.data(),
+                commentId: doc.id,
+            }
+
+        });
+        setcomments(comments);
+    }
+
     useEffect(() => {
         console.log("Mounted");
         const q = query(collection(db, "comments"), where("anuncioId", "==", anuncioId));
-        const comments = [];
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                comments.push({ ...doc.data(), id: doc.id });
-
-            });
-            setcomments(comments);
-        });
+        const unsubscribe = onSnapshot(q, getRealTimeData);
 
         return () => unsubscribe();
-    }, [anuncioId, comments, showAllComments, setcomments]);
+    }, [anuncioId]);
 
 
     return <div className='border rounded-b-lg'>
