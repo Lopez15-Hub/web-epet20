@@ -16,10 +16,11 @@ export const usePlan = () => {
     useEffect(() => {
         let mounted = true;
         if (mounted) {
+            console.log("Use plan")
             obtenerTextosDeFirebase();
         }
         return () => mounted = false;
-    }, [plan, setPlan]);
+    }, []);
 
     return { plan }
 }

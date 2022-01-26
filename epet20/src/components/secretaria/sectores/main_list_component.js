@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { motion } from 'framer-motion'
 import React, { useCallback, useEffect, useState, useRef } from 'react'
@@ -90,7 +91,7 @@ export const MainList = ({ label, admin }) => {
             }
         }
         return () => mounted.current = false;
-    },[label])
+    }, [label])
 
 
 

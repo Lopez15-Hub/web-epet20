@@ -36,7 +36,7 @@ export const PlanDeEstudios = () => {
     }
     useEffect(() => {
         document.title = "Plan de estudios - E.P.E.T. N°20";
-    },[])
+    }, [])
 
     return (
         <>
@@ -95,25 +95,26 @@ export const PlanDeEstudios = () => {
 
                                                     <Container className='mx-auto'>
 
-                                                        <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Primer año</h1>
+                                                        <h1 className='font-bold mt-4 mb-2 '>Primer año</h1>
+
                                                         <Materias showBasic={true} año={"1°"} />
-                                                        <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Segundo año</h1>
+                                                        <h1 className='font-bold mt-4 mb-2 '>Segundo año</h1>
                                                         <Materias showBasic={true} año={"2°"} />
-                                                        <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Tercer año</h1>
+                                                        <h1 className='font-bold mt-4 mb-2 '>Tercer año</h1>
                                                         <Materias showBasic={true} año={"3°"} />
+
                                                     </Container>
+
                                                 </Container>
                                                 <Container className='mx-auto'>
-                                                    <div><Subtitle text="Ciclo superior " /></div>
-
-
+                                                    <div ><Subtitle text="Ciclo superior " /></div>
                                                     <Container className='mx-auto'>
 
-                                                        <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Cuarto año</h1>
+                                                        <h1 className='font-bold mt-4 mb-2 '>Cuarto año</h1>
                                                         <Materias año={"4°"} />
-                                                        <h1 className=' font-bold mt-4 mb-2 pt-2 pb-2'>Quinto año</h1>
+                                                        <h1 className=' font-bold mt-4 mb-2 '>Quinto año</h1>
                                                         <Materias año={"5°"} />
-                                                        <h1 className='font-bold mt-4 mb-2 pt-2 pb-2'>Sexto año</h1>
+                                                        <h1 className='font-bold mt-4 mb-2 '>Sexto año</h1>
                                                         <Materias año={"6°"} />
                                                     </Container>
                                                 </Container>

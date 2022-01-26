@@ -4,6 +4,47 @@ import { usePlan } from '../../../hooks/query_hooks/usePlan';
 import { Head } from './head'
 
 export const Materias = ({ showBasic, año }) => {
+
+
+    return (
+        <div>
+            {showBasic ? <MateriasCicloBasico año={año} /> :
+                <MateriasCicloSuperior año={año} />}
+        </div>
+    )
+}
+
+
+export const MateriasCicloSuperior = ({ año }) => {
+    const { plan } = usePlan();
+    const materias = plan.materias ? plan.materias : [];
+
+    const getCicloSuperior = () => {
+        const cicloSuperior = materias.filter(materia => materia.ciclo === 'superior' && materia.año === año).sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1);
+        return cicloSuperior;
+    }
+    const materiasCicloSuperior = getCicloSuperior();
+    return <div>
+        <Table bordered >
+            <Head />
+            <tbody>
+
+                {
+                    materiasCicloSuperior.map((materia, index) => {
+                        return (
+                            <tr key={index}>
+                                <th scope="row">{'CS0' + index}</th>
+                                <th  >{materia.materia}</th>
+                                <th >{materia.año}</th>
+                            </tr>
+                        )
+                    })
+                }
+            </tbody>
+        </Table>
+    </div>;
+};
+export const MateriasCicloBasico = ({ año }) => {
     const { plan } = usePlan();
     const materias = plan.materias ? plan.materias : [];
     const getCicloBasico = () => {
@@ -11,56 +52,35 @@ export const Materias = ({ showBasic, año }) => {
         const cicloBásico = materias.filter(materia => materia.ciclo === 'basico' && materia.año === año).sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1);
         return cicloBásico;
     }
-    const getCicloSuperior = () => {
-        const cicloSuperior = materias.filter(materia => materia.ciclo === 'superior' && materia.año === año).sort((materia, materia2) => materia.materia < materia2.materia ? materia : -1).sort((materia, materia2) => materia.año > materia2.año ? materia : -1);
-        return cicloSuperior;
-    }
     const materiasCicloBasico = getCicloBasico();
-    const materiasCicloSuperior = getCicloSuperior();
+    return <div>
+        <Table bordered >
+            <Head />
+            <tbody>
 
-    return (
-        <div>
-            <Table bordered >
-                <Head />
-                <tbody>
+                {
+                    materiasCicloBasico.map((materia, index) => {
+                        return (
+                            <>
 
-                    {
-                        showBasic ? materiasCicloBasico.map((materia, index) => {
-                            return (
-                                <>
-
-                                    <tr key={index}>
-                                        <th scope="row">{'CB0' + index}</th>
-                                        <th  >{materia.materia}</th>
-                                        <th >{materia.año}</th>
-
-
-
-
-
-                                    </tr>
-
-
-                                </>
-
-                            )
-                        }) : materiasCicloSuperior.map((materia, index) => {
-                            return (
                                 <tr key={index}>
-
-
-
-                                    <th scope="row">{'CS0' + index}</th>
+                                    <th scope="row">{'CB0' + index}</th>
                                     <th  >{materia.materia}</th>
                                     <th >{materia.año}</th>
 
 
+
+
+
                                 </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </Table>
-        </div>
-    )
-}
+
+
+                            </>
+
+                        )
+                    })
+                }
+            </tbody>
+        </Table>
+    </div>;
+};
