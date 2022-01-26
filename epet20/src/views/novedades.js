@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 
 import { Title } from '../components/text-styles/title'
@@ -9,25 +9,7 @@ import Footer from '../components/inicio/footer'
 import { Container, Row } from 'reactstrap'
 
 import { Anuncio } from '../components/novedades/Advertisements'
-import { BoxComments } from '../components/novedades/BoxComments'
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import { db } from '../firebase/firebaseConfig'
 export const Novedades = () => {
-    const [posts, setPosts] = useState([])
-    useEffect(() => {
-        const q = query(collection(db, "novedades"), orderBy("submitAt", "desc"));
-        const incomingPosts = [];
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                incomingPosts.push({ ...doc.data(), id: doc.id });
-
-            });
-
-        });
-        setPosts(incomingPosts);
-        return () => unsubscribe();
-    }, []);
-
 
     return (
         <>
@@ -43,7 +25,7 @@ export const Novedades = () => {
 
 
                                 <Anuncio />
-                           
+
 
 
 

@@ -10,12 +10,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { Subtitle } from '../text-styles/subtitle';
 import UserIcon from "../../assets/user.png";
 import { Link } from 'react-router-dom'
+import { useRole } from '../../hooks/useRole';
 export const BoxComments = ({ anuncioId }) => {
     const [comments, setcomments] = useState([])
 
     const { values, handleChange } = useForm();
     const { comment } = values;
-
+    const { role } = useRole();
     const createComment = (e) => {
         e.preventDefault();
         const commentId = uuidv4();
@@ -80,7 +81,7 @@ export const BoxComments = ({ anuncioId }) => {
                                     <p className='text-muted ml-2 text-sm'>Publicado el: {comment.submitAt.substring(0, 10)}</p>
                                 </div>
                                 {comment.comment}
-                                {auth.currentUser && comment.userId === auth.currentUser.uid ?
+                                {auth.currentUser && comment.userId === auth.currentUser.uid && role === "administrador" ?
                                     <button className='ml-2 text-danger' onClick={() => deleteComment(comment.id)} >Eliminar</button> : ''}
                             </p>
                         </li>)
