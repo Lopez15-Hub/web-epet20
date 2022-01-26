@@ -27,19 +27,19 @@ export const SecretariaAdmin = () => {
                         <button onClick={() => setToggle(0)} className='border p-4 m-2 col-12 btn-block shadow-md rounded-xl font-bold main-color'>Formularios</button>
                         <ul>
                             {
-                                show == 1 ?
+                                show === 1 ?
                                     <li>
                                         <button onClick={() => setShow(0)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>General</button>
                                         <GeneralList admin={true} />
                                         <button onClick={() => setShow(2)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Docentes</button>
                                         <button onClick={() => setShow(3)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Estudiantes</button>
-                                    </li> : show == 2 ? <li>
+                                    </li> : show === 2 ? <li>
                                         <button onClick={() => setShow(1)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>General</button>
                                         <button onClick={() => setShow(0)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Docentes</button>
                                         <DocentesList admin={true} />
 
                                         <button onClick={() => setShow(3)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Estudiantes</button>
-                                    </li> : show == 3 ? <li>
+                                    </li> : show === 3 ? <li>
                                         <button onClick={() => setShow(1)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>General</button>
                                         <button onClick={() => setShow(2)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Docentes</button>
                                         <button onClick={() => setShow(0)} className='border p-4 m-2 col-12 btn-block  rounded-xl font-bold main-color'>Estudiantes</button>
