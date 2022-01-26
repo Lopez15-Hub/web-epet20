@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
 import { useRole } from '../../hooks/useRole';
 export const BoxComments = ({ anuncioId }) => {
     const [comments, setcomments] = useState([])
-
+    const [showText, setshowText] = useState(false)
     const { values, handleChange } = useForm();
     const { comment } = values;
     const { role } = useRole();
@@ -48,6 +48,9 @@ export const BoxComments = ({ anuncioId }) => {
             console.log(err);
         });
     }
+    const handleText = () => {
+        setshowText(!showText)
+    }
     useEffect(() => {
         const q = query(collection(db, "comments"), limit(5), where("anuncioId", "==", anuncioId));
         const comments = [];
@@ -80,7 +83,7 @@ export const BoxComments = ({ anuncioId }) => {
                                     <p className='main-color text-sm font-bold'>{comment.submitBy}</p>
                                     <p className='text-muted ml-2 text-sm'>Publicado el: {comment.submitAt.substring(0, 10)}</p>
                                 </div>
-                                <p className='text-sm text-comment w-100'>{comment.comment}</p>
+                                <p className='text-sm text-comment w-100'>{comment.comment.length <= 80 ? comment.comment : <><p>{showText === false ? comment.comment.substring(0, 80) + "..." : comment.comment}</p> <button className='text-primary' onClick={handleText}>{showText === true ? 'Ver menos' : 'Ver más'}</button></>}</p>
                                 {(auth.currentUser && comment.userId === auth.currentUser.uid) || role === "administrador" ?
                                     <button className='ml-2 text-danger' onClick={() => deleteComment(comment.id)} >Eliminar</button> : ''}
                             </div>
